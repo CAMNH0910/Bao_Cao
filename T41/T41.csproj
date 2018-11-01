@@ -269,6 +269,7 @@
     <Compile Include="Areas\Admin\Model\DataModel\AirwaytransportComeManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\FindReceptacleID.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DevelopActivity.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\Journey.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\RoadwayTransport.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwayTransportCome.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Business.cs" />

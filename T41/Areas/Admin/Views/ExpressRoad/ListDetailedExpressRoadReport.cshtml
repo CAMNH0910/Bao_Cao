@@ -7,11 +7,7 @@
 {
 
     int i = 0;
-
-
-
-
-
+    
     //int i = 0; i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;
     foreach (var c in Model.ListExpressRoadReport)
     {
@@ -19,30 +15,26 @@
         <tr>
             <td>@(i + 1)</td>
             <td>@c.ID</td>
-            <td>@c.CONTACT_NAME</td>
+            <td>@c.AMND_DATE</td>
 
-            <td>@c.CONTACT_ADDRESS</td>
-            <td>@c.GENERAL_EMAIL</td>
+            <td>@c.READ</td>
+            <td>@c.USER_NAME</td>
 
-            <td>@c.CONTACT_PHONE_WORK</td>
-            <td>@c.CONTACT_PROVINCE</td>
+            <td>@c.E_CODE</td>
+            <td>@c.CUSTOMERCODE</td>
+            <td>@c.STATUS</td>
+            <td>@c.NOTE</td>
+            <td>@c.CITY</td>
+            <td>@c.WEIGHT</td>
 
-            <td>@c.CONTACT_DISTRICT</td>
-            <td>@c.CUSTOMER_CODE</td>
-
-            <td>@c.UNIT_CODE</td>
-            <td>@c.API_KEY</td>
-
-            <td>@c.CUSTOMER_ID</td>
-            
-            
+            <td>@c.COLLECT</td>
+            <td>@c.DELIVERY_DATE</td>
         </tr>
 
         i++;
-        
+
     }
-
-
+    
 }
 
 

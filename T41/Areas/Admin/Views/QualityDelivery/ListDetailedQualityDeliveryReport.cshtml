@@ -117,7 +117,11 @@
                             $('.loading-element').hide();
                             //Xóa session store của bảng chi tiết trước khi show ra
                             $("#list_test tr").remove();
-
+                            swal(
+                              'Không Có Số Liệu',
+                              '',
+                              'error'
+                            )
                         }
                         else {
                             $('.loading-element').hide();
@@ -295,6 +299,11 @@
                             $('.loading-element').hide();
                             //Xóa session store của bảng chi tiết trước khi show ra
                             $("#list_test tr").remove();
+                            swal(
+                              'Không Có Số Liệu',
+                              '',
+                              'error'
+                            )
 
                         }
                         else {
