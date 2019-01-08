@@ -118,6 +118,10 @@
             @*<div class="box-header">
                     <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
                 </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
             <div style="overflow-x:auto;">
                 <p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>
                 <table id="ExcelView" class="table table-bordered table-hover">
@@ -141,9 +145,7 @@
                 </table>
 
             </div>
-            <div class="loading-element"><i class="fa fa-spinner fa-spin"></i>
-                Vui lòng chờ giây lát...
-            </div>
+            
 
             <div class="row">
                 <div class="col-md-4">
@@ -525,7 +527,7 @@
                     //)
                     $('.loading-element').hide();
                     $('#listqualityreport').html(result);
-                    $('#btnexportlist').show();
+                    //$('#btnexportlist').show();
                 }
 
             }

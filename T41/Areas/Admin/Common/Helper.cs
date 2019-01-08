@@ -36,6 +36,10 @@ namespace T41.Areas.Admin.Common
         private static string _OraEVComConnectionString = string.Empty;
         private static OracleConnection _OraEVComOracleConnection = null;
 
+        //Conection EVCOM
+        private static string _OraPNSConnectionString = string.Empty;
+        private static OracleConnection _OraPNSOracleConnection = null;
+
         private static string _schemaName = string.Empty;
 
         /// <summary>
@@ -212,6 +216,34 @@ namespace T41.Areas.Admin.Common
                 if (_OraEVComOracleConnection.State == System.Data.ConnectionState.Closed)
                     _OraEVComOracleConnection.Open();
                 return _OraEVComOracleConnection;
+            }
+            set
+            { _me24OracleConnection = value; }
+        }
+
+
+        //Phần gọi vào Database PNS
+        public static string OraPNSConnectionString
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_OraPNSConnectionString))
+                    _OraPNSConnectionString = ConfigurationManager.ConnectionStrings["ORA_CONNECTION_STRING_PNS"].ConnectionString;
+                return _OraPNSConnectionString;
+            }
+            set { _me24ConnectionString = value; }
+        }
+
+
+        public static OracleConnection OraPNSOracleConnection
+        {
+            get
+            {
+                if (_OraPNSOracleConnection == null)
+                    _OraPNSOracleConnection = new OracleConnection(OraPNSConnectionString);
+                if (_OraPNSOracleConnection.State == System.Data.ConnectionState.Closed)
+                    _OraPNSOracleConnection.Open();
+                return _OraPNSOracleConnection;
             }
             set
             { _me24OracleConnection = value; }

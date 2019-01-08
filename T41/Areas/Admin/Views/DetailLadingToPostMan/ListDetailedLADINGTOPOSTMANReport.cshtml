@@ -1,0 +1,155 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.List_LADING_TO_POSTMAN_Report != null)
+{
+    int i = 0; i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;
+    <thead>
+        <tr>
+            <th colspan="15">Chi tiết bưu gửi</th>
+            <th  class="text-right">@ViewBag.Total</th>
+        </tr>
+        <tr class="bg-light-blue color-palette">
+            @*<th>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="select_all" >
+                </div>
+            </th>*@
+            <th class="text-center">STT</th>
+            <th class="text-center">Mã E1</th>
+            <th class="text-center">Mã bưu cục trả</th>
+            <th class="text-center">Mã bưu cục nhận</th>
+            <th class="text-center">Khối lượng</th>
+            <th class="text-center">Cước CS</th>
+            <th class="text-center">Cước DV</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Địa chỉ</th>
+            <th class="text-center">Tuyến Phát</th>
+            <th class="text-center">Chuyến thư</th>
+            <th class="text-center">Túi số</th>
+            <th class="text-center">Ngày</th>
+            <th class="text-center">Mã bưu cục khai thác</th>
+            <th class="text-center">DATE LOG</th>
+            <th class="text-center">Xóa bưu gửi</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var c in Model.List_LADING_TO_POSTMAN_Report)
+        {
+
+        <tr>
+            @*<td>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="select_@(i+1)" >
+                </div>
+            </td>*@
+            <td>@(i + 1)</td>
+            <td>@c.MAE1</td>
+            <td>@c.MABCTRA</td>
+            <td>@c.MABCNHAN</td>
+            <td>@c.KHOILUONG</td>
+            <td>@c.CUOCCS</td>
+            <td>@c.CUOCDV</td>
+            <td>@c.TRANGTHAI</td>
+            <td>@c.DIACHI</td>
+            <td>@c.MABC</td>
+            <td>@c.CHTHU</td>
+            <td>@c.TUISO</td>
+            <td>@c.NGAY</td>
+            <td>@c.MABC_KT</td>
+            <td style="width:150px;">@c.AMND_DATE</td>
+            <td>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-danger btn-xs ajax btnreportdelete" rel="@c.MAE1"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        i++;
+
+        }
+    </tbody>
+    <script type="text/javascript">
+        $('#select_all').click(function () {
+            var c = this.checked;
+            $(':checkbox').prop('checked', c);
+        });
+
+
+        //Phần xóa dữ liệu theo mã bưu gửi
+        $(document).ready(function () {
+            $('.btnreportdelete').click(function (e) {
+                var delete_id = $(this).attr('rel');
+                swal({
+                    title: 'Bạn có muốn xóa bưu gửi ' + delete_id + ' không?',
+                    text: "Xóa bưu gửi!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Có!',
+                    cancelButtonText: 'Không!'
+                }).then((result) => {
+                    if (result.value) {
+                        alert(delete_id);
+                        @*$.ajax({
+                            url: '@Url.Action("DeleteChannelReport", "UserManagement")',
+                            medthod: 'GET',
+                            dataType: "json",
+                            data:
+                             {
+                                 delete_id: delete_id
+                             },
+                            success: function (result) {
+                                if (result.Code == '00') {
+                                    swal(
+                                       result.Message,
+                                       '',
+                                       'success'
+                                     )
+                                }
+                                else {
+                                    swal(
+                                       result.Message,
+                                       '',
+                                       'error'
+                                     )
+                                }
+
+                            },
+                            failure: function (errMsg) {
+                                alert(errMsg);
+                            }
+                        });*@
+                    }
+                })
+
+            });
+        });
+    
+    </script>
+}
+
+else
+
+{
+    <script>
+        swal(
+           'Không Có Số Liệu',
+           '',
+           'error'
+         )
+    </script>
+
+}
+<input type="hidden" value="@ViewBag.currentPageIndex" id="currentPage" />
+<input type="hidden" id="total_page" value="@ViewBag.total_page" />
+<input type="hidden" id="total" value="@ViewBag.total" />
+
+
+

@@ -240,8 +240,9 @@ desired effect
 
                     <!-- Group 1 -->
                     @{
-                        if (Convert.ToInt32(Session["isadmin"]) == 1 || Convert.ToInt32(Session["userid"]) == 17 || Convert.ToInt32(Session["userid"]) == 18 || Convert.ToInt32(Session["userid"]) == 19)
+                        if (Convert.ToInt32(Session["isadmin"]) == 1 || Convert.ToInt32(Session["userid"]) == 2)
                         {
+                            
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-link"></i> <span>Báo cáo phát</span>
@@ -250,9 +251,15 @@ desired effect
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="/Admin/Delivery/DeliveryDetailReport">Chi tiết hoạt động phát</a></li>
-                                    <li><a href="#">Biểu tổng hợp hoạt động phát</a></li>
-                                    <li><a href="/Admin/DetailBD13/BD13DetailReport">Chi tiết E1 BD13</a></li>
+                                    @*<li><a href="/Admin/Delivery/DeliveryDetailReport">Chi tiết hoạt động phát</a></li>
+                                    <li><a href="#">Biểu tổng hợp hoạt động phát</a></li>*@
+                                    <li><a href="/Admin/DetailBD13/BD13DetailReport">Chi tiết E1 BD13 DATACENTER</a></li>
+                                    @{
+                                        if (Convert.ToInt32(Session["userid"]) == 1)
+                                        {
+                                            <li><a href="/Admin/DetailLadingToPostMan/LadingToPostManDetailReport">Chi tiết E1 BD13 PNS</a></li>
+                                        }
+                                    }
                                 </ul>
                             </li>
                         }

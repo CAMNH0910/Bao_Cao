@@ -8,11 +8,11 @@
 <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 
-<title>Chi tiết e1 bd13 đi DataCenter</title>
+<title>Chi tiết e1 bd13 đi PNS</title>
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">Chi tiết e1 bd13 đi DataCenter</h3>
+            <h3 class="box-title">Chi tiết e1 bd13 đi PNS</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -162,7 +162,7 @@
         }
 
         $.ajax({
-            url: '@Url.Action("ListDetailedBD13Report", "DetailBD13")',
+            url: '@Url.Action("ListDetailedLADINGTOPOSTMANReport", "DetailLadingToPostMan")',
             beforeSend: function () {
                 $('.loading-element').show();
             },
@@ -248,7 +248,8 @@
         })
     });
 
-    
+   
+
 
 </script>
 

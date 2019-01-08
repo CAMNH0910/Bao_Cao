@@ -213,6 +213,7 @@
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DetailLadingToPostManController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrackAndTraceController.cs" />
     <Compile Include="Areas\Admin\Controllers\FindReceptacleController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExpressRoadController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\Admin\Data\AirwayTransportComeRepository.cs" />
     <Compile Include="Areas\Admin\Data\AirwaytransportComeManagementRepository.cs" />
+    <Compile Include="Areas\Admin\Data\DetailLadingToPostmanRepository.cs" />
     <Compile Include="Areas\Admin\Data\TrackAndTraceRepository.cs" />
     <Compile Include="Areas\Admin\Data\ReceptacleIDRepository.cs" />
     <Compile Include="Areas\Admin\Data\DevelopActivityRepository.cs" />
@@ -267,6 +269,7 @@
     <Compile Include="Areas\Admin\Model\CanvasModel\DataPoint.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Administrator.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwaytransportComeManagement.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\DetailLadingToPostMan.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\FindReceptacleID.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DevelopActivity.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Journey.cs" />
@@ -320,6 +323,7 @@
     <Content Include="Areas\Admin\Content\bootstrap.css" />
     <Content Include="Areas\Admin\Content\bootstrap.min.css" />
     <Content Include="Areas\Admin\Content\bower_components\AirwaytransportManagement\AirwaytransportManagementJS.js" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootpag\Bootpag.min.js" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
@@ -3306,6 +3310,17 @@
     <Content Include="Areas\Admin\Views\DevelopActivity\ListDevelopActivity_NOI_TINH.cshtml" />
     <Content Include="Areas\Admin\Views\ExpressRoad\ExpressRoadDetailReport.cshtml" />
     <Content Include="Areas\Admin\Views\DevelopActivity\ListDevelopActivity_CHI_TIET_LIEN_TINH.cshtml" />
+    <Content Include="Areas\Admin\Views\DetailLadingToPostMan\LadingToPostManDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\DetailLadingToPostMan\ListDetailedLADINGTOPOSTMANReport.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\Web.T41.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -3329,15 +3344,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <None Include="Web References\TrackAndTrace_VNPOST\TrackAndTrace.disco" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
