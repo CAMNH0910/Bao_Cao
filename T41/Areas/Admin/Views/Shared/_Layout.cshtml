@@ -17,8 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>EMS</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    
-    
+
+
     <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap/dist/css/bootstrap.min.css" media="all">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="/Areas/Admin/Content/bower_components/jquery/dist/jquery.min.js"></script>
-    
+
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -160,7 +160,7 @@ desired effect
                         </span>
                     </div>
                 </form>
-               
+
 
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header ">TRA CỨU ĐỊNH VỊ</li>
@@ -200,14 +200,14 @@ desired effect
                                     <li><a href="/Admin/RoadwayTransport/RoadwayTransportDetailReport_TG">Tổng Hợp Theo Thời Gian</a></li>
                                 </ul>
                             </li>
-                            
-                       }
+
+                        }
                     }
 
                     @{
-                        if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["userid"]) == 5)
+                        if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["userid"]) == 3)
                         {
-                                    <!-- Group Sàn KT -->
+                             <!-- Group Sàn KT -->
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-building"></i> <span>Báo Cáo Hoạt Động<br /> Tại Sàn KT </span>
@@ -220,13 +220,8 @@ desired effect
                                     <li><a href="/Admin/DevelopActivity/DevelopActivity_NOI_TINH_DetailReport">Nội Tỉnh</a></li>
                                 </ul>
                             </li>
-                        }
-                    }
 
-                    <!-- Group Quốc Tế -->
-                    @{
-                        if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 4)
-                        {
+							<!-- Group Quốc Tế -->
                             <li>
                                 <a href="/Admin/FindReceptacle/Index">
                                     <i class="fa fa-search"></i> <span>Tra cứu túi gói <br />đi quốc tế</span>
@@ -238,11 +233,14 @@ desired effect
 
 
 
+
+
+
                     <!-- Group 1 -->
                     @{
                         if (Convert.ToInt32(Session["isadmin"]) == 1 || Convert.ToInt32(Session["userid"]) == 2)
                         {
-                            
+
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-link"></i> <span>Báo cáo phát</span>
@@ -252,7 +250,7 @@ desired effect
                                 </a>
                                 <ul class="treeview-menu">
                                     @*<li><a href="/Admin/Delivery/DeliveryDetailReport">Chi tiết hoạt động phát</a></li>
-                                    <li><a href="#">Biểu tổng hợp hoạt động phát</a></li>*@
+                                        <li><a href="#">Biểu tổng hợp hoạt động phát</a></li>*@
                                     <li><a href="/Admin/DetailBD13/BD13DetailReport">Chi tiết E1 BD13 DATACENTER</a></li>
                                     @{
                                         if (Convert.ToInt32(Session["userid"]) == 1)
@@ -262,11 +260,19 @@ desired effect
                                     }
                                 </ul>
                             </li>
-                        }
+
+                            <!-- Group Đối Soát truyền nhận giao dịch -->
+                                        <li>
+                                            <a href="/Admin/CheckDealTransfer/CheckDealTransferDetailReport">
+                                                <i class="fa fa-calculator"></i> <span>Đối Soát Giao Dịch</span>
+
+                                            </a>
+                                        </li>
+                                        }
                     }
 
                     @{
-                        if (Convert.ToInt32(Session["userid"]) == 3 || Convert.ToInt32(Session["userid"]) == 1)
+                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4)
                         {
                             <!-- Group QUẢN LÝ KH CRM -->
                             <li class="treeview">
@@ -284,23 +290,23 @@ desired effect
 
                             <!-- Group 6 -->
                             @*<li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-credit-card"></i> <span>Báo Cáo Kinh Doanh</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/Admin/BusinessManagement/BusinessManagementDetailReport">Báo Cáo Doanh Số <br />Trên EMS Center</a></li>
-                        </ul>
-                    </li>*@
+                                    <a href="#">
+                                        <i class="fa fa-credit-card"></i> <span>Báo Cáo Kinh Doanh</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="/Admin/BusinessManagement/BusinessManagementDetailReport">Báo Cáo Doanh Số <br />Trên EMS Center</a></li>
+                                    </ul>
+                                </li>*@
                         }
                     }
 
 
 
                     @{
-                        if (Convert.ToInt32(Session["userid"]) == 7 || Convert.ToInt32(Session["userid"]) == 1)
+                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 7)
                         {
 
                             <!-- Group 7 -->
@@ -323,17 +329,17 @@ desired effect
 
                     <!-- Group 8 -->
                     @*<li class="treeview">
-                <a href="#">
-                    <i class="fa fa-user-tie"></i> <span>Báo cáo chấm công</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/Admin/Timekeeping/TimekeepingDetailReport">Chi tiết phân công <br> lao động theo ca kíp</a></li>
-                    <li><a href="/Admin/RealTimekeeping/RealTimekeepingDetailReport">Chi tiết phân công <br> lao động theo thực tế</a></li>
-                </ul>
-            </li>*@
+                            <a href="#">
+                                <i class="fa fa-user-tie"></i> <span>Báo cáo chấm công</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/Timekeeping/TimekeepingDetailReport">Chi tiết phân công <br> lao động theo ca kíp</a></li>
+                                <li><a href="/Admin/RealTimekeeping/RealTimekeepingDetailReport">Chi tiết phân công <br> lao động theo thực tế</a></li>
+                            </ul>
+                        </li>*@
 
 
                     <!-- Group 9 -->
@@ -393,7 +399,7 @@ desired effect
                             <li><a href="/Admin/AirwayTransport/AirwayTransportDetailReport">Báo cáo vận chuyển <br /> hàng không chiều đi</a></li>
                             <li><a href="/Admin/AirwayTransportCome/AirwayTransportComeDetailReport">Báo cáo vận chuyển <br /> hàng không chiều đến</a></li>
                             @*<li><a href="/Admin/AirwayTransportManagement/AirwayTransportManagementDetailReport">Quản Lý vận chuyển <br /> hàng không chiều đi</a></li>
-                    <li><a href="/Admin/AirwayTransportComeManagement/AirwayTransportComeManagementDetailReport">Quản Lý vận chuyển <br /> hàng không chiều đến</a></li>*@
+                                <li><a href="/Admin/AirwayTransportComeManagement/AirwayTransportComeManagementDetailReport">Quản Lý vận chuyển <br /> hàng không chiều đến</a></li>*@
                         </ul>
                     </li>
 
@@ -414,14 +420,14 @@ desired effect
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             @*<section class="content-header">
-                <h1>
-                    <small>Page </small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active">Here</li>
-                </ol>
-            </section>*@
+                    <h1>
+                        <small>Page </small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                        <li class="active">Here</li>
+                    </ol>
+                </section>*@
 
             <!-- Main content -->
             @*<section class="content container-fluid">*@
@@ -444,7 +450,7 @@ desired effect
             <strong>Copyright &copy; 2018 <a href="#">Cong Ty Co Phan Chuyen Phat Nhanh Buu Dien</a>.</strong> All rights reserved.
         </footer>
 
-        
+
     </div>
 
 

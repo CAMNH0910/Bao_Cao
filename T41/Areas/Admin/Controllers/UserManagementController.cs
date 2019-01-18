@@ -31,7 +31,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var userid = Convert.ToInt32(Session["userid"]);
             //Phân quyền đăng nhập
-            if (userid == 1 || userid == 3)
+            if (userid == 1 || userid == 4)
             {
                 return View();
                 

@@ -1,0 +1,144 @@
+﻿
+@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+
+<title>Chi tiết id chuyến thư</title>
+
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+
+            <div class="box-header">
+                <h3 class="box-title" id="chitietchuyenthu"></h3>
+            </div>
+            <div style="overflow-x:auto;">
+                <table id="example1" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">ID e1</th>
+                            <th class="text-center">ID đường thư</th>
+                            <th class="text-center">ID chuyến thư</th>
+                            <th class="text-center">ID e2</th>
+                            <th class="text-center">ID ca</th>
+                            <th class="text-center">Mã BCKT</th>
+                            <th class="text-center">Mã E1</th>
+                            <th class="text-center">Ngày hệ thống</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="listsotui"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- /.box-body -->
+
+
+
+</section>
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        // goi ham Detail
+         detail();
+         
+    });
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var id_chuyen_thu = url.searchParams.get("id_chuyen_thu");
+    var ma_bc_khai_thac = url.searchParams.get("ma_bc_khai_thac");
+    var mailtrip_key = url.searchParams.get("mailtrip_key");
+    
+    document.getElementById("chitietchuyenthu").innerHTML = "<strong> Chi tiết id chuyến thư: " + id_chuyen_thu + "</strong>";
+
+
+    //Phần JS để lấy dữ liệu theo kiểu JSON rồi bind vào table theo ID
+    function detail() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CheckDeal_NewTab_ID_CT_Report", "CheckDealTransfer")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            dataType: 'json',
+            data:
+                {
+                    id_chuyen_thu: id_chuyen_thu,
+                    ma_bc_khai_thac: parseInt(ma_bc_khai_thac),
+                    mailtrip_key: parseInt(mailtrip_key)
+
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                
+                $.each(data.ListCheckDealTransfer_NewTab_Report, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + data.ListCheckDealTransfer_NewTab_Report[i].STT + '</td>';
+                    str_body += '<td style="width:100px;">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_E1 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_DUONG_THU + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_CHUYEN_THU + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_E2 + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_CA + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_BC_KHAI_THAC + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_E1 + '</td>';
+
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].NGAY_HE_THONG + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MAILTRIP_KEY + '</td>';
+
+
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01') {
+                    $('.loading-element').hide();
+                    swal(
+                      'Không Có Số Liệu',
+                      '',
+                      'error'
+                    )
+                }
+                else {
+                    swal(
+                      'Thành Công !',
+                      '',
+                      'success'
+                    )
+                    $('.loading-element').hide();
+                    
+
+
+                }
+            }
+        })
+    }
+
+
+
+</script>
+
+

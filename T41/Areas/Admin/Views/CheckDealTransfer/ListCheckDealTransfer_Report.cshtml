@@ -1,0 +1,146 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.ListCheckDealTransfer_Report != null)
+{
+    <tr class="bg-light-blue color-palette">
+        <td></td>
+        <td class="text-right" colspan="9">Tổng Số : @Model.Total</td>
+    </tr>
+    //int i = 0; /*i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;*/
+    foreach (var c in Model.ListCheckDealTransfer_Report)
+    {
+        <tr>
+            <td class="text-center">@c.STT</td>
+            <td>@c.ID_CHUYEN_THU</td>
+            <td class="text-center">@c.MA_BC_KHAI_THAC</td>
+            
+            <td class="text-center">
+                <a data-toggle="modal" data-id="@c.SO_CHUYEN_THU" class="modal-chthu" data-target="#myModal" href="#myModal" rel="@c.ID_CHUYEN_THU" rel1="@c.MA_BC_KHAI_THAC" rel2="@c.MAILTRIP_KEY">@c.SO_CHUYEN_THU </a>
+            </td>
+            <td class="text-center">@c.NGAY_DONG</td>
+            <td class="text-center">@c.TONG_SO_TUI</td>
+            <td class="text-center">@c.TONG_SO_BP</td>
+            <td class="text-center">@c.TONG_SO_BP_TEMP </td>
+            <td class="text-center">@c.IP_MAY_CHU </td>
+           
+        </tr>
+
+        //i++;
+
+    }
+
+
+}
+else
+{
+    <script>
+        swal(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnexportlist').show();
+
+        $('.modal-chthu').click(function (e) {
+            //Xóa session store của bảng chi tiết trước khi show ra
+            $("#list_test tr").remove();
+
+            var id_chuyen_thu = $(this).attr("rel");
+            var ma_bc_khai_thac = $(this).attr("rel1");
+            var mailtrip_key = $(this).attr("rel2");
+
+            
+            var da = {
+                id_chuyen_thu: id_chuyen_thu,
+                ma_bc_khai_thac: parseInt(ma_bc_khai_thac),
+                mailtrip_key: parseInt(mailtrip_key)
+
+            };
+            console.log(da);
+            $.ajax({
+                type: "POST",
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+                url: '@Url.Action("CheckDeal_Modal_Report", "CheckDealTransfer")',
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify(da),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //$('#myModal').on('show.bs.modal', function (e) { });
+                    var str_html = '<table id="GridView1" class="table table-bordered table-hover">';
+                    str_html += '<thead>';
+                    str_html += '<tr class="bg-light-blue color-palette">';
+                    str_html += '<th class="text-center">STT</th>';
+                    str_html += '<th class="text-center">ID đường thư</th>';
+                    str_html += '<th class="text-center">ID chuyến thư</th>';
+                    str_html += '<th class="text-center">ID E2</th>';
+                    str_html += '<th class="text-center">ID ca</th>';
+                    str_html += '<th class="text-center">Mã BCKT</th>';
+                    str_html += '<th class="text-center">Túi số</th>';
+                    str_html += '<th class="text-center">Tổng số bưu phẩm</th>';
+                    str_html += '</tr>';
+                    str_html += '</thead>';
+                    str_html += '<tbody>';
+                    var str_body = "";
+                    var a = 1;
+                    $.each(data.ListCheckDealTransfer_Modal_Report, function (i, item) {
+                        str_body += '<tr>';
+                        str_body += '<td>' + a++ + '</td>';
+                        str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_DUONG_THU + '</td>';
+
+                        //str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '</td>';
+                        str_body += '<td> <a href="/Admin/CheckDealTransfer/ListCheckDealTransfer_ID_CT_Report/?id_chuyen_thu=' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '&ma_bc_khai_thac=' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '&mailtrip_key=' + data.ListCheckDealTransfer_Modal_Report[i].MAILTRIP_KEY + ' "target="_blank"">' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '</a> </td>';
+
+                        //str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '</td>';
+                        str_body += '<td> <a href="/Admin/CheckDealTransfer/ListCheckDealTransfer_ID_E2_Report/?id_chuyen_thu=' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '&ma_bc_khai_thac=' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '&mailtrip_key=' + data.ListCheckDealTransfer_Modal_Report[i].MAILTRIP_KEY + ' "target="_blank"">' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '</a> </td>';
+
+                        str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_CA + '</td>';
+                        str_body += '<td class="text-center">' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '</td>';
+                        str_body += '<td class="text-center">' + data.ListCheckDealTransfer_Modal_Report[i].TUI_SO + '</td>';
+                        str_body += '<td class="text-center">' + data.ListCheckDealTransfer_Modal_Report[i].TONG_SO_BP + '</td>';
+                        str_body += '</tr>';
+                    });
+                    str_html += str_body;
+
+                    str_html += '</tbody>';
+                    str_html += '</table>';
+
+                    if (data.Code == '01') {
+                        $('.loading-element').hide();
+                        swal(
+                          'Không Có Số Liệu',
+                          '',
+                          'error'
+                        )
+                    }
+                    else {
+                        $('.loading-element').hide();
+                        $('#list_test').html(str_html);
+
+
+                    }
+
+                },
+                failure: function (errMsg) {
+                    alert(errMsg);
+                }
+            });
+        });
+    });
+</script>
+@*<input type="hidden" value="@ViewBag.currentPageIndex" id="currentPage" />
+<input type="hidden" id="total_page" value="@ViewBag.total_page" />
+<input type="hidden" id="total" value="@ViewBag.total" />*@
+
+

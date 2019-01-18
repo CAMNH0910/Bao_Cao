@@ -213,6 +213,7 @@
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CheckDealTransferController.cs" />
     <Compile Include="Areas\Admin\Controllers\DetailLadingToPostManController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrackAndTraceController.cs" />
     <Compile Include="Areas\Admin\Controllers\FindReceptacleController.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\Admin\Data\AirwayTransportComeRepository.cs" />
     <Compile Include="Areas\Admin\Data\AirwaytransportComeManagementRepository.cs" />
+    <Compile Include="Areas\Admin\Data\CheckDealTransferRepository.cs" />
     <Compile Include="Areas\Admin\Data\DetailLadingToPostmanRepository.cs" />
     <Compile Include="Areas\Admin\Data\TrackAndTraceRepository.cs" />
     <Compile Include="Areas\Admin\Data\ReceptacleIDRepository.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="Areas\Admin\Model\CanvasModel\DataPoint.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Administrator.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwaytransportComeManagement.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\CheckDealTransfer.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DetailLadingToPostMan.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\FindReceptacleID.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DevelopActivity.cs" />
@@ -3315,6 +3318,10 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\CheckDealTransfer\CheckDealTransferDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\CheckDealTransfer\ListCheckDealTransfer_ID_CT_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\CheckDealTransfer\ListCheckDealTransfer_ID_E2_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\CheckDealTransfer\ListCheckDealTransfer_Report.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

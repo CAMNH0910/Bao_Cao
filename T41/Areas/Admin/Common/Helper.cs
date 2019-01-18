@@ -32,11 +32,16 @@ namespace T41.Areas.Admin.Common
         private static string _OraDCComConnectionString = string.Empty;
         private static OracleConnection _OraDCComOracleConnection = null;
 
-        //Conection EVCOM
+        //Conection EVCOM PRODUCTION
         private static string _OraEVComConnectionString = string.Empty;
         private static OracleConnection _OraEVComOracleConnection = null;
 
-        //Conection EVCOM
+        //Conection EVCOM Dev
+        private static string _OraEVComDevConnectionString = string.Empty;
+        private static OracleConnection _OraEVComDevOracleConnection = null;
+
+
+        //Conection PNS
         private static string _OraPNSConnectionString = string.Empty;
         private static OracleConnection _OraPNSOracleConnection = null;
 
@@ -47,15 +52,15 @@ namespace T41.Areas.Admin.Common
         /// </summary>
         public static string SchemaName
         {
-            get 
+            get
             {
                 if (string.IsNullOrEmpty(_schemaName))
                     _schemaName = ConfigurationManager.AppSettings["SCHEMA_NAME"];
-                return _schemaName; 
+                return _schemaName;
             }
             set { _schemaName = value; }
-        } 
-               
+        }
+
         /// <summary>
         /// ME24ConnectionString
         /// </summary>
@@ -83,7 +88,7 @@ namespace T41.Areas.Admin.Common
                     _me24OracleConnection.Open();
                 return _me24OracleConnection;
             }
-            set 
+            set
             { _me24OracleConnection = value; }
         }
         //Phần gọi vào Database Cpcpn
@@ -98,7 +103,7 @@ namespace T41.Areas.Admin.Common
             set { _OraDCConnectionString = value; }
         }
 
-        
+
         public static OracleConnection OraDCOracleConnection
         {
             get
@@ -113,7 +118,7 @@ namespace T41.Areas.Admin.Common
             { _me24OracleConnection = value; }
         }
 
-        //Phần gọi vào Database Dev 
+        //Phần gọi vào Database Cpcpn Dev 
         public static string OraDCDevConnectionString
         {
             get
@@ -125,7 +130,7 @@ namespace T41.Areas.Admin.Common
             set { _OraDCDevConnectionString = value; }
         }
 
-        
+
         public static OracleConnection OraDCDevOracleConnection
         {
             get
@@ -152,7 +157,7 @@ namespace T41.Areas.Admin.Common
             set { _me24ConnectionString = value; }
         }
 
-        
+
         public static OracleConnection OraDSOracleConnection
         {
             get
@@ -179,7 +184,7 @@ namespace T41.Areas.Admin.Common
             set { _me24ConnectionString = value; }
         }
 
-        
+
         public static OracleConnection OraDCComOracleConnection
         {
             get
@@ -194,7 +199,7 @@ namespace T41.Areas.Admin.Common
             { _me24OracleConnection = value; }
         }
 
-        //Phần gọi vào Database EVCOM
+        //Phần gọi vào Database EVCOM Production
         public static string OraEVComConnectionString
         {
             get
@@ -216,6 +221,33 @@ namespace T41.Areas.Admin.Common
                 if (_OraEVComOracleConnection.State == System.Data.ConnectionState.Closed)
                     _OraEVComOracleConnection.Open();
                 return _OraEVComOracleConnection;
+            }
+            set
+            { _me24OracleConnection = value; }
+        }
+
+        //Phần gọi vào Database EVCOM Dev
+        public static string OraEVComDevConnectionString
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_OraEVComDevConnectionString))
+                    _OraEVComDevConnectionString = ConfigurationManager.ConnectionStrings["ORA_CONNECTION_STRING_EV_COM_DEV"].ConnectionString;
+                return _OraEVComDevConnectionString;
+            }
+            set { _me24ConnectionString = value; }
+        }
+
+
+        public static OracleConnection OraEVComDevOracleConnection
+        {
+            get
+            {
+                if (_OraEVComDevOracleConnection == null)
+                    _OraEVComDevOracleConnection = new OracleConnection(OraEVComDevConnectionString);
+                if (_OraEVComDevOracleConnection.State == System.Data.ConnectionState.Closed)
+                    _OraEVComDevOracleConnection.Open();
+                return _OraEVComDevOracleConnection;
             }
             set
             { _me24OracleConnection = value; }
@@ -254,7 +286,7 @@ namespace T41.Areas.Admin.Common
         /// </summary>
         /// <param name="dbCommand"></param>
         /// <returns></returns>
-        public static int ExecuteNonQuery (OracleCommand dbCommand)
+        public static int ExecuteNonQuery(OracleCommand dbCommand)
         {
             int iResult = -1;
             try
@@ -262,7 +294,7 @@ namespace T41.Areas.Admin.Common
                 OracleConnection connection = ME24OracleConnection;
                 dbCommand.Connection = connection;
 
-                iResult =  dbCommand.ExecuteNonQuery();
+                iResult = dbCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
