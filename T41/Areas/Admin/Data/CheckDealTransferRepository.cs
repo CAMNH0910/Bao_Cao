@@ -102,7 +102,7 @@ namespace T41.Areas.Admin.Data
                             oCheckDealTransferDetail.HH_PHAT_TRA =  dr["HH_PHAT_TRA"].ToString();
 
                             oCheckDealTransferDetail.NGAY_HE_THONG = dr["NGAY_HE_THONG"].ToString();
-                            //oCheckDealTransferDetail.AMND_DATE = dr["AMND_DATE"].ToString();
+                            
                             oCheckDealTransferDetail.IP_MAY_CHU = dr["IP_MAY_CHU"].ToString();
                             oCheckDealTransferDetail.MAILTRIP_KEY =  dr["MAILTRIP_KEY"].ToString();
                             oCheckDealTransferDetail.TONG_SO_BP_TEMP = dr["TONG_SO_BP_TEMP"].ToString();

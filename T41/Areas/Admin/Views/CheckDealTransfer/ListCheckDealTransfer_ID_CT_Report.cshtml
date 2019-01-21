@@ -6,6 +6,7 @@
 <!-- daterange picker -->
 <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <title>Chi tiết id chuyến thư</title>
 
@@ -24,14 +25,16 @@
                     <thead>
                         <tr class="bg-light-blue color-palette">
                             <th class="text-center">STT</th>
-                            <th class="text-center">ID e1</th>
-                            <th class="text-center">ID đường thư</th>
-                            <th class="text-center">ID chuyến thư</th>
-                            <th class="text-center">ID e2</th>
-                            <th class="text-center">ID ca</th>
-                            <th class="text-center">Mã BCKT</th>
-                            <th class="text-center">Mã E1</th>
-                            <th class="text-center">Ngày hệ thống</th>
+                            <th class="text-center">Mã e1</th>
+                            <th class="text-center">Mã bc gốc</th>
+                            <th class="text-center">Mã bc trả</th>
+                            <th class="text-center">Khối lượng</th>
+                            <th class="text-center">Cước chính</th>
+                            <th class="text-center">Cước e1</th>
+                            <th class="text-center">Mã KH</th>
+                            <th class="text-center">Người nhận</th>
+                            <th class="text-center">SDT người nhận</th>
+                            <th class="text-center">ĐC người nhận</th>
                             
                         </tr>
                     </thead>
@@ -54,14 +57,14 @@
 </section>
 
 
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 <script>
 
 
     $(document).ready(function () {
-
-        // goi ham Detail
-         detail();
+        detail();
+        
          
     });
 
@@ -93,20 +96,21 @@
             success: function (data) {
                 var str_html = "";
                 var str_body = "";
-                
+                var a = 1;
                 $.each(data.ListCheckDealTransfer_NewTab_Report, function (i, item) {
                     str_body += '<tr>';
-                    str_body += '<td class="text-center">' + data.ListCheckDealTransfer_NewTab_Report[i].STT + '</td>';
-                    str_body += '<td style="width:100px;">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_E1 + '</td>';
-                    str_body += '<td class="text-center">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_DUONG_THU + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_CHUYEN_THU + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_E2 + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].ID_CA + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_BC_KHAI_THAC + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_E1 + '</td>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td style="width:100px;">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_E1 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_BC_GOC + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_BC_TRA + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].KHOI_LUONG_QD + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].CUOC_CHINH + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].CUOC_E1 + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_KH + '</td>';
 
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].NGAY_HE_THONG + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MAILTRIP_KEY + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].NGUOI_NHAN + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].DIEN_THOAI_NHAN + '</td>';
+                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].DIA_CHI_NHAN + '</td>';
 
 
                     str_body += '</tr>';
@@ -123,14 +127,9 @@
                     )
                 }
                 else {
-                    swal(
-                      'Thành Công !',
-                      '',
-                      'success'
-                    )
                     $('.loading-element').hide();
-                    
-
+                    $('#listsotui').html(str_html);
+                    $('#example1').DataTable();
 
                 }
             }

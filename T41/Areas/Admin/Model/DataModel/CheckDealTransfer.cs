@@ -53,16 +53,22 @@ namespace T41.Areas.Admin.Model.DataModel
     public class CheckDealTransfer_Detail_NewTab
     {
         public int STT { get; set; }
-        public String ID_E1 { get; set; }
-        public String ID_DUONG_THU { get; set; }
-        public String ID_CHUYEN_THU { get; set; }
-
-        public String ID_E2 { get; set; }
-        public String ID_CA { get; set; }
-        public String MA_BC_KHAI_THAC { get; set; }
+        
         public String MA_E1 { get; set; }
-        public String NGAY_HE_THONG { get; set; }
-        public String MAILTRIP_KEY { get; set; }
+        public String MA_BC_GOC { get; set; }
+        public String MA_BC_TRA { get; set; }
+
+        public String KHOI_LUONG_QD { get; set; }
+        public String CUOC_CHINH { get; set; }
+        public String CUOC_E1 { get; set; }
+
+        public String MA_KH { get; set; }
+        public String NGUOI_NHAN { get; set; }
+        public String DIEN_THOAI_NHAN { get; set; }
+
+        public String DIA_CHI_NHAN { get; set; }
+        
+
 
 
     }

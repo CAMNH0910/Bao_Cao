@@ -31,7 +31,27 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <label>Từ Ngày </label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Đến Ngày</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Đơn Vị</label>
                         <select class="form-control select2" style="width: 100%;" id="unit">
@@ -40,35 +60,27 @@
                             <option value="7">Hồ Chí Minh</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Từ Ngày </label>
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
-                        </div>
-                    </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Bưu Cục</label>
-                        <select class="form-control select2" style="width: 100%;" id="posoffice">
-                            
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Đến Ngày</label>
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
-                        </div>
+                        <select class="form-control select2" style="width: 100%;" id="posoffice"></select>
                     </div>
                 </div>
-                <div class="col-md-4" style="padding-top:25px;">
-                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển thị dữ liệu  <i class="fa fa-search"></i></button>
+
+
+                
+                
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span>
+                            <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển thị dữ liệu  <i class="fa fa-search"></i></button>
+
+                        </span>
+
+                        
+                    </div>
                 </div>
             </div>
             
@@ -116,7 +128,7 @@
                         </div>
                         <div class="modal-body edit-content">
                             <div type="reset" id="list_test"></div>
-                            <div class="loading-element text-center" style="font-size:50px;">
+                            <div class="loading-element-1 text-center" style="font-size:50px;">
                                 <i class="fa fa-spinner fa-spin"></i>
                                 Vui lòng chờ giây lát...
                             </div>
@@ -242,7 +254,7 @@
             success: function (result) {
                 $('#list_user').html(result);
                 $('.loading-element').hide();
-                $('#btnexport').show();
+                
                 //if (p == 1) refreshPaging();
             }
         })

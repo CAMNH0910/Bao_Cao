@@ -8,15 +8,11 @@
     int i = 0; i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;
     <thead>
         <tr>
-            <th colspan="15">Chi tiết bưu gửi</th>
+            <th colspan="14">Chi tiết bưu gửi</th>
             <th  class="text-right">@ViewBag.Total</th>
         </tr>
         <tr class="bg-light-blue color-palette">
-            @*<th>
-                <div class="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" class="custom-control-input" id="select_all" >
-                </div>
-            </th>*@
+            
             <th class="text-center">STT</th>
             <th class="text-center">Mã E1</th>
             <th class="text-center">Mã bưu cục trả</th>
@@ -32,7 +28,7 @@
             <th class="text-center">Ngày</th>
             <th class="text-center">Mã bưu cục khai thác</th>
             <th class="text-center">DATE LOG</th>
-            <th class="text-center">Xóa bưu gửi</th>
+            @*<th class="text-center">Xóa bưu gửi</th>*@
         </tr>
     </thead>
 
@@ -42,11 +38,6 @@
         {
 
         <tr>
-            @*<td>
-                <div class="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" class="custom-control-input" id="select_@(i+1)" >
-                </div>
-            </td>*@
             <td>@(i + 1)</td>
             <td>@c.MAE1</td>
             <td>@c.MABCTRA</td>
@@ -62,25 +53,20 @@
             <td>@c.NGAY</td>
             <td>@c.MABC_KT</td>
             <td style="width:150px;">@c.AMND_DATE</td>
-            <td>
+            @*<td>
                 <div class="form-group">
                     <div class="col-md-3">
                         <button type="button" class="btn btn-danger btn-xs ajax btnreportdelete" rel="@c.MAE1"><span class="glyphicon glyphicon-remove"></span></button>
                     </div>
                 </div>
-            </td>
+            </td>*@
         </tr>
         i++;
 
         }
     </tbody>
     <script type="text/javascript">
-        $('#select_all').click(function () {
-            var c = this.checked;
-            $(':checkbox').prop('checked', c);
-        });
-
-
+        $('#btnexport').show();
         //Phần xóa dữ liệu theo mã bưu gửi
         $(document).ready(function () {
             $('.btnreportdelete').click(function (e) {
@@ -139,6 +125,7 @@ else
 
 {
     <script>
+        $('#btnexport').hide();
         swal(
            'Không Có Số Liệu',
            '',

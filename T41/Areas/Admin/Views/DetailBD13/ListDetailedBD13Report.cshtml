@@ -8,15 +8,15 @@
     int i = 0; i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;
     <thead>
         <tr>
-            <th colspan="15">Chi tiết bưu gửi</th>
-            <th  class="text-right">@ViewBag.Total</th>
+            <th colspan="14">Chi tiết bưu gửi</th>
+            <th  class="text-right">Tổng số: @ViewBag.Total</th>
         </tr>
         <tr class="bg-light-blue color-palette">
-            <th>
+            @*<th>
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="select_all" >
                 </div>
-            </th>
+            </th>*@
             <th class="text-center">STT</th>
             <th class="text-center">Mã E1</th>
             <th class="text-center">Mã bưu cục trả</th>
@@ -41,11 +41,11 @@
         {
 
         <tr>
-            <td>
+            @*<td>
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="select_@(i+1)" >
                 </div>
-            </td>
+            </td>*@
             <td>@(i + 1)</td>
             <td>@c.MAE1</td>
             <td>@c.MABCTRA</td>
@@ -67,6 +67,8 @@
         }
     </tbody>
     <script type="text/javascript">
+        $('#btnexport').show();
+
         $('#select_all').click(function () {
             var c = this.checked;
             $(':checkbox').prop('checked', c);
@@ -80,6 +82,7 @@ else
 
 {
     <script>
+        $('#btnexport').hide();
         swal(
            'Không Có Số Liệu',
            '',

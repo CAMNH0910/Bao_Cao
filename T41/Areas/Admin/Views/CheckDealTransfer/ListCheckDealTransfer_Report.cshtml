@@ -5,6 +5,7 @@
 }
 @if (Model.ListCheckDealTransfer_Report != null)
 {
+    
     <tr class="bg-light-blue color-palette">
         <td></td>
         <td class="text-right" colspan="9">Tổng Số : @Model.Total</td>
@@ -32,16 +33,20 @@
 
     }
 
-
+    <script type="text/javascript">
+        $('#btnexport').show();
+    </script>
 }
+
 else
 {
-    <script>
+    <script type="text/javascript">
         swal(
           'Không Có Số Liệu',
           '',
           'error'
         )
+        $('#btnexport').hide();
     </script>
 }
 
@@ -68,7 +73,7 @@ else
             $.ajax({
                 type: "POST",
                 beforeSend: function () {
-                    $('.loading-element').show();
+                    $('.loading-element-1').show();
                 },
 
                 url: '@Url.Action("CheckDeal_Modal_Report", "CheckDealTransfer")',
@@ -117,7 +122,7 @@ else
                     str_html += '</table>';
 
                     if (data.Code == '01') {
-                        $('.loading-element').hide();
+                        $('.loading-element-1').hide();
                         swal(
                           'Không Có Số Liệu',
                           '',
@@ -125,7 +130,7 @@ else
                         )
                     }
                     else {
-                        $('.loading-element').hide();
+                        $('.loading-element-1').hide();
                         $('#list_test').html(str_html);
 
 

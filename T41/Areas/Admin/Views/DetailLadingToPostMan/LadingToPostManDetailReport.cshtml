@@ -83,10 +83,16 @@
             <div class="row">
                 
                 <div class="col-md-12 col-md-offset-6">
-                    <button type="button" class="btn btn-default btn-lrg ajax" id="btnreport">Hiển Thị</button>
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
                 </div>
             </div>
             
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("Export", "DetailLadingToPostMan")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+                </div>
+            </div>
             
             <div class="loading-element">
                 <i class="fa fa-spinner fa-spin"></i>
@@ -119,7 +125,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <script>
+    var chthu, tuiso;
+
     $(document).ready(function () {
+        $('#btnexport').hide();
+        $('.loading-element').hide();
         $('.select2').select2();
 
         $("#date").datepicker({
@@ -136,17 +146,38 @@
 
     });
 
-    $(document).ready(function () {
-        $('.loading-element').hide();
-    });
+    //Export Excel
+    $('#btnexport').click(function () {
 
-    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
-    function detail(p) {
-        var chthu;
-        var tuiso;
 
         if (document.getElementById('chthu').value == ""
         || document.getElementById('chthu').value == undefined) {
+            chthu = 0;
+        }
+        else {
+            chthu = document.getElementById('chthu').value;
+        }
+
+        if (document.getElementById('tuiso').value == ""
+        || document.getElementById('tuiso').value == undefined) {
+            tuiso = 0;
+        }
+        else {
+            tuiso = document.getElementById('tuiso').value;
+        }
+
+        // build the url
+        var url = $(this).data('baseurl') + '?page=' + 1 + '&mabc_kt=' + $('#endpostcode').val() + '&mabc=' + $('#routecode').val() + '&ngay=' + $('#date').val() + '&cakt=' + $('#ca').val() + '&chthu=' + chthu + '&tuiso=' + tuiso;
+        // redirect
+        location.href = url;
+    });
+
+    
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail(p) {
+        if (document.getElementById('chthu').value == ""
+       || document.getElementById('chthu').value == undefined) {
             chthu = 0;
         }
         else {

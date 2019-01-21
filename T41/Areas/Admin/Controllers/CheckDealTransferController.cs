@@ -172,10 +172,11 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[1, 15].Value = "HH phát trả";
             worksheet.Cells[1, 16].Value = "Ngày hệ thống";
             worksheet.Cells[1, 17].Value = "IP máy chủ";
+            worksheet.Cells[1, 17].Value = "Mailtrip Key";
             worksheet.Cells[1, 18].Value = "Tổng số bưu phẩm TEMP";
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A1:S1"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -211,7 +212,7 @@ namespace T41.Areas.Admin.Controllers
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
             // File name của Excel này là ExcelDemo
-            Response.AddHeader("Content-Disposition", "attachment; filename=Đối soát truyền nhận giao dịch_" + fromdate + "_" + todate +  ".xlsx");
+            Response.AddHeader("Content-Disposition", "attachment; filename=Đối soát truyền nhận giao dịch_" + fromdate + "_DenNgay_" + todate +  ".xlsx");
             // Lưu file excel của chúng ta như 1 mảng byte để trả về response
             Response.BinaryWrite(buffer.ToArray());
             // Send tất cả ouput bytes về phía clients

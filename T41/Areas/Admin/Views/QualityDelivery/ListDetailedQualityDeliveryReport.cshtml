@@ -5,7 +5,6 @@
 }
 @if (Model.ListQualityDeliveryReport != null)
 {
-
     int i = 0;
 
     
@@ -47,7 +46,7 @@
 
 
         $(document).ready(function () {
-            $('#btnexportlist').show();
+            
 
             $('.modal-sanluong').click(function (e) {
 
@@ -70,7 +69,7 @@
                 $.ajax({
                     type: "POST",
                     beforeSend: function () {
-                        $('.loading-element').show();
+                        $('.loading-element-1').show();
                     },
 
                     url: '@Url.Action("QualityDeliveryDetailReport_Success6H", "QualityDelivery")',
@@ -116,7 +115,7 @@
                         str_html += '</table>';
 
                         if (data.Code == '01') {
-                            $('.loading-element').hide();
+                            $('.loading-element-1').hide();
                             //Xóa session store của bảng chi tiết trước khi show ra
                             $("#list_test tr").remove();
                             swal(
@@ -126,7 +125,7 @@
                             )
                         }
                         else {
-                            $('.loading-element').hide();
+                            $('.loading-element-1').hide();
                             $('#list_test').html(str_html);
 
 
@@ -163,7 +162,7 @@
                 $.ajax({
                     type: "POST",
                     beforeSend: function () {
-                        $('.loading-element').show();
+                        $('.loading-element-1').show();
                     },
                     //url: "/QualityDelivery/QualityDeliverySuccess6HDetailReport",
                     url: '@Url.Action("QualityDeliveryDetailReport_Success6H", "QualityDelivery")',
@@ -210,7 +209,7 @@
                         str_html += '</tbody>';
                         str_html += '</table>';
                         if (data.Code == '01') {
-                            $('.loading-element').hide();
+                            $('.loading-element-1').hide();
                             $("#list_test tr").remove();
                             swal(
                               'Không Có Số Liệu',
@@ -219,7 +218,7 @@
                             )
                         }
                         else {
-                            $('.loading-element').hide();
+                            $('.loading-element-1').hide();
                             $('#list_test').html(str_html);
 
                         }
@@ -254,7 +253,7 @@
                 $.ajax({
                     type: "POST",
                     beforeSend: function () {
-                        $('.loading-element').show();
+                        $('.loading-element-1').show();
                     },
 
                     url: '@Url.Action("QualityDeliveryDetailReport_NoInformation", "QualityDelivery")',
@@ -298,7 +297,7 @@
                         str_html += '</tbody>';
                         str_html += '</table>';
                         if (data.Code == '01') {
-                            $('.loading-element').hide();
+                            $('.loading-element-1').hide();
                             //Xóa session store của bảng chi tiết trước khi show ra
                             $("#list_test tr").remove();
                             swal(
@@ -309,7 +308,7 @@
 
                         }
                         else {
-                            $('.loading-element').hide();
+                            $('.loading-element-1').hide();
                             $('#list_test').html(str_html);
                         }
 
@@ -325,8 +324,8 @@
 }
 else
 {
-    <script>
-        //alert("Không Có Số Liệu");
+    <script type="text/javascript">
+        $('#btnexportlist').hide();
         swal(
           'Không Có Số Liệu',
           '',
