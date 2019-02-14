@@ -24,6 +24,8 @@ namespace T41
             // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
+                //Insert Expire Session Timeout
+                ExpireTimeSpan = TimeSpan.FromMinutes(5),
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider

@@ -110,13 +110,13 @@ namespace T41.Areas.Admin.Controllers
 
         //Phần trả về data theo list để xuất excel
         [HttpGet]
-        public List<CheckDealTransfer_Detail> ReturnListExcel(string fromdate, string todate, int ma_bc_khai_thac)
+        public List<CheckDealTransfer_Excel_Detail> ReturnListExcel(string fromdate, string todate, int ma_bc_khai_thac)
         {
 
             CheckDealTransferRepository checkdealtransferRepository = new CheckDealTransferRepository();
             ReturnCheckDealTransfer returncheckdealtransfer = new ReturnCheckDealTransfer();
-            returncheckdealtransfer = checkdealtransferRepository.CHECK_DEAL_TRANSFER_DETAIL(common.DateToInt(fromdate), common.DateToInt(todate), ma_bc_khai_thac);
-            return returncheckdealtransfer.ListCheckDealTransfer_Report;
+            returncheckdealtransfer = checkdealtransferRepository.CHECK_DEAL_TRANSFER_EXCEL_DETAIL(common.DateToInt(fromdate), common.DateToInt(todate), ma_bc_khai_thac);
+            return returncheckdealtransfer.ListCheckDealTransfer_Excel_Report;
         }
 
        
@@ -146,7 +146,7 @@ namespace T41.Areas.Admin.Controllers
 
 
         //Phần sửa excel
-        private void BindingFormatForExcel(ExcelWorksheet worksheet, List<CheckDealTransfer_Detail> listItems)
+        private void BindingFormatForExcel(ExcelWorksheet worksheet, List<CheckDealTransfer_Excel_Detail> listItems)
         {
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
@@ -161,22 +161,24 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[1, 5].Value = "Ngày đóng";
             worksheet.Cells[1, 6].Value = "Giờ đóng";
             worksheet.Cells[1, 7].Value = "Tổng số túi";
-            worksheet.Cells[1, 8].Value = "Tổng số bưu phẩm";
+            
+            
+            worksheet.Cells[1, 8].Value = "Tổng khối lượng";
+            worksheet.Cells[1, 9].Value = "Tổng khối lượng bưu phẩm";
+            worksheet.Cells[1, 10].Value = "Tổng cước COD";
+            worksheet.Cells[1, 11].Value = "Tổng cước dịch vụ";
+            worksheet.Cells[1, 12].Value = "Tổng cước";
+            worksheet.Cells[1, 13].Value = "HH phát hành";
+            worksheet.Cells[1, 14].Value = "HH phát trả";
+            worksheet.Cells[1, 15].Value = "IP máy chủ";
+            worksheet.Cells[1, 16].Value = "Tổng số bưu phẩm";
+            worksheet.Cells[1, 17].Value = "Tổng số bưu phẩm đối soát";
 
-            worksheet.Cells[1, 9].Value = "Tổng khối lượng";
-            worksheet.Cells[1, 10].Value = "Tổng khối lượng bưu phẩm";
-            worksheet.Cells[1, 11].Value = "Tổng cước COD";
-            worksheet.Cells[1, 12].Value = "Tổng cước dịch vụ";
-            worksheet.Cells[1, 13].Value = "Tổng cước";
-            worksheet.Cells[1, 14].Value = "HH phát hành";
-            worksheet.Cells[1, 15].Value = "HH phát trả";
-            worksheet.Cells[1, 16].Value = "Ngày hệ thống";
-            worksheet.Cells[1, 17].Value = "IP máy chủ";
-            worksheet.Cells[1, 17].Value = "Mailtrip Key";
-            worksheet.Cells[1, 18].Value = "Tổng số bưu phẩm TEMP";
 
-            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:S1"])
+
+
+            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới O1
+            using (var range = worksheet.Cells["A1:O1"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -186,6 +188,22 @@ namespace T41.Areas.Admin.Controllers
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
                 range.Style.Font.SetFromFont(new Font("Arial", 11));
+                // Set Border
+                //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+                // Set màu ch Border
+                //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+            }
+
+            using (var range1 = worksheet.Cells["P1:Q1"])
+            {
+                // Set PatternType
+                range1.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                // Set Màu cho Background
+                range1.Style.Fill.BackgroundColor.SetColor(Color.Red);
+                // Canh giữa cho các text
+                range1.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                range1.Style.Font.SetFromFont(new Font("Arial", 11));
                 // Set Border
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border

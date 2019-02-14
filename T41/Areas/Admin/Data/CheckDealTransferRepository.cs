@@ -140,6 +140,97 @@ namespace T41.Areas.Admin.Data
         #endregion
 
 
+        //Export Excel
+        // Phần lấy dữ liệu CHECK_DEAL_TRANSFER_EXCEL_DETAIL
+        #region CHECK_DEAL_TRANSFER_EXCEL_DETAIL          
+        public ReturnCheckDealTransfer CHECK_DEAL_TRANSFER_EXCEL_DETAIL(int fromdate, int todate, int ma_bc_khai_thac)
+        {
+            int STT = 1;
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnCheckDealTransfer _ReturnCheckDealTransfer = new ReturnCheckDealTransfer();
+            List<CheckDealTransfer_Excel_Detail> listCheckDealTransferDetail = null;
+            CheckDealTransfer_Excel_Detail oCheckDealTransferDetail = null;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    //xử lý tham số truyền vào data table
+                    OracleCommand myCommand = new OracleCommand("pk_telepost.V2_C_THU_DI_DOI_SOAT_NOTIFY_BC", Helper.OraEVComDevOracleConnection);
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_TU_NGAY", OracleDbType.Int32).Value = fromdate;
+                    myCommand.Parameters.Add("v_DEN_NGAY", OracleDbType.Int32).Value = todate;
+                    myCommand.Parameters.Add("v_MA_BC_KHAI_THAC", OracleDbType.Int32).Value = ma_bc_khai_thac;
+                    myCommand.Parameters.Add(new OracleParameter("v_cursor", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+                    myCommand.ExecuteNonQuery();
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        listCheckDealTransferDetail = new List<CheckDealTransfer_Excel_Detail>();
+                        while (dr.Read())
+                        {
+                            oCheckDealTransferDetail = new CheckDealTransfer_Excel_Detail();
+                            oCheckDealTransferDetail.STT = STT++;
+                            oCheckDealTransferDetail.ID_CHUYEN_THU = dr["ID_CHUYEN_THU"].ToString();
+                            oCheckDealTransferDetail.MA_BC_KHAI_THAC = dr["MA_BC_KHAI_THAC"].ToString();
+                            oCheckDealTransferDetail.SO_CHUYEN_THU = dr["SO_CHUYEN_THU"].ToString();
+                            oCheckDealTransferDetail.NGAY_DONG = dr["NGAY_DONG"].ToString();
+                            oCheckDealTransferDetail.GIO_DONG = dr["GIO_DONG"].ToString();
+                            oCheckDealTransferDetail.TONG_SO_TUI = dr["TONG_SO_TUI"].ToString();
+                            oCheckDealTransferDetail.TONG_SO_BP = dr["TONG_SO_BP"].ToString();
+                            oCheckDealTransferDetail.TONG_SO_BP_TEMP = dr["TONG_SO_BP_TEMP"].ToString();
+
+
+
+                            oCheckDealTransferDetail.TONG_KL = dr["TONG_KL"].ToString();
+                            oCheckDealTransferDetail.TONG_KLBP = dr["TONG_KLBP"].ToString();
+                            oCheckDealTransferDetail.TONG_CUOC_COD = dr["TONG_CUOC_COD"].ToString();
+                            oCheckDealTransferDetail.TONG_CUOC_DV = dr["TONG_CUOC_DV"].ToString();
+                            oCheckDealTransferDetail.TONG_CUOC = dr["TONG_CUOC"].ToString();
+                            oCheckDealTransferDetail.HH_PHAT_HANH = dr["HH_PHAT_HANH"].ToString();
+                            oCheckDealTransferDetail.HH_PHAT_TRA = dr["HH_PHAT_TRA"].ToString();
+
+                            
+                            oCheckDealTransferDetail.IP_MAY_CHU = dr["IP_MAY_CHU"].ToString();
+                           
+                            
+                            listCheckDealTransferDetail.Add(oCheckDealTransferDetail);
+
+                        }
+                        _ReturnCheckDealTransfer.Code = "00";
+                        _ReturnCheckDealTransfer.Message = "Lấy dữ liệu thành công.";
+                        _ReturnCheckDealTransfer.Total = listCheckDealTransferDetail.Count();
+                        _ReturnCheckDealTransfer.ListCheckDealTransfer_Excel_Report = listCheckDealTransferDetail;
+                    }
+                    else
+                    {
+                        _ReturnCheckDealTransfer.Code = "01";
+                        _ReturnCheckDealTransfer.Message = "Không có dữ liệu";
+                        _ReturnCheckDealTransfer.Total = listCheckDealTransferDetail.Count();
+                        _ReturnCheckDealTransfer.ListCheckDealTransfer_Excel_Report = listCheckDealTransferDetail;
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnCheckDealTransfer.Code = "99";
+                _ReturnCheckDealTransfer.Message = "Lỗi xử lý dữ liệu";
+                _ReturnCheckDealTransfer.Total = 0;
+                _ReturnCheckDealTransfer.ListCheckDealTransfer_Excel_Report = listCheckDealTransferDetail;
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "CheckDealTransferRepository.CHECK_DEAL_TRANSFER_DETAIL" + ex.Message);
+            }
+            return _ReturnCheckDealTransfer;
+        }
+
+        #endregion
+
         // Phần lấy dữ liệu CHECK_DEAL_TRANSFER_MODAL_DETAIL
         #region CHECK_DEAL_TRANSFER_MODAL_DETAIL          
         public ReturnCheckDealTransfer CHECK_DEAL_TRANSFER_MODAL_DETAIL(string id_chuyen_thu, int? ma_bc_khai_thac, Int64? mailtrip_key)

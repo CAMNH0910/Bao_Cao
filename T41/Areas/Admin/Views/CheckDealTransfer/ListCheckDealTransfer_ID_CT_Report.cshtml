@@ -6,7 +6,10 @@
 <!-- daterange picker -->
 <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
-<link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+@*<link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@*<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet" />*@
 
 <title>Chi tiết id chuyến thư</title>
 
@@ -20,7 +23,7 @@
             <div class="box-header">
                 <h3 class="box-title" id="chitietchuyenthu"></h3>
             </div>
-            <div style="overflow-x:auto;">
+            <div>
                 <table id="example1" class="table table-bordered table-hover">
                     <thead>
                         <tr class="bg-light-blue color-palette">
@@ -58,6 +61,10 @@
 
 
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
 
 <script>
 
@@ -129,8 +136,21 @@
                 else {
                     $('.loading-element').hide();
                     $('#listsotui').html(str_html);
-                    $('#example1').DataTable();
-
+                    $('#example1').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi",
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+                            "search": "Nhập mã E1:",
+                            "infoFiltered": "(Tìm kiếm trong _MAX_ bản ghi)",
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
                 }
             }
         })

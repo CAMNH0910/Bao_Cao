@@ -6,7 +6,7 @@ using System.Web;
 namespace T41.Areas.Admin.Model.DataModel
 {
        
-    //Phần lấy dữ liệu của bảng crm_sales_order
+    //Phần lấy dữ liệu
     public class CheckDealTransfer_Detail
     {
         public int STT { get; set; }
@@ -32,6 +32,38 @@ namespace T41.Areas.Admin.Model.DataModel
         public String TONG_SO_BP_TEMP { get; set; }
 
        
+    }
+
+    //Phần xuất excel
+    public class CheckDealTransfer_Excel_Detail
+    {
+        public int STT { get; set; }
+        public string ID_CHUYEN_THU { get; set; }
+        public string MA_BC_KHAI_THAC { get; set; }
+        public string SO_CHUYEN_THU { get; set; }
+        public string NGAY_DONG { get; set; }
+        public string GIO_DONG { get; set; }
+        public string TONG_SO_TUI { get; set; }
+        
+        public string TONG_KL { get; set; }
+
+        public string TONG_KLBP { get; set; }
+        public string TONG_CUOC_COD { get; set; }
+        public string TONG_CUOC_DV { get; set; }
+        public string TONG_CUOC { get; set; }
+        public string HH_PHAT_HANH { get; set; }
+        public string HH_PHAT_TRA { get; set; }
+        //public String NGAY_HE_THONG { get; set; }
+        //public String AMND_DATE { get; set; }
+        public String IP_MAY_CHU { get; set; }
+        //public string MAILTRIP_KEY { get; set; }
+
+        public string TONG_SO_BP { get; set; }
+        public String TONG_SO_BP_TEMP { get; set; }
+
+
+
+
     }
 
     public class CheckDealTransfer_Detail_Modal
@@ -94,6 +126,10 @@ namespace T41.Areas.Admin.Model.DataModel
         //Detail
         public CheckDealTransfer_Detail CheckDealTransfer_Report { get; set; }
         public List<CheckDealTransfer_Detail> ListCheckDealTransfer_Report;
+
+        //Export Excel
+        public CheckDealTransfer_Excel_Detail CheckDealTransfer_Excel_Report { get; set; }
+        public List<CheckDealTransfer_Excel_Detail> ListCheckDealTransfer_Excel_Report;
 
         //Modal
         public CheckDealTransfer_Detail_Modal CheckDealTransfer_Modal_Report { get; set; }
