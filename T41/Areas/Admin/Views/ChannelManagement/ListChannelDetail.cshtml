@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+@if (Model.ListChannelManagement_BP_Report != null)
+{
+
+    int i = 0; i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;
+    foreach (var c in Model.ListChannelManagement_BP_Report)
+    {
+        <tr>
+            <td class="text-center">@(i + 1)</td>
+            <td style="width:200px;">@c.AMND_DATE</td>
+            <td >@c.CONTACT_NAME</td>
+            <td>@c.CONTACT_ADDRESS</td>
+            <td class="text-center">@c.CONTACT_PROVINCE</td>
+            <td class="text-center">@c.CONTACT_DISTRICT</td>
+            <td class="text-right">@c.CONTACT_PHONE_WORK </td>
+            <td class="text-right">@c.CUSTOMER_CODE </td>
+            <td>@c.GENERAL_EMAIL </td>
+
+        </tr>
+
+        i++;
+
+    }
+
+
+    <script type="text/javascript">
+        $('#btnexport').show();
+    </script>
+}
+else
+{
+    <script>
+        swal(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+}
+<input type="hidden" value="@ViewBag.currentPageIndex" id="currentPage" />
+<input type="hidden" id="total_page" value="@ViewBag.total_page" />
+<input type="hidden" id="total" value="@ViewBag.total" />
+
+

@@ -244,14 +244,10 @@
                                 if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 2)
                                 {
                                     <li><a href="/Admin/TransferManagement/TransferManagementDetailReport">Quản lý truyền nhận EMS</a></li>
-                                }
-                            }
-                            @{
-                                if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 3)
-                                {
                                     <li><a href="/Admin/TransferManagementVNPOST/TransferManagementVNPOSTDetailReport">Quản lý truyền nhận VNPOST</a></li>
                                 }
                             }
+                            
                         </ul>
                     </li>
                     <li class="header" style="color:cornflowerblue;"><strong>BÁO CÁO</strong></li>
@@ -288,7 +284,7 @@
                                 @*<li><a href="/Admin/Collect/CollectDetailReport">Báo cáo thu gom</a></li>
                                 <li><a href="#">Báo cáo khai thác</a></li>
                                 <li><a href="#">Báo cáo vận chuyển</a></li>
-                                <li><a href="/admin/home/lock">báo cáo chất lượng phát</a></li>*@
+                                <li><a href="/admin/home/lock">Báo cáo chất lượng phát</a></li>*@
                                 <li><a href="/Admin/QualityDelivery/QualityDeliveryDetailReport">Báo cáo chất lượng phát</a></li>
 
                         </ul>
@@ -316,7 +312,7 @@
 
                     <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ KHÁCH HÀNG</strong></li>
                     @{
-                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4)
+                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["Role"]) == 3)
                         {
                             <!-- Group QUẢN LÝ KH CRM -->
                             <li class="treeview">
@@ -327,12 +323,19 @@
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="/Admin/UserManagement/UserManagementDetailReport">Thông Tin Khách Hàng</a></li>
-                                    <li><a href="/Admin/SaleUserManagement/SaleUserManagementDetailReport">Thông Tin Nhân Viên KD</a></li>
+                                @{
+                                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4)
+                                    {
+                                        <li><a href="/Admin/UserManagement/UserManagementDetailReport">Thông Tin KH CRM</a></li>
+                                        <li><a href="/Admin/SaleUserManagement/SaleUserManagementDetailReport">Thông Tin Nhân Viên KD</a></li>
+
+                                    }
+                                }
+                                    <li><a href="/Admin/ChannelManagement/Index">KH kết nối zalo</a></li>
                                 </ul>
                             </li>
 
-                  
+
                             @*
                                 <li class="treeview">
                                    <a href="#">

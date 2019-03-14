@@ -102,7 +102,7 @@
                 </div>
             </div>
             
-            <div class="loading-element text-center" style="font-size:50px;">
+            <div class="loading-element text-center hide" style="font-size:50px;">
                 <i class="fa fa-spinner fa-spin"></i>
                 Vui lòng chờ giây lát...
             </div>
@@ -144,7 +144,7 @@
             dateFormat: "dd/mm/yyyy"
         }).datepicker("setDate", "0");
 
-        $('.loading-element').hide();
+        //$('.loading-element').hide();
         $('#btnexport').hide();
 
         
@@ -207,7 +207,8 @@
         $.ajax({
             url: '@Url.Action("ListDetailedBD13Report", "DetailBD13")',
             beforeSend: function () {
-                $('.loading-element').show();
+                //$('.loading-element').show();
+                $('.loading-element').removeClass("hide");
             },
             dataType: 'html',
             data:
@@ -223,7 +224,8 @@
                 },
             success: function (result) {
                 // sau khi chay ham thanh cong lay ra ket qua thi bind html vao id listbd13report
-                    $('.loading-element').hide();
+                    //$('.loading-element').hide();
+                    $('.loading-element').removeClass("hide");
                     $('#listbd13report').html(result);
 
                     if (p == 1) refreshPaging();

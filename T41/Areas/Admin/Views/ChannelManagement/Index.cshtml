@@ -1,0 +1,229 @@
+﻿@*<script type="text/javascript">
+        $(document).ready(function () {
+            var userid = parseInt(@Session["userid"]);
+
+            if (userid != 1){
+                window.location.href = "@Url.Action("Index", "Home")";
+            }
+        })
+    </script>*@
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+
+<title>KH kết nối zalo</title>
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">KH kết nối zalo</li>
+    </ol>
+</section>
+<section class="content">
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title text-center"><strong>KH kết nối zalo</strong></h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+
+
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Từ Ngày </label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Đến Ngày</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-top:25px;">
+                    <button type="button" class="btn btn-default btn-lrg ajax" id="btnreport">Hiển thị dữ liệu  <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            <!-- /.row -->
+            <div class="box-body text-center">
+                <h3 class="box-title"></h3>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("Export", "Channelmanagement")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+                </div>
+            </div>
+            <div style="overflow-x:auto;">
+                <table id="myTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Thời Gian Kết Nối</th>
+
+                            <th class="text-center">Tên khách hàng</th>
+                            <th class="text-center">Địa Chỉ</th>
+                            <th class="text-center">Tỉnh </th>
+                            <th class="text-center">Quận/Huyện</th>
+                            <th class="text-center">Số Điện thoại</th>
+                            <th class="text-center">Mã khách hàng</th>
+                            <th class="text-center">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list_user"></tbody>
+
+                </table>
+            </div>
+
+
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div id="page-selection" class="col-sm-12 text-center">
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+    <!-- /.box-body -->
+
+
+
+</section>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+        $('.loading-element').hide();
+        $('#btnexport').hide();
+
+
+
+
+    });
+
+
+
+
+    $("#btnreport").click(function () {
+
+        $("#list_user tr").remove();
+        detail_user_search(1);
+    });
+
+    //Export Excel
+    $('#btnexport').click(function () {
+        
+        // build the url
+        var url = $(this).data('baseurl') + '?from_date=' + $('#fromdate').val() + '&to_date=' + $('#todate').val();
+        // redirect
+        location.href = url;
+    });
+
+
+
+    //Phần JS gọi đến dữ liệu của chi tiết người dùng
+    function detail_user_search(p) {
+        
+        $.ajax({
+            url: '@Url.Action("ListChannelDetail", "ChannelManagement")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            method: 'GET',
+            dataType: 'html',
+            data: {
+                page: p,
+                from_date: $("#fromdate").val(),
+                to_date: $("#todate").val(),
+                
+
+            },
+            success: function (result) {
+                $('.loading-element').hide();
+                $('#list_user').html(result);
+
+                if (p == 1) refreshPaging();
+
+
+            },
+            failure: function (errMsg) {
+                $('#myTable').empty();
+            }
+        })
+    }
+
+    
+
+    //Phần Phân Trang
+    function refreshPaging() {
+        $('#page-selection').bootpag({
+            total: $('#total_page').val(),
+            maxVisible: 10,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            detail_user_search(num);
+            $("#listbd13report tr").remove();
+        });
+    }
+
+
+</script>
+
+
+
+
+
+
+

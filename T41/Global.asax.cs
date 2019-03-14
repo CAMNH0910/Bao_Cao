@@ -28,6 +28,7 @@ namespace T41
             Session["avatar"] = null;
             Session["Role"] = null;
             Session["Email"] = null;
+            string sessionId = Session.SessionID;
         }
     }
 }
