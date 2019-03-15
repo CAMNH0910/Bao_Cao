@@ -91,7 +91,7 @@ namespace T41.Areas.Admin.Data
                             oCheckDealTransferDetail.NGAY_DONG =  dr["NGAY_DONG"].ToString();
                             oCheckDealTransferDetail.GIO_DONG =  dr["GIO_DONG"].ToString();
                             oCheckDealTransferDetail.TONG_SO_TUI =  dr["TONG_SO_TUI"].ToString();
-                            oCheckDealTransferDetail.TONG_SO_BP =  dr["TONG_SO_BP"].ToString();
+                            oCheckDealTransferDetail.TONG_SO_BP =  Convert.ToInt32(dr["TONG_SO_BP"].ToString());
 
                             oCheckDealTransferDetail.TONG_KL =  dr["TONG_KL"].ToString();
                             oCheckDealTransferDetail.TONG_KLBP =  dr["TONG_KLBP"].ToString();
@@ -105,7 +105,7 @@ namespace T41.Areas.Admin.Data
                             
                             oCheckDealTransferDetail.IP_MAY_CHU = dr["IP_MAY_CHU"].ToString();
                             oCheckDealTransferDetail.MAILTRIP_KEY =  dr["MAILTRIP_KEY"].ToString();
-                            oCheckDealTransferDetail.TONG_SO_BP_TEMP = dr["TONG_SO_BP_TEMP"].ToString();
+                            oCheckDealTransferDetail.TONG_SO_BP_DOI_SOAT = Convert.ToInt32(dr["TONG_SO_BP_DOI_SOAT"].ToString());
 
                             listCheckDealTransferDetail.Add(oCheckDealTransferDetail);
 
@@ -182,11 +182,7 @@ namespace T41.Areas.Admin.Data
                             oCheckDealTransferDetail.NGAY_DONG = dr["NGAY_DONG"].ToString();
                             oCheckDealTransferDetail.GIO_DONG = dr["GIO_DONG"].ToString();
                             oCheckDealTransferDetail.TONG_SO_TUI = dr["TONG_SO_TUI"].ToString();
-                            oCheckDealTransferDetail.TONG_SO_BP = dr["TONG_SO_BP"].ToString();
-                            oCheckDealTransferDetail.TONG_SO_BP_TEMP = dr["TONG_SO_BP_TEMP"].ToString();
-
-
-
+                            
                             oCheckDealTransferDetail.TONG_KL = dr["TONG_KL"].ToString();
                             oCheckDealTransferDetail.TONG_KLBP = dr["TONG_KLBP"].ToString();
                             oCheckDealTransferDetail.TONG_CUOC_COD = dr["TONG_CUOC_COD"].ToString();
@@ -197,8 +193,10 @@ namespace T41.Areas.Admin.Data
 
                             
                             oCheckDealTransferDetail.IP_MAY_CHU = dr["IP_MAY_CHU"].ToString();
-                           
-                            
+                            oCheckDealTransferDetail.TONG_SO_BP = Convert.ToInt32(dr["TONG_SO_BP"].ToString());
+                            oCheckDealTransferDetail.TONG_SO_BP_DOI_SOAT = Convert.ToInt32(dr["TONG_SO_BP_DOI_SOAT"].ToString());
+
+
                             listCheckDealTransferDetail.Add(oCheckDealTransferDetail);
 
                         }

@@ -16,7 +16,7 @@ namespace T41.Areas.Admin.Model.DataModel
         public string NGAY_DONG { get; set; }
         public string GIO_DONG { get; set; }
         public string TONG_SO_TUI { get; set; }
-        public string TONG_SO_BP { get; set; }
+        public int TONG_SO_BP { get; set; }
         public string TONG_KL { get; set; }
 
         public string TONG_KLBP { get; set; }
@@ -29,7 +29,7 @@ namespace T41.Areas.Admin.Model.DataModel
         //public String AMND_DATE { get; set; }
         public String IP_MAY_CHU { get; set; }
         public string MAILTRIP_KEY { get; set; }
-        public String TONG_SO_BP_TEMP { get; set; }
+        public int TONG_SO_BP_DOI_SOAT { get; set; }
 
        
     }
@@ -58,8 +58,8 @@ namespace T41.Areas.Admin.Model.DataModel
         public String IP_MAY_CHU { get; set; }
         //public string MAILTRIP_KEY { get; set; }
 
-        public string TONG_SO_BP { get; set; }
-        public String TONG_SO_BP_TEMP { get; set; }
+        public int TONG_SO_BP { get; set; }
+        public int TONG_SO_BP_DOI_SOAT { get; set; }
 
 
 

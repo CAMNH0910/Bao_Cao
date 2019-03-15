@@ -8,12 +8,63 @@
     
     <tr class="bg-light-blue color-palette">
         <td></td>
-        <td class="text-right" colspan="9">Tổng Số : @Model.Total</td>
+        <td class="text-right" colspan="9" style="font-weight:bold; color:yellow; font-size:20px;">Tổng Số : @Model.Total</td>
     </tr>
     //int i = 0; /*i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;*/
     foreach (var c in Model.ListCheckDealTransfer_Report)
     {
-        <tr>
+        <tr class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-black" : "" )">
+            @*<td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.STT
+                </div>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.ID_CHUYEN_THU
+                </div>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.MA_BC_KHAI_THAC
+                </div>
+            </td>
+            <td class="text-center">
+                <a data-toggle="modal" data-id="@c.SO_CHUYEN_THU" class="modal-chthu" data-target="#myModal" href="#myModal" rel="@c.ID_CHUYEN_THU" rel1="@c.MA_BC_KHAI_THAC" rel2="@c.MAILTRIP_KEY">@c.SO_CHUYEN_THU </a>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.NGAY_DONG
+                </div>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.TONG_SO_TUI
+                </div>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.TONG_SO_BP_DOI_SOAT
+                </div>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.TONG_SO_BP
+                </div>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.IP_MAY_CHU
+                </div>
+            </td>
+            <td>
+                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
+                    @c.MAILTRIP_KEY
+                </div>
+            </td>*@
+            
+
+
             <td class="text-center">@c.STT</td>
             <td>@c.ID_CHUYEN_THU</td>
             <td class="text-center">@c.MA_BC_KHAI_THAC</td>
@@ -23,10 +74,10 @@
             </td>
             <td class="text-center">@c.NGAY_DONG</td>
             <td class="text-center">@c.TONG_SO_TUI</td>
-            <td class="text-center">@c.TONG_SO_BP</td>
-            <td class="text-center">@c.TONG_SO_BP_TEMP </td>
+            <td class="text-center" style="color:red;">@c.TONG_SO_BP_DOI_SOAT</td>
+            <td class="text-center">@c.TONG_SO_BP </td>
             <td class="text-center">@c.IP_MAY_CHU </td>
-           
+            <td class="text-center">@c.MAILTRIP_KEY </td>
         </tr>
 
         //i++;

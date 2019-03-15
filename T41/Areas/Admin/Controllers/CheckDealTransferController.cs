@@ -171,7 +171,7 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[1, 13].Value = "HH phát hành";
             worksheet.Cells[1, 14].Value = "HH phát trả";
             worksheet.Cells[1, 15].Value = "IP máy chủ";
-            worksheet.Cells[1, 16].Value = "Tổng số bưu phẩm";
+            worksheet.Cells[1, 16].Value = "Tổng số bưu phẩm truyền lên";
             worksheet.Cells[1, 17].Value = "Tổng số bưu phẩm đối soát";
 
 

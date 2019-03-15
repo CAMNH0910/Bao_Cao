@@ -75,7 +75,7 @@ namespace T41.Areas.Admin.Controllers
 
         public ActionResult Hello()
         {
-            var data = ReadFromExcelfile(@"E:\DemoImportExcel\ExcelDemo.xlsx", "First Sheet");
+            var data = ReadFromExcelfile(@"D:\PROJECT_EMS\DemoImportExcel\ExcelDemo.xlsx", "First Sheet");
             List<ExpressRoadDetail> listExpressRoad = null;
             listExpressRoad = ConvertListToDataTable.DataTableToList<ExpressRoadDetail>(data);
             return View(listExpressRoad);
@@ -84,7 +84,7 @@ namespace T41.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ReadFromExcel()
         {
-            var data = ReadFromExcelfile(@"E:\DemoImportExcel\ExcelDemo.xlsx", "First Sheet");
+            var data = ReadFromExcelfile(@"D:\PROJECT_EMS\DemoImportExcel\ExcelDemo.xlsx", "First Sheet");
             return View(data);
         }
     }
