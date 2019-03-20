@@ -214,6 +214,7 @@
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChannelManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CheckDealDeliveryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CheckDealTransferController.cs" />
     <Compile Include="Areas\Admin\Controllers\DetailLadingToPostManController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrackAndTraceController.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Areas\Admin\Data\AirwayTransportComeRepository.cs" />
     <Compile Include="Areas\Admin\Data\AirwaytransportComeManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\ChannelManagementRepository.cs" />
+    <Compile Include="Areas\Admin\Data\CheckDealDeliveryRepository.cs" />
     <Compile Include="Areas\Admin\Data\CheckDealTransferRepository.cs" />
     <Compile Include="Areas\Admin\Data\DetailLadingToPostmanRepository.cs" />
     <Compile Include="Areas\Admin\Data\TrackAndTraceRepository.cs" />
@@ -274,6 +276,7 @@
     <Compile Include="Areas\Admin\Model\DataModel\Administrator.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwaytransportComeManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\ChannelManagement.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\CheckDealDelivery.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\CheckDealTransfer.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DetailLadingToPostMan.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\FindReceptacleID.cs" />
@@ -3327,6 +3330,7 @@
     <Content Include="Areas\Admin\Views\CheckDealTransfer\ListCheckDealTransfer_Report.cshtml" />
     <Content Include="Areas\Admin\Views\ChannelManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ChannelManagement\ListChannelDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\CheckDealDelivery\CheckDealDeliveryDetailReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

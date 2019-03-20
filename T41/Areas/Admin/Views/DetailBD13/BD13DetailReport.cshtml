@@ -107,7 +107,7 @@
                 Vui lòng chờ giây lát...
             </div>
             
-            <div style="overflow-x:auto;">
+            <div class="col-md-12 col-lg-12 col-xs-12">
                 <table id="listbd13report" class="table table-bordered table-hover"></table>
             </div>
             
@@ -153,7 +153,7 @@
 
     $("#btnreport").click(function () {
         // goi ham Detail
-        $("#listbd13report tr").remove();
+        $("#listbd13report td").remove();
         detail(1);
 
     });
@@ -225,7 +225,7 @@
             success: function (result) {
                 // sau khi chay ham thanh cong lay ra ket qua thi bind html vao id listbd13report
                     //$('.loading-element').hide();
-                    $('.loading-element').removeClass("hide");
+                    $('.loading-element').addClass("hide");
                     $('#listbd13report').html(result);
 
                     if (p == 1) refreshPaging();

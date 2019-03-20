@@ -25,7 +25,7 @@
             <div class="box-header">
                 <h3 class="box-title" id="chitietide2"></h3>
             </div>
-            <div style="overflow-x:auto;">
+            <div>
                 <table id="example1" class="table table-bordered table-hover">
                     <thead>
                         <tr class="bg-light-blue color-palette">
@@ -80,11 +80,11 @@
 
     var url_string = document.URL;
     var url = new URL(url_string);
-    var id_chuyen_thu = url.searchParams.get("id_chuyen_thu");
+    var id_e2 = url.searchParams.get("id_e2");
     var ma_bc_khai_thac = url.searchParams.get("ma_bc_khai_thac");
     var mailtrip_key = url.searchParams.get("mailtrip_key");
     
-    document.getElementById("chitietide2").innerHTML = "<strong> Chi tiết id e2: " + id_chuyen_thu + "</strong>";
+    document.getElementById("chitietide2").innerHTML = "<strong> Chi tiết id e2: " + id_e2 + "</strong>";
 
 
 
@@ -99,7 +99,7 @@
             dataType: 'json',
             data:
                 {
-                    id_chuyen_thu: id_chuyen_thu,
+                    id_e2: id_e2,
                     ma_bc_khai_thac: parseInt(ma_bc_khai_thac),
                     mailtrip_key: parseInt(mailtrip_key)
 
@@ -119,9 +119,9 @@
                     str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].CUOC_E1 + '</td>';
                     str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_KH + '</td>';
 
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].NGUOI_NHAN + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].DIEN_THOAI_NHAN + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].DIA_CHI_NHAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListCheckDealTransfer_NewTab_Report[i].NGUOI_NHAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListCheckDealTransfer_NewTab_Report[i].DIEN_THOAI_NHAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListCheckDealTransfer_NewTab_Report[i].DIA_CHI_NHAN + '</td>';
 
 
                     str_body += '</tr>';
@@ -129,18 +129,22 @@
                 str_html += str_body;
 
 
-                if (data.Code == '01') {
+                if (data.Code == '01' || data.Code == '99') {
                     $('.loading-element').hide();
                     swal(
-                      'Không Có Số Liệu',
+                      data.Message,
                       '',
                       'error'
-                    )
+                    );
+                    $('#example1').addClass("hide");
                 }
                 else {
                     $('#listsotui').html(str_html);
                     $('.loading-element').hide();
+                    $('#example1').removeClass("hide");
                     $('#example1').DataTable({
+                        "paging": false,
+                        "searching": false,
                         "ordering": false,
                         "language": {
                             "lengthMenu": "Hiển thị _MENU_ bản ghi",

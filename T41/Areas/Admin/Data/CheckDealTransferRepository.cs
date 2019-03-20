@@ -91,7 +91,7 @@ namespace T41.Areas.Admin.Data
                             oCheckDealTransferDetail.NGAY_DONG =  dr["NGAY_DONG"].ToString();
                             oCheckDealTransferDetail.GIO_DONG =  dr["GIO_DONG"].ToString();
                             oCheckDealTransferDetail.TONG_SO_TUI =  dr["TONG_SO_TUI"].ToString();
-                            oCheckDealTransferDetail.TONG_SO_BP =  Convert.ToInt32(dr["TONG_SO_BP"].ToString());
+                            oCheckDealTransferDetail.TONG_SO_BP = dr["TONG_SO_BP"].ToString() == "" ? 0 : Convert.ToInt32(dr["TONG_SO_BP"].ToString());
 
                             oCheckDealTransferDetail.TONG_KL =  dr["TONG_KL"].ToString();
                             oCheckDealTransferDetail.TONG_KLBP =  dr["TONG_KLBP"].ToString();
@@ -105,7 +105,7 @@ namespace T41.Areas.Admin.Data
                             
                             oCheckDealTransferDetail.IP_MAY_CHU = dr["IP_MAY_CHU"].ToString();
                             oCheckDealTransferDetail.MAILTRIP_KEY =  dr["MAILTRIP_KEY"].ToString();
-                            oCheckDealTransferDetail.TONG_SO_BP_DOI_SOAT = Convert.ToInt32(dr["TONG_SO_BP_DOI_SOAT"].ToString());
+                            oCheckDealTransferDetail.TONG_SO_BP_DOI_SOAT = dr["TONG_SO_BP_DOI_SOAT"].ToString() == "" ? 0 : Convert.ToInt32(dr["TONG_SO_BP_DOI_SOAT"].ToString());
 
                             listCheckDealTransferDetail.Add(oCheckDealTransferDetail);
 
@@ -193,8 +193,8 @@ namespace T41.Areas.Admin.Data
 
                             
                             oCheckDealTransferDetail.IP_MAY_CHU = dr["IP_MAY_CHU"].ToString();
-                            oCheckDealTransferDetail.TONG_SO_BP = Convert.ToInt32(dr["TONG_SO_BP"].ToString());
-                            oCheckDealTransferDetail.TONG_SO_BP_DOI_SOAT = Convert.ToInt32(dr["TONG_SO_BP_DOI_SOAT"].ToString());
+                            oCheckDealTransferDetail.TONG_SO_BP = dr["TONG_SO_BP"].ToString() == "" ? 0 : Convert.ToInt32(dr["TONG_SO_BP"].ToString());
+                            oCheckDealTransferDetail.TONG_SO_BP_DOI_SOAT = dr["TONG_SO_BP_DOI_SOAT"].ToString() == "" ? 0 : Convert.ToInt32(dr["TONG_SO_BP_DOI_SOAT"].ToString());
 
 
                             listCheckDealTransferDetail.Add(oCheckDealTransferDetail);
@@ -308,7 +308,7 @@ namespace T41.Areas.Admin.Data
 
         // Phần lấy dữ liệu CHECK_DEAL_TRANSFER_BY_ID_E2_DETAIL
         #region CHECK_DEAL_TRANSFER_BY_ID_E2_DETAIL          
-        public ReturnCheckDealTransfer CHECK_DEAL_TRANSFER_BY_ID_E2_DETAIL(string id_chuyen_thu, int? ma_bc_khai_thac, Int64? mailtrip_key)
+        public ReturnCheckDealTransfer CHECK_DEAL_TRANSFER_BY_ID_E2_DETAIL(string id_e2, int? ma_bc_khai_thac, Int64? mailtrip_key)
         {
             DataTable da = new DataTable();
             Convertion common = new Convertion();
@@ -325,7 +325,7 @@ namespace T41.Areas.Admin.Data
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
-                    myCommand.Parameters.Add("v_ID_CHUYEN_THU", OracleDbType.Varchar2).Value = id_chuyen_thu;
+                    myCommand.Parameters.Add("v_ID_E2", OracleDbType.Varchar2).Value = id_e2;
                     myCommand.Parameters.Add("v_MA_BC_KHAI_THAC", OracleDbType.Int32).Value = ma_bc_khai_thac;
                     myCommand.Parameters.Add("v_MAILTRIP_KEY", OracleDbType.Int32).Value = mailtrip_key;
                     myCommand.Parameters.Add(new OracleParameter("v_cursor", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;

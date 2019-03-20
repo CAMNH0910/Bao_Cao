@@ -14,57 +14,7 @@
     foreach (var c in Model.ListCheckDealTransfer_Report)
     {
         <tr class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-black" : "" )">
-            @*<td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.STT
-                </div>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.ID_CHUYEN_THU
-                </div>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.MA_BC_KHAI_THAC
-                </div>
-            </td>
-            <td class="text-center">
-                <a data-toggle="modal" data-id="@c.SO_CHUYEN_THU" class="modal-chthu" data-target="#myModal" href="#myModal" rel="@c.ID_CHUYEN_THU" rel1="@c.MA_BC_KHAI_THAC" rel2="@c.MAILTRIP_KEY">@c.SO_CHUYEN_THU </a>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.NGAY_DONG
-                </div>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.TONG_SO_TUI
-                </div>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.TONG_SO_BP_DOI_SOAT
-                </div>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.TONG_SO_BP
-                </div>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.IP_MAY_CHU
-                </div>
-            </td>
-            <td>
-                <div class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-red" : "" )">
-                    @c.MAILTRIP_KEY
-                </div>
-            </td>*@
             
-
-
             <td class="text-center">@c.STT</td>
             <td>@c.ID_CHUYEN_THU</td>
             <td class="text-center">@c.MA_BC_KHAI_THAC</td>
@@ -156,10 +106,10 @@ else
                         str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_DUONG_THU + '</td>';
 
                         //str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '</td>';
-                        str_body += '<td> <a href="/Admin/CheckDealTransfer/ListCheckDealTransfer_ID_CT_Report/?id_chuyen_thu=' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '&ma_bc_khai_thac=' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '&mailtrip_key=' + data.ListCheckDealTransfer_Modal_Report[i].MAILTRIP_KEY + ' "target="_blank"">' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '</a> </td>';
+                        str_body += '<td> <a href="/Admin/CheckDealTransfer/ListCheckDealTransfer_ID_CT_Report/?id_chuyen_thu=' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '&ma_bc_khai_thac=' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '&mailtrip_key=' + data.ListCheckDealTransfer_Modal_Report[i].MAILTRIP_KEY + ' "target="_blank"">' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '</a> </td>';
 
                         //str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '</td>';
-                        str_body += '<td> <a href="/Admin/CheckDealTransfer/ListCheckDealTransfer_ID_E2_Report/?id_chuyen_thu=' + data.ListCheckDealTransfer_Modal_Report[i].ID_CHUYEN_THU + '&ma_bc_khai_thac=' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '&mailtrip_key=' + data.ListCheckDealTransfer_Modal_Report[i].MAILTRIP_KEY + ' "target="_blank"">' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '</a> </td>';
+                        str_body += '<td> <a href="/Admin/CheckDealTransfer/ListCheckDealTransfer_ID_E2_Report/?id_e2=' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '&ma_bc_khai_thac=' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '&mailtrip_key=' + data.ListCheckDealTransfer_Modal_Report[i].MAILTRIP_KEY + ' "target="_blank"">' + data.ListCheckDealTransfer_Modal_Report[i].ID_E2 + '</a> </td>';
 
                         str_body += '<td>' + data.ListCheckDealTransfer_Modal_Report[i].ID_CA + '</td>';
                         str_body += '<td class="text-center">' + data.ListCheckDealTransfer_Modal_Report[i].MA_BC_KHAI_THAC + '</td>';

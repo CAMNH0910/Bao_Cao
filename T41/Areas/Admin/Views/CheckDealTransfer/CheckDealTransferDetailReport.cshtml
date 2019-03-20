@@ -15,21 +15,21 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 
-<title>Đối soát truyền nhận giao dịch</title>
+<title>Đối soát chuyến thư đi</title>
 <section class="content-header">
     <h1>
         <small>Báo Cáo </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Đối soát truyền nhận giao dịch</li>
+        <li class="active">Đối soát chuyến thư đi</li>
     </ol>
 </section>
 <section class="content">
 
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title text-center"><strong>Đối soát truyền nhận giao dịch</strong></h3>
+            <h3 class="box-title text-center"><strong>Đối soát chuyến thư đi</strong></h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </div>
@@ -103,7 +103,7 @@
                     
                 </div>
             </div>
-            <div style="overflow-x:auto;">
+            <div class="col-md-12 col-lg-12 col-xs-12">
                 <table id="myTable" class="table table-bordered table-hover">
                     <thead>
                         <tr class="bg-light-blue color-palette">
@@ -151,7 +151,7 @@
             </div>
             
 
-            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+            <div class="col-lg-12 loading-element hide text-center" style="font-size:50px;">
                 <i class="fa fa-spinner fa-spin"></i>
                 Vui lòng chờ giây lát...
             </div>
@@ -181,7 +181,6 @@
     $(document).ready(function () {
         
         $('.select2').select2();
-        $('.loading-element').hide();
         $('#btnexport').hide();
 
         var d = new Date();
@@ -251,7 +250,7 @@
         $.ajax({
             url: '@Url.Action("ListCheckDealTransfer_Report", "CheckDealTransfer")',
             beforeSend: function () {
-                $('.loading-element').show();
+                $('.loading-element').removeClass("hide");
             },
             method: 'GET',
             dataType: 'html',
@@ -262,7 +261,7 @@
             },
             success: function (result) {
                 $('#list_user').html(result);
-                $('.loading-element').hide();
+                $('.loading-element').addClass("hide");
                 
                 //if (p == 1) refreshPaging();
             }

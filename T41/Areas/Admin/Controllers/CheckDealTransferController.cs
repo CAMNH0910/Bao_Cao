@@ -75,7 +75,7 @@ namespace T41.Areas.Admin.Controllers
 
 
         //Phần controller Modal 
-        //Type : ViewHtml
+        //Type : JSON
         [HttpPost]
         public ActionResult CheckDeal_Modal_Report(string id_chuyen_thu, int? ma_bc_khai_thac, Int64? mailtrip_key)
         {
@@ -88,11 +88,11 @@ namespace T41.Areas.Admin.Controllers
         //Phần controller New Tab ID_E2 
         //Type : JSON
         [HttpPost]
-        public JsonResult CheckDeal_NewTab_ID_E2_Report(string id_chuyen_thu, int? ma_bc_khai_thac, Int64? mailtrip_key)
+        public JsonResult CheckDeal_NewTab_ID_E2_Report(string id_e2, int? ma_bc_khai_thac, Int64? mailtrip_key)
         {
             CheckDealTransferRepository checkdealtransferRepository = new CheckDealTransferRepository();
             ReturnCheckDealTransfer returncheckdealtransfer = new ReturnCheckDealTransfer();
-            returncheckdealtransfer = checkdealtransferRepository.CHECK_DEAL_TRANSFER_BY_ID_E2_DETAIL(id_chuyen_thu, ma_bc_khai_thac, mailtrip_key);
+            returncheckdealtransfer = checkdealtransferRepository.CHECK_DEAL_TRANSFER_BY_ID_E2_DETAIL(id_e2, ma_bc_khai_thac, mailtrip_key);
             return Json(returncheckdealtransfer, JsonRequestBehavior.AllowGet);
         }
 

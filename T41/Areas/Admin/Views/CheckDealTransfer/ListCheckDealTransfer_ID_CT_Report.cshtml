@@ -115,9 +115,9 @@
                     str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].CUOC_E1 + '</td>';
                     str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].MA_KH + '</td>';
 
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].NGUOI_NHAN + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].DIEN_THOAI_NHAN + '</td>';
-                    str_body += '<td class="text-right">' + data.ListCheckDealTransfer_NewTab_Report[i].DIA_CHI_NHAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListCheckDealTransfer_NewTab_Report[i].NGUOI_NHAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListCheckDealTransfer_NewTab_Report[i].DIEN_THOAI_NHAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListCheckDealTransfer_NewTab_Report[i].DIA_CHI_NHAN + '</td>';
 
 
                     str_body += '</tr>';
@@ -125,18 +125,22 @@
                 str_html += str_body;
 
 
-                if (data.Code == '01') {
+                if (data.Code == '01' || data.Code == '99') {
                     $('.loading-element').hide();
                     swal(
-                      'Không Có Số Liệu',
+                      data.Message,
                       '',
                       'error'
-                    )
+                    );
+                    $('#example1').addClass("hide");
                 }
                 else {
                     $('.loading-element').hide();
+                    $('#example1').removeClass("hide");
                     $('#listsotui').html(str_html);
                     $('#example1').DataTable({
+                        "paging": false,
+                        "searching": false,
                         "ordering": false,
                         "language": {
                             "lengthMenu": "Hiển thị _MENU_ bản ghi",

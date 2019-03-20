@@ -39,5 +39,17 @@ namespace T41.Areas.Admin.Common
             }
         }
         #endregion  
+
+        public int ConvertToInt(object str)
+        {
+            try
+            {
+                return Convert.ToInt32(str.ToString());
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }
