@@ -92,18 +92,21 @@
                 </div>
             </div>
             
-            <!-- /.row -->
-            <div class="box-body text-center">
-                <h3 class="box-title"></h3>
-            </div>
             
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("Export", "CheckDealTransfer")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
-                    
+            
+            <div class="row col-md-12 col-lg-12 col-xs-12" style="margin:auto;">
+                <div class="col-md-8 text-left" style="padding-top: 35px;padding-left: 15px;">
+                    <p >
+                        <span style="color:red;">Chú ý :</span>
+                        <strong>Chỉ đối soát chuyến thư các ngày hôm trước (Ngày hiện tại Tong_BP_DS = 0 )</strong>
+                    </p>
                 </div>
-            </div>
-            <div class="col-md-12 col-lg-12 col-xs-12">
+                <div class="col-md-4 text-right" style="padding-top: 35px;padding-right: 5px;">
+
+
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("Export", "CheckDealTransfer")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+                </div>
                 <table id="myTable" class="table table-bordered table-hover">
                     <thead>
                         <tr class="bg-light-blue color-palette">

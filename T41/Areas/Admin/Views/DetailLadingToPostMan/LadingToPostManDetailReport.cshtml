@@ -46,13 +46,7 @@
 
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Tuyến phát</label>
-                        <select class="form-control select2" style="width: 100%;" id="routecode">
-                            <option selected="selected" value="0">Tất cả</option>
-
-                        </select>
-                    </div>
+                    
                     
                     <!-- /.form-group -->
                 </div>
@@ -77,13 +71,24 @@
                     
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Chuyến Thư</label>
-                        <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="chthu">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Chuyến Thư</label>
+                            <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="chthu">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Túi Số</label>
+                            <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="tuiso">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Túi Số</label>
-                        <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="tuiso">
+                        <label>Tuyến phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="routecode">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
                     </div>
                 </div>
             </div>

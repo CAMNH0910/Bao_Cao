@@ -1,0 +1,262 @@
+﻿
+@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+
+
+<title>Chi tiết id e2</title>
+
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+            @*DEAL*@
+            <div class="col-md-6">
+                <div class="box-header">
+                    <h3 class="box-title">Deal </h3>
+                </div>
+                <div class="col-md-4 text-right" style="padding-top: 35px;padding-right: 5px;">
+
+
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport_deal" data-baseurl="@Url.Action("ExportDeal", "DealAndAccountFalse")">Xuất Excel Deal <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+                </div>
+                <div>
+                    <table id="TableDeal" class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="bg-light-blue color-palette">
+                                <th class="text-center">STT</th>
+                                <th class="text-center">CustomerCode</th>
+                                <th class="text-center">AccountName</th>
+                                <th class="text-center">CountID</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="listdeal"></tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12 loading-element-deal text-center" style="font-size:50px;">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    Vui lòng chờ giây lát...
+                </div>
+            </div>
+            
+            @*ACCOUNT*@
+            <div class="col-md-6">
+                <div class="box-header">
+                    <h3 class="box-title" >Account</h3>
+                </div>
+                
+                <div class="col-md-4 text-right" style="padding-top: 35px;padding-right: 5px;">
+
+
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport_account" data-baseurl="@Url.Action("ExportAccount", "DealAndAccountFalse")">Xuất Excel Account <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+                </div>
+                <div>
+                    <table id="TableAccount" class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="bg-light-blue color-palette">
+                                <th class="text-center">STT</th>
+                                <th class="text-center">Referent account</th>
+                                <th class="text-center">CountID</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="listaccount"></tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12 loading-element-account text-center" style="font-size:50px;">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    Vui lòng chờ giây lát...
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <!-- /.box-body -->
+
+
+
+</section>
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+<script>
+
+
+    $(document).ready(function () {
+        $('#btnexport_deal').hide();
+        $('#btnexport_account').hide();
+        // goi ham Detail
+         detail_deal();
+         detail_account();
+    });
+
+    //Export Excel DEAL
+    $('#btnexport_deal').click(function () {
+        // build the url
+        var url = $(this).data('baseurl');
+        // redirect
+        location.href = url;
+    });
+
+    //Export Excel ACCOUNT
+    $('#btnexport_account').click(function () {
+        // build the url
+        var url = $(this).data('baseurl');
+        // redirect
+        location.href = url;
+    });
+    
+    //Phần function detail_deal
+    function detail_deal() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CheckDeal_Report", "DealAndAccountFalse")',
+            beforeSend: function () {
+                $('.loading-element-deal').show();
+            },
+            dataType: 'json',
+            data:
+                {
+                   
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListDealFalse_Report, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td style="width:100px;">' + data.ListDealFalse_Report[i].CUSTOMER_CODE + '</td>';
+                    str_body += '<td style="width:100px;">' + data.ListDealFalse_Report[i].account_Name + '</td>';
+                    str_body += '<td class="text-center">' + data.ListDealFalse_Report[i].COUNTID + '</td>';
+                    
+
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element-deal').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+                    
+                }
+                else {
+                    $('#listdeal').html(str_html);
+                    $('.loading-element-deal').hide();
+                    $('#btnexport_deal').show();
+                    $('#TableDeal').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi",
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+                            "search": "Nhập deal:",
+                            "infoFiltered": "(Tìm kiếm trong _MAX_ bản ghi)",
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+
+
+
+    //Phần function detail_account
+    function detail_account() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CheckAccount_Report", "DealAndAccountFalse")',
+            beforeSend: function () {
+                $('.loading-element-account').show();
+            },
+            dataType: 'json',
+            data:
+                {
+
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListAccountFalse_Report, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td style="width:100px;">' + data.ListAccountFalse_Report[i].REFERENT_ACCOUNT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListAccountFalse_Report[i].COUNTID + '</td>';
+
+
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element-deal').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $('#listaccount').html(str_html);
+                    $('.loading-element-account').hide();
+                    $('#btnexport_account').show();
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi",
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+                            "search": "Nhập Account:",
+                            "infoFiltered": "(Tìm kiếm trong _MAX_ bản ghi)",
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+
+
+</script>
+
+

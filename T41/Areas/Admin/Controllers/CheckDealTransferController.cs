@@ -69,6 +69,7 @@ namespace T41.Areas.Admin.Controllers
             CheckDealTransferRepository checkdealtransferRepository = new CheckDealTransferRepository();
             ReturnCheckDealTransfer returncheckdealtransfer = new ReturnCheckDealTransfer();
             returncheckdealtransfer = checkdealtransferRepository.CHECK_DEAL_TRANSFER_DETAIL(common.DateToInt(fromdate), common.DateToInt(todate), ma_bc_khai_thac);
+            ViewBag.CurrentDate = DateTime.Now.ToString("yyyyMMdd");
             return View(returncheckdealtransfer);
         }
 

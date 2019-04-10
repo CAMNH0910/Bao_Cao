@@ -6,6 +6,7 @@
 @if (Model.ListCheckDealTransfer_Report != null)
 {
     
+    
     <tr class="bg-light-blue color-palette">
         <td></td>
         <td class="text-right" colspan="9" style="font-weight:bold; color:yellow; font-size:20px;">Tổng Số : @Model.Total</td>
@@ -13,7 +14,7 @@
     //int i = 0; /*i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;*/
     foreach (var c in Model.ListCheckDealTransfer_Report)
     {
-        <tr class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP ? "bg-black" : "" )">
+        <tr class="@(c.TONG_SO_BP_DOI_SOAT < c.TONG_SO_BP && c.NGAY_DONG != ViewBag.CurrentDate  ? "bg-black" : "" )">
             
             <td class="text-center">@c.STT</td>
             <td>@c.ID_CHUYEN_THU</td>
@@ -53,6 +54,7 @@ else
 
 <script type="text/javascript">
     $(document).ready(function () {
+        
         $('#btnexportlist').show();
 
         $('.modal-chthu').click(function (e) {
