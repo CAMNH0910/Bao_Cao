@@ -1,0 +1,90 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+@if (Model.List_Call_History_Report != null)
+{
+    <!-- iCheck -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+    <link href="~/Areas/Admin/Content/bower_components/Bootstrap4-Audio-Playlist-master/css/audio-player.css" rel="stylesheet" />
+
+
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title col text-center">Lịch sử cuộc gọi</h2>
+                <h2 class="text-center" id="mae1"></h2>
+                <div class="row align-items-center mt-4 mb-3 mx-0">
+                    <i id="play-button" class="material-icons play-pause text-primary mr-2" aria-hidden="true">play_circle_outline</i>
+                    <i id="pause-button" class="material-icons play-pause d-none text-primary mr-2" aria-hidden="true">pause_circle_outline</i>
+                    <i id="next-button" class="material-icons text-primary ml-2 mr-3" aria-hidden="true">skip_next</i>
+                </div>
+                <div class="p-0 m-0" id="now-playing">
+                    <p class="font-italic mb-0">Now Playing: </p>
+                    <p class="lead" id="title"></p>
+                </div>
+                <div class="progress-bar progress col-12 mb-3">
+                </div>
+            </div>
+            <ul class="playlist list-group list-group-flush">
+                @foreach (var c in Model.List_Call_History_Report)
+                {
+                    if (c.ID == 1)
+                    {
+                        <li audio_url="@c.PATH" class="active list-group-item playlist-item" id="LadingCode">
+                            Tên bưu tá : @c.FULL_NAME <br />
+                            Thời gian gọi : @c.START_TIME <br />
+                            Thời lượng cuộc gọi :  @c.TALK_TIME <br />
+                            SDT bưu tá : @c.MOBILE_NUMBER<br />
+                            SDT khách hàng : @c.CALLER
+                        </li>
+                    }
+                    else
+                    {
+                        <li audio_url="@c.PATH" class="list-group-item playlist-item">
+                            Tên bưu tá : @c.FULL_NAME <br />
+                            Thời gian gọi : @c.START_TIME <br />
+                            Thời lượng cuộc gọi :  @c.TALK_TIME <br />
+                            SDT bưu tá : @c.MOBILE_NUMBER<br />
+                            SDT khách hàng : @c.CALLER
+                        </li>
+                    }
+
+
+
+                }
+            </ul>
+        </div>
+        <audio id="audio-player" class="d-none" src="" type="audio/mp3" controls="controls"></audio>
+
+ <!-- /.JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
+
+        <script src="~/Areas/Admin/Content/bower_components/Bootstrap4-Audio-Playlist-master/js/jquery-ui-slider.js"></script>
+        <script src="~/Areas/Admin/Content/bower_components/Bootstrap4-Audio-Playlist-master/js/audioPlayer.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                document.getElementById("mae1").innerHTML = "<strong> " + emscode + " </strong>";
+            });
+
+        </script>
+}
+
+else
+{
+    <script type="text/javascript">
+        swal(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+   
+}
+
+

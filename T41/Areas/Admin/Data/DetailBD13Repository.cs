@@ -123,6 +123,7 @@ namespace T41.Areas.Admin.Data
                     myCommand.Parameters.Add("P_CAKT", OracleDbType.Int32).Value = cakt;
                     myCommand.Parameters.Add("P_CHTHU", OracleDbType.Int32).Value = chthu;
                     myCommand.Parameters.Add("P_TUISO", OracleDbType.Int32).Value = tuiso;
+                    myCommand.Parameters.Add("P_RETURN_CODE", OracleDbType.Int32, 0, ParameterDirection.Output);
                     myCommand.Parameters.Add("P_TOTAL", OracleDbType.Int32, 0, ParameterDirection.Output);
                     myCommand.Parameters.Add(new OracleParameter("P_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);

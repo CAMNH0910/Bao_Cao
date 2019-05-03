@@ -214,6 +214,7 @@
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChannelManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CallHistoryControllers.cs" />
     <Compile Include="Areas\Admin\Controllers\CheckDealDeliveryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DealAndAccountFalseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CheckDealTransferController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Areas\Admin\Data\AirwayTransportComeRepository.cs" />
     <Compile Include="Areas\Admin\Data\AirwaytransportComeManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\ChannelManagementRepository.cs" />
+    <Compile Include="Areas\Admin\Data\CallHistoryRepository.cs" />
     <Compile Include="Areas\Admin\Data\CheckDealDeliveryRepository.cs" />
     <Compile Include="Areas\Admin\Data\DealAndAccountFalseRepository.cs" />
     <Compile Include="Areas\Admin\Data\CheckDealTransferRepository.cs" />
@@ -281,6 +283,7 @@
     <Compile Include="Areas\Admin\Model\DataModel\ChannelManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\CheckDealDelivery.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\CheckDealTransfer.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\CallHistory.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DetailLadingToPostMan.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\FindReceptacleID.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DevelopActivity.cs" />
@@ -604,6 +607,11 @@
     <Content Include="Areas\Admin\Content\bower_components\bootstrap-daterangepicker\website\index.html" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap-daterangepicker\website\website.css" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap-daterangepicker\website\website.js" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\.gitignore" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\audio_playlist_example.html" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\css\audio-player.css" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\js\audioPlayer.js" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\js\jquery-ui-slider.js" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="Areas\Admin\Content\bower_components\bootstrap\dist\css\bootstrap.css" />
@@ -3335,6 +3343,11 @@
     <Content Include="Areas\Admin\Views\ChannelManagement\ListChannelDetail.cshtml" />
     <Content Include="Areas\Admin\Views\CheckDealDelivery\CheckDealDeliveryDetailReport.cshtml" />
     <Content Include="Areas\Admin\Views\DealAndAccountFalse\CheckDealAndAccountReport.cshtml" />
+    <Content Include="Areas\Admin\Views\CallHistory\CallHistoryDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\LICENSE" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\package.json" />
+    <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\README.md" />
+    <Content Include="Areas\Admin\Views\CallHistory\ListCallHistoryReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

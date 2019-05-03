@@ -1,0 +1,46 @@
+.audio-player {
+  max-width: 560px;
+}
+.audio-player i {
+  font-size: 24vw;
+}
+#next-button {
+    font-size: 18vw;
+}
+
+@media screen and (min-width:560px) {
+  .audio-player i {
+    font-size: 134px;
+  }
+  #next-button {
+    font-size: 100px;
+  }
+}
+
+#now-playing {
+  display: none;
+}
+
+/* .progress {
+  overflow: visible !important;
+}
+ */
+li.active:before {
+  font-family: "Material Icons";
+  content: "\e5c8";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
+
+.ui-slider-handle {
+  border-radius: 50%;
+  background: #fff;
+  height: 1rem;
+  width: 1rem;
+  position: absolute;
+  touch-action: none;
+  cursor: default;
+  z-index: 2;
+}

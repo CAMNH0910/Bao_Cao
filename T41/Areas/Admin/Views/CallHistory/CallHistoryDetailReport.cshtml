@@ -1,0 +1,156 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lịch sử cuộc gọi</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Areas/Admin/Content/dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/Areas/Admin/Content/plugins/iCheck/square/blue.css">
+
+
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+    
+    <div class="login-box ">
+        <section class="audio-player card" id="listcallhistory">
+
+        </section>
+            
+</div>
+
+   
+
+
+    <!-- /.login-box -->
+    <!-- jQuery 3 -->
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/Areas/Admin/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.28/dist/sweetalert2.all.min.js"></script>
+    
+    
+        
+        
+    <script type="text/javascript">
+
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var emscode = url.searchParams.get("emscode");
+
+    $(document).ready(function () {
+        if (emscode == "" || emscode == undefined) {
+            swal(
+                       'Vui lòng nhập lại mã E1 !',
+                       '',
+                       'error'
+            );
+        }
+        else {
+           detail();
+
+
+        }
+
+    });
+
+
+
+
+
+    //Phần JS để lấy dữ liệu theo kiểu JSON rồi bind vào table theo ID
+    @*function detail() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListCallHistory_Report", "CallHistory")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            dataType: 'json',
+            data:
+                {
+                    code: emscode
+
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.List_Call_History_Report, function (i, item) {
+                    str_body += '<li audio_url="' + data.List_Call_History_Report[i].PATH + '" class="list-group-item playlist-item">' + data.List_Call_History_Report[i].FULL_NAME + '</li>'
+                    str_body += '<li audio_url="' + data.List_Call_History_Report[i].PATH + '" class="list-group-item playlist-item">' + data.List_Call_History_Report[i].FULL_NAME + '</li>'
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '98' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $('.loading-element').hide();
+
+                    $('.listcallhistory').html(str_html);
+                    console.log(str_html);
+
+                }
+            }
+        })
+    }*@
+
+        function detail() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ListCallHistoryReport", "CallHistory")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+                dataType: 'html',
+                data:
+                    {
+                        code: emscode
+
+                    },
+                success: function (result) {
+                    $('.loading-element').hide();
+                    $('#listcallhistory').html(result);
+                    
+                }
+            })
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>
