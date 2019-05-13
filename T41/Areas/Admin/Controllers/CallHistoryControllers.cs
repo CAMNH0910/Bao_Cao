@@ -16,8 +16,14 @@ namespace T41.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult ID_CallHistoryDetailReport()
+        {
+            return View();
+        }
+
         //Phần controller Detail
         //Type : Json
+        //Get data by EMS CODE
         public ActionResult ListCallHistoryReport(string code)
         {
             CallHistoryRepository callhistoryRepository = new CallHistoryRepository();
@@ -25,6 +31,15 @@ namespace T41.Areas.Admin.Controllers
             returncallhistory = callhistoryRepository.GET_CallHistory(code);
             return View(returncallhistory);
             //return Json(returncallhistory, JsonRequestBehavior.AllowGet);
+        }
+
+        //Get data by EMS ID
+        public ActionResult ID_ListCallHistoryReport(int id_call_history)
+        {
+            CallHistoryRepository callhistoryRepository = new CallHistoryRepository();
+            ReturnCallHistory returncallhistory = new ReturnCallHistory();
+            returncallhistory = callhistoryRepository.GET_CallHistory_ID(id_call_history);
+            return View(returncallhistory);
         }
     }
 }

@@ -1,0 +1,338 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.ListKpiBD13DeliveryReport != null)
+{
+    int i = 0;
+
+    
+    foreach (var c in Model.ListKpiBD13DeliveryReport)
+    {
+        <tr>
+            @*<td class="text-center">@(i + 1)</td>*@
+            <td class="text-center">@c.STT</td>
+            <td class="text-left">@c.KhuVuc</td>
+            <td class="text-center">@c.BuuCuc</td>
+            <td class="text-left">@c.TenBuuCuc</td>
+            @*<td>@c.TongSLHub</td>*@
+            <td class="text-center">@c.TongSL</td>
+            <td class="text-center">@c.SanLuongPTC</td>
+            <td class="text-center">
+                <a data-toggle="modal" data-id="@c.SanLuongKTT" class="modal-ktt" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.SanLuongKTT </a>
+            </td>
+            <td class="text-center">@c.SanLuongPTC6H </td>
+            <td class="text-center">
+                <a data-toggle="modal" data-id="@c.BuuCuc" class="modal-sanluong" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.SanLuongPTCQUA6H </a>
+            </td>
+            
+            <td class="text-center">@c.TyLeTrong6H</td>
+            <td class="text-center">@c.TyLeQua6H</td>
+            <td class="text-center">
+                <a data-toggle="modal" data-id="@c.TCKXD" class="modal-tckxd" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.TCKXD </a>
+            </td>
+
+        </tr>
+        i++;
+
+    }
+
+
+    
+    <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/KpiBD13DelivertChartJS/Chart.js"></script>
+    //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            
+
+            $('.modal-sanluong').click(function (e) {
+
+                var endpostcode = $(this).attr("rel");
+                var routecode = '@ViewBag.routecode';
+                @*var zone = '@ViewBag.zone';*@
+                var service = '@ViewBag.service';
+                var startdate = '@ViewBag.startdate';
+                var enddate = '@ViewBag.enddate';
+                var type = 1;
+                var da = {
+                    endpostcode: endpostcode,
+                    //zone: zone,
+                    routecode: routecode,
+                    service: service,
+                    startdate: startdate,
+                    enddate: enddate,
+                    type: type,
+                };
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () {
+                        $('.loading-element-1').show();
+                    },
+
+                    url: '@Url.Action("KpiBD13DeliveryDetailReport_Success6H", "KpiBD13Delivery")',
+                    // The key needs to match your method's input parameter (case-sensitive).
+                    data: JSON.stringify(da),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        //$('#myModal').on('show.bs.modal', function (e) { });
+                        var str_html = '<table id="GridView1" class="table table-bordered table-hover">';
+                        str_html += '<thead>';
+                        str_html += '<tr class="bg-light-blue color-palette">';
+                        str_html += '<th>STT</th>';
+                        str_html += '<th>Mã E1</th>';
+                        str_html += '<th>Bưu Cục Phát</th>';
+                        str_html += '<th>Tuyến Phát</th>';
+                        str_html += '<th>Ngày XNĐ</th>';
+                        str_html += '<th>Giờ XNĐ</th>';
+                        str_html += '<th>Ngày Phát</th>';
+                        str_html += '<th>Giờ Phát</th>';
+                        str_html += '<th>TG BQ</th>';
+                        str_html += '</tr>';
+                        str_html += '</thead>';
+                        str_html += '<tbody>';
+                        var str_body = "";
+                        var a = 1;
+                        $.each(data.ListKpiBD13DeliverySuccess6HReport, function (i, item) {
+                            str_body += '<tr>';
+                            str_body += '<td>' + a++ + '</td>';
+                            str_body += '<td><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '"target="_blank" "class="mae1" id="' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '">' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '</a></td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].EndPostCode + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].RouteCode + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].C17StatusDate + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].C17StatusTime + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].StatusDate + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].StatusTime + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].TimeInterval + '</td>';
+                            str_body += '</tr>';
+                        });
+                        str_html += str_body;
+
+                        str_html += '</tbody>';
+                        str_html += '</table>';
+
+                        if (data.Code == '01') {
+                            $('.loading-element-1').hide();
+                            //Xóa session store của bảng chi tiết trước khi show ra
+                            $("#list_test tr").remove();
+                            swal(
+                              'Không Có Số Liệu',
+                              '',
+                              'error'
+                            )
+                        }
+                        else {
+                            $('.loading-element-1').hide();
+                            $('#list_test').html(str_html);
+
+
+                        }
+
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            });
+        });
+
+
+
+        $(document).ready(function () {
+            $('.modal-tckxd').click(function (e) {
+                var endpostcode = $(this).attr("rel");
+                var routecode = '@ViewBag.routecode';
+                @*var zone = '@ViewBag.zone';*@
+                var service = '@ViewBag.service';
+                var startdate = '@ViewBag.startdate';
+                var enddate = '@ViewBag.enddate';
+                var type = 2;
+                var da = {
+                    endpostcode: endpostcode,
+                    routecode: routecode,
+                    //zone: zone,
+                    service: service,
+                    startdate: startdate,
+                    enddate: enddate,
+                    type: type,
+                };
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () {
+                        $('.loading-element-1').show();
+                    },
+                    //url: "/KpiBD13Delivery/KpiBD13DeliverySuccess6HDetailReport",
+                    url: '@Url.Action("KpiBD13DeliveryDetailReport_Success6H", "KpiBD13Delivery")',
+                    // The key needs to match your method's input parameter (case-sensitive).
+                    data: JSON.stringify(da),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        //$('#myModal').on('show.bs.modal', function (e) { });
+                        var str_html = '<table id="GridView1" class="table table-bordered table-hover">';
+                        str_html += '<thead>';
+                        str_html += '<tr class="bg-light-blue color-palette">';
+                        str_html += '<th>STT</th>';
+                        str_html += '<th>Mã E1</th>';
+                        str_html += '<th>Bưu Cục Phát</th>';
+                        str_html += '<th>Tuyến Phát</th>';
+                        str_html += '<th>Ngày XNĐ</th>';
+                        str_html += '<th>Giờ XNĐ</th>';
+                        str_html += '<th>Ngày Phát</th>';
+                        str_html += '<th>Giờ Phát</th>';
+                        str_html += '<th>TG BQ</th>';
+                        str_html += '</tr>';
+                        str_html += '</thead>';
+                        str_html += '<tbody>';
+                        var str_body = "";
+                        var a = 1;
+                        $.each(data.ListKpiBD13DeliverySuccess6HReport, function (i, item) {
+                            str_body += '<tr>';
+                            str_body += '<td>' + a++ + '</td>';
+                            //str_body += '<td>' + data[i].ItemCode + '</td>';
+                            str_body += '<td><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '"target="_blank" "class="mae1" id="' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '">' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '</a></td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].EndPostCode + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].RouteCode + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].C17StatusDate + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].C17StatusTime + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].StatusDate + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].StatusTime + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].TimeInterval + '</td>';
+                            str_body += '</tr>';
+                        });
+                        str_html += str_body;
+
+
+                        str_html += '</tbody>';
+                        str_html += '</table>';
+                        if (data.Code == '01') {
+                            $('.loading-element-1').hide();
+                            $("#list_test tr").remove();
+                            swal(
+                              'Không Có Số Liệu',
+                              '',
+                              'error'
+                            )
+                        }
+                        else {
+                            $('.loading-element-1').hide();
+                            $('#list_test').html(str_html);
+
+                        }
+
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('.modal-ktt').click(function (e) {
+
+                var endpostcode = $(this).attr("rel");
+                var routecode = '@ViewBag.routecode';
+                @*var zone = '@ViewBag.zone';*@
+                var service = '@ViewBag.service';
+                var startdate = '@ViewBag.startdate';
+                var enddate = '@ViewBag.enddate';
+                var type = 3;
+                var da = {
+                    endpostcode: endpostcode,
+                    //zone: zone,
+                    routecode: routecode,
+                    service: service,
+                    startdate: startdate,
+                    enddate: enddate,
+                    type: type,
+                };
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () {
+                        $('.loading-element-1').show();
+                    },
+
+                    url: '@Url.Action("KpiBD13DeliveryDetailReport_NoInformation", "KpiBD13Delivery")',
+                    // The key needs to match your method's input parameter (case-sensitive).
+                    data: JSON.stringify(da),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        //$('#myModal').on('show.bs.modal', function (e) { });
+                        var str_html = '<table id="GridView1" class="table table-bordered table-hover">';
+                        str_html += '<thead>';
+                        str_html += '<tr class="bg-light-blue color-palette">';
+                        str_html += '<th>STT</th>';
+                        str_html += '<th>Mã E1</th>';
+                        str_html += '<th>Bưu Cục Phát</th>';
+                        str_html += '<th>Tuyến Phát</th>';
+                        str_html += '<th>Ngày XNĐ</th>';
+                        str_html += '<th>Giờ XNĐ</th>';
+                        str_html += '<th>Ngày Phát</th>';
+                        str_html += '<th>Giờ Phát</th>';
+                        str_html += '<th>TG BQ</th>';
+                        str_html += '</tr>';
+                        str_html += '</thead>';
+                        str_html += '<tbody>';
+                        var str_body = "";
+                        var a = 1;
+                        $.each(data.ListKpiBD13DeliverySuccess6HReport, function (i, item) {
+                            str_body += '<tr>';
+                            str_body += '<td>' + a++ + '</td>';
+                            str_body += '<td><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '"target="_blank" "class="mae1" id="' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '">' + data.ListKpiBD13DeliverySuccess6HReport[i].ItemCode + '</a></td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].EndPostCode + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].RouteCode + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].C17StatusDate + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].C17StatusTime + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].StatusDate + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].StatusTime + '</td>';
+                            str_body += '<td>' + data.ListKpiBD13DeliverySuccess6HReport[i].TimeInterval + '</td>';
+                            str_body += '</tr>';
+                        });
+                        str_html += str_body;
+                        str_html += '</tbody>';
+                        str_html += '</table>';
+                        if (data.Code == '01') {
+                            $('.loading-element-1').hide();
+                            //Xóa session store của bảng chi tiết trước khi show ra
+                            $("#list_test tr").remove();
+                            swal(
+                              'Không Có Số Liệu',
+                              '',
+                              'error'
+                            )
+
+                        }
+                        else {
+                            $('.loading-element-1').hide();
+                            $('#list_test').html(str_html);
+                        }
+
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        $('#btnexportlist').hide();
+        swal(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+   
+}
+
+

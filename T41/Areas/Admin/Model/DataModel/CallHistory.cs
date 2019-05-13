@@ -8,6 +8,7 @@ namespace T41.Areas.Admin.Model.DataModel
 
     public class CallHistory
     {
+        public int STT { get; set; }
         public int ID { get; set; }
         public string PO_CODE { get; set; }
         public string CODE { get; set; }

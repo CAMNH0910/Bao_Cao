@@ -1,0 +1,572 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+<style type="text/css">
+    p {
+        font-weight:bold;
+    }
+</style>
+<title>Báo cáo kpi bd13</title>
+<section class="content-header">
+        <h1>
+            <small>Báo Cáo </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Báo cáo kpi bd13</li>
+        </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Báo cáo Tổng hợp kpi bd13</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Khu Vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="zone">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">Hà Nội</option>
+                            <option value="2">Đà Nẵng</option>
+                            <option value="3">Hồ Chí Minh</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bưu cục phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Dịch Vụ</label>
+                        <select class="form-control select2" style="width: 100%;" id="service">
+                            <option selected="selected" value="10">Tất Cả</option>
+                            <option value="0">EMS Thường</option>
+                            <option value="1">COD</option>
+                            <option value="2">Hỏa Tốc</option>
+                            <option value="3">PT9</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tuyến phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="routecode">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="form-group">
+                        <p>
+                            Ghi Chú: Thời Gian PTC quy định<br />
+                            +EMS Thường,COD: 6H<br />
+                            +HỎA TỐC: 2H
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="box-header">
+                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "QualityDelivery")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+                <table id="ExcelView" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT<br /></th>
+                            <th class="text-center">Đơn Vị</th>
+                            <th class="text-center">Bưu Cục</th>
+                            <th class="text-center">Tên Bưu Cục</th>
+                            <th class="text-center">SL Bưu  <br /> Gửi Đến</th>
+                            <th class="text-center">SL Phát <br /> Thành Công</th>
+                            <th class="text-center">SL Phát Chưa <br />Có Thông Tin</th>
+                            <th class="text-center">SL PTC <br /> Đúng Quy Định</th>
+                            <th class="text-center">SL PTC Không <br />  Đúng Quy Định</th>
+                            <th class="text-center">Tỉ Lệ TC Đạt<br />  Đúng Quy Định</th>
+                            <th class="text-center">Tỉ Lệ TC Không<br />  Đúng Quy Định</th>
+                            <th class="text-center">SL PTC Không <br /> Xác Định</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpibd13report"></tbody>
+                </table>
+
+            </div>
+            
+
+            
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Chi Tiết</h4>
+                            <input type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('GridView1', 'Chi Tiết Bưu Gửi')" value="Xuất Excel">
+                            @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
+                        </div>
+                        <div class="modal-body edit-content">
+                            <div type="reset" id="list_test"></div>
+                            <div class="loading-element-1 text-center" style="font-size:50px;">
+                                <i class="fa fa-spinner fa-spin"></i>
+                                Vui lòng chờ giây lát...
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer4" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer5" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer6" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer7" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer8" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer9" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer10" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer11" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer12" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer13" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer14" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer15" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer16" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer17" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer18" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer19" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer20" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer21" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer22" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer23" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer24" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer25" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer26" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            @*Phần Xuất Ra Biểu Đồ*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="chartContainer27" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartContainer28" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+   
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+       , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+    });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+
+
+    //Phần Xuất excel của bảng chi tiết
+    //$(function () {
+    //    $('[id*=btnExport]').on('click', function () {
+    //        ExportToExcel('GridView1');
+    //    });
+    //});
+    
+    //Function Xuất Excel của bảng chi tiết
+    //function ExportToExcel(Id) {
+    //    var tab_text = "<table border='2px'><tr>";
+    //    var textRange;
+    //    var j = 0;
+    //    tab = document.getElementById(Id);
+    //    var headerRow = $('[id*=GridView1] tr:first');
+    //    tab_text += headerRow.html() + '</tr><tr>';
+    //    var rows = $('[id*=GridView1] tr:not(:has(th))');
+    //    for (j = 0; j < rows.length; j++) {
+    //        if ($(rows[j]).css('display') != 'none') {
+    //            tab_text = tab_text + rows[j].innerHTML + "</tr>";
+    //        }
+    //    }
+    //    tab_text = tab_text + "</table>";
+    //    tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    //    tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+    //    tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+    //    var ua = window.navigator.userAgent;
+    //    var msie = ua.indexOf("MSIE ");
+    //    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+    //    {
+    //        txtArea1.document.open("txt/html", "replace");
+    //        txtArea1.document.write(tab_text);
+    //        txtArea1.document.close();
+    //        txtArea1.focus();
+    //        sa = txtArea1.document.execCommand("SaveAs", true, Id + ".xls");
+    //    }
+    //    else {                 //other browser not tested on IE 11
+    //        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+    //    }
+    //    return (sa);
+    //}
+
+
+
+    $("#btnreport").click(function () {
+        
+        // goi ham Detail
+        $("#listkpibd13report tr").remove();
+        detail();
+        $('.box-footer').show();
+
+        chart1.destroy();
+        chart2.destroy();
+        chart3.destroy();
+        chart4.destroy();
+        chart5.destroy();
+        chart6.destroy();
+        chart7.destroy();
+        chart8.destroy();
+        chart9.destroy();
+        chart10.destroy();
+        chart11.destroy();
+        chart12.destroy();
+        chart13.destroy();
+        chart14.destroy();
+        chart15.destroy();
+        chart16.destroy();
+        chart17.destroy();
+        chart18.destroy();
+        chart19.destroy();
+        chart20.destroy();
+        chart21.destroy();
+        chart22.destroy();
+        chart23.destroy();
+        chart24.destroy();
+        chart25.destroy();
+        chart26.destroy();
+        chart27.destroy();
+        chart28.destroy();
+    });
+
+   
+    //Export Excel
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?zone=' + $('#zone').val() + '&endpostcode=' + $('#endpostcode').val() + '&routecode=' + $('#routecode').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
+        // redirect
+        location.href = url;
+    });
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail(p) {
+        $.ajax({
+            url: '@Url.Action("ListDetailedKpiBD13DeliveryReport", "KpiBD13Delivery")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            dataType: 'html',
+            data:
+                {
+                    zone: $("#zone").val(),
+                    endpostcode: $("#endpostcode").val(),
+                    routecode: $("#routecode").val(),
+                    startdate: $('#fromdate').val(),
+                    enddate: $('#todate').val(),
+                    service: $("#service").val()
+                    
+                },
+            success: function (result) {
+                // sau khi chay ham thanh cong lay ra ket qua thi bind html vao id listkpibd13report
+                $('.loading-element').hide();
+                $('#listkpibd13report').html(result);
+                $('#btnexportlist').show();
+
+            }
+        })
+    }
+
+   
+
+    //Sự kiện thay đổi bưu cục phát theo khu vực
+    $(document).ready(function () {
+        $('#zone').change(function () {
+                $.ajax({
+                    url: "/KpiBD13Delivery/PosCode",
+                    dataType: "json",
+                    data: { zone: $("#zone").val() },
+                    success: function (data) {
+                        $('#endpostcode').html('<option value=0>Bưu Cục Phát </option>');
+                        jQuery.each(data, function (i, val) {
+                            $('#endpostcode').html($('#endpostcode').html() +
+                                "<option value='" + val.POSCODE + "'>" + val.POSCODE + '-' + val.POSNAME + "</option>");
+                        });
+                    }
+                });
+            })
+    });
+
+    
+
+    //Sự kiện thay đổi tuyến phát theo bưu cục phát
+    $(document).ready(function () {
+        $('#endpostcode').change(function () {
+            $.ajax({
+                url: "/KpiBD13Delivery/RouteCode",
+                dataType: "json",
+                data: { endpostcode: $("#endpostcode").val() },
+                success: function (data) {
+                    $('#routecode').html('<option value=0>Tuyến Phát </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#routecode').html($('#routecode').html() +
+                            "<option value='" + val.POSCODE + "'>" + val.POSCODE + '-' + val.POSNAME + "</option>");
+                    });
+                }
+            });
+        })
+    });
+
+    
+</script>
+
+

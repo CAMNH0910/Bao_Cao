@@ -219,6 +219,7 @@
     <Compile Include="Areas\Admin\Controllers\DealAndAccountFalseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CheckDealTransferController.cs" />
     <Compile Include="Areas\Admin\Controllers\DetailLadingToPostManController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KpiBD13DeliveryController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrackAndTraceController.cs" />
     <Compile Include="Areas\Admin\Controllers\FindReceptacleController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExpressRoadController.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="Areas\Admin\Data\DealAndAccountFalseRepository.cs" />
     <Compile Include="Areas\Admin\Data\CheckDealTransferRepository.cs" />
     <Compile Include="Areas\Admin\Data\DetailLadingToPostmanRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KpiBD13DeliveryRepository.cs" />
     <Compile Include="Areas\Admin\Data\TrackAndTraceRepository.cs" />
     <Compile Include="Areas\Admin\Data\ReceptacleIDRepository.cs" />
     <Compile Include="Areas\Admin\Data\DevelopActivityRepository.cs" />
@@ -288,6 +290,7 @@
     <Compile Include="Areas\Admin\Model\DataModel\FindReceptacleID.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DevelopActivity.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Journey.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KpiBD13Delivery.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\RoadwayTransport.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwayTransportCome.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Business.cs" />
@@ -642,6 +645,7 @@
     <Content Include="Areas\Admin\Content\bower_components\bootstrap\package.js" />
     <Content Include="Areas\Admin\Content\bower_components\DevelopActivityJS\DevelopChart_NOI_TINH.js" />
     <Content Include="Areas\Admin\Content\bower_components\DevelopActivityJS\DevelopChart.js" />
+    <Content Include="Areas\Admin\Content\bower_components\KpiBD13DelivertChartJS\Chart.js" />
     <Content Include="Areas\Admin\Content\bower_components\QualityDelivertChartJS\Chart.js" />
     <Content Include="Areas\Admin\Content\bower_components\fastclick\lib\fastclick.js" />
     <Content Include="Areas\Admin\Content\bower_components\font-awesome\.gitignore" />
@@ -3348,6 +3352,10 @@
     <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\package.json" />
     <Content Include="Areas\Admin\Content\bower_components\Bootstrap4-Audio-Playlist-master\README.md" />
     <Content Include="Areas\Admin\Views\CallHistory\ListCallHistoryReport.cshtml" />
+    <Content Include="Areas\Admin\Views\CallHistory\ID_CallHistoryDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\CallHistory\ID_ListCallHistoryReport.cshtml" />
+    <Content Include="Areas\Admin\Views\KpiBD13Delivery\ListDetailedKpiBD13DeliveryReport.cshtml" />
+    <Content Include="Areas\Admin\Views\KpiBD13Delivery\KpiBD13DeliveryDetailReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -199,28 +199,28 @@
                                 </a>
                             </li>
                         }
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-link"></i> <span>Tra cứu bd13</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @*
+                                    <li><a href="/Admin/Delivery/DeliveryDetailReport">Chi tiết hoạt động phát</a></li>
+                                    <li><a href="#">Biểu tổng hợp hoạt động phát</a></li>
+                                *@
+                                <li><a href="/Admin/DetailBD13/BD13DetailReport">Chi tiết E1 BD13 DATACENTER</a></li>
+                                <li><a href="/Admin/DetailLadingToPostMan/LadingToPostManDetailReport">Chi tiết E1 BD13 PNS</a></li>
+                            </ul>
+                        </li>
                     }
                     
                     <!-- Group 1 -->
                     @{
                         if (Convert.ToInt32(Session["Role"]) == 1)
                         {
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-link"></i> <span>Tra cứu bd13</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    @*
-                                    <li><a href="/Admin/Delivery/DeliveryDetailReport">Chi tiết hoạt động phát</a></li>
-                                    <li><a href="#">Biểu tổng hợp hoạt động phát</a></li>
-                                    *@
-                                    <li><a href="/Admin/DetailBD13/BD13DetailReport">Chi tiết E1 BD13 DATACENTER</a></li>
-                                    <li><a href="/Admin/DetailLadingToPostMan/LadingToPostManDetailReport">Chi tiết E1 BD13 PNS</a></li>
-                                </ul>
-                            </li>
                             <!-- Group Đối Soát truyền nhận giao dịch -->
                             <li class="header" style="color:cornflowerblue;"><strong>ĐỐI SOÁT TRUYỀN NHẬN</strong></li>
                             <li>
@@ -234,6 +234,7 @@
                                 </a>
                             </li>
                         }
+                        
                     }
                     @{
                         if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 2)
@@ -289,7 +290,7 @@
                                 <li><a href="#">Báo cáo vận chuyển</a></li>
                                 <li><a href="/admin/home/lock">Báo cáo chất lượng phát</a></li>*@
                                 <li><a href="/Admin/QualityDelivery/QualityDeliveryDetailReport">Báo cáo chất lượng phát</a></li>
-
+                                <li><a href="/Admin/KpiBD13Delivery/KpiBD13DeliveryDetailReport">Báo cáo chất lượng bd13</a></li>
                         </ul>
                     </li>
 

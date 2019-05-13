@@ -17,7 +17,12 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title col text-center">Lịch sử cuộc gọi</h2>
-                <h2 class="text-center" id="mae1"></h2>
+                
+                @foreach (var item in Model.List_Call_History_Report)
+                {
+                    <h2 class="text-center" id="mae1">@item.LADING_CODE</h2>
+                   
+                }
                 <div class="row align-items-center mt-4 mb-3 mx-0">
                     <i id="play-button" class="material-icons play-pause text-primary mr-2" aria-hidden="true">play_circle_outline</i>
                     <i id="pause-button" class="material-icons play-pause d-none text-primary mr-2" aria-hidden="true">pause_circle_outline</i>
@@ -66,13 +71,7 @@
 
         <script src="~/Areas/Admin/Content/bower_components/Bootstrap4-Audio-Playlist-master/js/jquery-ui-slider.js"></script>
         <script src="~/Areas/Admin/Content/bower_components/Bootstrap4-Audio-Playlist-master/js/audioPlayer.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                document.getElementById("mae1").innerHTML = "<strong> " + emscode + " </strong>";
-            });
-
-        </script>
+        
 }
 
 else

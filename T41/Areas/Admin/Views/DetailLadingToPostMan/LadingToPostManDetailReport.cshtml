@@ -31,13 +31,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                            <label>Khu Vực</label>
-                            <select class="form-control select2" style="width: 100%;" id="zone">
-                                <option selected="selected" value="0">Tất cả</option>
-                                <option value="0100">Hà Nội</option>
-                                <option value="0101">Đà Nẵng</option>
-                                <option value="0102">Hồ Chí Minh</option>
-                            </select>
+                        <label>Khu Vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="zone">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="0100">Hà Nội</option>
+                            <option value="0101">Đà Nẵng</option>
+                            <option value="0102">Hồ Chí Minh</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Bưu cục phát</label>
@@ -46,8 +46,14 @@
 
                         </select>
                     </div>
-                    
-                    
+                    <div class="form-group">
+                        <label>Tuyến phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="routecode">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+
                     <!-- /.form-group -->
                 </div>
                 <div class="col-md-4">
@@ -68,27 +74,16 @@
                             <option value="3">Ca 3</option>
                         </select>
                     </div>
-                    
+
                 </div>
                 <div class="col-md-4">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Chuyến Thư</label>
-                            <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="chthu">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Túi Số</label>
-                            <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="tuiso">
-                        </div>
+                    <div class="form-group">
+                        <label>Chuyến Thư</label>
+                        <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="chthu">
                     </div>
                     <div class="form-group">
-                        <label>Tuyến phát</label>
-                        <select class="form-control select2" style="width: 100%;" id="routecode">
-                            <option selected="selected" value="0">Tất cả</option>
-
-                        </select>
+                        <label>Túi Số</label>
+                        <input class="form-control " onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" id="tuiso">
                     </div>
                 </div>
             </div>
