@@ -18,12 +18,12 @@ namespace T41.Areas.Admin.Model.DataModel
     public class HeaderTrackingOrderDetail
     {
 
-        public int CustomerCode { get; set; }
+        public String CustomerCode { get; set; }
         public String CustomerName { get; set; }
-        public int TotalItem { get; set; }
+        public String TotalItem { get; set; }
         public String TotalSuccess { get; set; }
         public String TotalCharge_E1 { get; set; }
-        public int TotalAmount { get; set; }
+        public String TotalAmount { get; set; }
         
 
     }
@@ -32,16 +32,16 @@ namespace T41.Areas.Admin.Model.DataModel
     public class TrackingOrderDetail
     {
 
-        public int CustomerCode { get; set; }
+        public String CustomerCode { get; set; }
         public String ItemCode { get; set; }
         public String ItemCodePartner { get; set; }
         public String SenderDate { get; set; }
         public String ReceivePhone { get; set; }
         public String ReceiveAddress { get; set; }
         public String ToProvince { get; set; }
-        public int Weight { get; set; }
-        public int Charge_E1 { get; set; }
-        public int TotalAmount { get; set; }
+        public String Weight { get; set; }
+        public String Charge_E1 { get; set; }
+        public String TotalAmount { get; set; }
         public String DeliveryName { get; set; }
         public String DeliveryDate { get; set; }
         public String DeliveryTime { get; set; }

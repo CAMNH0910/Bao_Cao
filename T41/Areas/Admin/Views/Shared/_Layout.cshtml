@@ -137,9 +137,9 @@
                     </div>
                 </div>
                 @*Phần Tra Cứu Định Vị Bưu Gửi*@
-                <form action="#" method="get" @*class="sidebar-form"*@ autocomplete="off">
+                <form action="/Admin/TrackAndTrace/Index?emscode=" method="get" @*class="sidebar-form"*@ autocomplete="off">
                     <div class="input-group">
-                        <input type="text" name="message" id="emscode" placeholder="Nhập Mã E1..." class="form-control" maxlength="13">
+                        <input type="text" name="emscode" id="emscode" placeholder="Nhập Mã E1..." class="form-control" maxlength="13">
                         <span class="input-group-btn">
                             <a href='' class="btn btn-primary btn-flat" onclick="this.href = '/Admin/TrackAndTrace/Index?emscode=' + document.getElementById('emscode').value">
                                 <strong class="fa fa-arrow-circle-right">
@@ -188,8 +188,7 @@
 
                     
                     @{
-                        if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["userid"]) == 3)
-                        {
+                        
                             <li class="header" style="color:cornflowerblue;"><strong>TRA CỨU ĐỊNH VỊ</strong></li>
                             <!-- Group 1 -->
                             <!-- Group Quốc Tế -->
@@ -198,7 +197,7 @@
                                     <i class="fa fa-search"></i> <span>Tra cứu túi gói <br />đi quốc tế</span>
                                 </a>
                             </li>
-                        }
+                        
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-link"></i> <span>Tra cứu bd13</span>
@@ -287,10 +286,12 @@
                             
                                 @*<li><a href="/Admin/Collect/CollectDetailReport">Báo cáo thu gom</a></li>
                                 <li><a href="#">Báo cáo khai thác</a></li>
-                                <li><a href="#">Báo cáo vận chuyển</a></li>
-                                <li><a href="/admin/home/lock">Báo cáo chất lượng phát</a></li>*@
-                                <li><a href="/Admin/QualityDelivery/QualityDeliveryDetailReport">Báo cáo chất lượng phát</a></li>
-                                <li><a href="/Admin/KpiBD13Delivery/KpiBD13DeliveryDetailReport">Báo cáo chất lượng bd13</a></li>
+                                <li><a href="#">Báo cáo vận chuyển</a></li>*@
+                                @*<li><a href="/admin/home/lock">Báo cáo chất lượng phát</a></li>*@
+                                <li><a href="/admin/home/lock">Báo cáo chất lượng phát</a></li>
+                                <li><a href="/admin/home/lock">Báo cáo chất lượng bd13</a></li>
+                                @*<li><a href="/Admin/QualityDelivery/QualityDeliveryDetailReport">Báo cáo chất lượng phát</a></li>
+                                <li><a href="/Admin/KpiBD13Delivery/KpiBD13DeliveryDetailReport">Báo cáo chất lượng bd13</a></li>*@
                         </ul>
                     </li>
 

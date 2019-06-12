@@ -36,7 +36,7 @@ namespace T41.Areas.Admin.Controllers
 
             TrackingOrderRepository trackingorderRepository = new TrackingOrderRepository();
             ReturnTrackingOrder returntrackingorder = new ReturnTrackingOrder();
-            returntrackingorder = trackingorderRepository.TRACKING_ORDER_DETAIL(startdate, enddate, customercode, type);
+            returntrackingorder = trackingorderRepository.TRACKING_ORDER_DETAIL(common.DateToInt(startdate), common.DateToInt(enddate) , customercode, type);
             return View(returntrackingorder);
 
         }
