@@ -186,10 +186,55 @@ namespace T41.Areas.Admin.Data
 
         #endregion
 
-
         
+        #region DeleteDuplicateBD13  
+        public ReturnLADING DeleteDuplicateBD13(int date)
+        {
+            ReturnLADING oReponseEntity = new ReturnLADING();
+            int id = 0;
+            OracleCommand cmd;
+            try
+            {
+                using (cmd = new OracleCommand())
+                {
+                    cmd.Connection = Helper.OraPNSOracleConnection;
+                    cmd.CommandText = Helper.SchemaName + "EMS_LADING_TO_POSTMAN_PKG.DeleteDuplicateBD13";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("P_RETURN", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                    cmd.Parameters.Add("P_DATE", OracleDbType.Int32, ParameterDirection.Input).Value = date;
+                    cmd.ExecuteNonQuery();
+                    id = Convert.ToInt32(cmd.Parameters["P_RETURN"].Value.ToString());
+                    if (id > 0)
+                    {
+                        oReponseEntity.Code = "00";
+                        oReponseEntity.Message = "Xóa trùng dữ liệu BD13 thành công";
+                        oReponseEntity.Value = id.ToString();
 
-        
+                    }
+                    else
+                    {
+
+                        oReponseEntity.Code = "-1";
+                        oReponseEntity.Message = "Không có BD13 nào bị trùng";
+                        oReponseEntity.Value = string.Empty;
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "DetailLadingToPostmanRepository.DeleteDuplicateBD13: " + ex.Message);
+                oReponseEntity.Code = "99";
+                oReponseEntity.Message = "Lỗi xử lý dữ liệu";
+                oReponseEntity = null;
+            }
+            return oReponseEntity;
+        }
+        #endregion
+
+
+
     }
 
 

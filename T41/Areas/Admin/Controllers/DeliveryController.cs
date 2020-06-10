@@ -14,7 +14,7 @@ namespace T41.Areas.Admin.Controllers
     {
         int page_size = int.Parse(ConfigurationManager.AppSettings["PAGE_SIZE"]);
         Convertion common = new Convertion();
-        ApiRepository apiRepository = new ApiRepository();
+        //ApiRepository apiRepository = new ApiRepository();
 
         // GET: Report
         public ActionResult Index()

@@ -24,6 +24,7 @@ namespace T41.Areas.Admin.Data
             ReturnTrackingOrder _returnTrackingOrder = new ReturnTrackingOrder();
             List<TrackingOrderDetail> listTrackingOrderDetail = null;
             TrackingOrderDetail oTrackingOrderDetailDetail = null;
+            int a = 1;
             try
             {
                 // Gọi vào DB để lấy dữ liệu.
@@ -45,6 +46,7 @@ namespace T41.Areas.Admin.Data
                             while (dr.Read())
                             {
                                 oTrackingOrderDetailDetail = new TrackingOrderDetail();
+                                oTrackingOrderDetailDetail.STT = a++;
                                 oTrackingOrderDetailDetail.CustomerCode = dr["CUSTOMERCODE"].ToString();
                                 oTrackingOrderDetailDetail.ItemCode = dr["ITEMCODE"].ToString();
                                 oTrackingOrderDetailDetail.ItemCodePartner = dr["ITEMCODEPARTNER"].ToString();

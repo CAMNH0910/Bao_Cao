@@ -28,6 +28,11 @@ namespace T41.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult DeleteDuplicateBD13()
+        {
+            return View();
+        }
+
         public ActionResult LadingToPostManDetailReport()
         {
             //var userid = Convert.ToInt32(Session["userid"]);
@@ -58,6 +63,14 @@ namespace T41.Areas.Admin.Controllers
             DetailLadingToPostmanRepository bd13Repository = new DetailLadingToPostmanRepository();
             return Json(bd13Repository.GetDeliveryRouteCodeByDeliveryCode(delivery_post_code), JsonRequestBehavior.AllowGet);
             
+        }
+
+        //Phần xóa trùng dữ liệu BD13
+        public JsonResult ActionDeleteDuplicateBD13(string date)
+        {
+            DetailLadingToPostmanRepository bd13Repository = new DetailLadingToPostmanRepository();
+            return Json(bd13Repository.DeleteDuplicateBD13(common.DateToInt(date)), JsonRequestBehavior.AllowGet);
+
         }
 
         //Phần show ra dữ liệu của bảng người dùng

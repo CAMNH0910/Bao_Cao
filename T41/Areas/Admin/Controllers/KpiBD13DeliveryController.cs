@@ -139,7 +139,7 @@ namespace T41.Areas.Admin.Controllers
         {
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
-            worksheet.DefaultRowHeight = 20;
+            worksheet.DefaultRowHeight = 30;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
@@ -158,7 +158,7 @@ namespace T41.Areas.Admin.Controllers
             
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A1:L1"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -167,7 +167,7 @@ namespace T41.Areas.Admin.Controllers
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
-                range.Style.Font.SetFromFont(new Font("Arial", 11));
+                range.Style.Font.SetFromFont(new Font("Roboto", 12, FontStyle.Bold));
                 // Set Border
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border

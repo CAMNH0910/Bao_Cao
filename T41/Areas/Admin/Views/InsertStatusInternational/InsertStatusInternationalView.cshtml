@@ -1,0 +1,303 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="~/Areas/Admin/Content/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<title>Nhập trạng thái quốc tế</title>
+<section class="content-header">
+    <h1>
+        <small> </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">Nhập trạng thái quốc tế</li>
+    </ol>
+</section>
+<section class="content">
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title text-center"><strong>Nhập trạng thái quốc tế</strong></h3>
+        </div>
+
+
+        <!-- /.box-header -->
+        <div class="box-body">
+          
+            <div class="tab-content">
+                <!-- EMS -->
+                <div class="active tab-pane" id="EMS">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p style="color:red;">Mã E1</p>
+                                <input type="text" name="message" id="P_MAE1" placeholder="Nhập mã e1..." maxlength="13" autocomplete="off" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Trạng thái</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_EVENT">
+
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label>Ngày </label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input class="form-control pull-right" id="P_DATE" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Mã nước</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_MANC"></select>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Lý do</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_LYDO"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Hướng xử lý</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_HUONGXULY"></select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Tỉnh /Thành Phố</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_PROVINCE"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Mã bưu cục</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_MABC_KT"></select>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>IDMC</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_OE">
+                                    <option selected="selected" value="VNHANB">VNHANB</option>
+                                    <option value="VNSGNB">VNSGNB</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success btn-lrg ajax" id="btninput" style="margin-top: 25px;">Nhập trạng thái  <i class="fa fa-product-hunt"></i></button>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    @*<div class="row">
+                        <div class="col-lg-12">
+                            <table id="myTable" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="color-palette" style="background-color:#3ac984; font-family:'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;">
+                                        <th class="text-right" colspan="7" id="tongso"> </th>
+                                    </tr>
+                                    <tr class="color-palette" style="background-color:#3ac984; font-family:'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;">
+                                        <th class="text-center">STT</th>
+                                        <th class="text-center">Mã sản phẩm</th>
+                                        <th class="text-center">Tên sản phẩm</th>
+                                        <th class="text-center">Tên chủ hàng</th>
+                                        <th class="text-center">Tên nhà phân phối</th>
+                                        <th class="text-center">Số lượng</th>
+                                        <th class="text-center">Mã tỉnh</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list_order"></tbody>
+                            </table>
+                        </div>
+                    </div>*@
+                </div>
+
+
+                <!-- /.tab-pane -->
+            </div>
+              <!-- /.nav-tabs-custom -->
+        
+            
+        </div>
+
+    </div>
+
+
+</section>
+<script src="~/Areas/Admin/Content/bower_components/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       
+        $('.select2').select2();
+
+        $('#P_DATE').daterangepicker({
+            timePicker: true,
+            timePicker24Hour: true,
+            //timePickerIncrement: 30,
+            singleDatePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'YYYYMMDD Hmm'
+            }
+        });
+
+        
+        //Phần lấy dữ liệu mã nước
+        $.getJSON("/InsertStatusInternational/GetCountryCode", function (data) {
+            $('#P_MANC').html(data);
+        })
+
+        //Phần lấy dữ liệu trạng thái
+        $.getJSON("/InsertStatusInternational/GetListEventCode", function (data) {
+            $('#P_EVENT').html(data);
+        })
+
+        //Phần lấy dữ liệu lý do
+        $.getJSON("/InsertStatusInternational/Get_UPU_REASON_CODE", function (data) {
+            $('#P_LYDO').html(data);
+        })
+
+        //Phần lấy dữ liệu hướng xử lý
+        $.getJSON("/InsertStatusInternational/Get_UPU_ACTION_CODE", function (data) {
+            $('#P_HUONGXULY').html(data);
+        })
+
+        //Phần lấy dữ liệu mã tỉnh
+        $.getJSON("/TransferManagementVNPOST/ProvinceCode", function (data) {
+            $('#P_PROVINCE').html(data);
+        })
+
+        //Lần đầu load bưu cục đóng = HN
+        $.ajax({
+            url: "/TransferManagementVNPOST/PosCode",
+            dataType: "json",
+            data: { province: 10 },
+            success: function (data) {
+                $('#P_MABC_KT').html(data);
+            }
+        });
+
+        //Sự kiện thay đổi bưu cục đóng theo khu vực
+        $('#P_PROVINCE').change(function () {
+            $.ajax({
+                url: "/TransferManagementVNPOST/PosCode",
+               dataType: "json",
+                data: { province: $("#P_PROVINCE").val() },
+                success: function (data) {
+                    $('#P_MABC_KT').html(data);
+                }
+            });
+        })
+
+        //EMS
+        var input = document.getElementById("P_MAE1");
+        
+        //Phần JS gọi đến thư đi
+        function isi_create() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("InsertStatusInternationalCreate", "InsertStatusInternational")",
+                data: {
+                    MAE1: input.value,
+                    MANC: $('#P_MANC').val(),
+                    NGAY: $('#P_DATE').val(),
+                    GIO: $('#P_DATE').val(),
+                    EVENT: $('#P_EVENT').val(),
+                    LYDO: $('#P_LYDO').val(),
+                    HUONGXULY: $('#P_HUONGXULY').val(),
+                    OE: $('#P_OE').val(),
+                    MABC_KT: $('#P_MABC_KT').val(),
+                },
+            dataType: "json",
+            success: function (data) {
+                if (data.Code == '00') {
+
+                    swal(
+                      data.Message,
+                      '',
+                      'success'
+                    );
+
+                }
+                else {
+                    document.getElementById('P_MAE1').value = '';
+                    swal(
+                      data.Message,
+                      '',
+                      'warning'
+                    );
+                }
+
+            },
+            });
+        }
+
+        $("#btninput").click(function () {
+            let check_P_MABC_KT = document.getElementById("P_MAE1");
+            //Gọi hàm insert
+            if (input.value === "" || input.value == undefined) {
+                swal(
+                  'Mã E1 không được để trống',
+                  '',
+                  'warning'
+                );
+            }
+            if (input.value.length != 13) {
+                swal(
+                  'Sai định dạng mã E1',
+                  '',
+                  'warning'
+                );
+            }
+            if (check_P_MABC_KT.value == 0)
+            {
+                swal(
+                  'Vui lòng chọn mã bưu cục',
+                  '',
+                  'warning'
+                );
+            }
+
+            else {
+                isi_create();
+            }
+        });
+        
+        
+
+    });
+
+
+</script>
+
+
+
+
+
+
+

@@ -31,7 +31,7 @@ namespace T41.Areas.Admin.Model.DataModel
     //Dữ liệu lấy ra của phần List Theo Dõi Đơn Hàng
     public class TrackingOrderDetail
     {
-
+        public int STT { get; set; }
         public String CustomerCode { get; set; }
         public String ItemCode { get; set; }
         public String ItemCodePartner { get; set; }

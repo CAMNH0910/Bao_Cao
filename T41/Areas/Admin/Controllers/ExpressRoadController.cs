@@ -84,7 +84,7 @@ namespace T41.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ReadFromExcel()
         {
-            var data = ReadFromExcelfile(@"D:\PROJECT_EMS\DemoImportExcel\ExcelDemo.xlsx", "First Sheet");
+            var data = ReadFromExcelfile(@"D:\PROJECT_EMS\DemoImportExcel\SKU_5K.xlsx", "First Sheet");
             return View(data);
         }
     }

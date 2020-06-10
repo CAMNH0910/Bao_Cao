@@ -64,14 +64,22 @@
                         <option value="5">Phát Hoàn Thành Công</option>
                     </select>
                 </div>
-                <div class="col-lg-6">
+                @*<div class="col-lg-6">
                     <input type="button" class="btn btn-default btn-lrg ajax" onclick="tableToExcel('example2', 'Trạng Thái Bưu Gửi')" value="Xuất Excel">
-                    @*<input type="button" class="btn btn-default btn-lrg ajax" onclick="ExportToExcel('example2', 'Trạng Thái Bưu Gửi')" value="Xuất Excel">*@
+                </div>*@
+            </div>
+            
+            @*<div class="row">
+                <div class="col-md-12 text-right">
+                    <input type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('example2', 'Trạng Thái Bưu Gửi')" value="Xuất Excel">
+                </div>
+            </div>*@
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("Export", "TrackingOrder")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
                 </div>
             </div>
-            @*<div class="box-header">
-                    <h3 class="box-title">Thông Tin Đơn Hàng</h3>
-                </div>*@
             <div style="overflow-x:auto;">
                 <table id="example2" class="table table-bordered table-hover" style="font-family:Tahoma;font-size:15px;border: 1px solid #2d2a2a;">
                     <thead>
@@ -148,21 +156,20 @@
     //    return (sa);
     //}
 
-    var tableToExcel = (function () {
-        var uri = 'data:application/vnd.ms-excel;base64,'
-          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
-          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        return function (table, name) {
-            if (!table.nodeType) table = document.getElementById(table)
-            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-            window.location.href = uri + base64(format(template, ctx))
-        }
-    })()
 
-    $(document).ready(function(){
-        $('.loading-element').hide();
-    });
+    //var tableToExcel = (function () {
+    //    var uri = 'data:application/vnd.ms-excel;base64,'
+    //      , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+    //      , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    //      , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+    //    return function (table, name) {
+    //        if (!table.nodeType) table = document.getElementById(table)
+    //        var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+    //        window.location.href = uri + base64(format(template, ctx))
+    //    }
+    //})()
+
+   
 
     $(document).ready(function () {
 
@@ -171,9 +178,6 @@
         detail_headertrackingorder();
         $.ajax({
             url: '@Url.Action("ListDetailedTrackingOrderReport", "TrackingOrder")',
-            beforeSend: function () {
-                $('.loading-element').show();
-            },
             dataType: 'html',
             data:
                 {
@@ -214,9 +218,6 @@
     function detail_trackingorder() {
         $.ajax({
             url: '@Url.Action("ListDetailedTrackingOrderReport", "TrackingOrder")',
-            beforeSend: function () {
-                $('.loading-element').show();
-            },
             dataType: 'html',
             data:
                 {
@@ -256,6 +257,14 @@
             }
         })
     }
+
+    //Export Excel
+    $('#btnexport').click(function () {
+// build the url
+        var url = $(this).data('baseurl') + '?startdate=' + startdate + '&enddate=' + enddate + '&customercode=' + customercode + '&type=' + $('#type').val();
+        // redirect
+        location.href = url;
+    });
 </script>
 
 

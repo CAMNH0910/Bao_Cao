@@ -1,0 +1,314 @@
+﻿
+
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+
+
+
+<title>Báo cáo chi tiết hàng quốc tế đến VN</title>
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo chi tiết hàng quốc tế đến VN</li>
+    </ol>
+</section>
+<section class="content">
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title text-center"><strong>Báo cáo chi tiết hàng quốc tế đến VN</strong></h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+
+
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Từ Ngày </label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Đến Ngày</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Mã nước</label>
+                        <select class="form-control select2" style="width: 100%;" id="country">
+                            
+                        </select>
+                    </div>
+                </div>
+
+                
+
+                <div class="col-md-3" style="padding-top:25px;">
+                    <button type="button" class="btn btn-info btn-lrg ajax btnreport" >Hiển thị dữ liệu  <i class="fa fa-search"></i></button>
+                </div>
+                
+                
+               
+            </div>
+            
+            
+            <div class="col-md-12 col-lg-12 col-xs-12" style="overflow-x:auto;">
+                <table class="table table-bordered table-hover myTable">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            
+                            <th class="text-center">Mã e1</th>
+                            <th class="text-center">Mã nước</th>
+                            <th class="text-center">D_OE</th>
+                            <th class="text-center">EMD</th>
+                            
+                            <th class="text-center">EMD_TRAN</th>
+                            
+                            <th class="text-center">DELI</th>
+                            <th class="text-center">EME</th>
+                            <th class="text-center">EME_TRAN</th>
+                            <th class="text-center">EDB</th>
+                            <th class="text-center">EDB_TRAN</th>
+                            <th class="text-center">EDC</th>
+
+                            <th class="text-center">EDC_TRAN</th>
+                            <th class="text-center">EMF</th>
+                            <th class="text-center">EMF_TRAN</th>
+                            <th class="text-center">EMH</th>
+                            <th class="text-center">EMH_TRAN</th>
+
+                            <th class="text-center">EMI</th>
+                            <th class="text-center">EMI_TRAN</th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody class="list_user"></tbody>
+
+                </table>
+            </div>
+
+
+            <div class="col-lg-12 loading-element hide text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+           
+
+        </div>
+
+    </div>
+
+
+    <!-- /.box-body -->
+
+
+
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.select2').select2();
+        
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+        var yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", yesterday);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+        //Phần lấy dữ liệu mã nước
+        $.getJSON("/InternationalDetail/CountryCode", function (data) {
+            $('#country').html(data);
+        })
+
+        
+    });
+
+
+
+
+    $(".btnreport").click(function () {
+        //$('#list_user').detach();
+        
+        detail_user_search();
+    });
+
+    
+
+
+
+    //Phần JS gọi đến dữ liệu của chi tiết người dùng
+    function detail_user_search() {
+        
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListInternationalDetail_Report", "InternationalDetail")',
+            beforeSend: function () {
+                $('.loading-element').removeClass("hide");
+            },
+            dataType: 'json',
+            data:
+                {
+                    fromdate: $('#fromdate').val(),
+                    todate: $('#fromdate').val(),
+                    countrycode: $('#country').val(),
+
+                },
+            success: function (data) {
+                
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListInternational_Detail_Report, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    
+                    str_body += '<td class="text-center">' + data.ListInternational_Detail_Report[i].MAE1 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListInternational_Detail_Report[i].EDI_CODE + '</td>';
+                    str_body += '<td class="text-right">' + data.ListInternational_Detail_Report[i].D_OE + '</td>';
+                    str_body += '<td class="text-right">' + data.ListInternational_Detail_Report[i].EMD + '</td>';
+                    str_body += '<td class="text-right">' + data.ListInternational_Detail_Report[i].EMD_TRAN + '</td>';
+                    
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].DELI + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EME + '</td>';
+
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EME_TRAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EDB + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EDB_TRAN + '</td>';
+
+
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EDC + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EDC_TRAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EMF + '</td>';
+
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EMF_TRAN + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EMH + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EMH_TRAN + '</td>';
+
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EMI + '</td>';
+                    str_body += '<td class="text-left">' + data.ListInternational_Detail_Report[i].EMI_TRAN + '</td>';
+                    str_body += '</tr>';
+                });
+                
+                
+                str_html += str_body;
+
+                
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').addClass("hide");
+                    $('.list_user tr').empty();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+                    
+                    
+                }
+                else {
+                    $('.loading-element').addClass("hide");
+                    $('#box-1').removeClass("hide");
+                    $('#box-2').removeClass("hide");
+                    $('#box-3').removeClass("hide");
+                    $('#box-4').removeClass("hide");
+                    
+                    //Kiểm tra xem class myTable có phải là Datatable hay k
+                    if (!$.fn.dataTable.isDataTable('.myTable')) {
+                        $('.list_user tr').empty();
+                        $('.list_user').html(str_html);
+                        table = $('.myTable').DataTable({
+                             ordering: false,
+                             info: false,
+                             language: {
+                                        "lengthMenu": "Hiển thị _MENU_ bản ghi",
+                                        "zeroRecords": "Không có dữ liệu !",
+                                        "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                                        "infoEmpty": "Không tồn tại bản ghi !",
+                                        "search": "Nhập mã E1:",
+                                        "infoFiltered": "(Tìm kiếm trong _MAX_ bản ghi)",
+                                        "paginate": {
+                                            "next": "Trang sau",
+                                            "previous": "Trang trước"
+                                        }
+                             }
+                        });
+                    }
+                    // destroy class myTable sau đó mới gọi lại class 
+                    else {
+                        
+                        $(".myTable").dataTable().fnDestroy();
+                        $('.list_user').html(str_html);
+                        table = $('.myTable').DataTable({
+                            ordering: false,
+                            info: false,
+                            language: {
+                                "lengthMenu": "Hiển thị _MENU_ bản ghi",
+                                "zeroRecords": "Không có dữ liệu !",
+                                "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                                "infoEmpty": "Không tồn tại bản ghi !",
+                                "search": "Nhập mã E1:",
+                                "infoFiltered": "(Tìm kiếm trong _MAX_ bản ghi)",
+                                "paginate": {
+                                    "next": "Trang sau",
+                                    "previous": "Trang trước"
+                                }
+                            }
+                        });
+                    }
+
+                    
+                }
+            }
+        })
+    }
+
+
+
+</script>
+
+
+
+
+
+
+

@@ -219,6 +219,8 @@
     <Compile Include="Areas\Admin\Controllers\DealAndAccountFalseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CheckDealTransferController.cs" />
     <Compile Include="Areas\Admin\Controllers\DetailLadingToPostManController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InsertStatusInternationalController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InternationalDetailController.cs" />
     <Compile Include="Areas\Admin\Controllers\KpiBD13DeliveryController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrackAndTraceController.cs" />
     <Compile Include="Areas\Admin\Controllers\FindReceptacleController.cs" />
@@ -254,12 +256,13 @@
     <Compile Include="Areas\Admin\Data\DealAndAccountFalseRepository.cs" />
     <Compile Include="Areas\Admin\Data\CheckDealTransferRepository.cs" />
     <Compile Include="Areas\Admin\Data\DetailLadingToPostmanRepository.cs" />
+    <Compile Include="Areas\Admin\Data\InsertStatusInternationalRepository.cs" />
+    <Compile Include="Areas\Admin\Data\InternationalDetailRepository.cs" />
     <Compile Include="Areas\Admin\Data\KpiBD13DeliveryRepository.cs" />
     <Compile Include="Areas\Admin\Data\TrackAndTraceRepository.cs" />
     <Compile Include="Areas\Admin\Data\ReceptacleIDRepository.cs" />
     <Compile Include="Areas\Admin\Data\DevelopActivityRepository.cs" />
     <Compile Include="Areas\Admin\Data\RoadwayTransportRepository.cs" />
-    <Compile Include="Areas\Admin\Data\ApiRepository.cs" />
     <Compile Include="Areas\Admin\Data\DeliveryRepository.cs" />
     <Compile Include="Areas\Admin\Data\RealTimeKeepingRepository.cs" />
     <Compile Include="Areas\Admin\Data\QualityDeliveryRepository.cs" />
@@ -281,6 +284,8 @@
     <Compile Include="Areas\Admin\Model\CanvasModel\DataPoint.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Administrator.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwaytransportComeManagement.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\InsertStatusInternational.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\InternationalDetail.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DealAndAccountFalse.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\ChannelManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\CheckDealDelivery.cs" />
@@ -3356,6 +3361,9 @@
     <Content Include="Areas\Admin\Views\CallHistory\ID_ListCallHistoryReport.cshtml" />
     <Content Include="Areas\Admin\Views\KpiBD13Delivery\ListDetailedKpiBD13DeliveryReport.cshtml" />
     <Content Include="Areas\Admin\Views\KpiBD13Delivery\KpiBD13DeliveryDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\InternationalDetail\InternationalDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\DetailLadingToPostMan\DeleteDuplicateBD13.cshtml" />
+    <Content Include="Areas\Admin\Views\InsertStatusInternational\InsertStatusInternationalView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
