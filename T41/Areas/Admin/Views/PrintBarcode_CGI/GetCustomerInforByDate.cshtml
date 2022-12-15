@@ -1,0 +1,88 @@
+﻿<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<style>
+    .dataTables_filter {
+        margin-left:55%
+    }
+</style>
+@if (Model.listCustomerInfor != null)
+{
+
+    <div class="">
+        <table id="TableAccount" class="table table-bordered table-hover ">
+            <thead>
+                
+                <tr class="bg-light-blue color-palette">
+
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Passport Number</th>
+                    <th class="text-center">Delivery date</th>
+                    <th class="text-center">Full Name</th>
+                    <th class="text-center">Mobile</th>
+                    <th class="text-center">UID</th>
+                    <th class="text-center">Mailing City</th>
+                    <th class="text-center">Visa Class</th>
+                    <th class="text-center">Schedule Entry Time</th>
+                    <th class="text-center">DS 160</th>
+                    <th class="text-center">Priority Name</th>
+                    <th class="text-center">Delivery Option</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var c in Model.listCustomerInfor)
+                {
+
+                    <tr>
+                        @*<td>
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="select_@(i+1)" >
+                            </div>
+                        </td>*@
+                        <td>@c.STT</td>
+                        <td>@c.E1Code</td>
+                        <td>@c.DeliveryDate</td>
+                        <td>@c.CustomerName</td>
+                        <td>@c.Phone</td>
+                        <td>@c.Company</td>
+                        <td>@c.Province</td>
+                        <td>@c.VisaClass</td>
+                        <td>@c.EntryTime</td>
+                        <td>@c.DS160</td>
+                        <td>@c.PriorityName</td>
+                        <td>@c.DeliveryOption</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+</div>
+        <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript">
+            $("#TableAccount").dataTable().fnDestroy();
+            $('#TableAccount').DataTable({
+                "ordering": false,
+                "language": {
+                    " processing": "Message khi đang tải dữ liệu",
+                    "search": "Tìm kiếm theo từ khóa:",
+                    "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + @Model.listCustomerInfor.Count + " bản ghi",
+
+                    "zeroRecords": "Không có dữ liệu !",
+                    "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                    "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "previous": "Trang trước",
+                        "next": "Trang sau",
+                        "last": "Trang cuối"
+                    }
+                }
+            });
+
+
+        </script>
+    }

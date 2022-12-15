@@ -1,0 +1,68 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.ListDetailedQualityCTDVCTReport != null)
+{
+    int i = 0;
+    var j = Model.ListDetailedQualityCTDVCTReport.Count;
+    
+   
+
+    foreach (var c in Model.ListDetailedQualityCTDVCTReport)
+    {
+        <tr>
+            @*<td class="text-center">@(i + 1)</td>*@
+            <td class="text-center">@c.STT</td>
+            <td class="text-left">@c.Donvi</td>
+            <td class="text-left">@c.Matinhnhan</td>
+            <td class="text-left">@c.Tentinhnhan</td>
+            <td class="text-left">@c.Matinhtra</td>
+            <td class="text-left">@c.Tentinhtra</td>            
+            <td class="text-left">@c.Madvct</td>
+            <td class="text-left">@c.TenDVCT</td>
+            <td class="text-left">@c.Madvchinh</td>
+            <td class="text-left">@c.TenDVChinh</td>
+            <td class="text-left">@c.SL</td>
+            <td class="text-left">@c.KL</td>
+            <td class="text-left">@c.KLQD</td>
+            <td class="text-left">@c.Cuocchinh</td>
+            <td class="text-left">@c.PPXD</td>
+            <td class="text-left">@c.PPVX</td>
+            <td class="text-left">@c.PPMD</td>
+            <td class="text-left">@c.Cuocdvct</td>
+            <td class="text-left">@c.Tongcuoc</td>
+
+        </tr>
+        i++;
+        if (i == 50)
+        {
+            break;
+        }
+    }
+   
+
+
+    <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/QualityDelivertChartJS/Chart.js"></script>
+    //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
+    <tr>
+
+        <th class="text-right">Total:</th>
+        <td class="text-center">@j</td>
+    </tr>
+}
+else
+{
+    <script type="text/javascript">
+        $('#btnexportlist').hide();
+        swal.fire(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+   
+}
+
+

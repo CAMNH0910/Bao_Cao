@@ -118,14 +118,14 @@ namespace T41.Areas.Admin.Data
                    //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;                                         
                     myCommand.CommandTimeout = 20000;
-                    OracleDataAdapter mAdapter = new OracleDataAdapter();                 
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();                   
                     myCommand.Parameters.Add("v_Zone", OracleDbType.Int32).Value = zone;
                     myCommand.Parameters.Add("v_EndPostCode", OracleDbType.Int32).Value = endpostcode;
                     myCommand.Parameters.Add("v_routecode", OracleDbType.Int32).Value = routecode;
                     myCommand.Parameters.Add("v_Service", OracleDbType.Int32).Value = service;
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
-             
+                   
                     myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
                     mAdapter.Fill(da);
@@ -144,6 +144,7 @@ namespace T41.Areas.Admin.Data
                             oQualityDeliveryDetail.TenBuuCuc = dr["TENBUUCUC"].ToString();
                             oQualityDeliveryDetail.TongSL = Convert.ToInt32(dr["TONGSL"].ToString());
                             oQualityDeliveryDetail.SanLuongPTC = Convert.ToInt32(dr["SANLUONGPTC"].ToString());
+                            oQualityDeliveryDetail.TylePTC = Convert.ToDecimal(dr["TYLEPTC"].ToString());
                             oQualityDeliveryDetail.SanLuongKTT = Convert.ToInt32(dr["SANLUONGKTT"].ToString());
                             oQualityDeliveryDetail.SanLuongPTC6H = Convert.ToInt32(dr["SANLUONGPTC6H"].ToString());
                             oQualityDeliveryDetail.SanLuongPTCQUA6H = Convert.ToInt32(dr["SANLUONGPTCQUA6H"].ToString());
@@ -201,7 +202,7 @@ namespace T41.Areas.Admin.Data
                 {
                     cmd.Connection = Helper.OraDCOracleConnection;
                     cmd.CommandText = Helper.SchemaName + "kpi_detail_delivery.Detail_Item_Ems";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;                   
                     cmd.Parameters.Add(new OracleParameter("v_EndPostCode", OracleDbType.Int32)).Value = endpostcode;
                     cmd.Parameters.Add(new OracleParameter("v_routecode", OracleDbType.Int32)).Value = routecode;
                     cmd.Parameters.Add(new OracleParameter("v_Service", OracleDbType.Int32)).Value = service;

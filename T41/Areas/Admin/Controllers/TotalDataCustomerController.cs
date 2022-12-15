@@ -23,13 +23,21 @@ namespace T41.Areas.Admin.Controllers
         {
             return View();
         }
-
-        //Controller lấy dữ liệu tỉnh đóng, tỉnh nhận
-        public JsonResult ProvinceCode()
+        public JsonResult Provincenhan()
         {
             TotalDataCustomerRepository totaldatacustomerRepository = new TotalDataCustomerRepository();
-            return Json(totaldatacustomerRepository.GETPROVINCE(), JsonRequestBehavior.AllowGet);
+            return Json(totaldatacustomerRepository.GetallProvinceNhan(), JsonRequestBehavior.AllowGet);
+            //  return Json(apiRepository.ListPostCode(), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Provincetra()
+        {
+            TotalDataCustomerRepository totaldatacustomerRepository = new TotalDataCustomerRepository();
+            return Json(totaldatacustomerRepository.GetallProvinceTra(), JsonRequestBehavior.AllowGet);
+            //  return Json(apiRepository.ListPostCode(), JsonRequestBehavior.AllowGet);
+        }
+        //Controller lấy dữ liệu tỉnh đóng, tỉnh nhận
+     
 
         //Controller lấy dữ liệu bưu cục đóng, bưu cục nhận
         public JsonResult PosCode()
@@ -40,11 +48,11 @@ namespace T41.Areas.Admin.Controllers
 
         //Controller gọi đến chi tiết của bảng tổng hợp sản lượng đi phát
         [HttpGet]
-        public ActionResult ListDetailedTotalDataCustomerReport(string listcusotmer, string startdate, string enddate, int startpostcode, int endpostcode, int isservice, int country)
+        public ActionResult ListDetailedTotalDataCustomerReport(string customercode, string startdate, string enddate, int startprovince, int endprovince, int isservice)
         {
             TotalDataCustomerRepository totaldatacustomerRepository = new TotalDataCustomerRepository();
             ReturnTotalDataCustomer returntotaldatacustomer = new ReturnTotalDataCustomer();
-            returntotaldatacustomer = totaldatacustomerRepository.TOTAL_DATA_CUSTOMER_DETAIL(listcusotmer, startdate, enddate, startpostcode, endpostcode, isservice, country);
+            returntotaldatacustomer = totaldatacustomerRepository.TOTAL_DATA_CUSTOMER_DETAIL(customercode, common.DateToInt(startdate), common.DateToInt(enddate), startprovince, endprovince, isservice);
             return View(returntotaldatacustomer);
         }
 

@@ -90,11 +90,67 @@ namespace T41.Areas.Admin.Data
 
             return listGetPosCode;
         }
+        public string GetallProvinceTra()
+        {
+            string LISTTINH = "";
+            try
+            {
+                using (OracleCommand cm = new OracleCommand())
+                {
+                    cm.Connection = Helper.OraDCOracleConnection;
+                    cm.CommandText = string.Format(" select MA_TINH,TEN_TINH from  Bccp_Province order by ma_tinh");
+                    cm.CommandType = CommandType.Text;
+                    using (OracleDataReader dr = cm.ExecuteReader())
+                    {
+                        LISTTINH += "<option value='" + 0 + "'>" + "Tất cả" + "</option>";
+                        while (dr.Read())
+                        {
+
+                            LISTTINH += "<option value='" + dr["MA_TINH"].ToString() + "'>" + dr["MA_TINH"].ToString() + '-' + dr["TEN_TINH"].ToString() + "</option>";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // LogAPI.LogToFile(LogFileType.EXCEPTION, "InternationalDetailRepository.GETMANC" + ex.Message);
+            }
+
+            return LISTTINH;
+        }
+        public string GetallProvinceNhan()
+        {
+            string LISTTINH = "";
+            try
+            {
+                using (OracleCommand cm = new OracleCommand())
+                {
+                    cm.Connection = Helper.OraDCOracleConnection;
+                    cm.CommandText = string.Format(" select MA_TINH,TEN_TINH from  Bccp_Province order by ma_tinh");
+                    cm.CommandType = CommandType.Text;
+                    using (OracleDataReader dr = cm.ExecuteReader())
+                    {
+                        // LISTTINH += "<option value='" + 0 + "'>"+ "Tất cả" + "</option>";
+                        while (dr.Read())
+                        {
+
+                            LISTTINH += "<option value='" + dr["MA_TINH"].ToString() + "'>" + dr["MA_TINH"].ToString() + '-' + dr["TEN_TINH"].ToString() + "</option>";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // LogAPI.LogToFile(LogFileType.EXCEPTION, "InternationalDetailRepository.GETMANC" + ex.Message);
+            }
+
+            return LISTTINH;
+        }
         #endregion
 
         //Phần chi tiết của bảng tổng hợp 
         #region TOTAL_DATA_CUSTOMER_DETAIL          
-        public ReturnTotalDataCustomer TOTAL_DATA_CUSTOMER_DETAIL(string listcusotmer, string startdate, string enddate, int startpostcode, int endpostcode, int isservice, int country)
+        public ReturnTotalDataCustomer TOTAL_DATA_CUSTOMER_DETAIL(string customercode, int startdate, int enddate, int startprovince, int endprovince, int isservice)
         {
             DataTable da = new DataTable();
             MetaData _metadata = new MetaData();
@@ -109,18 +165,17 @@ namespace T41.Areas.Admin.Data
                 using (OracleCommand cmd = new OracleCommand())
                 {
 
-                    OracleCommand myCommand = new OracleCommand("management_customer.ManagemantCustomer", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("kpi_detail_delivery_Customer.Detail_Total_CLTT", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
-                    myCommand.Parameters.Add("v_ListCustomer", OracleDbType.Varchar2).Value = listcusotmer;
-                    myCommand.Parameters.Add("v_Startdate", OracleDbType.Int32).Value = common.DateToInt(startdate);
-                    myCommand.Parameters.Add("v_Enddate", OracleDbType.Int32).Value = common.DateToInt(enddate);
-                    myCommand.Parameters.Add("v_StartPostCode", OracleDbType.Int32).Value = startpostcode;
-                    myCommand.Parameters.Add("v_EndPostCode", OracleDbType.Int32).Value = endpostcode;
-                    myCommand.Parameters.Add("v_Isservice", OracleDbType.Int32).Value = isservice;
-                    myCommand.Parameters.Add("v_Country", OracleDbType.Int32).Value = country;
+                    myCommand.Parameters.Add("v_StartProvince", OracleDbType.Int32).Value = startprovince;
+                    myCommand.Parameters.Add("v_EndProvince", OracleDbType.Int32).Value = endprovince;
+                    myCommand.Parameters.Add("v_Isservice", OracleDbType.Int32).Value = isservice;                    
+                    myCommand.Parameters.Add("v_Startdate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_Enddate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_CustomerCode", OracleDbType.Varchar2).Value = customercode;
                     myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
                     mAdapter.Fill(da);
@@ -134,25 +189,17 @@ namespace T41.Areas.Admin.Data
                         while (dr.Read())
                         {
                             oTotalDataCustomerDetail = new TotalDataCustomerDetail();
-                            oTotalDataCustomerDetail.CUSTOMERNAME = dr["CUSTOMERNAME"].ToString();
-                            oTotalDataCustomerDetail.CUSTOMERCODE = dr["CUSTOMERCODE"].ToString();
-                            oTotalDataCustomerDetail.PROVINCENAME = dr["PROVINCENAME"].ToString();
-                            oTotalDataCustomerDetail.TOTALITEM = dr["TOTALITEM"].ToString();
-                            oTotalDataCustomerDetail.TOTALI = dr["TOTALI"].ToString();
-                            oTotalDataCustomerDetail.TotalItem = dr["TotalItem"].ToString();
-                            oTotalDataCustomerDetail.RATEI = dr["RATEI"].ToString();
-                            oTotalDataCustomerDetail.TOTALH = dr["TOTALH"].ToString();
-                            oTotalDataCustomerDetail.RATEH = dr["RATEH"].ToString();
-                            oTotalDataCustomerDetail.TOTALT = dr["TOTALT"].ToString();
-                            oTotalDataCustomerDetail.RATET =dr["RATET"].ToString();
-                            oTotalDataCustomerDetail.TOTALP = dr["TOTALP"].ToString();
-                            oTotalDataCustomerDetail.RATEP = dr["RATEP"].ToString();
-                            oTotalDataCustomerDetail.TOTALL = dr["TOTALL"].ToString();
-                            oTotalDataCustomerDetail.RATEL = dr["RATEL"].ToString();
-                            oTotalDataCustomerDetail.TOTALJ = dr["TOTALJ"].ToString();
-                            oTotalDataCustomerDetail.RATEJ = dr["RATEJ"].ToString();
-                            oTotalDataCustomerDetail.TOTALKXD = dr["TOTALKXD"].ToString();
-                            oTotalDataCustomerDetail.RATEKXD = dr["RATEKXD"].ToString();
+                         
+                            oTotalDataCustomerDetail.STARTPROVINCENAME = dr["STARTPROVINCENAME"].ToString();
+                            oTotalDataCustomerDetail.ENDPROVINCENAME = dr["ENDPROVINCENAME"].ToString();
+                            oTotalDataCustomerDetail.C17TOTAL = dr["C17TOTAL"].ToString();
+                            oTotalDataCustomerDetail.PTC = dr["PTC"].ToString();
+                            oTotalDataCustomerDetail.TLPTC = dr["TLPTC"].ToString();
+                            oTotalDataCustomerDetail.CH = dr["CH"].ToString();
+                            oTotalDataCustomerDetail.TLCH = dr["TLCH"].ToString();
+                            oTotalDataCustomerDetail.TOTALKTT = dr["TOTALKTT"].ToString();
+                            oTotalDataCustomerDetail.TLKTT =dr["TLKTT"].ToString();
+                            
                             listTotalDataCustomer.Add(oTotalDataCustomerDetail);
 
                         }

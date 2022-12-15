@@ -1,0 +1,346 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+<style type="text/css">
+    p {
+        font-weight:bold;
+    }
+</style>
+<title>Báo cáo chất lượng chuyển phát đơn hàng</title>
+<section class="content-header">
+        <h1>
+            <small>Báo Cáo </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Báo cáo chất lượng chuyển phát đơn hàng</li>
+        </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Báo cáo Tổng hợp chất lượng chuyển phát đơn hàng</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label>Dịch Vụ</label>
+                    <select class="form-control select2" style="width: 100%;" id="type">
+                        <option value="0">Báo cáo giám sát chất lượng phát thành công</option>
+                        <option value="1">Báo cáo giám sát chất lượng phát lần đầu</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tỉnh nhận</label>
+                    <select class="form-control select2" style="width: 100%;" id="tinh_nhan"></select>
+
+                </div>
+                <div class="form-group">
+                    <label>Từ Ngày </label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Mã khách Hàng</label>
+                    <textarea rows="1" class="form-control" id="customer" placeholder="Nhập Mã Khách Hàng"></textarea>
+                </div>
+               
+
+                <div>
+                    <label></label>
+                    <button type="button" class="btn btn-primary btn-lg btn-info" id="btnreport">Hiển Thị</button>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Tỉnh trả</label>
+                        <select class="form-control select2" style="width: 100%;" id="tinh_tra">
+                            <option selected="selected" value="0">Tất cả</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                  
+                    <div class="form-group">
+                        <label>Dịch Vụ</label>
+                        <select class="form-control select2" style="width: 100%;" id="Isservice">
+                            <option selected="selected" value="10">Tất Cả</option>
+                            <option value="0">EMS Tiêu chuẩn</option>
+                            <option value="1">COD+ETK</option>
+                            <option value="2">ECOD</option>
+                            <option value="3">EDG</option>
+                            <option value="4">ETT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="loading-element text-center" style="font-size:40px;">
+
+                        Vui lòng chờ giây lát...
+                    </div>
+                </div>
+
+                <!-- /.col -->
+
+                <div class="row">
+
+
+
+
+
+                    @*<div class="box-header">
+                            <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                        </div>*@
+
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                            <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "QualityKHDelivery")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="bg-light-blue color-palette">
+                                    <th rowspan="2" class="text-center">STT<br /></th>
+                                    <th rowspan="2" class="text-center">Tỉnh nhận</th>
+                                    <th rowspan="2" class="text-center">Tỉnh trả</th>
+                                    <th rowspan="2" class="text-center">Tổng SL</th>
+                                    <th colspan="2" class="text-center">J 1</th>                                                                  
+                                    <th colspan="2" class="text-center">J 2</th>
+                                    <th colspan="2" class="text-center">J 2.5</th>                                   
+                                    <th colspan="2" class="text-center">J 3</th>                                   
+                                    <th colspan="2" class="text-center">J3.5</th>
+                                    <th colspan="2" class="text-center">J 4</th>
+                                    <th colspan="2" class="text-center">>J 4</th>                                 
+                                    <th colspan="2" class="text-center">>KTT</th>
+                                </tr>
+                                <tr class="bg-light-blue color-palette">
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-center">TL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listqualityreport"></tbody>
+                        </table>
+
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Chi Tiết</h4>
+                                    <input type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('GridView1', 'Chi Tiết Bưu Gửi')" value="Xuất Excel">
+                                    @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
+                                </div>
+                                <div class="modal-body edit-content">
+                                    <div type="reset" id="list_test"></div>
+                                    <div class="loading-element-1 text-center" style="font-size:50px;">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                        Vui lòng chờ giây lát...
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+   
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+       , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+    });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+   
+    $("#btnreport").click(function () {
+        
+        // goi ham Detail
+        $("#listqualityreport tr").remove();
+        detail();
+        $('.box-footer').show();
+
+        chart1.destroy();
+        chart2.destroy();
+        chart3.destroy();
+        chart4.destroy();
+        chart5.destroy();
+        chart6.destroy();
+        chart7.destroy();
+        chart8.destroy();
+        chart9.destroy();
+        chart10.destroy();
+        chart11.destroy();
+        chart12.destroy();
+        chart13.destroy();
+        chart14.destroy();
+        chart15.destroy();
+        chart16.destroy();
+        chart17.destroy();
+        chart18.destroy();
+        chart19.destroy();
+        chart20.destroy();
+        chart21.destroy();
+        chart22.destroy();
+        chart23.destroy();
+        chart24.destroy();
+        chart25.destroy();
+        chart26.destroy();
+        chart27.destroy();
+        chart28.destroy();
+    });
+
+   
+    //Export Excel
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?type=' + $('#type').val() + '&StartProvince=' + $('#tinh_nhan').val() + "0000" + '&EndProvince=' + $('#tinh_tra').val() + "0000" + '&Isservice=' + $('#Isservice').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&CustomerCode=' + $('#customer').val();
+        // redirect
+        location.href = url;
+    });
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail(p) {
+        $.ajax({
+            url: '@Url.Action("ListDetailedQualityDeliveryKHReport", "QualityKHDelivery")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            dataType: 'html',
+            data:
+                {
+                    type: $("#type").val() ,
+                    StartProvince: $("#tinh_nhan").val()+"0000",
+                    EndProvince: $("#tinh_tra").val() + "0000",
+                    Isservice: $("#Isservice").val(),
+                    startdate: $('#fromdate').val(),
+                    enddate: $('#todate').val(),
+                    CustomerCode: $("#customer").val()
+                   
+                },
+            success: function (result) {
+                // sau khi chay ham thanh cong lay ra ket qua thi bind html vao id listqualityreport
+                $('.loading-element').hide();
+                $('#listqualityreport').html(result);
+                $('#btnexportlist').show();
+
+            }
+        })
+    }
+    $.getJSON("/QualityKHDelivery/Provincenhan", function (data) {
+        $('#tinh_nhan').html(data);
+    })
+
+    $.getJSON("/QualityKHDelivery/Provincetra", function (data) {
+        $('#tinh_tra').html(data);
+    })
+
+
+    
+    $('#sportsNFL').on('change', function () {
+        if ($(this).is(':checked')) {
+            table.columns(1).search('nfl');
+        }
+        table.draw();
+    });    
+</script>
+
+

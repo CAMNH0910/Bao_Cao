@@ -70,6 +70,7 @@ namespace T41.Areas.Admin.Model.DataModel
     //Dữ liệu lấy ra của Báo cáo tổng hợp dữ liệu truyền nhận EMS Center
     public class TransferManagementDetail
     {
+        public int Typecomunication { get; set; }
 
         public int FromPosCode { get; set; }
         public String FromPosName { get; set; }
@@ -85,7 +86,7 @@ namespace T41.Areas.Admin.Model.DataModel
     //Dữ liệu lấy ra của Chi tiết tổng hợp dữ liệu truyền nhận EMS Center
     public class TransferManagement_CTTS_Detail
     {
-
+        public int Typecomunication { get; set; }
         public int FromPosCode { get; set; }
         public String FromPosName { get; set; }
         public int ToPosCode { get; set; }
@@ -213,6 +214,12 @@ namespace T41.Areas.Admin.Model.DataModel
         public MetaData MetaData { get; set; }
 
 
+    }
+
+    public class ReturnTransmited
+    {
+        public string Code { get; set; }
+        public string Message { get; set; }
     }
 
     

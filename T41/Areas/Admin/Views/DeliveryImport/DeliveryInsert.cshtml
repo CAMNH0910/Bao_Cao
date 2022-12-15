@@ -1,0 +1,294 @@
+﻿<link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/DeliveryImport/DeliveryImport.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<style>
+    .invalid {
+        border-color: #f33a58;
+    }
+
+    .form-message {
+        color: red;
+        font-size: 1.5rem;
+    }
+
+    .input-group {
+        margin-bottom: 5px;
+    }
+
+
+</style>
+<title>Cập nhật trạng thái phát</title>
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Cập nhật trạng thái phát</li>
+    </ol>
+</section>
+
+<div class="container">
+    <form class="well form-horizontal" id="contact_form">
+        <fieldset>
+            <!-- Form Name -->
+            <legend>
+                <center>
+                    <h2><b>Nhập dữ liệu báo phát</b></h2>
+                </center>
+            </legend>
+            <br>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">Mã E1</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group ">
+                        <span class="input-group-addon"><i class="fa-solid fa-qrcode"></i></span>                      
+                        <input id="E1-Code" placeholder="Nhập mã E1" class="form-control" type="text">
+                    </div>
+                    <span class="form-message"></span>
+                </div>
+            </div>
+
+            
+            <div class="form-group">
+                <label class="col-md-4 control-label">Trạng thái phát</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select id="Status" class="form-control selectpicker">
+                            <option value="">Chọn trạng thái phất</option>
+                            <option value="1">Phát không thành công</option>
+                            <option value="2">Phát thành công</option>
+                            <option value="3">Phát hoàn thành công</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Bưu cục phát</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa-solid fa-location-dot"></i></span>
+                        
+                        <select id="Poscode" class="form-control select2 ">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Ngày phát</label>
+                <div class="col-md-4 input-group date" style="padding-left:15px;padding-right:15px" id="datetimepicker1">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input id="Delivery-date"  placeholder="Chọn ngày phát" class="form-control" type="text">
+                </div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Người nhận</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa-solid fa-user"></i></span>
+                        <input id="consignee" placeholder="Nhập tên người nhận" class="form-control" type="text">
+                    </div>
+                    <span class="form-message"></span>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label class="col-md-4 control-label">Ghi chú</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa-solid fa-clipboard"></i></span>
+                        <input id="Note" placeholder="Nhập ghi chú" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Select Basic -->
+            <!-- Success message -->
+            
+            <!-- Button -->
+            <div class="form-group" style="display:flex;justify-content:center">
+                <div class="col-md-4 ">
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button disabled id="btnSend" type="button" class="btn btn-warning " onclick="javascript: InsertE1NH()">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThêm mới<span style="margin-left:10px" class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                </div>
+            </div>    
+</fieldset>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+
+  $(function () {
+      $('#datetimepicker1').datetimepicker({
+          format: "DD-MM-YYYY HH:mm"
+      });
+  });
+
+  $(document).ready(function () {
+      $("#Poscode").select2();
+  })
+
+  function ConvertDay(time) {
+      time = $("#Delivery-date").val().substring(0, 10);
+      var newDay = time.split("-").reverse().join("");
+      return newDay;
+  }
+
+  function ConvertTime(time) {
+      time = $("#Delivery-date").val().slice(-5);
+      return time;
+  }
+
+
+  $(document).ready(function () {
+      $("#Status").change(function () {
+          $.ajax({
+              url: "/DeliveryImport/PosCode",
+              dataType: "json",
+              data: { status: $("#Status").val() },
+              success: function (data) {
+                  $('#Poscode').html('<option value=0>Chọn bưu cục phát </option>');
+                  jQuery.each(data, function (i, val) {
+                      $('#Poscode').html($('#Poscode').html() +
+                          "<option value='" + val.POSCODE + "'>"+val.POSCODE+ "-" + val.POSCODENAME + "</option>");
+                  });
+              }
+          })
+      })
+  })
+
+
+  $(document).ready(function(){
+      $("#E1-Code").blur(function () {
+          if ($("#E1-Code").val().length != 13 || $("#E1-Code").val().slice(-2) != "VN" || $("#E1-Code").val().substring(0, 1) != 'E') {
+              $("#E1-Code").addClass("invalid");
+              $("#E1-Code").parent().parent().children().last().html("Vui lòng nhập đúng định dạng mã E1");
+          } else {
+              $("#E1-Code").removeClass("invalid");
+              $("#E1-Code").parent().parent().children().last().html("");
+          }
+      })
+
+      $("#consignee").blur(function () {
+          if ($("#consignee").val().length == 0) {
+              $("#consignee").addClass("invalid");
+              $("#consignee").parent().parent().children().last().html("Vui lòng nhập đầy đủ tên người nhận");
+          } else {
+              $("#consignee").removeClass("invalid");
+              $("#consignee").parent().parent().children().last().html("");
+          }
+      })
+
+      $("#Delivery-date").blur(function () {
+          if ($("#Delivery-date").val().length == 0) {
+              $("#Delivery-date").addClass("invalid");
+              $("#Delivery-date").parent().parent().children().last().css("margin-left","35%")
+              $("#Delivery-date").parent().parent().children().last().html("Vui lòng nhập ngày phát");
+          } else {
+              $("#Delivery-date").removeClass("invalid");
+              $("#Delivery-date").parent().parent().children().last().css("margin-left", "0")
+              $("#Delivery-date").parent().parent().children().last().html("");
+          }
+      })
+
+  })
+
+  function InsertE1NH() {
+      var time = $("#Delivery-date").val();
+      var statustext;
+      if ($("#Status").val() == '1') {
+          statustext = "Phát không thành công"
+      } else if ($("#Status").val() == '2') {
+          statustext = "Phát thành công"
+      } else {
+          tatustext = "Phát hoàn thành công"
+      }
+
+
+      $.ajax({
+          type: "POST",
+          url: '@Url.Action("InsertE1NH", "DeliveryImport")',
+          data: 
+              {
+                  Itemcode: $("#E1-Code").val(),
+                  Poscode: $("#Poscode").val(),
+                  Status: $("#Status").val(),
+                  DeliveryDate: ConvertDay(time),
+                  DeliveryTime: ConvertTime(time),
+                  Consignee: $("#consignee").val(),
+                  Note: $("#Note").val()
+              },
+          success: function (data) {
+              if (data.Code == '00') {
+                  swal.fire({
+                      title: '' + data.Message + '',
+                      html: '<div class="wrap-html" style="display:flex;flex-direction:column;align-items:flex-start;"><p style="margin:auto;font-size:2.5rem;font-weight:600">Thông tin báo phát!<\p>  <p><span class="fw-bolder" style="font-weight:600;margin-right:30px">Mã E1      :<\span>' + $("#E1-Code").val() + '<\p>  <p><span class="fw-bolder " style="font-weight:600;margin-right:30px">Mã bưu cục phát      :<\span>' + $("#Poscode").val() + '<\p> <p><span class="fw-bolder" style="font-weight:600;margin-right:30px">Trạng thái      :<\span>' + statustext + '<\p> <p><span class="fw-bolder" style="font-weight:600;margin-right:30px">Ngày phát      :<\span>' + $("#Delivery-date").val().substring(0, 10) + '<\p> <p><span class="fw-bolder" style="font-weight:600;margin-right:30px>Giờ phát      :<\span>' + ConvertTime(time) + '<\p> <p><span class="fw-bolder" style="font-weight:600;margin-right:30px>Người nhận      :<\span>' + $("#consignee").val() + '<\p> <p><span class="fw-bolder" style="font-weight:600;margin-right:30px>Ghi chú      :<\span>' + $("#Note").val() + '<\p><\div>',
+                      icon:'success'
+                      });
+                  
+                  $("#E1-Code").val("");
+                  $("#Poscode").val("");
+                  $("#Status").val("");
+                  $("#Delivery-date").val("");
+                  $("#consignee").val("");
+                  $("#Note").val("");
+                  $("#Poscode").val(null).trigger("change");
+              } else {
+                  swal.fire(
+                    '' + data.Message + '',
+                    'Thêm mới Báo phát thất bại',
+                    'error'
+                  );
+              }
+          }
+      })
+  }
+  
+    $(document).ready(function () {
+        $("#E1-Code").change(function(){
+            if ($("#E1-Code").val() == "" || $("#Poscode").val() == "" || $("#Delivery-date").val() == "" || $("#consignee").val() == "") {
+                $("#btnSend").attr("disabled", true);
+            } else {
+                $("#btnSend").attr("disabled", false);
+            }
+        })
+
+        $("#Poscode").change(function () {
+            if ($("#E1-Code").val() == "" || $("#Poscode").val() == "" || $("#Delivery-date").val() == "" || $("#consignee").val() == "") {
+                $("#btnSend").attr("disabled", true);
+            } else {
+                $("#btnSend").attr("disabled", false);
+            }
+        })
+
+        $("#Delivery-date").change(function () {
+            if ($("#E1-Code").val() == "" || $("#Poscode").val() == "" || $("#Delivery-date").val() == "" || $("#consignee").val() == "") {
+                $("#btnSend").attr("disabled", true);
+            } else {
+                $("#btnSend").attr("disabled", false);
+            }
+        })
+
+        $("#consignee").change(function () {
+            if ($("#E1-Code").val() == "" || $("#Poscode").val() == "" || $("#Delivery-date").val() == "" || $("#consignee").val() == "") {
+                $("#btnSend").attr("disabled", true);
+            } else {
+                $("#btnSend").attr("disabled", false);
+            }
+        })
+    })
+
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>

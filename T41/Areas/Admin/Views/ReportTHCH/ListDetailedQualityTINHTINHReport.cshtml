@@ -1,0 +1,256 @@
+﻿<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/GridviewScroll/gridviewScroll.css" rel="stylesheet" />
+<script src="~/GridviewScroll/gridviewScroll.js"></script>
+
+<style type="text/css">
+    .divclass {
+        overflow: auto;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+         detail();
+
+    });
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var Donvi = url.searchParams.get("Donvi");
+    var Tinhnhan = url.searchParams.get("Tinhnhan");
+    var Tinhtra = url.searchParams.get("Tinhtra");
+    var Madvchinh = url.searchParams.get("Madvchinh");
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var SL = url.searchParams.get("SL");
+    var nackl = url.searchParams.get("nackl");
+</script>
+
+
+
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo chi tiết theo tỉnh-tỉnh DV EMS TN</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo chi tiết theo tỉnh-tỉnh DV EMS TN</li>
+    </ol>
+</section>
+
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportCT", "ReportTHTINHTINH")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+
+
+            <div style="width: 100%;; overflow-x: scroll;">
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Đơn vị</th>
+                            <th class="text-center">Mã tỉnh nhận</th>
+                            <th class="text-center">Tên tỉnh nhận</th>
+                            <th class="text-center">Ngày phát hành</th>
+                            <th class="text-center">Mã DV chính</th>
+                            <th class="text-center">Tên DV</th>
+                            <th class="text-center">Mã E1</th>
+                            <th class="text-center">Mã KH</th>
+                            @*<th class="text-center">Người gửi</th>
+                                <th class="text-center">Địa chỉ gửi </th>
+                                <th class="text-center">Người nhận</th>
+                                <th class="text-center">Địa chỉ nhận</th>*@
+                            <th class="text-center">Mã tỉnh trả</th>
+                            <th class="text-center">Tên tỉnh trả</th>
+                            <th class="text-center">Trạng thái</th>
+                            <th class="text-center">KL</th>
+                            <th class="text-center">KLQD</th>
+                            <th class="text-center">Cước chính</th>
+                            <th class="text-center">Cước DVCT</th>
+                            <th class="text-center">PPXD</th>
+                            <th class="text-center">PPVX</th>
+                            <th class="text-center">PP khác</th>
+                            <th class="text-center">Tổng cước</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+
+
+
+<script>
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var Donvi = url.searchParams.get("Donvi");
+    var Tinhnhan = url.searchParams.get("Tinhnhan");
+    var Tinhtra = url.searchParams.get("Tinhtra");   
+    var Madvchinh = url.searchParams.get("Madvchinh");
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var nackl = url.searchParams.get("nackl");
+    var SL = url.searchParams.get("SL");
+
+    $(document).ready(function () {
+        if (SL > 500000) {
+            swal.fire(
+             "<H4>Dữ liệu xem chi tiết quá giới hạn. <br> Vui lòng giới hạn lại ngày lấy dữ liệu</H4>",
+             '',
+             'error'
+           );
+            $('.loading-element').hide();
+            $('#btnexportlist').hide();
+        }
+        else {
+            //detail();
+
+        }
+
+    });
+
+    debugger;
+
+
+
+    if (SL <= 500000) {
+
+    function detail() {
+                 $.ajax({
+                     type: "POST",
+
+                     url: '@Url.Action("ListDetailedItemQualityTINHTINHReport", "ReportTHTINHTINH")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+            dataType: "json",
+            data:
+                {
+                    Donvi: Donvi,
+                    Tinhnhan: Tinhnhan,
+                    Tinhtra: Tinhtra,                   
+                    Madvchinh: Madvchinh,
+                    startdate: startdate,
+                    enddate: enddate,
+                    nackl: nackl,
+
+
+                },
+            success: function (data) {
+                debugger;
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+
+
+                $.each(data.ListDetailedItemQualityTHDVReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Donvi + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Matinhnhan + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Tentinhnhan + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].NgayPhatHanh + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Madvchinh + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].TenDV + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Mae1 + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].MaKH + '</td>';
+                    //str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].TenNguoiGui + '</td>';
+                    //str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].DiaChiGui + '</td>';
+                    //str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].TenNguoiNhan + '</td>';
+                    //str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].DiaChiNhan + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].MaTinhTra + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Tentinhtra + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].TrangThaiPhat + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].khoiluong + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].KLQD + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Cuocchinh + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Cuocdvct + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].PPXD + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].PPVX + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].PPKhac + '</td>';
+                    str_body += '<td ">' + data.ListDetailedItemQualityTHDVReport[i].Tongcuoc + '</td>';
+                    str_body += '</tr>';
+
+                    if (i == "10000") {
+                        return false;
+                    }
+
+                }) ;
+                str_html += str_body;
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal.fire(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+
+
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi "+SL+" bưu gửi",
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+        }
+
+    $('#btnexportlist').click(function () {
+       
+        var url = $(this).data('baseurl') + '?tinhtra=' + Tinhtra + '&tinhnhan=' + Tinhnhan + '&donvi=' + Donvi + '&startdate=' + startdate + '&enddate=' + enddate + '&Madvchinh=' + Madvchinh + '&nackl=' + nackl;
+        // redirect
+        location.href = url;
+    });
+
+
+</script>

@@ -1,0 +1,57 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.ListDetailedQualityTHQTDENReport != null)
+{
+    int i = 0;
+    var j = Model.ListDetailedQualityTHQTDENReport.Count;
+
+
+    foreach (var c in Model.ListDetailedQualityTHQTDENReport)
+    {
+        <tr>
+            @*<td class="text-center">@(i + 1)</td>*@
+            <td class="text-center">@c.STT</td>
+            <td class="text-left">@c.Mae1</td>
+            <td class="text-left">@c.Mancnhan</td>
+            <td class="text-left">@c.Ten_Nuoc</td>
+            <td class="text-left">@c.Ngay_Den</td>
+            <td class="text-left">@c.OE_Nhan</td>
+            <td class="text-left">@c.PhanLoai</td>
+            <td class="text-left">@c.Khoiluong</td>
+            <td class="text-left">@c.TrangThaiPhat</td>
+                        
+        </tr>
+        i++;
+        if (i == 50)
+        {
+            break;
+        }
+    }
+
+
+
+    <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/QualityDelivertChartJS/Chart.js"></script>
+    //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
+    <tr>
+
+        <th class="text-right">Total:</th>
+        <td class="text-center">@j</td>
+    </tr>
+}
+else
+{
+    <script type="text/javascript">
+        $('#btnexportlist').hide();
+        swal.fire(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+   
+}
+
+

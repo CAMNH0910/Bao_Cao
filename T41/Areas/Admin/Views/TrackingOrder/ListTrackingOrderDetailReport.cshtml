@@ -76,10 +76,18 @@
             </div>*@
             <div class="row">
                 <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport_LP" data-baseurl="@Url.Action("Export", "TrackingCustomerExcel")">Xuất Excel theo lần phát<i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-md-12 text-right">
                     <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("Export", "TrackingOrder")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
 
                 </div>
             </div>
+
             <div style="overflow-x:auto;">
                 <table id="example2" class="table table-bordered table-hover" style="font-family:Tahoma;font-size:15px;border: 1px solid #2d2a2a;">
                     <thead>
@@ -176,7 +184,9 @@
         // goi ham Detail
 
         detail_headertrackingorder();
-        $.ajax({
+        $.ajax(
+
+            {
             url: '@Url.Action("ListDetailedTrackingOrderReport", "TrackingOrder")',
             dataType: 'html',
             data:
@@ -192,7 +202,9 @@
                 $('#listtrackingorder').html(result);
 
             }
-        })
+        }
+
+        )
     });
 
 
@@ -265,6 +277,14 @@
         // redirect
         location.href = url;
     });
+
+    $('#btnexport_LP').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?startdate=' + startdate + '&enddate=' + enddate + '&customercode=' + customercode;
+        // redirect
+        location.href = url;
+    });
+
 </script>
 
 

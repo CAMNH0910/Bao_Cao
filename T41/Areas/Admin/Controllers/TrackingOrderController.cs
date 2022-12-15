@@ -31,9 +31,22 @@ namespace T41.Areas.Admin.Controllers
         //Controller gọi đến phần view Tổng hợp sản lượng đi phát
         public ActionResult TrackingOrderDetailReport()
         {
+            var userid = Convert.ToInt32(Session["userid"]);
+            var role = Convert.ToInt32(Session["Role"]);
+            //Phân quyền đăng nhập
+            if (userid == 1 || userid == 18 || userid == 3016 || role == 8)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        public ActionResult ListDetailedTrackingOrderReportzalo()
+        {
             return View();
         }
-
         public ActionResult ListTrackingOrderDetailReport()
         {
             return View();
@@ -49,7 +62,15 @@ namespace T41.Areas.Admin.Controllers
             return View(returntrackingorder);
 
         }
+        public ActionResult ListDetailedTrackingOrderReportzalo(string startdate, string enddate, string customercode)
+        {
 
+            TrackingOrderRepository trackingorderRepository = new TrackingOrderRepository();
+            ReturnTrackingOrderzalo returntrackingorder = new ReturnTrackingOrderzalo();
+            returntrackingorder = trackingorderRepository.TRACKING_ORDER_DETAIL_ZALO(common.DateToInt(startdate), common.DateToInt(enddate), customercode);
+            return View(returntrackingorder);
+
+        }
         //Controller gọi đến Header của bảng tra cứu đơn hàng
         public ActionResult ListDetailedHeaderTrackingOrderReport(string startdate, string enddate, string customercode)
         {

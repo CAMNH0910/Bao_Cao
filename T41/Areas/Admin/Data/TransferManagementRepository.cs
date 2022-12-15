@@ -114,7 +114,7 @@ namespace T41.Areas.Admin.Data
                     mAdapter.Fill(da);
                     DataTableReader dr = da.CreateDataReader();
 
-                    
+
 
                     if (dr.HasRows)
                     {
@@ -122,6 +122,7 @@ namespace T41.Areas.Admin.Data
                         while (dr.Read())
                         {
                             oTransferManagementDetail = new TransferManagementDetail();
+                            oTransferManagementDetail.Typecomunication = typecomunication;
                             oTransferManagementDetail.FromPosCode = Convert.ToInt32(dr["FROMPOSCODE"].ToString());
                             oTransferManagementDetail.FromPosName = dr["FROMPOSNAME"].ToString();
                             oTransferManagementDetail.ToPosCode = Convert.ToInt32(dr["TOPOSCODE"].ToString());
@@ -168,9 +169,9 @@ namespace T41.Areas.Admin.Data
             DataTable da = new DataTable();
             MetaData _metadata = new MetaData();
             Convertion common = new Convertion();
-            ReturnTransferManagement _returnTransferManagement= new ReturnTransferManagement();
-            
-            
+            ReturnTransferManagement _returnTransferManagement = new ReturnTransferManagement();
+
+
             List<TransferManagement_CTTS_Detail> listTransferManagement_CTTS_Detail = null;
             TransferManagement_CTTS_Detail oTransferManagement_CTTS_Detail = null;
             try
@@ -190,13 +191,14 @@ namespace T41.Areas.Admin.Data
                     cmd.Parameters.Add(new OracleParameter("v_type", OracleDbType.Int32)).Value = type;
                     cmd.Parameters.Add("v_ListStage", OracleDbType.RefCursor, null, ParameterDirection.Output);
                     OracleDataReader dr = Helper.ExecuteDataReader(cmd, Helper.OraDCOracleConnection);
-                    
+
                     if (dr.HasRows)
                     {
                         listTransferManagement_CTTS_Detail = new List<TransferManagement_CTTS_Detail>();
                         while (dr.Read())
                         {
                             oTransferManagement_CTTS_Detail = new TransferManagement_CTTS_Detail();
+                            oTransferManagement_CTTS_Detail.Typecomunication = typecomunication;
                             oTransferManagement_CTTS_Detail.FromPosCode = Convert.ToInt32(dr["FROMPOSCODE"].ToString());
                             oTransferManagement_CTTS_Detail.FromPosName = dr["FROMPOSNAME"].ToString();
                             oTransferManagement_CTTS_Detail.ToPosCode = Convert.ToInt32(dr["TOPOSCODE"].ToString());
@@ -218,7 +220,7 @@ namespace T41.Areas.Admin.Data
                         _returnTransferManagement.Total = 0;
                         _returnTransferManagement.ListTransferManagement_CTTS_Report = null;
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -317,7 +319,7 @@ namespace T41.Areas.Admin.Data
             MetaData _metadata = new MetaData();
             Convertion common = new Convertion();
             ReturnTransferManagement _returnTransferManagement = new ReturnTransferManagement();
-            
+
             List<TransferManagement_E2_Detail> listTransferManagement_E2_Detail = null;
             TransferManagement_E2_Detail oTransferManagement_E2_Detail = null;
             try
@@ -325,7 +327,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    
+
                     OracleCommand myCommand = new OracleCommand("transfer_management_ems.Detail_Item_Ems", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
@@ -621,7 +623,81 @@ namespace T41.Areas.Admin.Data
             return _returnTransferManagement;
         }
         #endregion
-    }
 
+        //Truyền lại dữ liệu từ Center về BCP
+        public ReturnTransmited TransmitDataCentertoBCP(int fromposcode, int toposcode, int date, int mailtrip, int posbag)
+        {
+            ReturnTransmited res = new ReturnTransmited();
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("transfer_management_ems.UPDATE_CENTER_TO_BCP", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    myCommand.Parameters.Add("v_Mabc_kt", OracleDbType.Int32).Value = fromposcode;
+                    myCommand.Parameters.Add("v_Mabc", OracleDbType.Int32).Value = toposcode;
+                    myCommand.Parameters.Add("v_Ngay", OracleDbType.Int32).Value = date;
+                    myCommand.Parameters.Add("v_Chthu", OracleDbType.Int32).Value = mailtrip;
+                    myCommand.Parameters.Add("v_Tuiso", OracleDbType.Int32).Value = posbag;
+                    myCommand.ExecuteNonQuery();
+                    res.Code = "00";
+                    res.Message = "Success";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Code = "99";
+                res.Message = "Failed";
+            }
+            return res;
+        }
+
+        public ReturnTransmited TransmitDataHubtoCenter(int fromposcode, int toposcode, int date, int mailtrip, int posbag)
+        {
+            ReturnTransmited res = new ReturnTransmited();
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand();
+                    if (fromposcode == 100916 || fromposcode == 101000)
+                    {
+                        myCommand = new OracleCommand("UPDATE_HUB_TO_CENTER_HN", Helper.OraDCOracleConnection);
+                    }
+                    else if (fromposcode == 700916 || fromposcode == 701000)
+                    {
+                        myCommand = new OracleCommand("UPDATE_HUB_TO_CENTER_HCM", Helper.OraDCOracleConnection);
+                    }
+                    else if (fromposcode == 550915 || fromposcode == 550100)
+                    {
+                        myCommand = new OracleCommand("UPDATE_HUB_TO_CENTER_DN", Helper.OraDCOracleConnection);
+                    }
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    myCommand.Parameters.Add("v_Mabc_kt", OracleDbType.Int32).Value = fromposcode;
+                    myCommand.Parameters.Add("v_Mabc", OracleDbType.Int32).Value = toposcode;
+                    myCommand.Parameters.Add("v_Ngay", OracleDbType.Int32).Value = date;
+                    myCommand.Parameters.Add("v_Chthu", OracleDbType.Int32).Value = mailtrip;
+                    myCommand.Parameters.Add("v_Tuiso", OracleDbType.Int32).Value = posbag;
+                    myCommand.ExecuteNonQuery();
+                    res.Code = "00";
+                    res.Message = "Success";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Code = "99";
+                res.Message = "Failed";
+            }
+            return res;
+        }
+    }  
 }
 

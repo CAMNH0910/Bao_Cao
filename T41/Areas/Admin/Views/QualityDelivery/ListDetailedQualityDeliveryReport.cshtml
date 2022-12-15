@@ -19,6 +19,7 @@
             @*<td>@c.TongSLHub</td>*@
             <td class="text-center">@c.TongSL</td>
             <td class="text-center">@c.SanLuongPTC</td>
+            <td class="text-center">@c.TylePTC</td>
             <td class="text-center">
                 <a data-toggle="modal" data-id="@c.SanLuongKTT" class="modal-ktt" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.SanLuongKTT </a>
             </td>
@@ -46,7 +47,7 @@
 
 
         $(document).ready(function () {
-            
+
 
             $('.modal-sanluong').click(function (e) {
 
@@ -56,6 +57,7 @@
                 var service = '@ViewBag.service';
                 var startdate = '@ViewBag.startdate';
                 var enddate = '@ViewBag.enddate';
+              
                 var type = 1;
                 var da = {
                     endpostcode: endpostcode,
@@ -63,7 +65,7 @@
                     routecode: routecode,
                     service: service,
                     startdate: startdate,
-                    enddate: enddate,
+                    enddate: enddate,                   
                     type: type,
                 };
                 $.ajax({

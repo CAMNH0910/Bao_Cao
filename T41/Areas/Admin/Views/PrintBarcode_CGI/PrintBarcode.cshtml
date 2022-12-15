@@ -1,0 +1,188 @@
+﻿
+@{
+    Layout = null;
+}
+
+@if (Model.CustomerInfor != null)
+{
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Libre Barcode 128' rel='stylesheet'>
+
+    <style>
+    .Company__barcode-img,
+    .DS-160__barcode-img {
+        font-family: 'Libre Barcode 128';font-size: 28px;letter-spacing: 2px;
+    }
+
+    .Label_CGI {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: 130px;
+        margin-left: -30px;
+    
+    }
+
+    .Customer__infor-barcode {
+        display: flex;
+    }
+
+    .Company__barcode {
+        writing-mode: vertical-rl;
+        text-align: center;
+    
+    }
+
+    .Company__barcode-img, 
+    .barcode-two__img {
+        width: 18px;
+    }
+
+    .Customer__infor-description {
+        margin-left: 20px;
+    }
+
+    .print-time__wrap {
+        margin-top: 3px;
+    }
+
+    .DS-160__barcode {
+        text-align: center;
+        vertical-align: middle;
+        writing-mode: vertical-rl;
+        transform: rotate(-180deg);
+    }
+
+    .VisaLabel-infor {
+        display: flex;
+    }
+
+    .Visa__infor {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 20px;
+    }
+
+    .VisaLabel {
+        margin-left: 10px;
+    }
+
+    .DS-160__barcode-text {
+        font-size: 15px;
+        margin-right: 5px;
+    }
+
+    .Visa__infor-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+     .DS-160__barcode-img {
+        font-size: 34px;
+        width: 20px;
+     }
+    </style>
+</head>
+<body>
+    <div class="Label_CGI">
+        <div class="Customer__infor">
+            <div class="Customer__infor-barcode">
+                <div class="Company__barcode">
+                    <div class="Company__barcode-img">
+                        @Model.CustomerInfor.Company
+                    </div>
+                    <div class="Company__barcode-text">
+                        @Model.CustomerInfor.Company
+                    </div>
+                </div>
+                <div class="Customer__infor-description">
+                    <div class="Customer__infor-deliveryoption">@Model.CustomerInfor.DeliveryOption</div>
+                    <div class="Customer__infor-name">@Model.CustomerInfor.CustomerName</div>
+                    <div class="Customer__infor-phone">@Model.CustomerInfor.Phone</div>
+                    <div class="Customer__infor-codeE1">@Model.CustomerInfor.E1Code</div>
+                    <div class="Customer__infor-province">@Model.CustomerInfor.Province</div>
+                </div>
+            </div>
+            
+            <div class="print-time__wrap">
+                <strong>PrintDate| Time : </strong><span class="date-time"></span>
+            </div>
+        </div>
+
+
+        <div class="VisaLabel">
+
+            <div class="VisaLabel-infor">
+                <div class="Visa__infor">
+                    <div class="Visa__infor-text">
+
+                        <div class="PriorityName">@Model.CustomerInfor.PriorityName</div>
+                        <div class="Sent-time">@Model.CustomerInfor.DeliveryDate</div>
+                    </div>
+                    <div class="Visa__infor-text">
+
+                        <div class="Visa-class">
+                            @Model.CustomerInfor.VisaClass
+                        </div>
+                        <div class="Entry-time">@Model.CustomerInfor.EntryTime</div>
+                    </div>
+
+                </div>
+                <div class="DS-160__barcode">
+                    <div class="DS-160__barcode-img">
+                        @Model.CustomerInfor.DS160
+                    </div>
+                    <div class="DS-160__barcode-text">
+                        @Model.CustomerInfor.DS160
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+
+        //var url_string = document.URL;
+        //var url = new URL(url_string);
+        //var E1Code = url.searchParams.get("E1Code");
+
+        var today = new Date();
+
+        var date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        var dateTime = date + ' | ' + time;
+
+
+        $(document).ready(function () {
+            $(".date-time").text(dateTime);
+        })
+
+
+        
+    </script>
+</body>
+</html>
+}
+else
+{
+    <script>
+        swal.fire(
+           'Không Có Số Liệu',
+           '',
+           'error'
+         )
+    </script>
+}

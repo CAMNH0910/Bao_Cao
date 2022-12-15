@@ -1,0 +1,158 @@
+﻿<style>
+    .content-service-input {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 3px;
+    }
+    .content-service-input input {
+        width: 60%;
+        margin-right: 20px;
+    }
+    .service-name:hover {
+        color: #337ab7;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .message {
+        margin-left: 15%;
+    }
+    
+</style>
+
+
+<section class="content-header">
+    <h1>
+        <small>Service Internal Comnuication</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Service Internal Comnuication</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Tổng hợp các Service Internal Comunication</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">       
+            <div class="scrollingTable">
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+                <table id="TableAccount" class="table table-bordered table-hover">
+
+
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+
+                            <th class="text-center">STT<br /></th>
+                            <th class="text-center">Tên service</th>
+                            <th class="text-center">Phiên bản</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport">
+                        <tr class="service-item">
+                            <td class="text-center service-STT">1</td>
+                            <td data-toggle="modal" data-id="1" data-target="#GetLinkService" class="text-center service-name">Service lấy dữ liệu xác nhận đến về BCP</td>
+                            <td class="text-center service-version">v1.0</td>
+                        </tr>
+                        <tr class="service-item">
+                            <td class="text-center service-STT">2</td>
+                            <td data-toggle="modal" data-id="2" data-target="#GetLinkService" class="text-center service-name">Service truyền BD13 lên Center</td>
+                            <td class="text-center service-version">v1.0</td>
+                        </tr>
+                        <tr class="service-item">
+                            <td class="text-center service-STT">3</td>
+                            <td data-toggle="modal" data-id="3" data-target="#GetLinkService" class="text-center service-name">Service Truyền báo phát lên Center</td>
+                            <td class="text-center service-version">v1.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+
+        <div class="modal fade" id="GetLinkService" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Lấy link download&nbsp;<span class="get-service-name"></span>
+                        </h4>
+                    </div>
+                    <div class="modal-body edit-content">
+                        <div class="content-service-input">
+                            <input class="EnterPassword" placeholder="Nhập mật khẩu để lấy link download Service"/>
+                            <button type="button" class="btn btn-primary" id="btn-get-link" onclick="GetLink(Id)">Get Link</button>
+                        </div>
+                        <span class="message"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var Id;
+
+    function GetLink(Id) {
+ 
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetLinkService", "GetServiceInternalComunitication")',
+            dataType: 'json',
+            data:
+                {
+                    Id: Id,
+                    Password: $(".EnterPassword").val()
+                },
+
+
+            success: function (data) {
+                debugger;
+                if (data.Code == "00") {
+                    $(".message").css("color", "green");
+                    $(".message").html("Lấy link download thành công");
+                    window.open(data.Service.Link, '_blank');
+                }
+                if (data.Code == "01") {
+                    $(".message").css("color", "red");
+                    $(".message").html("Sai mật khẩu! Lấy link download thất bại");
+                }
+
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        
+        
+        
+        $(".service-name").click(function () {
+            $(".get-service-name").html($(this).text());
+            Id = $(this).data("id");
+        });
+
+
+        $(".modal").on("hidden.bs.modal", function () {
+            $(".message").html("");
+            $(".EnterPassword").val("");
+        });
+
+        
+    });
+    
+</script>

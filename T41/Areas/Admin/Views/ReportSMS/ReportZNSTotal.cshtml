@@ -1,0 +1,256 @@
+﻿
+<!-- daterange picker -->
+<!-- daterange picker -->
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+
+
+
+<style type="text/css">
+    p {
+        font-weight:bold;
+    }
+</style>
+
+<section class="content-header">
+        <h1>
+            <small>Báo Cáo </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Báo cáo tổng hợp sản lượng bưu gửi sử dụng dịch vụ ZNS</li>
+        </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Báo cáo tổng hợp sản lượng bưu gửi sử dụng dịch vụ ZNS</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đơn vị chấp nhận</label>
+                        <select class="form-control select2" style="width: 100%;" id="donvi">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">EMS</option>
+                            <option value="2">BDT</option>
+
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            @*<div class="box-header">
+                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportZNSTotal", "ReportSMS")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+               
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT<br /></th>
+                            <th class="text-center">Ngày chấp nhận</th>
+                            <th class="text-center">Tổng số tin đã nhắn</th>
+                            <th class="text-center">Số tin nhắn thành công</th>
+                            <th class="text-center">Số tin nhắn thất bại</th>
+                            <th class="text-center">Phí dịch vụ tin nhắn <br />(chưa bao gồm VAT)</th>
+                            <th class="text-center">Ghi Chú</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listtotal"></tbody>
+                </table>
+
+
+            </div>
+
+
+
+            <!-- Modal -->
+            
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#listtotal').hide();
+       // detail();
+    });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+
+
+
+    $("#btnreport").click(function () {
+
+        // goi ham Detail
+        $("#listtotal tr").remove();
+        detail();
+        $('.box-footer').show();
+
+
+    });
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail(p) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListZNSTotal", "ReportSMS")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+      
+            dataType: 'json',
+          
+            data:
+                {
+                    startdate: $('#fromdate').val(),
+                    enddate: $('#todate').val(),
+                    donvi : $('#donvi').val()
+
+                },
+            success: function (data) {
+
+                debugger;
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListZNSTotalReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td class="text-center">' + data.ListZNSTotalReport[i].AcceptDate + '</td>';
+                    str_body += '<td class="text-center">' + data.ListZNSTotalReport[i].TotalSend + '</td>';
+                    str_body += '<td class="text-center">' + data.ListZNSTotalReport[i].SuccessMessagers + '</td>';
+                    str_body += '<td class="text-center">' + data.ListZNSTotalReport[i].FailMessagers + '</td>';
+                    str_body += '<td class="text-center">' + data.ListZNSTotalReport[i].ServiceFeeNotVAT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListZNSTotalReport[i].Note + '</td>';
+
+
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal.fire(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+
+                else {
+
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listtotal').html(str_html);
+                    $('.loading-element').hide();
+                    $('#listtotal').show();
+                   
+                }
+            }
+        })
+    }
+    
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&donvi=' + $('#donvi').val();
+        // redirect
+        location.href = url;
+    });
+
+
+
+
+</script>
+
+

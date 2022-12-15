@@ -92,7 +92,73 @@ namespace T41.Areas.Admin.Data
         }
 
 
+        public ReturnTrackingOrderzalo TRACKING_ORDER_DETAIL_ZALO(int startdate, int enddate, string customercode)
+        {
+            DataTable da = new DataTable();
+            MetaData _metadata = new MetaData();
+            Convertion common = new Convertion();
+            ReturnTrackingOrderzalo _returnTrackingOrder = new ReturnTrackingOrderzalo();
+            List<TrackingOrderDetailzalo> listTrackingOrderDetail = null;
+            TrackingOrderDetailzalo oTrackingOrderDetailDetail = null;
+            int a = 1;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cm = new OracleCommand())
+                {
+                    cm.Connection = Helper.OraDCOracleConnection;
+                    cm.CommandText = Helper.SchemaName + "ems_GateWay_v2.GET_LIST_DATA_ZALO";
+                    cm.CommandType = CommandType.StoredProcedure;
+                    cm.Parameters.Add(new OracleParameter("v_Startdate", OracleDbType.Int32)).Value = startdate;
+                    cm.Parameters.Add(new OracleParameter("v_Enddate", OracleDbType.Int32)).Value = enddate;
+                    cm.Parameters.Add(new OracleParameter("v_CustomerCode", OracleDbType.Varchar2)).Value = customercode;
+                  
+                    cm.Parameters.Add("v_ListStage", OracleDbType.RefCursor, null, ParameterDirection.Output);
+                    using (OracleDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            listTrackingOrderDetail = new List<TrackingOrderDetailzalo>();
+                            while (dr.Read())
+                            {
+                                oTrackingOrderDetailDetail = new TrackingOrderDetailzalo();
+                                oTrackingOrderDetailDetail.STT = a++;
+                                oTrackingOrderDetailDetail.Itemcode = dr["ITEMCODE"].ToString();
+                                oTrackingOrderDetailDetail.CustomerCode = dr["CUSTOMERCODE"].ToString();
+                                oTrackingOrderDetailDetail.ReceiverPhone = dr["RECEIVERPHONE"].ToString();
+                                oTrackingOrderDetailDetail.Senddate = dr["SENDDATE"].ToString();
+                                oTrackingOrderDetailDetail.Description = dr["DESCRIPTION"].ToString();
+                                oTrackingOrderDetailDetail.Sendingtime = dr["SENDINGTIME"].ToString();
+                                oTrackingOrderDetailDetail.STATUS = dr["STATUS"].ToString();
+                               
+                                listTrackingOrderDetail.Add(oTrackingOrderDetailDetail);
 
+                            }
+                            _returnTrackingOrder.Code = "00";
+                            _returnTrackingOrder.Message = "Lấy dữ liệu thành công.";
+                            _returnTrackingOrder.ListDetailedQualitySMSReport = listTrackingOrderDetail;
+                        }
+                        else
+                        {
+                            _returnTrackingOrder.Code = "01";
+                            _returnTrackingOrder.Message = "Không có dữ liệu";
+
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "TrackingOrderRepository.TRACKING_ORDER_DETAIL" + ex.Message);
+                _returnTrackingOrder.Code = "99";
+                _returnTrackingOrder.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _returnTrackingOrder;
+        }
         #endregion
 
         //Phần Header của bảng tổng hợp 
@@ -167,6 +233,73 @@ namespace T41.Areas.Admin.Data
         }
 
 
+        public ReturnTrackingOrder HEADER_TRACKING_ORDER_DETAIL_LP(string startdate, string enddate, string customercode)
+        {
+            DataTable da = new DataTable();
+            MetaData _metadata = new MetaData();
+            Convertion common = new Convertion();
+            ReturnTrackingOrder _returnTrackingOrder = new ReturnTrackingOrder();
+            List<HeaderTrackingOrderDetail> listHeaderTrackingOrderDetail = null;
+            HeaderTrackingOrderDetail oHeaderTrackingOrderDetailDetail = null;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+
+                    OracleCommand myCommand = new OracleCommand("SysData_Customer_v2.ListTraceDelivery", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_CustomerCode", OracleDbType.Varchar2).Value = customercode;
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = common.DateToInt(startdate);
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = common.DateToInt(enddate);
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+                    DataTableReader dr = da.CreateDataReader();
+
+                    if (dr.HasRows)
+                    {
+                        listHeaderTrackingOrderDetail = new List<HeaderTrackingOrderDetail>();
+                        while (dr.Read())
+                        {
+                            oHeaderTrackingOrderDetailDetail = new HeaderTrackingOrderDetail();
+                            oHeaderTrackingOrderDetailDetail.CustomerCode = dr["CUSTOMERCODE"].ToString();
+                            oHeaderTrackingOrderDetailDetail.CustomerName = dr["CUSTOMERNAME"].ToString();
+                            oHeaderTrackingOrderDetailDetail.TotalItem = dr["TOTALITEM"].ToString();
+                            oHeaderTrackingOrderDetailDetail.TotalSuccess = dr["TOTALSUCCESS"].ToString();
+                            oHeaderTrackingOrderDetailDetail.TotalCharge_E1 = dr["TOTALCHARGE_E1"].ToString();
+                            oHeaderTrackingOrderDetailDetail.TotalAmount = dr["TOTALAMOUNT"].ToString();
+                            listHeaderTrackingOrderDetail.Add(oHeaderTrackingOrderDetailDetail);
+
+                        }
+                        _returnTrackingOrder.Code = "00";
+                        _returnTrackingOrder.Message = "Lấy dữ liệu thành công.";
+                        _returnTrackingOrder.ListHeaderTrackingOrderReport = listHeaderTrackingOrderDetail;
+                    }
+                    else
+                    {
+
+                        _returnTrackingOrder.Code = "01";
+                        _returnTrackingOrder.Message = "Không có dữ liệu";
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "TrackingOrderRepository.HEADER_TRACKING_ORDER_DETAIL" + ex.Message);
+                _returnTrackingOrder.Code = "99";
+                _returnTrackingOrder.Message = "Lỗi xử lý dữ liệu";
+                //_returnQuality.Total = 0;
+                //_returnQuality.ListQualityDeliveryReport = null;
+            }
+            return _returnTrackingOrder;
+        }
 
         #endregion
     }

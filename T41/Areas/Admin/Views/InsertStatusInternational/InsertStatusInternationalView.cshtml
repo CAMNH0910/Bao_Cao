@@ -237,7 +237,7 @@
             success: function (data) {
                 if (data.Code == '00') {
 
-                    swal(
+                    swal.fire(
                       data.Message,
                       '',
                       'success'
@@ -246,7 +246,7 @@
                 }
                 else {
                     document.getElementById('P_MAE1').value = '';
-                    swal(
+                    swal.fire(
                       data.Message,
                       '',
                       'warning'
@@ -261,7 +261,7 @@
             let check_P_MABC_KT = document.getElementById("P_MAE1");
             //Gọi hàm insert
             if (input.value === "" || input.value == undefined) {
-                swal(
+                swal.fire(
                   'Mã E1 không được để trống',
                   '',
                   'warning'
@@ -276,7 +276,7 @@
             }
             if (check_P_MABC_KT.value == 0)
             {
-                swal(
+                swal.fire(
                   'Vui lòng chọn mã bưu cục',
                   '',
                   'warning'

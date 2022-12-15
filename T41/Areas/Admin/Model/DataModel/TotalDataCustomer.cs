@@ -30,27 +30,17 @@ namespace T41.Areas.Admin.Model.DataModel
     public class TotalDataCustomerDetail
     {
 
-        public String CUSTOMERNAME { get; set; }
-        public String CUSTOMERCODE { get; set; }
-        public String PROVINCENAME { get; set; }
-        public String TOTALITEM { get; set; }
-        public String TOTALI { get; set; }
-        public String TotalItem { get; set; }
-        public String RATEI { get; set; }
-        public String TOTALH { get; set; }
-        public String RATEH { get; set; }
-        public String TOTALT { get; set; }
-        public String RATET { get; set; }
-        public String TOTALP { get; set; }
-        public String RATEP { get; set; }
-        public String TOTALL { get; set; }
-        public String RATEL { get; set; }
-        public String TOTALJ { get; set; }
-        public String RATEJ { get; set; }
-        public String TOTALKXD { get; set; }
-        public String RATEKXD { get; set; }
-
-
+        public String STARTPROVINCE { get; set; }
+        public String ENDPROVINCE { get; set; }
+        public String STARTPROVINCENAME { get; set; }
+        public String ENDPROVINCENAME { get; set; }
+        public String C17TOTAL { get; set; }
+        public String PTC { get; set; }
+        public String TLPTC { get; set; }
+        public String CH { get; set; }
+        public String TLCH { get; set; }
+        public String TOTALKTT { get; set; }
+        public String TLKTT { get; set; }       
     }
 
     

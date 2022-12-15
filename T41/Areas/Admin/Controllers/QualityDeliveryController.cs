@@ -48,6 +48,7 @@ namespace T41.Areas.Admin.Controllers
         //Controller gọi đến phần view Tổng hợp sản lượng đi phát
         public ActionResult QualityDeliveryDetailReport()
         {
+            
             return View();
 
         }
@@ -79,6 +80,7 @@ namespace T41.Areas.Admin.Controllers
         public ActionResult ListDetailedQualityDeliveryReport(int zone, int endpostcode, int routecode, string startdate, string enddate, int service)
         {
             //ViewBag.zone = zone;
+           
             ViewBag.endpostcode = endpostcode;
             ViewBag.routecode = routecode;
             ViewBag.service = service;
@@ -96,6 +98,7 @@ namespace T41.Areas.Admin.Controllers
         [HttpGet]
         public List<QualityDeliveryDetail> ReturnListExcel(int zone, int endpostcode, int routecode, string startdate, string enddate, int service)
         {
+            
             ViewBag.zone = zone;
             ViewBag.endpostcode = endpostcode;
             ViewBag.routecode = routecode;
@@ -149,12 +152,13 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[1, 4].Value = "Tên Bưu Cục";
             worksheet.Cells[1, 5].Value = "SL Bưu Gửi Đến";
             worksheet.Cells[1, 6].Value = "SL Phát Thành Công";
-            worksheet.Cells[1, 7].Value = "SL Phát Chưa Có Thông Tin";
-            worksheet.Cells[1, 8].Value = "SL PTC Đúng Quy Định";
-            worksheet.Cells[1, 9].Value = "SL PTC Không Đúng Quy Định";
-            worksheet.Cells[1, 10].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
-            worksheet.Cells[1, 11].Value = "Tỉ Lệ TC Không Đúng Quy Định";
-            worksheet.Cells[1, 12].Value = "SL PTC Không Xác Định";
+            worksheet.Cells[1, 7].Value = "TL Phát Thành Công";
+            worksheet.Cells[1, 8].Value = "SL Phát Chưa Có Thông Tin";
+            worksheet.Cells[1, 9].Value = "SL PTC Đúng Quy Định";
+            worksheet.Cells[1, 10].Value = "SL PTC Không Đúng Quy Định";
+            worksheet.Cells[1, 11].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
+            worksheet.Cells[1, 12].Value = "Tỉ Lệ TC Không Đúng Quy Định";
+            worksheet.Cells[1, 13].Value = "SL PTC Không Xác Định";
             
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
@@ -187,7 +191,7 @@ namespace T41.Areas.Admin.Controllers
             ViewBag.startdate = startdate;
             ViewBag.enddate = enddate;
             ViewBag.service = service;
-            //ViewBag.todate = todate;
+           
             //ViewBag.receptacle_id = receptacle_id;
             // Gọi lại hàm để tạo file excel
             var stream = CreateExcelFile();

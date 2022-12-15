@@ -84,7 +84,9 @@ namespace T41.Areas.Admin.Model.DataModel
         public string Height { get; set; }
         public string Length { get; set; }
         public string ValueAddedServiceName { get; set; }
-        
+
+        public string sotien_nhothu { get; set; }
+
     }
 
     public class TBL_DINH_VI

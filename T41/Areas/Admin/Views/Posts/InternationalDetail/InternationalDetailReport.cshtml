@@ -156,7 +156,7 @@
             todayHighlight: true
         }).datepicker("setDate", "0");
 
-        //Phần lấy dữ liệu mã nước
+        //Phần lấy dữ liệu ten tinh
         $.getJSON("/InternationalDetail/CountryCode", function (data) {
             $('#country').html(data);
         })

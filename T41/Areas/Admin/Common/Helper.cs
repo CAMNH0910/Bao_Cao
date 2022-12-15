@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,9 @@ namespace T41.Areas.Admin.Common
     {
         private static string _me24ConnectionString = string.Empty;
         private static OracleConnection _me24OracleConnection = null;
+
+        private static string _me25ConnectionString = string.Empty;
+        private static SqlConnection _me25SqlConnection = null;
 
         //Conection Center CPCPN
         private static string _OraDCConnectionString = string.Empty;
@@ -44,6 +48,11 @@ namespace T41.Areas.Admin.Common
         //Conection PNS
         private static string _OraPNSConnectionString = string.Empty;
         private static OracleConnection _OraPNSOracleConnection = null;
+
+        //Conection Sql EMS
+        private static string _SqlEMSConnectionString = string.Empty;
+        private static SqlConnection _SqlEMSSqlConnection = null;
+
 
         private static string _schemaName = string.Empty;
 
@@ -90,6 +99,34 @@ namespace T41.Areas.Admin.Common
             }
             set
             { _me24OracleConnection = value; }
+        }
+
+        public static string ME25ConnectionString
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_me25ConnectionString))
+                    _me25ConnectionString = ConfigurationManager.ConnectionStrings["ME25_CONNECTION_STRING"].ConnectionString;
+                return _me25ConnectionString;
+            }
+            set { _me25ConnectionString = value; }
+        }
+
+        /// <summary>
+        /// ME24OracleConnection
+        /// </summary>
+        public static SqlConnection ME25SqlConnection
+        {
+            get
+            {
+                if (_me25SqlConnection == null)
+                    _me25SqlConnection = new SqlConnection(ME25ConnectionString);
+                if (_me25SqlConnection.State == System.Data.ConnectionState.Closed)
+                    _me25SqlConnection.Open();
+                return _me25SqlConnection;
+            }
+            set
+            { _me25SqlConnection = value; }
         }
         //Phần gọi vào Database Cpcpn
         public static string OraDCConnectionString
@@ -281,6 +318,33 @@ namespace T41.Areas.Admin.Common
             { _me24OracleConnection = value; }
         }
 
+
+        //Phần gọi vào Database EMS SQL
+        public static string SqlEmsConnectionString
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_SqlEMSConnectionString))
+                    _SqlEMSConnectionString = ConfigurationManager.ConnectionStrings["SQL_CONNECTION_STRING_EMS"].ConnectionString;
+                return _SqlEMSConnectionString;
+            }
+            set { _me25ConnectionString = value; }
+        }
+
+
+        public static SqlConnection SqlEMSConnection
+        {
+            get
+            {
+                if (_SqlEMSSqlConnection == null)
+                    _SqlEMSSqlConnection = new SqlConnection(SqlEmsConnectionString);
+                if (_SqlEMSSqlConnection.State == System.Data.ConnectionState.Closed)
+                    _SqlEMSSqlConnection.Open();
+                return _SqlEMSSqlConnection;
+            }
+            set
+            { _me25SqlConnection = value; }
+        }
         /// <summary>
         /// ExecuteNonQuery
         /// </summary>
@@ -292,6 +356,23 @@ namespace T41.Areas.Admin.Common
             try
             {
                 OracleConnection connection = ME24OracleConnection;
+                dbCommand.Connection = connection;
+
+                iResult = dbCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "ExecuteNonQuery: " + ex.Message);
+            }
+            return iResult;
+        }
+
+        public static int ExecuteNonQuerySQL(SqlCommand dbCommand)
+        {
+            int iResult = -1;
+            try
+            {
+                SqlConnection connection = ME25SqlConnection;
                 dbCommand.Connection = connection;
 
                 iResult = dbCommand.ExecuteNonQuery();

@@ -1,0 +1,405 @@
+﻿<link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/DeliveryImport/DeliveryImport.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
+
+<style>
+
+    
+    .buttonPreview {
+        border: 1px solid #337ab7;
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+        cursor:pointer;
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        color: rgb(51, 122, 183);
+    }
+    .buttonPreview:hover {
+        background-color: #337ab7 !important;
+    }
+
+    .buttonPreview:hover .PreviewPrint {
+        color: black;
+        justify-content:center;
+    }
+    .PreviewPrint {
+        text-decoration: none !important;
+        justify-content:center;
+    }
+    .invalid {
+        border-color: #f33a58;
+    }
+
+    .form-message {
+        color: red;
+        font-size: 1.5rem;
+    }
+
+    .input-group {
+        margin-bottom: 5px;
+    }
+
+    .group-design {
+        display: flex;
+        margin-bottom: 0;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        margin: 10px 0;
+    }
+    .width-setting {
+        width: 80px;
+        margin-bottom: 0;
+    }
+    .file-upload {
+    display:block;
+    text-align:center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    }
+     .file-upload .file-select{
+        display:block;
+        border: 2px solid #dce4ec;
+        color: #34495e;
+        cursor:pointer;
+        height:40px;
+        line-height:40px;
+        text-align:left;
+        background:#FFFFFF;
+        overflow:hidden;
+        position:relative;
+    }
+     .file-upload .file-select .file-select-button{
+        background:#dce4ec;
+        padding:0 10px;
+        display:inline-block;
+        height:40px;
+        line-height:40px;
+    }
+     .file-upload .file-select .file-select-name{
+        line-height:40px;
+        display:inline-block;
+        padding:0 10px;
+    }
+     .file-upload .file-select:hover{
+        border-color:#34495e;
+        transition:all .2s ease-in-out;
+        -moz-transition:all .2s ease-in-out;
+        -webkit-transition:all .2s ease-in-out;
+        -o-transition:all .2s ease-in-out;
+    }
+     .file-upload .file-select:hover .file-select-button{
+        background:#34495e;
+        color:#FFFFFF;
+        transition:all .2s ease-in-out;
+        -moz-transition:all .2s ease-in-out;
+        -webkit-transition:all .2s ease-in-out;
+        -o-transition:all .2s ease-in-out;
+    }
+     .file-upload.active .file-select{
+        border-color:#3fa46a;
+        transition:all .2s ease-in-out;
+        -moz-transition:all .2s ease-in-out;
+        -webkit-transition:all .2s ease-in-out;
+        -o-transition:all .2s ease-in-out;
+    }
+     .file-upload.active .file-select .file-select-button{
+        background:#3fa46a;
+        color:#FFFFFF;
+        transition:all .2s ease-in-out;
+        -moz-transition:all .2s ease-in-out;
+        -webkit-transition:all .2s ease-in-out;
+        -o-transition:all .2s ease-in-out;
+    }
+     .file-upload .file-select input[type=file]{
+        z-index:100;
+        cursor:pointer;
+        position:absolute;
+        height:100%;
+        width:100%;
+        top:0;
+        left:0;
+        opacity:0;
+        filter:alpha(opacity=0);
+    }
+     .file-upload .file-select.file-select-disabled{
+        opacity:0.65;
+    }
+     .file-upload .file-select.file-select-disabled:hover{
+        cursor:default;
+        display:block;
+        border: 2px solid #dce4ec;
+        color: #34495e;
+        cursor:pointer;
+        height:40px;
+        line-height:40px;
+        margin-top:5px;
+        text-align:left;
+        background:#FFFFFF;
+        overflow:hidden;
+        position:relative;
+    }
+     .file-upload .file-select.file-select-disabled:hover .file-select-button{
+        background:#dce4ec;
+        color:#666666;
+        padding:0 10px;
+        display:inline-block;
+        height:40px;
+        line-height:40px;
+    }
+     .file-upload .file-select.file-select-disabled:hover .file-select-name{
+        line-height:40px;
+        display:inline-block;
+        padding:0 10px;
+    }
+
+</style>
+<title>Cập nhật trạng thái phát</title>
+<section class="content-header">
+    <h1>
+        <small> </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">In Barcode CGI</li>
+    </ol>
+</section>
+
+<div class="container">
+    
+    
+
+    
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Hỗ trợ Đại Sứ Quán Mỹ</div>
+        <div class="panel-body">
+            <div class="panel panel-default" style="width:700px; margin:auto">
+                <div class="panel-heading">Import Excel</div>
+
+                <div class="panel-body">
+                        <div class="form-horizontal" style="display:flex;align-items:center">
+
+                            <div class="file-upload col-md-10">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="FileUpload1" id="FileUpload1">
+                                </div>
+                            </div>
+                            <div class="buttonPreview col-md-2">
+                                <a id="btnUpload" class="PreviewPrint" target="_blank" style="display: flex;align-items: center;">Uploads</a>
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+
+            <div class="panel panel-default" style="width:700px; margin:auto">
+                <div class="panel-heading">Xem dữ liệu nhập theo ngày</div>
+
+                <div class="panel-body">
+                    <div class="form-horizontal" style="display:flex;align-items:center">
+             
+                            
+                            <div class="form-group group-design col-lg-10">
+                                <label class="control-label width-setting">Chọn ngày</label>
+                                <div class="inputGroupContainer col-md-12">
+                                    <div class="input-group date" style="margin-bottom:0">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></i></span>
+                                        <input class="form-control" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="buttonPreview col-md-2">
+                                <a id="ViewDataDate" class="PreviewPrint" target="_blank" style="display: flex;align-items: center;">Hiển thị</a>
+                            </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel panel-default" style="width:700px; margin:auto">
+                <div class="panel-heading">Barcode Sticker</div>
+                <div class="panel-body" style="display:flex;justify-content: center;align-items: center;}">
+                    <div class="panel-wrap">
+                        <div class="row">
+                            <div class="form-group group-design col-8">
+                                <label class="control-label width-setting">UID</label>
+                                <div class="inputGroupContainer col-md-12">
+                                    <div class="input-group ">
+                                        <span class="input-group-addon"><i class="fa-solid fa-qrcode"></i></span>
+                                        <input id="Company-code" placeholder="UID" class="form-control" type="text">
+                                    </div>
+                                    <span class="form-message"></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group group-design col-8">
+                                <label class="control-label width-setting">DS160</label>
+                                <div class="col-md-12 inputGroupContainer">
+                                    <div class="input-group ">
+                                        <span class="input-group-addon"><i class="fa-solid fa-qrcode"></i></span>
+                                        <input id="E1-Code" placeholder="DS160-CODE" class="form-control" type="text">
+                                    </div>
+                                    <span class="form-message"></span>
+                                </div>                   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttonPreview col-md-2">
+                        <a id="GetLabel" class="PreviewPrint" target="_blank" onclick="detail()" style="display: flex;align-items: center;">Preview</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+
+    
+</div>
+
+
+
+<script type="text/javascript">
+
+    $("#E1-Code").blur(function () {
+        $("#GetLabel").attr("href", "/Admin/PrintBarcode_CGI/PrintBarcode?E1Code=" + $("#E1-Code").val() + "")
+    })
+
+    $("#fromdate").blur(function () {
+        $("#ViewDataDate").attr("href", "/Admin/PrintBarcode_CGI/GetCustomerInforByDate?date=" + $("#fromdate").val() + "")
+    })
+    function detail() {
+        $.ajax({
+                url: '@Url.Action("PrintBarcode", "PrintBarcode_CGI")',
+
+                data:
+                    {
+                        E1Code: $("#E1-Code").val(),
+
+                    },
+                success: function (data) {
+                    if (data.Code == "01" || data.Code == "99") {
+                            swal.fire(
+                                '' + data.Message + '',
+                                '',
+                                'error'
+                            );
+                        } else {
+                            swal.fire(
+                                'Thành công',
+                                'Lấy dữ liệu in thành công!',
+                                'success'
+                            );
+                        }
+                    }
+                })  
+    }
+
+    $('#FileUpload1').bind('change', function () {
+        var filename = $("#FileUpload1").val();
+        if (/^\s*$/.test(filename)) {
+            $(".file-upload").removeClass('active');
+            $("#noFile").text("No file chosen...");
+        }
+        else {
+            $(".file-upload").addClass('active');
+            $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+        }
+    });
+
+
+    $(document).ready(function () {
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+
+        $('#btnUpload').click(function () {
+
+
+            Swal.fire({
+                title: 'Please Wait !',
+                html: 'Vui lòng đợi giây lát dữ liệu đang được tải lên',// add html attribute if you want or remove
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
+            // Checking whether FormData is available in browser  
+            if (window.FormData !== undefined) {  
+  
+                var fileUpload = $("#FileUpload1").get(0);  
+                var files = fileUpload.files;  
+              
+                // Create FormData object  
+                var fileData = new FormData();  
+  
+                // Looping over all files and add it to FormData object  
+                fileData.append(files[0].name, files[0]);
+              
+  
+                $.ajax({  
+                    url: '/PrintBarcode_CGI/ExcelToDatabase',
+                    type: "POST",  
+                    contentType: false, // Not to set any content header  
+                    processData: false, // Not to process data 
+                    data: fileData, dataType: 'json',
+                    success: function (data) {  
+                        if (data.Code == "99") {
+                            swal.fire(
+                                 'Error!',
+                                 '' + data.Message + '',
+                                 'error'
+                             );
+                        } else {
+                            swal.fire(
+                                'Tuyệt vời!',
+                                '' + data.Message + '',
+                                'success'
+                            );
+                        }
+                    },  
+                });  
+            } else {  
+                alert("FormData is not supported.");  
+            }  
+        });  
+    })
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>

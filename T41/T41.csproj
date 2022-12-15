@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,8 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +63,10 @@
       <HintPath>..\packages\FastMember.Signed.1.3.0\lib\net45\FastMember.Signed.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -73,6 +80,18 @@
       <HintPath>bin\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlXml" />
@@ -210,18 +229,51 @@
     <Compile Include="Areas\Admin\Common\LoggerGeneral.cs" />
     <Compile Include="Areas\Admin\Common\Security.cs" />
     <Compile Include="Areas\Admin\Controllers\AdministratorsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPIHTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GetServiceInternalComuniticationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DetailHubController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportSMSBrandController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InsertStatusInternationalForPartnerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHHUONGTDController.cs" />
+    <Compile Include="Areas\Admin\Controllers\THHubController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPITransportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPIPickupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPIServiceController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportComeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirwayTransportManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChannelManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\CallHistoryControllers.cs" />
     <Compile Include="Areas\Admin\Controllers\CheckDealDeliveryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AffairController.cs" />
     <Compile Include="Areas\Admin\Controllers\DealAndAccountFalseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CheckDealTransferController.cs" />
     <Compile Include="Areas\Admin\Controllers\DetailLadingToPostManController.cs" />
     <Compile Include="Areas\Admin\Controllers\InsertStatusInternationalController.cs" />
     <Compile Include="Areas\Admin\Controllers\InternationalDetailController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CTTCKTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportCTLOController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHCHController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PrintBarcode_CGIController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TMSKPIController.cs" />
+    <Compile Include="Areas\Admin\Controllers\THTCKTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostmanDeliveryController.cs" />
     <Compile Include="Areas\Admin\Controllers\KpiBD13DeliveryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerPortalController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportCTDVCTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPIKTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportSMSController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHDVCTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHE1TNController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHQTDENController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHQTDIController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHHUYENHUYENController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHTINHTINHController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHDONVIDICHVUController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHDONVIController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportTHDVController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QualityKHDeliveryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QualityNBPDeliveryController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrackAndTraceController.cs" />
     <Compile Include="Areas\Admin\Controllers\FindReceptacleController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExpressRoadController.cs" />
@@ -243,22 +295,39 @@
     <Compile Include="Areas\Admin\Controllers\RealTimekeepingController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShipmentManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\TimekeepingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TrackingCustomerExcelController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DeliveryImportController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrackingOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\TransferManagementVNPOSTController.cs" />
     <Compile Include="Areas\Admin\Controllers\TransferManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\SaleUserManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
+    <Compile Include="Areas\Admin\Data\KPIHTRepository.cs" />
+    <Compile Include="Areas\Admin\Data\DetailHubRepository.cs" />
+    <Compile Include="Areas\Admin\Data\PrintBarcode_CGIRepository.cs" />
+    <Compile Include="Areas\Admin\Data\DeliveryImportRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPITransportRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPIPickupRepository .cs" />
+    <Compile Include="Areas\Admin\Data\KPIServiceRepository.cs" />
     <Compile Include="Areas\Admin\Data\AirwayTransportComeRepository.cs" />
     <Compile Include="Areas\Admin\Data\AirwaytransportComeManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\ChannelManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\CallHistoryRepository.cs" />
     <Compile Include="Areas\Admin\Data\CheckDealDeliveryRepository.cs" />
+    <Compile Include="Areas\Admin\Data\AffairRepository.cs" />
     <Compile Include="Areas\Admin\Data\DealAndAccountFalseRepository.cs" />
     <Compile Include="Areas\Admin\Data\CheckDealTransferRepository.cs" />
     <Compile Include="Areas\Admin\Data\DetailLadingToPostmanRepository.cs" />
     <Compile Include="Areas\Admin\Data\InsertStatusInternationalRepository.cs" />
     <Compile Include="Areas\Admin\Data\InternationalDetailRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPIKTRepository.cs" />
+    <Compile Include="Areas\Admin\Data\PostmanDeliveryRepository.cs" />
     <Compile Include="Areas\Admin\Data\KpiBD13DeliveryRepository.cs" />
+    <Compile Include="Areas\Admin\Data\CustomeryRepository.cs" />
+    <Compile Include="Areas\Admin\Data\QualityDeliveryNBPRepository.cs" />
+    <Compile Include="Areas\Admin\Data\ReportlTHDVRepository.cs" />
+    <Compile Include="Areas\Admin\Data\QualityKHDeliveryRepository.cs" />
+    <Compile Include="Areas\Admin\Data\ReportZNSRepository.cs" />
     <Compile Include="Areas\Admin\Data\TrackAndTraceRepository.cs" />
     <Compile Include="Areas\Admin\Data\ReceptacleIDRepository.cs" />
     <Compile Include="Areas\Admin\Data\DevelopActivityRepository.cs" />
@@ -271,10 +340,12 @@
     <Compile Include="Areas\Admin\Data\AirwaytransportManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\ExpressRoadRepository.cs" />
     <Compile Include="Areas\Admin\Data\BusinessManagementRepository.cs" />
+    <Compile Include="Areas\Admin\Data\ReportSMSBrandRepository.cs" />
     <Compile Include="Areas\Admin\Data\TrackingOrderRepository.cs" />
     <Compile Include="Areas\Admin\Data\TotalDataCustomerRepository .cs" />
     <Compile Include="Areas\Admin\Data\TransferManagementVNPOSTRepository.cs" />
     <Compile Include="Areas\Admin\Data\SaleUserManagementRepository.cs" />
+    <Compile Include="Areas\Admin\Data\ListDeliveryCustomerRepository.cs" />
     <Compile Include="Areas\Admin\Data\UserManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\TransferManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\TimeKeepingRepository.cs" />
@@ -283,7 +354,16 @@
     <Compile Include="Areas\Admin\Model\BusinessModel\ReflectionController.cs" />
     <Compile Include="Areas\Admin\Model\CanvasModel\DataPoint.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Administrator.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPIHT.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\LinkInternalCommunityService.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\DetailHub.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\PrintBarcodeCGI.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\DeliveryImport.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPITransport.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPIPickup.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPIService.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwaytransportComeManagement.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\Affair.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\InsertStatusInternational.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\InternationalDetail.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DealAndAccountFalse.cs" />
@@ -296,6 +376,12 @@
     <Compile Include="Areas\Admin\Model\DataModel\DevelopActivity.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Journey.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KpiBD13Delivery.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\PostmanDelivery.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\CustomerPortal.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\ReportKDDelivery.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\QualityDeliveryKH.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\QualityDeliveryNBP.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\ReportZNS.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\RoadwayTransport.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwayTransportCome.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Business.cs" />
@@ -311,6 +397,8 @@
     <Compile Include="Areas\Admin\Model\DataModel\ExpressRoad.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\BusinessManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TrackAndTrace.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPIKTModel.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\ReportSMSBrand.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TrackingOrder.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TotalDataCustomer.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TransferManagement_VNPOST.cs" />
@@ -319,10 +407,12 @@
     <Compile Include="Areas\Admin\Model\DataModel\DetailBD13.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\AirwaytransportManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\SaleUserManagement.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\ListCustomerManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\UserManagement.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RatingZaloController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2666,7 +2756,9 @@
     <Content Include="Areas\Admin\Content\dist\css\alt\AdminLTE-select2.min.css" />
     <Content Include="Areas\Admin\Content\dist\css\alt\AdminLTE-without-plugins.css" />
     <Content Include="Areas\Admin\Content\dist\css\alt\AdminLTE-without-plugins.min.css" />
+    <Content Include="Areas\Admin\Content\dist\css\DeliveryImport\DeliveryImport.css" />
     <Content Include="Areas\Admin\Content\dist\css\print.css" />
+    <Content Include="Areas\Admin\Content\dist\css\RatingZalo\RatingZalo.css" />
     <Content Include="Areas\Admin\Content\dist\css\skins\skin-black-light.css" />
     <Content Include="Areas\Admin\Content\dist\css\skins\skin-black-light.min.css" />
     <Content Include="Areas\Admin\Content\dist\css\skins\skin-black.css" />
@@ -2693,6 +2785,7 @@
     <Content Include="Areas\Admin\Content\dist\css\skins\skin-yellow.min.css" />
     <Content Include="Areas\Admin\Content\dist\css\skins\_all-skins.css" />
     <Content Include="Areas\Admin\Content\dist\css\skins\_all-skins.min.css" />
+    <Content Include="Areas\Admin\Content\dist\css\Sweetalert2\Sweetalert2.css" />
     <Content Include="Areas\Admin\Content\dist\img\avatar.png" />
     <Content Include="Areas\Admin\Content\dist\img\avatar04.png" />
     <Content Include="Areas\Admin\Content\dist\img\avatar2.png" />
@@ -2723,10 +2816,12 @@
     <Content Include="Areas\Admin\Content\dist\img\user8-128x128.jpg" />
     <Content Include="Areas\Admin\Content\dist\js\adminlte.js" />
     <Content Include="Areas\Admin\Content\dist\js\adminlte.min.js" />
+    <Content Include="Areas\Admin\Content\dist\js\DeliveryImport\DeliveryImport.js" />
     <Content Include="Areas\Admin\Content\dist\js\demo.js" />
     <Content Include="Areas\Admin\Content\dist\js\pages\dashboard.js" />
     <Content Include="Areas\Admin\Content\dist\js\pages\dashboard2.js" />
     <Content Include="Areas\Admin\Content\Image\avatar1.jpg" />
+    <Content Include="Areas\Admin\Content\Image\EMS.jpg" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-slider\slider.css" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -2870,12 +2965,14 @@
     <Content Include="Areas\Admin\Content\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Areas\Admin\Content\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Areas\Admin\Content\Site.css" />
+    <Content Include="Areas\Doc\Excel.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Properties\PublishProfiles\Web.Report.pubxml.user" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -3361,16 +3458,77 @@
     <Content Include="Areas\Admin\Views\CallHistory\ID_ListCallHistoryReport.cshtml" />
     <Content Include="Areas\Admin\Views\KpiBD13Delivery\ListDetailedKpiBD13DeliveryReport.cshtml" />
     <Content Include="Areas\Admin\Views\KpiBD13Delivery\KpiBD13DeliveryDetailReport.cshtml" />
-    <Content Include="Areas\Admin\Views\InternationalDetail\InternationalDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\InternationalDetail\InternationalDetailReport.cshtml" />
     <Content Include="Areas\Admin\Views\DetailLadingToPostMan\DeleteDuplicateBD13.cshtml" />
     <Content Include="Areas\Admin\Views\InsertStatusInternational\InsertStatusInternationalView.cshtml" />
+    <Content Include="Areas\Admin\Views\CustomerPortal\CustomerPortalReport.cshtml" />
+    <Content Include="Areas\Admin\Views\QualityNBPDelivery\ListDetailedQualityDeliveryNBPReport.cshtml" />
+    <Content Include="Areas\Admin\Views\QualityNBPDelivery\QualityDeliveryNBPDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\QualityKHDelivery\ListDetailedQualityDeliveryKHReport.cshtml" />
+    <Content Include="Areas\Admin\Views\QualityKHDelivery\QualityDeliveryKHDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\PostmanDelivery\KpipostmanDeliveryDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\PostmanDelivery\ListDetailedpostmanDeliveryReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDV\TH_DV.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDV\ListDetailedQualityTHDVReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDONVI\TH_DONVI.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDONVIDICHVU\TH_DONVIDICHVU.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHTINHTINH\ListDetailedQualityTINHTINHReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHTINHTINH\TH_TINHTINH.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHHUYENHUYEN\ListDetailedQualityHUYENHUYENReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHHUYENHUYEN\TH_HUYENHUYEN.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHQTDI\ListDetailedQualityQTDIReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHQTDI\QTDI.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHQTDEN\ListDetailedQualityQTDENReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHQTDEN\QTDEN.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHE1TN\ListDetailedQualityE1TNReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHE1TN\E1TN.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDVCT\ListDetailedQualityTHDVCTReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDVCT\THDVCT.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportCTDVCT\ListDetailedQualityCTDVCTReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportCTDVCT\CTDVCT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIKT\ListTHSLReport.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIKT\THSL.cshtml" />
+    <Content Include="Areas\Admin\Views\DeliveryImport\DeliveryImport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportSMS\ListDetailedQualitySMSReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportSMS\ReportSMS.cshtml" />
+    <Content Include="Areas\Admin\Views\THTCKT\THTCKT.cshtml" />
+    <Content Include="Areas\Admin\Views\TMSKPI\TMSKPI.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDONVIDICHVU\ListDetailedQualityTHDONVIDICHVUReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHDONVI\ListDetailedQualityTHDONVIVReport.cshtml" />
+    <Content Include="Areas\Admin\Views\CTTCKT\CTTCKT.cshtml" />
+    <Content Include="Areas\Admin\Views\CTTCKT\ListTHTCReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Affair\Affair.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\ListItemDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\KPIPickup.cshtml" />
+    <Content Include="Areas\Admin\Views\KPITransport\KPITransport.cshtml" />
+    <Content Include="Areas\Admin\Views\KPITransport\ListDetailKPITransportFail.cshtml" />
+    <Content Include="Areas\Admin\Views\KPITransport\ListDetailKPITransportNotKPI.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportCTLO\CTLO.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHCH\ListDetailedQualityTINHTINHReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportTHCH\TH_CH.cshtml" />
+    <Content Include="Areas\Admin\Views\THTCKT\THSLTC.cshtml" />
+    <Content Include="Areas\Admin\Views\THTCKT\CTSLTC.cshtml" />
+    <Content Include="Areas\Admin\Views\THHub\THHub.cshtml" />
+    <Content Include="Areas\Admin\Views\DeliveryImport\DeliveryInsert.cshtml" />
+    <Content Include="Areas\Admin\Views\InsertStatusInternationalForPartner\InsertStatusInternationalForPartnerView.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportSMSBrand\ReportSMSBrand.cshtml" />
+    <Content Include="Areas\Admin\Views\PrintBarcode_CGI\PrintBarcode.cshtml" />
+    <Content Include="Areas\Admin\Views\PrintBarcode_CGI\BarcodeInsert.cshtml" />
+    <Content Include="Areas\Admin\Views\PrintBarcode_CGI\GetCustomerInforByDate.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportSMS\ReportZNSTotal.cshtml" />
+    <Content Include="Areas\Admin\Views\ReportSMS\ReportZNSDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\DetailHub\ListDetailedHubFailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\DetailHub\TotalHub.cshtml" />
+    <Content Include="Areas\Admin\Views\GetServiceInternalComunitication\ServiceInternalComunication.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIHT\KPI_Total_HT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIHT\ListItemDetailReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="Properties\PublishProfiles\Web.T41.pubxml" />
+    <None Include="Properties\PublishProfiles\Web.Report.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3425,6 +3583,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Images\" />
+    <Folder Include="Areas\Admin\Views\TrackingCustomerExcel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -3435,6 +3594,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
@@ -3461,6 +3621,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

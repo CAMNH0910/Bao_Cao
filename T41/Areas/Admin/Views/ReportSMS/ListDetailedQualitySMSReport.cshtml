@@ -1,0 +1,46 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.ListDetailedQualitySMSReport != null)
+{
+    int i = 0;
+  
+
+    foreach (var c in Model.ListDetailedQualitySMSReport)
+    {
+        <tr>
+            @*<td class="text-center">@(i + 1)</td>*@
+            <td class="text-center">@c.STT</td>
+            <td class="text-left">@c.Itemcode</td>
+            <td class="text-left">@c.CustomerCode</td>
+            <td class="text-left">@c.ReceiverPhone</td>
+            <td class="text-left">@c.Senddate</td>
+            <td class="text-left">@c.Description</td>
+            <td class="text-left">@c.Sendingtime</td>
+            <td class="text-left">@c.STATUS</td>            
+        </tr>
+        i++;
+    }
+
+
+
+    <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/QualityDelivertChartJS/Chart.js"></script>
+    //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
+   
+}
+else
+{
+    <script type="text/javascript">
+        $('#btnexportlist').hide();
+        swal(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+   
+}
+
+

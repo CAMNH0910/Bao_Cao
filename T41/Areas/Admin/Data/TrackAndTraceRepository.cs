@@ -137,7 +137,9 @@ namespace T41.Areas.Admin.Data
             Tracking.Timeout = 60000;
             DataSet ds = new DataSet();
             ds = Tracking.TrackAndTrace_Items(itemcode);
-
+            ds = Tracking.TrackAndTrace_Items(itemcode);
+            //ds = Tracking.TrackAndTrace_ItemsAsync(itemcode);
+            ds = Tracking.TrackAndTrace_Items(itemcode);
             DataTable da = new DataTable();
             ReturnTrackAndTrace _returnTrackAndTrace = new ReturnTrackAndTrace();
 
@@ -204,7 +206,14 @@ namespace T41.Areas.Admin.Data
                         oTBL_INFODetail.TotalFreightVAT = dr["TotalFreightVAT"].ToString();
                         oTBL_INFODetail.SendingContent = dr["SendingContent"].ToString();
                         oTBL_INFODetail.ReceiverTel = dr["ReceiverTel"].ToString();
-                        oTBL_INFODetail.VAS = dr["VAS"].ToString();
+                        try
+                        {
+                            oTBL_INFODetail.VAS = dr["VAS"].ToString();
+                        }catch
+                        {
+                            oTBL_INFODetail.VAS = "";
+
+                        }
                         oTBL_INFODetail.isDomestic = dr["isDomestic"].ToString();
                         oTBL_INFODetail.isAffair = dr["isAffair"].ToString();
                         oTBL_INFODetail.OriItemCode = dr["OriItemCode"].ToString();
@@ -219,7 +228,22 @@ namespace T41.Areas.Admin.Data
                         oTBL_INFODetail.Width = dr["Width"].ToString();
                         oTBL_INFODetail.Height = dr["Height"].ToString();
                         oTBL_INFODetail.Length = dr["Length"].ToString();
-                        oTBL_INFODetail.ValueAddedServiceName = dr["ValueAddedServiceName"].ToString();
+                        try
+                        {
+                            oTBL_INFODetail.ValueAddedServiceName = dr["ValueAddedServiceName"].ToString();
+                        }
+                        catch
+                        {
+                            oTBL_INFODetail.ValueAddedServiceName = "";
+                        }
+                        try
+                        {
+                            oTBL_INFODetail.sotien_nhothu = dr["sotien_nhothu"].ToString();
+                        }
+                        catch
+                        {
+                            oTBL_INFODetail.sotien_nhothu = "";
+                        }
                         listTBL_INFODetail.Add(oTBL_INFODetail);
 
                     }

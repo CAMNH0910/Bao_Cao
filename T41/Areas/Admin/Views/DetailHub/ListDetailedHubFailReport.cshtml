@@ -1,0 +1,240 @@
+﻿<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/GridviewScroll/gridviewScroll.css" rel="stylesheet" />
+<script src="~/GridviewScroll/gridviewScroll.js"></script>
+
+<style type="text/css">
+    .divclass {
+        overflow: auto;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+         detail();
+
+    });
+
+
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var StartProvince = url.searchParams.get("StartProvince");
+    var EndProvince = url.searchParams.get("EndProvince");
+    var IsSDistrict = url.searchParams.get("IsSDistrict");
+    var IsEDistrict = url.searchParams.get("IsEDistrict");
+    var IsserviceNumber = url.searchParams.get("IsserviceNumber");
+    
+    var IsService = url.searchParams.get("IsService");
+    var IsCod = url.searchParams.get("IsCod");
+    var StartDate = url.searchParams.get("StartDate");
+    var EndDate = url.searchParams.get("EndDate");
+
+</script>
+
+
+
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo chi tiết hướng trọng điểm</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo Cáo chi tiết hướng trọng điểm</li>
+    </ol>
+</section>
+
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportDetailHubFail", "DetailHub")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+
+
+            <div style="width: 100%;; overflow-x: scroll;">
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Mã E1</th>
+                            <th class="text-center">Dịch vụ</th>
+                            <th class="text-center">BC nhận</th>
+                            <th class="text-center">Tên BC nhận</th>
+                            <th class="text-center">Q/H nhận</th>
+                            <th class="text-center">Tên Q/H nhận</th>
+                            <th class="text-center">Tỉnh nhận</th>
+                            <th class="text-center">Tên tỉnh nhận</th>
+                            <th class="text-center">T/G chấp nhận</th>
+                            <th class="text-center">BC phát</th>
+                            <th class="text-center">Tên BC phát</th>
+                            <th class="text-center">Q/H Phát</th>
+                            <th class="text-center">Tên Q/H Phát</th>
+                            <th class="text-center">Tỉnh phát</th>
+                            <th class="text-center">Tên tỉnh phát</th>
+                            <th class="text-center">T/G phát</th>
+                            <th class="text-center">CTTT</th>
+                            <th class="text-center">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+
+
+
+<script>
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var StartProvince = url.searchParams.get("StartProvince");
+    var EndProvince = url.searchParams.get("EndProvince");
+    var IsSDistrict = url.searchParams.get("IsSDistrict");
+    var IsEDistrict = url.searchParams.get("IsEDistrict");
+
+    var IsserviceNumber = url.searchParams.get("IsserviceNumber");
+
+    var IsService = url.searchParams.get("IsService");
+    var StartDate = url.searchParams.get("StartDate");
+    var EndDate = url.searchParams.get("EndDate");
+
+    $(document).ready(function () {
+        detail();
+    });
+
+    debugger;
+
+
+
+
+    function detail() {
+                 $.ajax({
+                     type: "POST",
+
+                     url: '@Url.Action("ListDetailHubFail", "DetailHub")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+            dataType: "json",
+            data:
+                {
+                    StartProvince: StartProvince,
+                    EndProvince: EndProvince,
+                    IsSDistrict: IsSDistrict,
+                    IsEDistrict: IsEDistrict,
+                    IsserviceNumber: IsserviceNumber,
+                    StartDate: StartDate,
+                    EndDate: EndDate
+
+
+                },
+            success: function (data) {
+                debugger;
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+
+
+                $.each(data.ListDetailHubFailReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td  width="20" ><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.ListDetailHubFailReport[i].Itemcode + '"target="_blank" "class="mae1" id="' + data.ListDetailHubFailReport[i].Itemcode + '">' + data.ListDetailHubFailReport[i].Itemcode + '</a></td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].Servicetypechar + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].StartPostCode + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].StartPostCodeName + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].StartDistrict + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].StartDistrictName + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].StartProvince + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].StartProvinceName + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].A1statusdatetime + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].EndPosCode + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].EndPosCodeName + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].EndDistrict + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].EndDistrictName + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].EndProvince + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].EndProvinceName + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].A2statusdatetime + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].J + '</td>';
+                    str_body += '<td ">' + data.ListDetailHubFailReport[i].IsFailstatus + '</td>';
+                    
+                    str_body += '</tr>';
+
+                    if (i == "10000") {
+                        return false;
+                    }
+
+                }) ;
+                str_html += str_body;
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+
+
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi " + data.ListDetailHubFailReport.length + " bưu gửi",
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+        
+
+    $('#btnexportlist').click(function () {
+       
+        var url = $(this).data('baseurl') + '?StartProvince=' + StartProvince + '&EndProvince=' + EndProvince + '&IsSDistrict=' + IsSDistrict + '&IsEDistrict=' + IsEDistrict + '&IsserviceNumber=' + IsserviceNumber + '&StartDate=' + StartDate + '&EndDate=' + EndDate;
+        // redirect
+        location.href = url;
+    });
+
+
+</script>

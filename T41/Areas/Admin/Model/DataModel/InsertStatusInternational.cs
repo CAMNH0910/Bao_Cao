@@ -37,4 +37,23 @@ namespace T41.Areas.Admin.Model.DataModel
         public string OE { get; set; }
         public string MABC_KT { get; set; }
     }
+
+    public class StatusInternational
+    {
+        public int STT { get; set; }
+        public string NGAY { get; set; }
+        public string GIO { get; set; }
+        public string STATUS { get; set; }
+    }
+
+    public class ReturnStatusInternational
+    {
+        public string Code { get; set; }
+        public string Message { get; set; }
+        public StatusInternational StatusInternationalReport { get; set; }
+        public List<StatusInternational> ListStatusInternationalReport;
+
+
+    }
+
 }

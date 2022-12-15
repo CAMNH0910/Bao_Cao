@@ -27,7 +27,15 @@ namespace T41.Areas.Admin.Model.DataModel
         
 
     }
+    public class HeaderTrackingOrderDetailzalo
+    {
 
+        public String CustomerCode { get; set; }
+        public String CustomerName { get; set; }
+        public String TotalItem { get; set; }
+     
+
+    }
     //Dữ liệu lấy ra của phần List Theo Dõi Đơn Hàng
     public class TrackingOrderDetail
     {
@@ -50,7 +58,20 @@ namespace T41.Areas.Admin.Model.DataModel
 
 
     }
+    public class TrackingOrderDetailzalo
+    {
+        public int STT { get; set; }
+        public String Itemcode { get; set; }
+        public String CustomerCode { get; set; }
+        public String ReceiverPhone { get; set; }
+        public String Senddate { get; set; }
+        public String Description    { get; set; }
+        public String Sendingtime { get; set; }
+        public String STATUS { get; set; }
+       
 
+
+    }
 
     //Dữ liệu trả về sau khi gọi dữ liệu dưới DB
     public class ReturnTrackingOrder
@@ -78,5 +99,26 @@ namespace T41.Areas.Admin.Model.DataModel
 
     }
 
-    
+    public class ReturnTrackingOrderzalo
+    {
+        public string Code { get; set; }
+
+        /// <summary>
+        /// Message
+        /// </summary>
+        public string Message { get; set; }
+
+        /// <summary>
+        /// Value
+        /// </summary>
+        public int Total { get; set; }
+
+      
+        public TrackingOrderDetailzalo TrackingOrderReport { get; set; }
+        public List<TrackingOrderDetailzalo> ListDetailedQualitySMSReport;
+
+        public MetaData MetaData { get; set; }
+
+
+    }
 }

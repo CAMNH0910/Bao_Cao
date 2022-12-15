@@ -1,0 +1,354 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="~/Areas/Admin/Content/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/DeliveryImport/DeliveryImport.css">
+
+
+<style>
+.invalid {
+        border-color: #f33a58 !important;
+}
+</style>
+<title>Nhập trạng thái quốc tế cho đối tác</title>
+<section class="content-header">
+    <h1>
+        <small> </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">Nhập trạng thái quốc tế cho đối tác</li>
+    </ol>
+</section>
+<section class="content">
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title text-center"><strong>Nhập trạng thái quốc tế</strong></h3>
+        </div>
+
+
+        <!-- /.box-header -->
+        <div class="box-body">
+          
+            <div class="tab-content">
+                <!-- EMS -->
+                <div class="active tab-pane" id="EMS">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p style="color:red;">Mã E1</p>
+                                <input type="text" name="message" id="P_MAE1" placeholder="Nhập mã E1..." maxlength="13" autocomplete="off" class="form-control">
+                            </div>
+                            <span class="form-message" style="color:#f33a58"></span>
+                        </div>
+
+                        
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Trạng thái</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_EVENT">
+
+                                </select>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-md-3">
+                            <label>Ngày </label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input class="form-control pull-right" id="P_DATE" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>Mã nước</p>
+                                <select class="form-control select2" style="width: 100%;" id="P_MANC"></select>
+                            </div>
+                        </div>
+     
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <p>LÝ DO</p>
+                                <input type="text" name="message" id="P_LYDO" placeholder="Nhập lý do ..." autocomplete="off" class="form-control">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="row">
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success btn-lrg ajax" id="btninput" style="margin-top: 25px;">Nhập trạng thái  <i class="fa-brands fa-product-hunt"></i></button>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div>
+                        @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+
+                        
+
+                        <table id="TableAccount" class="table table-bordered table-condensed table-striped">
+                            <thead>
+                                <tr class="bg-light-blue color-palette">
+                                    <th class="text-center" style="width:70px">STT<br /></th>
+                                    <th class="text-center" style="width:200px">Ngày</th>
+                                    <th class="text-center" style="width:200px">Giờ</th>
+                                    <th class="text-center">Trạng Thái</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="liststatus"></tbody>
+                        </table>
+                    </div>
+
+                    @*<div class="row">
+                        <div class="col-lg-12">
+                            <table id="myTable" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="color-palette" style="background-color:#3ac984; font-family:'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;">
+                                        <th class="text-right" colspan="7" id="tongso"> </th>
+                                    </tr>
+                                    <tr class="color-palette" style="background-color:#3ac984; font-family:'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;">
+                                        <th class="text-center">STT</th>
+                                        <th class="text-center">Mã sản phẩm</th>
+                                        <th class="text-center">Tên sản phẩm</th>
+                                        <th class="text-center">Tên chủ hàng</th>
+                                        <th class="text-center">Tên nhà phân phối</th>
+                                        <th class="text-center">Số lượng</th>
+                                        <th class="text-center">Mã tỉnh</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list_order"></tbody>
+                            </table>
+                        </div>
+                    </div>*@
+                </div>
+
+
+                <!-- /.tab-pane -->
+            </div>
+              <!-- /.nav-tabs-custom -->
+        
+            
+        </div>
+
+    </div>
+
+
+</section>
+<script src="~/Areas/Admin/Content/bower_components/select2/dist/js/select2.min.js"></script>
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+       
+        $('.select2').select2();
+
+        $('#P_DATE').daterangepicker({
+            timePicker: true,
+            timePicker24Hour: true,
+            //timePickerIncrement: 30,
+            singleDatePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'YYYYMMDD Hmm'
+            }
+        });
+
+        
+        //Phần lấy dữ liệu mã nước
+        $.getJSON("/InsertStatusInternationalForPartner/GetCountryCodeForPartner", function (data) {
+            $('#P_MANC').html(data);
+        })
+
+        //Phần lấy dữ liệu trạng thái
+        $.getJSON("/InsertStatusInternationalForPartner/GetListEventCode", function (data) {
+            $('#P_EVENT').html(data);
+        })
+
+        ////Phần lấy dữ liệu lý do
+        //$.getJSON("/InsertStatusInternational/Get_UPU_REASON_CODE", function (data) {
+        //    $('#P_LYDO').html(data);
+        //})
+
+        ////Phần lấy dữ liệu hướng xử lý
+        //$.getJSON("/InsertStatusInternational/Get_UPU_ACTION_CODE", function (data) {
+        //    $('#P_HUONGXULY').html(data);
+        //})
+
+        ////Phần lấy dữ liệu mã tỉnh
+        //$.getJSON("/TransferManagementVNPOST/ProvinceCode", function (data) {
+        //    $('#P_PROVINCE').html(data);
+        //})
+
+        //Lần đầu load bưu cục đóng = HN
+        //$.ajax({
+        //    url: "/TransferManagementVNPOST/PosCode",
+        //    dataType: "json",
+        //    data: { province: 10 },
+        //    success: function (data) {
+        //        $('#P_MABC_KT').html(data);
+        //    }
+        //});
+
+        //Sự kiện thay đổi bưu cục đóng theo khu vực
+        //$('#P_PROVINCE').change(function () {
+        //    $.ajax({
+        //        url: "/TransferManagementVNPOST/PosCode",
+        //       dataType: "json",
+        //        data: { province: $("#P_PROVINCE").val() },
+        //        success: function (data) {
+        //            $('#P_MABC_KT').html(data);
+        //        }
+        //    });
+        //})
+
+        //EMS
+        var input = document.getElementById("P_MAE1");
+        
+        //Phần JS gọi đến thư đi
+        function isi_create() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("InsertStatusInternationalForPartnerCreate", "InsertStatusInternationalForPartner")",
+                data: {
+                    MAE1: $('#P_MAE1').val(),
+                    STATUS: $('#P_EVENT').val(),
+                    MANC: $('#P_MANC').val(),
+                    NGAY: $('#P_DATE').val(),
+                    GIO: $('#P_DATE').val(),
+                    LYDO: $('#P_LYDO').val(),
+                    HANHDONG : "",
+
+                },
+            dataType: "json",
+            success: function (data) {
+                if (data.Code == '00') {
+
+                    swal.fire(
+                      data.Message,
+                      '',
+                      'success'
+                    );
+
+                    DisplayStatusInternational($("#P_MAE1").val());
+
+                }
+                else {
+                    document.getElementById('P_MAE1').value = '';
+                    swal.fire(
+                      data.Message,
+                      '',
+                      'warning'
+                    );
+                }
+
+            },
+            });
+        }
+
+        $("#P_MAE1").blur(function () {
+            var isValid;
+            if ($("#P_MAE1").val().length != 13 || $("#P_MAE1").val().substring(0, 1) != 'E') {
+                $("#P_MAE1").addClass("invalid");
+                $("#P_MAE1").parent().parent().children().last().html("Vui lòng nhập đúng định dạng mã E1");
+                isValid = 1;
+            } else {
+                $("#P_MAE1").removeClass("invalid");
+                $("#P_MAE1").parent().parent().children().last().html("");
+                isValid = 0;
+            }
+
+            if (isValid == 0) {
+                DisplayStatusInternational($("#P_MAE1").val());
+            }
+        })
+
+        function DisplayStatusInternational(E1_Code) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DisplayStatusInternational", "InsertStatusInternationalForPartner")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+                dataType: 'json',
+
+                data:
+                    {
+                        E1_Code: E1_Code
+                    },
+                success: function (data) {
+
+                    debugger;
+                    var str_html = "";
+                    var str_body = "";
+                    var a = 1;
+                    $.each(data.ListStatusInternationalReport, function (i, item) {
+                        str_body += '<tr>';
+                        str_body += '<td class="text-center">' + a++ + '</td>';
+                        str_body += '<td class="text-center">' + data.ListStatusInternationalReport[i].NGAY + '</td>';
+                        str_body += '<td class="text-center">' + data.ListStatusInternationalReport[i].GIO + '</td>';
+                        str_body += '<td class="text-center">' + data.ListStatusInternationalReport[i].STATUS + '</td>';
+
+                        str_body += '</tr>';
+                    });
+                    str_html += str_body;
+
+
+                    if (data.Code == '01' || data.Code == '99') {
+                        $('.loading-element').hide();
+      
+                    }
+
+                    else {
+
+                        $("#TableAccount").dataTable().fnDestroy();
+                        $('#liststatus').html(str_html);
+                        $('.loading-element').hide();
+                        $('#liststatus').show();
+
+                    }
+                }
+            })
+        }
+
+        $("#btninput").click(function () {
+            isi_create();
+        });
+        
+        
+
+    });
+
+
+</script>
+
+
+
+
+
+
+

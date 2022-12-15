@@ -1,0 +1,163 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.ListQualityDeliveryKHReport != null)
+{
+    int i = 0;
+
+    
+    foreach (var c in Model.ListQualityDeliveryKHReport)
+    {
+        <tr>
+            @*<td class="text-center">@(i + 1)</td>*@
+            <td class="text-center">@c.STT</td>
+            <td class="text-center">@c.StartProvinceName</td>
+            <td class="text-center">@c.EndProvinceName</td>
+            <td class="text-center">@c.C17total</td>
+            <td class="text-center">@c.J1</td>
+            <td class="text-center">@c.TLJ1</td>
+            <td class="text-center">@c.J2</td>
+            <td class="text-center">@c.TLJ2</td>
+            <td class="text-center">@c.J25</td>
+            <td class="text-center">@c.TLJ25</td>
+            <td class="text-center">@c.J3</td>
+            <td class="text-center">@c.TLJ3</td>
+            <td class="text-center">@c.J35</td>
+            <td class="text-center">@c.TLJ35</td>
+            <td class="text-center">@c.J4</td>
+            <td class="text-center">@c.TLJ4</td>           
+            <td class="text-center">@c.J5</td>
+            <td class="text-center">@c.TLJ5</td>
+           
+
+
+            <td class="text-center">
+                <a data-toggle="modal" data-id="@c.TotalKTT" class="modal-sanluongKTT" data-target="#myModal" href="#myModal" rel="@c.StartProvince" rel1="@c.EndProvince">@c.TotalKTT </a>
+            </td>
+
+            <td class="text-center">@c.TLKTT</td>
+           
+
+        </tr>
+        i++;
+
+    }
+
+
+    
+    <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/QualityDelivertChartJS/Chart.js"></script>
+    //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
+    <script type="text/javascript">
+        Isservice
+
+        $(document).ready(function () {
+            $('.modal-sanluongKTT').click(function (e) {
+                var type = '@ViewBag.type';
+                var startprovince = $(this).attr("rel");
+                var endprovince = $(this).attr("rel1");
+                var Isservice = '@ViewBag.Isservice';
+                var startdate = '@ViewBag.startdate';
+                var enddate = '@ViewBag.enddate';
+                var CustomerCode = '@ViewBag.CustomerCode';
+                var da = {
+                    type: type,
+                    startprovince: startprovince,
+                    endprovince: endprovince,
+                    Isservice: Isservice,
+                    startdate: startdate,
+                    enddate: enddate,
+                    CustomerCode: CustomerCode
+                };
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () {
+                        $('.loading-element-1').show();
+                    },
+
+                    url: '@Url.Action("DeliveryDetailReport_NotSuccess", "QualityKHDelivery")',
+                    // The key needs to match your method's input parameter (case-sensitive).
+                    data: JSON.stringify(da),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        //$('#myModal').on('show.bs.modal', function (e) { });
+                        var str_html = '<table id="GridView1" class="table table-bordered table-hover">';
+                        str_html += '<thead>';
+                        str_html += '<tr class="bg-light-blue color-palette">';
+                        str_html += '<th>STT</th>';
+                        str_html += '<th>Mã E1</th>';
+                        str_html += '<th>Mã Khách hàng</th>';
+                        str_html += '<th>Mã BC CN</th>';
+                        str_html += '<th>Tên BC</th>';
+                        str_html += '<th>Mã tỉnh nhận</th>';
+                        str_html += '<th>Tên tỉnh</th>';
+                        str_html += '<th>Ngày PH</th>';
+                        str_html += '<th>Giờ PH</th>';
+                        str_html += '<th>Dịch vụ</th>';
+                        str_html += '</tr>';
+                        str_html += '</thead>';
+                        str_html += '<tbody>';
+                        var str_body = "";
+                        var a = 1;
+                        $.each(data.ListQualityDeliverySuccessNotItemReport, function (i, item) {
+                            str_body += '<tr>';
+                            str_body += '<td>' + a++ + '</td>';
+                            str_body += '<td><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.ListQualityDeliverySuccessNotItemReport[i].ItemCode + '"target="_blank" "class="mae1" id="' + data.ListQualityDeliverySuccessNotItemReport[i].ItemCode + '">' + data.ListQualityDeliverySuccessNotItemReport[i].ItemCode + '</a></td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].CustomerCode + '</td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].StartPostcode + '</td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].StartPostcodeName + '</td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].EndPostcode + '</td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].EndPostcodeName + '</td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].StatusDate + '</td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].StatusTime + '</td>';
+                            str_body += '<td>' + data.ListQualityDeliverySuccessNotItemReport[i].ServiceTypeNumber + '</td>';
+                            str_body += '</tr>';
+                        });
+                        str_html += str_body;
+
+                        str_html += '</tbody>';
+                        str_html += '</table>';
+
+                        if (data.Code == '01') {
+                            $('.loading-element-1').hide();
+                            //Xóa session store của bảng chi tiết trước khi show ra
+                            $("#list_test tr").remove();
+                            swal(
+                              'Không Có Số Liệu',
+                              '',
+                              'error'
+                            )
+                        }
+                        else {
+                            $('.loading-element-1').hide();
+                            $('#list_test').html(str_html);
+
+
+                        }
+
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        $('#btnexportlist').hide();
+        swal(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+   
+}
+
+

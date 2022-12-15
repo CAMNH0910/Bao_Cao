@@ -136,7 +136,9 @@
             dataType: 'json',
             data:
                 {
-                   
+                    startdate: $('#fromdate').val(),
+                    enddate: $('#todate').val(),
+                    customercode: $("#customercode").val()
                 },
             success: function (data) {
                 var str_html = "";

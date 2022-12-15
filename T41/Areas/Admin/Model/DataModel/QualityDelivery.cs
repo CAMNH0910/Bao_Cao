@@ -21,6 +21,14 @@ namespace T41.Areas.Admin.Models.DataModel
         public string POSNAME { get; set; }
 
     }
+
+    public class GETPOSTMAN
+    {
+        public string POSTMAN_ID { get; set; }
+
+        public string POSTMAN_NAME { get; set; }
+
+    }
     public class PARAMETER
     {
         public int endpostcode { get; set; }
@@ -40,6 +48,7 @@ namespace T41.Areas.Admin.Models.DataModel
         public String BuuCuc { get; set; }
         public String TenBuuCuc { get; set; }
         public int TongSL { get; set; }
+        public Decimal TylePTC { get; set; }
         public int SanLuongPTC { get; set; }
         public int SanLuongKTT { get; set; }
         public int SanLuongPTC6H { get; set; }

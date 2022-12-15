@@ -137,5 +137,26 @@ namespace T41.Areas.Admin.Controllers
             return View(returntransfermanagement);
 
         }
+
+        //Controller truyền lại dữ liệu từ Center về BCP
+        [HttpPost]
+        public ActionResult TransmitDataCenterToBcp(int fromposcode, int toposcode, int date, int mailtrip, int posbag)
+        {
+            TransferManagementRepository transfermanagementRepository = new TransferManagementRepository();
+            ReturnTransmited returntransmition = new ReturnTransmited();
+            returntransmition = transfermanagementRepository.TransmitDataCentertoBCP(fromposcode, toposcode, date, mailtrip, posbag);
+            return Json(returntransmition, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult TransmitHubToCenter(int fromposcode, int toposcode, int date, int mailtrip, int posbag)
+        {
+            TransferManagementRepository transfermanagementRepository = new TransferManagementRepository();
+            ReturnTransmited returntransmition = new ReturnTransmited();
+            returntransmition = transfermanagementRepository.TransmitDataHubtoCenter(fromposcode, toposcode, date, mailtrip, posbag);
+            return Json(returntransmition, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

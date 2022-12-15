@@ -1,0 +1,53 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.ListTHTCReport != null)
+{
+    int i = 0;
+  
+
+    foreach (var c in Model.ListTHTCReport)
+    {
+        <tr>
+            @*<td class="text-center">@(i + 1)</td>*@
+            <td class="text-center">@c.STT</td>
+            <td class="text-left">@c.IdVnpost</td>
+            <td class="text-left">@c.MailrouteName</td>
+            <td class="text-left">@c.INSTOCKPRODUCT</td>
+            <td class="text-left">@c.InstockWeight</td>
+            <td class="text-left">@c.ArrivePRODUCT</td>
+            <td class="text-left">@c.ArriveWeight</td>
+            <td class="text-left">@c.totalproduct</td>            
+            <td class="text-left">@c.totalweight</td>     
+            <td class="text-left">@c.PeakProduct</td>     
+            <td class="text-left">@c.Peakweight</td>     
+            <td class="text-left">@c.LeaveProduction</td>     
+            <td class="text-left">@c.LeaveWeight</td>     
+            <td class="text-left">@c.ErrorPRODUCT</td>     
+            <td class="text-left">@c.ErrorWeight</td>     
+        </tr>
+        i++;
+    }
+
+
+
+    <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/QualityDelivertChartJS/Chart.js"></script>
+    //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
+   
+}
+else
+{
+    <script type="text/javascript">
+        $('#btnexportlist').hide();
+        swal(
+          'Không Có Số Liệu',
+          '',
+          'error'
+        )
+    </script>
+   
+}
+
+

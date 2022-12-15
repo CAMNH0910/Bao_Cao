@@ -48,26 +48,27 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Bưu Cục Gốc PH</label>
-                        <select class="form-control select2" style="width: 100%;" id="startpostcode">
+                        <label>Tỉnh nhận</label>
+                        <select class="form-control select2" style="width: 100%;" id="tinh_nhan">
                             <option selected="selected" value="0">Tất Cả</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Dịch Vụ</label>
-                        <select class="form-control select2" style="width: 100%;" id="isservice">
-                            <option selected="selected" value="0">EMS</option>
-                        </select>
+                    
+                        <div class="form-group">
+                            <label>Dịch Vụ</label>
+                            <select class="form-control select2" style="width: 100%;" id="Isservice">
+                                <option selected="selected" value="10">Tất Cả</option>
+                                <option value="0">EMS Tiêu chuẩn</option>
+                                <option value="1">COD+ETK</option>
+                                <option value="2">ECOD</option>
+                                <option value="3">EDG</option>
+                                <option value="4">ETT</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Loại Bưu Gửi</label>
-                        <select class="form-control select2" style="width: 100%;" id="zone">
-                            <option selected="selected" value="0">Tất cả</option>
-                            <option value="1">COD</option>
-                            <option value="2">Không COD</option>
-                        </select>
-                    </div>
+                  
                     <!-- /.form-group -->
                 </div>
                 <div class="col-md-6">
@@ -81,24 +82,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Tỉnh Nhận</label>
-                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
+                        <label>Tỉnh trả</label>
+                        <select class="form-control select2" style="width: 100%;" id="tinh_tra">
                             <option selected="selected" value="0">Tất cả</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Phạm Vi</label>
-                        <select class="form-control select2" style="width: 100%;" id="country">
-                            <option selected="selected" value="0">Tất cả</option>
-                            <option value="1">Trong Nước</option>
-                            <option value="2">Quốc Tế</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label>Khách Hàng</label>
                         <textarea rows="2" class="form-control" id="listcusotmer" placeholder="Nhập Mã Khách Hàng"></textarea>
                     </div>
+                   
                     <!-- /.form-group -->
                     <!-- /.form-group -->
 
@@ -119,17 +113,13 @@
                     <thead>
                         <tr class="bg-light-blue color-palette">
                             <th rowspan="2" class="text-center">STT</th>
-                            <th rowspan="2" class="text-center">Tên KHL</th>
-                            <th rowspan="2" class="text-center">Mã KHL</th>
-                            <th rowspan="2" class="text-center">Khu Vực</th>
-                            <th rowspan="2" class="text-center">Tổng Sản Lượng Phát Hành</th>
+                            <th rowspan="2" class="text-center">Tỉnh nhận</th>
+                            <th rowspan="2" class="text-center">Tỉnh trả</th>                         
+                            <th rowspan="2" class="text-center">Tổng SL</th>
                             <th colspan="2" class="text-center">Phát Thành Công</th>
                             <th colspan="2" class="text-center">Phát Không Thành Công</th>
                             <th colspan="2" class="text-center">Phát Hoàn Thành Công</th>
-                            <th colspan="2" class="text-center">Chuyển Hoàn</th>
-                            <th colspan="2" class="text-center">Chờ Chuyển Hoàn</th>
-                            <th colspan="2" class="text-center">Đang Vận Chuyển</th>
-                            <th colspan="2" class="text-center">Chưa Có TT Phát</th>
+                            
                         </tr>
                         <tr class="bg-light-blue color-palette">
                             <th class="text-center">Số Lượng</th>
@@ -138,14 +128,7 @@
                             <th class="text-center">Tỷ Lệ</th>
                             <th class="text-center">Số Lượng</th>
                             <th class="text-center">Tỷ Lệ</th>
-                            <th class="text-center">Số Lượng</th>
-                            <th class="text-center">Tỷ Lệ</th>
-                            <th class="text-center">Số Lượng</th>
-                            <th class="text-center">Tỷ Lệ</th>
-                            <th class="text-center">Số Lượng</th>
-                            <th class="text-center">Tỷ Lệ</th>
-                            <th class="text-center">Số Lượng</th>
-                            <th class="text-center">Tỷ Lệ</th>
+                           
                         </tr>
                     </thead>
                     <tbody id="listtotaldatacustomer"></tbody>
@@ -209,21 +192,14 @@
 
     });
 
-    //Phần lấy dữ liệu bưu cục gốc phát hành
-    $(document).ready(function () {
+    $.getJSON("/QualityKHDelivery/Provincenhan", function (data) {
+        $('#tinh_nhan').html(data);
+    })
 
-        $.getJSON("/TotalDataCustomer/PosCode", function (data) {
-            $.each(data, function (i, data) {
+    $.getJSON("/QualityKHDelivery/Provincetra", function (data) {
+        $('#tinh_tra').html(data);
+    })
 
-                $('<option>',
-                   {
-                       value: data.POSTCODE,
-                       text: data.POSNAME
-                   }).html(data.POSTCODE + '-' + data.POSNAME).appendTo("#startpostcode");
-            });
-        })
-
-    });
 
     $(document).ready(function () {
         $('.loading-element').hide();
@@ -240,13 +216,14 @@
             dataType: 'html',
             data:
                 {
-                    listcusotmer: $("#listcusotmer").val(),
+                    customercode: $("#listcusotmer").val(),
                     startdate: $("#startdate").val(),
                     enddate: $("#enddate").val(),
-                    startpostcode: $('#startpostcode').val(),
-                    endpostcode: $('#endpostcode').val(),
-                    isservice: $("#isservice").val(),
-                    country: $("#country").val(),
+                    startprovince: $('#tinh_nhan').val()+"0000",
+                    endprovince: $('#tinh_tra').val() + "0000",
+                    isservice: $("#Isservice").val(),
+                   
+                    
                     
                 },
             success: function (result) {

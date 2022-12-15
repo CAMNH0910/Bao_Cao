@@ -213,7 +213,9 @@ input::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
-
+.col-md-6 {
+    background-color: #f5f3f3;
+}
 textarea {
   overflow: auto;
   vertical-align: top;
@@ -222,6 +224,35 @@ textarea {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+body{
+  background-color: #bdc3c7;
+}
+.table-fixed{
+  width: 70%;
+  background-color: white;
+  tbody{
+    height:200px;
+    overflow-y:auto;
+    width: 70%;
+    }
+  thead,tbody,tr,td,th{
+    display:block;
+  }
+  tbody{
+    td{
+      float:left;
+    }
+  }
+  thead {
+    tr{
+      th{
+        float:left;
+       background-color: #f39c12;
+       border-color:#e67e22;
+      }
+    }
+  }
 }
 
 @media print {
