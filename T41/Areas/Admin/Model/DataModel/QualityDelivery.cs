@@ -11,7 +11,7 @@ namespace T41.Areas.Admin.Models.DataModel
         public int POSCODE { get; set; }
 
         public string POSNAME { get; set; }
-        
+
     }
     //Lấy mã tuyết phát
     public class GETROUTECODE
@@ -48,15 +48,21 @@ namespace T41.Areas.Admin.Models.DataModel
         public String BuuCuc { get; set; }
         public String TenBuuCuc { get; set; }
         public int TongSL { get; set; }
+        public Decimal TylePTC72H { get; set; }
+        public int SanLuongPTC72H { get; set; }
+
+        public int TC24H { get; set; }
+        public Decimal TYLEPTC24 { get; set; }
         public Decimal TylePTC { get; set; }
         public int SanLuongPTC { get; set; }
+
         public int SanLuongKTT { get; set; }
         public int SanLuongPTC6H { get; set; }
         public int SanLuongPTCQUA6H { get; set; }
         public Decimal TyLeTrong6H { get; set; }
         public Decimal TyLeQua6H { get; set; }
         public int TCKXD { get; set; }
-        
+
     }
     //Lấy chi tiết của từng bưu gửi theo số lượng phát thành công trong 6H
     public class QualityDeliverySuccess6HDetail
@@ -69,7 +75,7 @@ namespace T41.Areas.Admin.Models.DataModel
         public String StatusTime { get; set; }
         public String C17StatusTime { get; set; }
         public String TimeInterval { get; set; }
-       
+
     }
 
     public class ReturnQuality

@@ -37,6 +37,8 @@ namespace T41.Areas.Admin.Models.DataModel
         
         public string Targets { get; set; }
         public string Total { get; set; }
+        public string totalPTC { get; set; }
+        public string TLPTC { get; set; }
         public string SLSuccess { get; set; }
         public string TLSuccess { get; set; }
         public string IsFailStatus { get; set; }
@@ -64,6 +66,9 @@ namespace T41.Areas.Admin.Models.DataModel
 
         public string Targets { get; set; }
         public string Total { get; set; }
+        public string totalPTC { get; set; }
+        public string TLPTC { get; set; }
+
         public string SLSuccess { get; set; }
         public string TLSuccess { get; set; }
         public string IsFailStatus { get; set; }

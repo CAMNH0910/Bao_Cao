@@ -1,0 +1,122 @@
+﻿
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<script>
+
+    
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var StartPoscode = url.searchParams.get("StartPoscode");
+    var PostmanID = url.searchParams.get("PostmanID");
+    var StartDate = url.searchParams.get("StartDate");
+    var EndDate = url.searchParams.get("EndDate");
+    var IsService = url.searchParams.get("IsService");
+    var Istype = url.searchParams.get("Istype");
+</script>
+<style>
+    .dataTables_filter {
+        margin-left: 55%;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        <small>@Model.NameBC</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">@Model.NameBC</li>
+    </ol>
+</section>
+@if (Model.ListDetail_Item_Ems_TRUOT != null)
+{
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("ExportDetail_Item_Ems_TRUOT", "KPIDeliveryLOG")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+        </div>
+    </div>
+    <div class="">
+        <table id="TableAccount" class="table table-bordered table-hover ">
+            <thead>
+
+                <tr class="bg-light-blue color-palette">
+
+                    <th class="text-center">Mã E1</th>
+                    <th class="text-center">Bưu cục</th>
+                    <th class="text-center">Tên bưu cục</th>
+                    <th class="text-center">Mã bưu tá</th>
+                    <th class="text-center">Tên bưu tá</th>
+                    <th class="text-center">Ngày XND/Giao</th>
+                    <th class="text-center">Giờ XND/Giao</th>
+                    <th class="text-center">Ngày phát</th>
+                    <th class="text-center">Giờ phát</th>
+                    <th class="text-center">Dịch vụ</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var c in Model.ListDetail_Item_Ems_TRUOT)
+                {
+
+                    <tr>
+                        @*<td>
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="select_@(i+1)" >
+                                </div>
+                            </td>*@
+                        <td><a target="_blank" href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id= @c.Itemcode"> @c.Itemcode</a></td>
+                        <td>@c.StartPostcode</td>
+                        <td>@c.StartPostcodeName</td>
+                        <td>@c.POSTMANID</td>
+                        <td>@c.PostmanName</td>
+                        <td>@c.C17StatusDate</td>
+                        <td>@c.C17StatusTime</td>
+                        <td>@c.StatusDate</td>
+                        <td>@c.StatusTime</td>
+                        <td>@c.ServiceTypeNumber</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript">
+            $("#TableAccount").dataTable().fnDestroy();
+            $('#TableAccount').DataTable({
+                "ordering": false,
+                "language": {
+                    " processing": "Message khi đang tải dữ liệu",
+                    "search": "Tìm kiếm ",
+                    "lengthMenu": "Điều chỉnh  _MENU_ Tổng số: " + @Model.ListDetail_Item_Ems_TRUOT.Count + " bản ghi",
+
+                    "zeroRecords": "Không có dữ liệu !",
+                    "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                    "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "previous": "Trang trước",
+                        "next": "Trang sau",
+                        "last": "Trang cuối"
+                    }
+                }
+            });
+
+            $('#btnexport').click(function () {
+                // build the url
+                var url = $(this).data('baseurl') + '?StartPoscode=' + StartPoscode + '&PostmanID=' + PostmanID + '&StartDate=' + StartDate + '&EndDate=' + EndDate + '&IsService=' + IsService + '&Istype=' + Istype;
+                // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
+                location.href = url;
+                console.log(url);
+            });
+
+        </script>
+}

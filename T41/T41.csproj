@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>T41</RootNamespace>
     <AssemblyName>T41</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,8 +93,11 @@
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SqlXml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -106,11 +110,8 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -152,6 +153,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -229,9 +231,31 @@
     <Compile Include="Areas\Admin\Common\LoggerGeneral.cs" />
     <Compile Include="Areas\Admin\Common\Security.cs" />
     <Compile Include="Areas\Admin\Controllers\AdministratorsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ItemSendController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_BD10_HubController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_SLController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_TimeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QT_DI_NEWController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ZNS_TCBController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Customer_HPTCController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Customer_Hub_LKController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Customer_Hub_PhatController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Customer_PKTCController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Delivery_TimeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Delivery_WageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_SL_Du_BaoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TKSLGDController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HistoryCallController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TK_LDController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TKSLPController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TKSLController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPIDeliveryLOGController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPIHTController.cs" />
     <Compile Include="Areas\Admin\Controllers\GetServiceInternalComuniticationController.cs" />
     <Compile Include="Areas\Admin\Controllers\DetailHubController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPIPickupLogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TransferCODDataHMController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReportSMSBrandController.cs" />
     <Compile Include="Areas\Admin\Controllers\InsertStatusInternationalForPartnerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReportTHHUONGTDController.cs" />
@@ -302,8 +326,28 @@
     <Compile Include="Areas\Admin\Controllers\TransferManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\SaleUserManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
+    <Compile Include="Areas\Admin\Data\ItemSendRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPIDeliveryLOGRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPIHTRepository.cs" />
     <Compile Include="Areas\Admin\Data\DetailHubRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_BD10_HubRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_BD10_Hub_SLRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_BD10_Hub_TimeRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_CustomerRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Customer_HPTCRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Customer_Hub_LK_Repository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Customer_Hub_Phat_Repository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Customer_PKTCRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Delivery_Time_Repository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Delivery_WageRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_SL_Du_BaoRepository.cs" />
+    <Compile Include="Areas\Admin\Data\QT_DI_NEWRepository.cs" />
+    <Compile Include="Areas\Admin\Data\TKSLGDRepository.cs" />
+    <Compile Include="Areas\Admin\Data\HistoryCallRepository.cs" />
+    <Compile Include="Areas\Admin\Data\TK_LDRepository.cs" />
+    <Compile Include="Areas\Admin\Data\TKSLPRepository.cs" />
+    <Compile Include="Areas\Admin\Data\TKSLRepository.cs" />
+    <Compile Include="Areas\Admin\Data\TransferCODDataHMRepository.cs" />
     <Compile Include="Areas\Admin\Data\PrintBarcode_CGIRepository.cs" />
     <Compile Include="Areas\Admin\Data\DeliveryImportRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPITransportRepository.cs" />
@@ -349,14 +393,35 @@
     <Compile Include="Areas\Admin\Data\UserManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\TransferManagementRepository.cs" />
     <Compile Include="Areas\Admin\Data\TimeKeepingRepository.cs" />
+    <Compile Include="Areas\Admin\Data\ZNS_TCBRepostitory.cs" />
     <Compile Include="Areas\Admin\Model\BusinessModel\DataInitializer.cs" />
     <Compile Include="Areas\Admin\Model\BusinessModel\DTPowerDBContext.cs" />
     <Compile Include="Areas\Admin\Model\BusinessModel\ReflectionController.cs" />
     <Compile Include="Areas\Admin\Model\CanvasModel\DataPoint.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Administrator.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\HistoryCall.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\ItemSend.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_BD10_Hub.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_BD10_Hub_SL.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_BD10_Hub_Time.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Customer.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Customer_HPTC.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Customer_Hub_LK.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Customer_Hub_Phat.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Customer_PKTC.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Delivery_Time.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Delivery_Wage.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_SL_Du_Bao.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\QT_DI_NEW.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\TKSLGD.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\TK_LD.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\TKSLP.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPIDeliveryLOG.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPIHT.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\LinkInternalCommunityService.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DetailHub.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\TKSL.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\TransferCODDataHM.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\PrintBarcodeCGI.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DeliveryImport.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPITransport.cs" />
@@ -409,6 +474,7 @@
     <Compile Include="Areas\Admin\Model\DataModel\SaleUserManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\ListCustomerManagement.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\UserManagement.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\ZNS_TCB.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -3522,6 +3588,65 @@
     <Content Include="Areas\Admin\Views\GetServiceInternalComunitication\ServiceInternalComunication.cshtml" />
     <Content Include="Areas\Admin\Views\KPIHT\KPI_Total_HT.cshtml" />
     <Content Include="Areas\Admin\Views\KPIHT\ListItemDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\TransferCODDataHM\InsertCODDataHM.cshtml" />
+    <Content Include="Areas\Admin\Views\TransferCODDataHM\GetCODDetailData.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIDeliveryLOG\Detail_Item_Ems_TRUOT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIDeliveryLOG\Detail_PLD_XND.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIDeliveryLOG\Detail_PTC_XND.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIDeliveryLOG\Detail_PLD_BT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIDeliveryLOG\Detail_PTC_BT.cshtml" />
+    <Content Include="Areas\Doc\Payment_Sample.xlsx" />
+    <Content Include="Areas\Admin\Views\KPIDeliveryLOG\Detail_Item_Ems_KTT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\KPIPickupSuccess.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\KPIPickupSuccessDQD.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\DetailPickup.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\ListDetailPickupReport.cshtml" />
+    <Content Include="Areas\Admin\Views\TransferCODDataHM\GetCODTotalByDate.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickupLog\DetailPickup.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickupLog\KPIPickupLog.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickupLog\KPIPickupSuccess.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickupLog\KPIPickupSuccessDQD.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickupLog\ListDetailPickupReport.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickupLog\ListItemDetailReport.cshtml" />
+    <Content Include="Areas\Admin\Views\TKSL\Detail_TKSL.cshtml" />
+    <Content Include="Areas\Admin\Views\TKSL\Detail_CT_TKSL.cshtml" />
+    <Content Include="Areas\Admin\Views\TKSLP\Detail_TKSLP.cshtml" />
+    <Content Include="Areas\Admin\Views\TKSLP\Detail_CTKTT_TKSLP.cshtml" />
+    <Content Include="Areas\Admin\Views\TK_LD\Detail_TK_LD.cshtml" />
+    <Content Include="Areas\Admin\Views\TKSLGD\Detail_TKSLGD.cshtml" />
+    <Content Include="Areas\Admin\Views\TK_LD\Detail_TK_CT_LD.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\KPIPickupV2.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIPickup\ListDetailKPIPickUpV2Report.cshtml" />
+    <Content Include="Areas\Admin\Views\ItemSend\ItemSendReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ItemSend\ListItemSendReport.cshtml" />
+    <Content Include="Areas\Admin\Views\HistoryCall\Detail_TK_CT_LD.cshtml" />
+    <Content Include="Areas\Admin\Views\HistoryCall\THHistoryCall.cshtml" />
+    <Content Include="Areas\Admin\Views\HistoryCall\CTHistoryCall.cshtml" />
+    <Content Include="Areas\Admin\Views\TMSKPI\TMSKPIQT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIKT\THSLQT.cshtml" />
+    <Content Include="Areas\Admin\Views\THTCKT\THTCKTQT.cshtml" />
+    <Content Include="Areas\Admin\Views\CTTCKT\CTTCKTQT.cshtml" />
+    <Content Include="Areas\Admin\Views\THTCKT\THSLTCQT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Customer\KPI_Customer_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Customer\KPI_Customer_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Customer\KPI_Customer_KDCT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Customer_Hub_Phat\KPI_Customer_Hub_Phat_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Customer_Hub_LK\KPI_Customer_Hub_LK_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPi_Customer_PKTC\KPi_Customer_PKTC_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Customer_HPTC\KPI_Customer_HPTC_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_BD10_Hub_Time\KPI_BD10_Hub_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_BD10_Hub_SL\KPI_BD10_Hub_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_BD10_Hub\KPI_BD10_Hub_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Time\KPI_Delivery_Time_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_SL_Du_Bao\KPI_SL_Du_Bao_Report.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_Wage.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Detail_Wage.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CTTH.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CTCT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_KGD.cshtml" />
+    <Content Include="Areas\Admin\Views\ZNS_TCB\ZNS_TCBReport.cshtml" />
+    <Content Include="Areas\Admin\Views\QT_DI_NEW\QT_Di_NEW.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3635,7 +3760,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55374</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55374/</IISUrl>
+          <IISUrl>http://localhost:55372/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -135,6 +135,9 @@ namespace T41.Areas.Admin.Data
                             oTotalHub.Isservice = dr["ISSERVICE"].ToString();
                             oTotalHub.Targets = dr["TARGETS"].ToString();
                             oTotalHub.Total = dr["TOTAL"].ToString();
+                            oTotalHub.totalPTC = dr["TOTALPTC"].ToString();
+                            oTotalHub.TLPTC = dr["TLPTC"].ToString();
+
                             oTotalHub.SLSuccess = dr["SLSUCCESS"].ToString();
                             oTotalHub.TLSuccess = dr["TLSUCCESS"].ToString();
                             oTotalHub.IsFailStatus = dr["ISFAILSTATUS"].ToString();
@@ -209,6 +212,10 @@ namespace T41.Areas.Admin.Data
                             oTotalHub.Isservice = dr["ISSERVICE"].ToString();
                             oTotalHub.Targets = dr["TARGETS"].ToString();
                             oTotalHub.Total = dr["TOTAL"].ToString();
+
+                            oTotalHub.totalPTC = dr["TOTALPTC"].ToString();
+                            oTotalHub.TLPTC = dr["TLPTC"].ToString();
+
                             oTotalHub.SLSuccess = dr["SLSUCCESS"].ToString();
                             oTotalHub.TLSuccess = dr["TLSUCCESS"].ToString();
                             oTotalHub.IsFailStatus = dr["ISFAILSTATUS"].ToString();

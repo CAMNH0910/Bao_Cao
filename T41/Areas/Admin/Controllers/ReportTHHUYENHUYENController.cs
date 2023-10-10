@@ -167,7 +167,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -178,41 +178,53 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<QualityReportHUYENHUYENDetail> listItems)
         {
+            var list = ReturnListExcel(ViewBag.donvi, ViewBag.tinhnhan, ViewBag.huyennhan, ViewBag.tinhtra, ViewBag.huyentra, ViewBag.startdate, ViewBag.enddate);
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Đơn Vị";
-            worksheet.Cells[1, 3].Value = "Mã tỉnh nhận";
-            worksheet.Cells[1, 4].Value = "Tên tỉnh nhận";
-            worksheet.Cells[1, 5].Value = "Mã huyện nhận";
-            worksheet.Cells[1, 6].Value = "Tên huyện nhận";
-            worksheet.Cells[1, 7].Value = "Mã tỉnh trả";
-            worksheet.Cells[1, 8].Value = "Tên tỉnh trả";
-            worksheet.Cells[1, 9].Value = "Mã huyện trả";
-            worksheet.Cells[1, 10].Value = "Tên huyện trả";
-            worksheet.Cells[1, 11].Value = "Loại Nấc KL";
-            worksheet.Cells[1, 12].Value = "Nấc KL tính cước";
-            worksheet.Cells[1, 13].Value = "SL";
-            worksheet.Cells[1, 14].Value = "KL";
-            worksheet.Cells[1, 15].Value = "KLQD";
-            worksheet.Cells[1, 16].Value = "Cước chính";
-            worksheet.Cells[1, 17].Value = "PPXD";
-            worksheet.Cells[1, 18].Value = "PPVX";
-            worksheet.Cells[1, 19].Value = "PPMD";
-            worksheet.Cells[1, 20].Value = "Cước DVCT";
-            worksheet.Cells[1, 21].Value = "Tổng cước";
+            worksheet.Cells[1, 1].Value = "BÁO CÁO TỔNG HỢP HUYỆN-HUYỆN DỊCH VỤ EMS CHI TIẾT";
+            worksheet.Cells["A1:U1"].Merge = true;
+
+            worksheet.Cells[2, 21].Value = "MÃ BÁO CÁO:KD/HH_TN";
+            worksheet.Cells["U2:U2"].Merge = true;
+
+            worksheet.Cells[2, 10].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
+            worksheet.Cells["J2:L2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Đơn Vị";
+            worksheet.Cells[4, 3].Value = "Mã tỉnh nhận";
+            worksheet.Cells[4, 4].Value = "Tên tỉnh nhận";
+            worksheet.Cells[4, 5].Value = "Mã huyện nhận";
+            worksheet.Cells[4, 6].Value = "Tên huyện nhận";
+            worksheet.Cells[4, 7].Value = "Mã tỉnh trả";
+            worksheet.Cells[4, 8].Value = "Tên tỉnh trả";
+            worksheet.Cells[4, 9].Value = "Mã huyện trả";
+            worksheet.Cells[4, 10].Value = "Tên huyện trả";
+            worksheet.Cells[4, 11].Value = "Loại Nấc KL";
+            worksheet.Cells[4, 12].Value = "Nấc KL tính cước";
+            worksheet.Cells[4, 13].Value = "SL";
+            worksheet.Cells[4, 14].Value = "KL";
+            worksheet.Cells[4, 15].Value = "KLQD";
+            worksheet.Cells[4, 16].Value = "Cước chính";
+            worksheet.Cells[4, 17].Value = "PPXD";
+            worksheet.Cells[4, 18].Value = "PPVX";
+            worksheet.Cells[4, 19].Value = "PPMD";
+            worksheet.Cells[4, 20].Value = "Cước DVCT";
+            worksheet.Cells[4, 21].Value = "Tổng cước";
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A4:U4"])
+            using (var ranges = worksheet.Cells["A1:U1"])
+            using (var Ngay = worksheet.Cells["J2:L2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -221,6 +233,14 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 

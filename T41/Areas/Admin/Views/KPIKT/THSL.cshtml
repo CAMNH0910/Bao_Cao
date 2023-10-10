@@ -34,7 +34,8 @@
 
             <h3 class="box-title">Báo cáo chất lượng KPI khai thác</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">KT/THSL</h3>
             </div>
 
         </div>
@@ -78,7 +79,13 @@
                         </div>
                     </div>
 
-
+                    <div class="form-group">
+                        <label>Loại dich vu</label>
+                        <select class="form-control select2" style="width: 100%;" id="dichvu">
+                            <option value="0">Thường</option>
+                            <option value="2">TMD</option>
+                        </select>
+                    </div>
 
 
                 </div>
@@ -231,7 +238,8 @@
                 {
                     startdate: $('#fromdate').val(),
                     enddate: $('#todate').val(),
-                    buucuc: $("#buucuc").val()
+                    buucuc: $("#buucuc").val(),
+                    dichvu: $("#dichvu").val()
                 },
             success: function (data) {
                 var str_html = "";
@@ -276,7 +284,7 @@
 
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?buucuc=' + $('#buucuc').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
+        var url = $(this).data('baseurl') + '?buucuc=' + $('#buucuc').val() + '&dichvu=' + $('#dichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
         // redirect
         location.href = url;
     });

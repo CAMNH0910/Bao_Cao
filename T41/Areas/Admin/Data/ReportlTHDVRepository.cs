@@ -173,7 +173,7 @@ namespace T41.Areas.Admin.Data
         {
             List<GETLISTDV> listDV = null;
             GETLISTDV oGetDV = null;
-            string LISTTINH  = "<option value=\"0\">Tất Cả</option>";
+            string LISTTINH = "<option value=\"0\">Tất Cả</option>";
             try
             {
                 using (OracleCommand cm = new OracleCommand())
@@ -253,7 +253,7 @@ namespace T41.Areas.Admin.Data
                     cm.CommandType = CommandType.StoredProcedure;
                     cm.Parameters.Add("v_DataReport", OracleDbType.RefCursor, null, ParameterDirection.Output);
                     using (OracleDataReader dr = cm.ExecuteReader())
-                    {                      
+                    {
                         while (dr.Read())
                         {
 
@@ -395,7 +395,7 @@ namespace T41.Areas.Admin.Data
             List<QualityReportKDDetailItem> listQualityReportKDDetalItem = null;
             QualityReportKDDetailItem oQualityReportKDDetalItem = null;
             int a = 1;
-            
+
 
             try
             {
@@ -426,36 +426,36 @@ namespace T41.Areas.Admin.Data
 
                             oQualityReportKDDetalItem = new QualityReportKDDetailItem();
                             oQualityReportKDDetalItem.STT = a++;
-                           
-                                oQualityReportKDDetalItem.Donvi = dr["DONVI"].ToString();                        
-                                oQualityReportKDDetalItem.Matinhnhan = dr["MATINHNHAN"].ToString();                         
-                                oQualityReportKDDetalItem.Tentinhnhan = dr["TENTINHNHAN"].ToString();                                                     
-                                oQualityReportKDDetalItem.NgayPhatHanh = dr["NGAYPHATHANH"].ToString();                         
-                                oQualityReportKDDetalItem.Madvchinh = dr["MADVCHINH"].ToString();                         
-                                oQualityReportKDDetalItem.TenDV = dr["TENDV"].ToString();                           
-                                oQualityReportKDDetalItem.Mae1 = dr["MAE1"].ToString();                         
-                                oQualityReportKDDetalItem.MaKH = dr["MAKH"].ToString();                        
-                                oQualityReportKDDetalItem.TenNguoiGui = dr["TENNGUOIGUI"].ToString();                          
-                                oQualityReportKDDetalItem.DiaChiGui = dr["DIACHIGUI"].ToString();                          
-                                oQualityReportKDDetalItem.TenNguoiNhan = dr["TENNGUOINHAN"].ToString();                           
-                                oQualityReportKDDetalItem.DiaChiNhan = dr["DIACHINHAN"].ToString();                          
-                                oQualityReportKDDetalItem.MaTinhTra = dr["MATINHTRA"].ToString();                           
-                                oQualityReportKDDetalItem.Tentinhtra = dr["TENTINHTRA"].ToString();                         
-                                oQualityReportKDDetalItem.TrangThaiPhat = dr["TRANGTHAIPHAT"].ToString();                          
-                                oQualityReportKDDetalItem.khoiluong = dr["KL"].ToString();                           
-                                oQualityReportKDDetalItem.KLQD = dr["KLQD"].ToString();                          
-                                oQualityReportKDDetalItem.Cuocchinh = dr["CUOCCHINH"].ToString();                           
-                                oQualityReportKDDetalItem.Cuocdvct = dr["CUOCDVCT"].ToString();                          
-                                oQualityReportKDDetalItem.PPXD = dr["PPXD"].ToString();                       
-                                oQualityReportKDDetalItem.PPVX = dr["PPVX"].ToString();                           
-                                oQualityReportKDDetalItem.PPKhac = dr["PPKHAC"].ToString();                           
-                                oQualityReportKDDetalItem.Tongcuoc = dr["TONGCUOC"].ToString();
-                          
+
+                            oQualityReportKDDetalItem.Donvi = dr["DONVI"].ToString();
+                            oQualityReportKDDetalItem.Matinhnhan = dr["MATINHNHAN"].ToString();
+                            oQualityReportKDDetalItem.Tentinhnhan = dr["TENTINHNHAN"].ToString();
+                            oQualityReportKDDetalItem.NgayPhatHanh = dr["NGAYPHATHANH"].ToString();
+                            oQualityReportKDDetalItem.Madvchinh = dr["MADVCHINH"].ToString();
+                            oQualityReportKDDetalItem.TenDV = dr["TENDV"].ToString();
+                            oQualityReportKDDetalItem.Mae1 = dr["MAE1"].ToString();
+                            oQualityReportKDDetalItem.MaKH = dr["MAKH"].ToString();
+                            oQualityReportKDDetalItem.TenNguoiGui = dr["TENNGUOIGUI"].ToString();
+                            oQualityReportKDDetalItem.DiaChiGui = dr["DIACHIGUI"].ToString();
+                            oQualityReportKDDetalItem.TenNguoiNhan = dr["TENNGUOINHAN"].ToString();
+                            oQualityReportKDDetalItem.DiaChiNhan = dr["DIACHINHAN"].ToString();
+                            oQualityReportKDDetalItem.MaTinhTra = dr["MATINHTRA"].ToString();
+                            oQualityReportKDDetalItem.Tentinhtra = dr["TENTINHTRA"].ToString();
+                            oQualityReportKDDetalItem.TrangThaiPhat = dr["TRANGTHAIPHAT"].ToString();
+                            oQualityReportKDDetalItem.khoiluong = dr["KL"].ToString();
+                            oQualityReportKDDetalItem.KLQD = dr["KLQD"].ToString();
+                            oQualityReportKDDetalItem.Cuocchinh = dr["CUOCCHINH"].ToString();
+                            oQualityReportKDDetalItem.Cuocdvct = dr["CUOCDVCT"].ToString();
+                            oQualityReportKDDetalItem.PPXD = dr["PPXD"].ToString();
+                            oQualityReportKDDetalItem.PPVX = dr["PPVX"].ToString();
+                            oQualityReportKDDetalItem.PPKhac = dr["PPKHAC"].ToString();
+                            oQualityReportKDDetalItem.Tongcuoc = dr["TONGCUOC"].ToString();
+
 
                             listQualityReportKDDetalItem.Add(oQualityReportKDDetalItem);
                         }
-                        _returnQualityTHDV.Code = "00";                        
-                        _returnQualityTHDV.Message = "Lấy dữ liệu thành công.";                                               
+                        _returnQualityTHDV.Code = "00";
+                        _returnQualityTHDV.Message = "Lấy dữ liệu thành công.";
                         _returnQualityTHDV.ListDetailedItemQualityTHDVReport = listQualityReportKDDetalItem;
                     }
                     else
@@ -556,7 +556,7 @@ namespace T41.Areas.Admin.Data
             return _returnQualityTHDV;
         }
 
-        public ReturnReportTHDV QUALITY_THDONVI_DETAIL_ITEM(int DONVI, int TINHNHAN,int PHANLOAI, int startdate, int enddate)
+        public ReturnReportTHDV QUALITY_THDONVI_DETAIL_ITEM(int DONVI, int TINHNHAN, int PHANLOAI, int startdate, int enddate)
         {
             DataTable da = new DataTable();
             MetaDataTHDV _metadataTHDV = new MetaDataTHDV();
@@ -653,7 +653,7 @@ namespace T41.Areas.Admin.Data
         #endregion
         #region QUALITY_DETAIL_DONVI_DICHVU      
 
-        public ReturnReportTHDV QUALITY_THDONVIDICHVU_DETAIL_ITEM(int DONVI,int TINHNHAN, int PHANLOAI, string DICHVU, int startdate, int enddate)
+        public ReturnReportTHDV QUALITY_THDONVIDICHVU_DETAIL_ITEM(int DONVI, int TINHNHAN, int PHANLOAI, string DICHVU, int startdate, int enddate)
         {
             DataTable da = new DataTable();
             MetaDataTHDV _metadataTHDV = new MetaDataTHDV();
@@ -857,7 +857,7 @@ namespace T41.Areas.Admin.Data
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
                     myCommand.Parameters.Add("v_DonVi", OracleDbType.Int32).Value = DONVI;
                     myCommand.Parameters.Add("v_TinhNhan", OracleDbType.Int32).Value = TINHNHAN;
-                    myCommand.Parameters.Add("v_TinhTra", OracleDbType.Int32).Value = TINHTRA;       
+                    myCommand.Parameters.Add("v_TinhTra", OracleDbType.Int32).Value = TINHTRA;
                     //if(DICHVU =="0")
                     //{
                     //    DICHVU = null;
@@ -866,7 +866,7 @@ namespace T41.Areas.Admin.Data
                     //{
                     //    DICHVU = DICHVU;
                     //}
-                              
+
                     myCommand.Parameters.Add("v_MaDV", OracleDbType.NVarchar2).Value = DICHVU;
 
                     myCommand.Parameters.Add(new OracleParameter("v_DataReport", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
@@ -1037,7 +1037,7 @@ namespace T41.Areas.Admin.Data
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
                     myCommand.Parameters.Add("v_DonVi", OracleDbType.Int32).Value = DONVI;
                     myCommand.Parameters.Add("v_TinhNhan", OracleDbType.Int32).Value = TINHNHAN;
-                    myCommand.Parameters.Add("v_TinhTra", OracleDbType.Int32).Value = TINHTRA;                                    
+                    myCommand.Parameters.Add("v_TinhTra", OracleDbType.Int32).Value = TINHTRA;
                     myCommand.Parameters.Add("v_MaDV", OracleDbType.NVarchar2).Value = DICHVU;
                     myCommand.Parameters.Add("v_Nackl", OracleDbType.Int32).Value = NACKL;
 
@@ -1203,7 +1203,7 @@ namespace T41.Areas.Admin.Data
         }
 
 
-        public ReturnReportTHDV QUALITY_THHUYENHUYEN_DETAIL_ITEM(int DONVI, int TINHNHAN, int HUYENNHAN, int TINHTRA, int HUYENTRA, int startdate, int enddate,int Nackl)
+        public ReturnReportTHDV QUALITY_THHUYENHUYEN_DETAIL_ITEM(int DONVI, int TINHNHAN, int HUYENNHAN, int TINHTRA, int HUYENTRA, int startdate, int enddate, int Nackl)
         {
             DataTable da = new DataTable();
             MetaDataTHDV _metadataTHDV = new MetaDataTHDV();
@@ -1234,7 +1234,7 @@ namespace T41.Areas.Admin.Data
                     myCommand.Parameters.Add("v_TinhNhan", OracleDbType.Int32).Value = TINHNHAN;
                     myCommand.Parameters.Add("v_HuyenNhan", OracleDbType.Int32).Value = TINHNHAN;
                     myCommand.Parameters.Add("v_TinhTra", OracleDbType.Int32).Value = TINHTRA;
-                    myCommand.Parameters.Add("v_HuyenTra", OracleDbType.Int32).Value = TINHTRA;                   
+                    myCommand.Parameters.Add("v_HuyenTra", OracleDbType.Int32).Value = TINHTRA;
                     myCommand.Parameters.Add("v_NacKL", OracleDbType.Int32).Value = Nackl;
 
                     myCommand.Parameters.Add(new OracleParameter("v_DataReport", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
@@ -1302,7 +1302,7 @@ namespace T41.Areas.Admin.Data
         }
         #endregion
         #region QT DI
-        public ReturnReportQTDI QUALITY_THQTDI_DETAIL(int MADV, int DONVI, string NCNHAN, int PHANLOAI, int startdate, int enddate)
+        public ReturnReportQTDI QUALITY_THQTDI_DETAIL(string MADV, int DONVI, string NCNHAN, int PHANLOAI, int startdate, int enddate, string MaKH)
         {
             DataTable da = new DataTable();
             MetaDataQTDI _metadataTHQTDI = new MetaDataQTDI();
@@ -1327,11 +1327,11 @@ namespace T41.Areas.Admin.Data
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
-                    myCommand.Parameters.Add("v_PhanLoaiDV", OracleDbType.Int32).Value = MADV;
+                    myCommand.Parameters.Add("v_PhanLoaiDV", OracleDbType.NVarchar2).Value = MADV;
                     myCommand.Parameters.Add("v_DonVi", OracleDbType.Int32).Value = DONVI;
                     myCommand.Parameters.Add("v_NuocNhan", OracleDbType.NVarchar2).Value = NCNHAN;
                     myCommand.Parameters.Add("v_PhanLoaiHH", OracleDbType.Int32).Value = PHANLOAI;
-
+                    myCommand.Parameters.Add("v_Customer", OracleDbType.NVarchar2).Value = MaKH;
 
                     myCommand.Parameters.Add(new OracleParameter("v_DataReport", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
@@ -1349,11 +1349,12 @@ namespace T41.Areas.Admin.Data
                             oQualityReportQTDIDetal.Matinhnhan = dr["MATINHNHAN"].ToString();
                             oQualityReportQTDIDetal.Tentinhnhan = dr["TENTINHNHAN"].ToString();
                             oQualityReportQTDIDetal.Mae1 = dr["MAE1"].ToString();
+                            oQualityReportQTDIDetal.MaKH = dr["MaKH"].ToString();
                             oQualityReportQTDIDetal.Manuoctra = dr["MANUOCTRA"].ToString();
                             oQualityReportQTDIDetal.Ten_Nuoc = dr["TEN_NUOC"].ToString();
                             oQualityReportQTDIDetal.NgayPhatHanh = dr["NGAYPHATHANH"].ToString();
                             oQualityReportQTDIDetal.Madvchinh = dr["MADVCHINH"].ToString();
-                           // oQualityReportQTDIDetal.TenDV = dr["TENDV"].ToString();
+                            // oQualityReportQTDIDetal.TenDV = dr["TENDV"].ToString();
                             oQualityReportQTDIDetal.PhanLoai = dr["PHANLOAI"].ToString();
                             oQualityReportQTDIDetal.khoiluong = dr["KL"].ToString();
                             oQualityReportQTDIDetal.KLQD = dr["KLQD"].ToString();
@@ -1421,7 +1422,7 @@ namespace T41.Areas.Admin.Data
                     myCommand.Parameters.Add("v_NuocNhan", OracleDbType.NVarchar2).Value = NCNHAN;
                     myCommand.Parameters.Add("v_OENhan", OracleDbType.Int32).Value = NUOCOE;
                     myCommand.Parameters.Add("v_PhanLoaiHH", OracleDbType.Int32).Value = PHANLOAI;
-                  
+
 
 
                     myCommand.Parameters.Add(new OracleParameter("v_DataReport", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
@@ -1471,7 +1472,7 @@ namespace T41.Areas.Admin.Data
         #endregion
 
         #region E1 TN
-        public ReturnReportE1TN QUALITY_THE1TN_DETAIL(int donvi, int tinhnhan, string dichvu,string khachhang, int startdate, int enddate)
+        public ReturnReportE1TN QUALITY_THE1TN_DETAIL(int donvi, int tinhnhan, string dichvu, string khachhang, int startdate, int enddate)
         {
             DataTable da = new DataTable();
             MetaDataE1TN _metadataTHE1TN = new MetaDataE1TN();
@@ -1778,9 +1779,9 @@ namespace T41.Areas.Admin.Data
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
-                    myCommand.Parameters.Add("v_DonVi", OracleDbType.Int32).Value = donvi;                 
+                    myCommand.Parameters.Add("v_DonVi", OracleDbType.Int32).Value = donvi;
                     myCommand.Parameters.Add("v_MaDVCT", OracleDbType.NVarchar2).Value = dichvu;
-                  
+
 
                     myCommand.Parameters.Add(new OracleParameter("v_DataReport", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
@@ -1804,7 +1805,7 @@ namespace T41.Areas.Admin.Data
                             oQualityReportTHDVCTDetal.PPXD = dr["PPXD"].ToString();
                             oQualityReportTHDVCTDetal.PPVX = dr["PPVX"].ToString();
                             oQualityReportTHDVCTDetal.PPMD = dr["PPMD"].ToString();
-                          
+
                             oQualityReportTHDVCTDetal.Cuocdvct = dr["CUOCDVCT"].ToString();
                             oQualityReportTHDVCTDetal.Tongcuoc = dr["TONGCUOC"].ToString();
 
@@ -1932,7 +1933,7 @@ namespace T41.Areas.Admin.Data
 
 
         #region CT DVCT
-        public ReturnReportCTDVCT QUALITY_CTDVCT_DETAIL(int donvi,int tinhnhan,int tinhtra ,string dichvu,string dichvuct, int startdate, int enddate)
+        public ReturnReportCTDVCT QUALITY_CTDVCT_DETAIL(int donvi, int tinhnhan, int tinhtra, string dichvu, string dichvuct, int startdate, int enddate)
         {
             DataTable da = new DataTable();
             MetaDataCTDVCT _metadataCTDVCT = new MetaDataCTDVCT();
@@ -2105,11 +2106,11 @@ namespace T41.Areas.Admin.Data
             return _returnQualityCTLO;
         }
 
-    #endregion
+        #endregion
 
     }
 
-    
+
 
 }
 

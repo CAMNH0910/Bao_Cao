@@ -7,7 +7,7 @@
 {
     int i = 0;
 
-    
+
     foreach (var c in Model.ListKpiBD13DeliveryReport)
     {
         <tr>
@@ -19,6 +19,9 @@
             @*<td>@c.TongSLHub</td>*@
             <td class="text-center">@c.TongSL</td>
             <td class="text-center">@c.SanLuongPTC</td>
+            <td class="text-center">@c.TLPTC</td>
+            <td class="text-center">@c.TC72</td>
+            <td class="text-center">@c.TLPTC72</td>
             <td class="text-center">
                 <a data-toggle="modal" data-id="@c.SanLuongKTT" class="modal-ktt" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.SanLuongKTT </a>
             </td>
@@ -26,7 +29,7 @@
             <td class="text-center">
                 <a data-toggle="modal" data-id="@c.BuuCuc" class="modal-sanluong" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.SanLuongPTCQUA6H </a>
             </td>
-            
+
             <td class="text-center">@c.TyLeTrong6H</td>
             <td class="text-center">@c.TyLeQua6H</td>
             <td class="text-center">
@@ -39,14 +42,14 @@
     }
 
 
-    
+
     <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/KpiBD13DelivertChartJS/Chart.js"></script>
     //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
     <script type="text/javascript">
 
 
         $(document).ready(function () {
-            
+
 
             $('.modal-sanluong').click(function (e) {
 
@@ -332,7 +335,7 @@ else
           'error'
         )
     </script>
-   
+
 }
 
 

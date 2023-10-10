@@ -1,0 +1,286 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+
+
+
+
+<style type="text/css">
+    p {
+        font-weight:bold;
+    }
+</style>
+<
+<section class="content-header">
+        <h1>
+            <small>Báo Cáo </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Báo cáo KPI Tổng Hợp Sản Lượng Trượt Chuyến</li>
+        </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Báo cáo KPI Tổng Hợp Sản Lượng Trượt Chuyến</h3>
+            <div class="box-tools pull-right">
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">KT/THSL_QT</h3>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label>Bưu cục</label>
+                        <select class="form-control select2" style="width: 100%;" id="buucuc">
+                            <option selected="selected" value="0">Chọn bưu cục</option>
+                            <option value="100915">100915-KTV QT HN</option>
+                            <option value="700915">700915-KTV QT HCM</option>
+                           
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            @*<div class="box-header">
+                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportQT", "KPIKT")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT<br /></th>
+                            <th class="text-center">Mã bưu cục</th>
+                            <th class="text-center">Sản lượng</th>
+                            <th class="text-center">Khối lượng</th>
+                            <th class="text-center">Sản lượng trượt chuyến</th>
+                            <th class="text-center">Khối lượng trượt chuyến</th>
+                            <th class="text-center">Tỷ lệ sản lượng trượt chuyến</th>
+                            <th class="text-center">Tỷ lệ khối lượng trượt chuyến</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+
+
+
+            </div>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Chi Tiết</h4>
+                            <input type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('GridView1', 'Chi Tiết Bưu Gửi')" value="Xuất Excel">
+                            @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
+                        </div>
+                        <div class="modal-body edit-content">
+                            <div type="reset" id="list_test"></div>
+                            <div class="loading-element-1 text-center" style="font-size:50px;">
+                                <i class="fa fa-spinner fa-spin"></i>
+                                Vui lòng chờ giây lát...
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+       // detail();
+    });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+
+
+
+    $("#btnreport").click(function () {
+
+        // goi ham Detail
+        $("#listkpithdvreport tr").remove();
+        detail();
+        $('.box-footer').show();
+
+
+    });
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+
+
+
+
+
+    //Phần function detail_account
+    function detail() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListTHSLQTReport", "KPIKT")',
+            beforeSend: function () {
+              //  $('.loading-element').show();
+            },
+            dataType: 'json',
+            data:
+                {
+                    buucuc: $("#buucuc").val(),
+                    startdate: $('#fromdate').val(),
+                    enddate: $('#todate').val(),
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListTHSLReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td style="width:100px;">' + data.ListTHSLReport[i].WorkCenter + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].LeaveProduction + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].LeaveWeight + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].ErrorPRODUCT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].ErrorWeight + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].TLSLTC + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].TLKLTC + '</td>';
+
+
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal.fire(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $('#listkpithdvreport').html(str_html);
+                    $('#btnexportlist').show();
+              
+
+                }
+            }
+        })
+    }
+
+
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?buucuc=' + $('#buucuc').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
+        // redirect
+        location.href = url;
+    });
+
+
+
+
+</script>
+
+

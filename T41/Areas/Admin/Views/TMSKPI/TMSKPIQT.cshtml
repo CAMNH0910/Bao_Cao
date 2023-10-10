@@ -1,0 +1,421 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+    p {
+        font-weight:bold;
+    }
+</style>
+
+<section class="content-header">
+        <h1>
+            <small>Báo Cáo </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Lược đồ khai thác đo kiểm KPI Quốc tế</li>
+        </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Lược đồ khai thác đo kiểm KPI Quốc tế</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">         
+                    <div class="form-group">
+                        <label>Bưu cục</label>
+                        <select class="form-control select2" style="width: 100%;" id="buucuc">
+                            <option selected="selected" value="0">Chọn bưu cục</option>
+                            <option value="100915">100915-KTV HN QT</option>
+                            <option value="700915">700916-KTV HCM QT</option>      
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>   
+                </div>
+                
+             
+            </div>
+     
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "TMSKPI")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+                <table id="TableAccount" class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center" >STT<br /></th>
+                            <th class="text-center"width="350px">Tên CutOff</th>
+                            <th class="text-center">ID Hành Trình</th>
+                            <th class="text-center">Tên Hành Trình</th>
+                            <th class="text-center">Thời gian</th>
+                            <th class="text-center">Bưu cục đóng</th>
+                            <th class="text-center">Bưu cục nhận</th>
+                            <th class="text-center">Tên bưu cục nhận</th>
+                            <th class="text-center">Dịch vụ</th>
+                            <th class="text-center">Phương tiện</th>
+                            <th class="text-center">Đo kiểm</th>
+                            <th class="text-center">Cập nhật đường thư</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+
+            var d = new Date();
+            var currMonth = d.getMonth();
+            var currYear = d.getFullYear();
+            var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+            // detail();
+        });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+    
+
+
+    $("#btnreport").click(function () {
+
+
+        $("#listkpithdvreport tr").remove();
+        detail();
+        $('.box-footer').show();
+        $(".btnUpdate-Icon").hide()
+
+        
+       });
+
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+
+    
+
+    //Phần function detail_account
+    function detail() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListTMSKPIReportQT", "TMSKPI")',
+            beforeSend: function () {
+                $('.loading-element').show();
+                },
+            dataType: 'json',
+            data:
+                {
+                    buucuc: $("#buucuc").val(),
+                    StartDate: $("#fromdate").val(),
+                    EndDate: $("#todate").val()
+                },
+
+
+            success: function (data) {
+                    var str_html = "";
+                    var str_body = "";
+                    var a = 1;
+                $.each(data.ListTMSKPIReport, function (i, item) {
+                        str_body += '<tr>';
+                        str_body += '<td class="text-center">' + a++ + '</td>';
+                        str_body += '<td style="width:100px;">' + data.ListTMSKPIReport[i].CutOffName + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].ID_Mailroute + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].mailrouteschedulename + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].ToTime + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].WorkCenter + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].Cellvalue + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].PosName + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].IdEmsservice + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].Transporttype + '</td>';
+                        str_body += '<td class="text-center">' + data.ListTMSKPIReport[i].Notkpi + '</td>';
+                        str_body += '</tr>';
+                    });
+                    str_html += str_body;
+
+                    if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                        swal.fire(
+                          data.Message,
+                          '',
+                          'error'
+                        );
+
+                    }
+                    else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+                    $('#TableAccount').DataTable({
+                            "ordering": false,
+                        "language": {
+                                " processing": "Message khi đang tải dữ liệu",
+                            "search": "Tìm kiếm theo từ khóa:",
+                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListTMSKPIReport.length + " bản ghi",
+
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                            "paginate": {
+                                    "first": "Trang đầu",
+                                "previous": "Trang trước",
+                                "next": "Trang sau",
+                                "last": "Trang cuối"
+                            }
+                            }
+                        });
+
+
+
+                    }
+                }
+            })
+
+    }
+
+
+
+
+
+    function UpdateMailRoute(IdMailRoute, WorkCenter, Cellvalue, TransportypeInt) {
+
+        var check = $("#Checkadmin").text();
+        if (check == '1') {
+
+            $("#txtSTT").val($("#STT-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtNameCutOff").val($("#NameCutOff-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtIdMailRoute").val($("#IdMailRoute-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtNameMailRoute").val($("#MailRouteName-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtToTime").val($("#ToTime-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtWorkCenter").val($("#WorkCenter-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtCellValue").val($("#CellValue-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtPosName").val($("#PosName-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
+            $("#txtTransporttype").val($("#Transporttype-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text())
+
+
+            if ($("#NotKpi-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text() == 'KPI') {
+                $("#txtNotKpi").val(0);
+            } else {
+                $("#txtNotKpi").val(1);
+            }
+
+            if ($("#IsService-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text() == 'EMS') {
+                $("#txtIdEmsService").val(0);
+            } else {
+                $("#txtIdEmsService").val(2);
+            }
+
+
+
+            $(".btn-update").attr('onclick', 'UpdateMailRouteAccept(' + IdMailRoute + ',' + WorkCenter + ',' + Cellvalue + ',' + TransportypeInt + ')')
+        }else
+        {
+            swal.fire(
+                          'Cảnh báo',
+                          'Tài khoản của bạn không được cấp phép sử dụng chức năng này!',
+                          'warning'
+                 );
+            setTimeout(hideModal, 100);
+        }
+     
+
+    } 
+        
+    function hideModal() {
+        $('#myModal').modal('hide');
+    }
+    
+
+
+        function UpdateMailRouteAccept(IdMailRoute, WorkCenter, Cellvalue, TransportypeInt) {
+        $.ajax({
+            url: '@Url.Action("UpdateMailRouteTMSKPIReport", "TMSKPI")',
+            data:
+                {
+                    IdMailRoute: IdMailRoute,
+                    WorkCenter: WorkCenter,
+                    Cellvalue: $("#txtCellValue").val(),
+                    TransportypeInt: TransportypeInt,
+                    NameCutOff: $("#txtNameCutOff").val(),
+                    Totime: $("#txtToTime").val(),
+                    NotKpi: $("#txtNotKpi").val(),
+                    IsService: $("#txtIdEmsService").val()
+
+                },
+            type: 'POST',
+            success: function (data) {
+                    if (data.Code == '00') {
+                        swal.fire(
+                          ''+data.Message+'',
+                          'Cập nhật dữ liệu cho đường thư ' + IdMailRoute + ' thành công!',
+                          'success'
+                        );
+                        detail();
+                    $('#myModal').modal('hide');
+
+                    } else {
+                        swal.fire(
+                          ''+data.Message+'',
+                          'Cập nhật dữ liệu cho đường thư ' + IdMailRoute + ' thất bại!',
+                          'error'
+                        );
+                    }
+                }
+            })
+    }
+
+        function InsertMailRouteAccept() {
+        $.ajax({
+            url: '@Url.Action("InsertMailRouteTMSKPIReport", "TMSKPI")',
+            data:
+                {
+                    NameCutOff: $("#txtNameCutOff-Insert").val(),
+                    IdMailRoute: $("#txtIdMailRoute-Insert").val(),
+                    WorkCenter: $("#txtWorkCenter-Insert").val(),
+                    Cellvalue: $("#txtCellValue-Insert").val(),
+                    NotKpi: $("#txtNotKpi-Insert").val(),
+                    TransportypeInt: $("#txtTransporttype-Insert").val(),
+                    Totime: $("#txtToTime-Insert").val(),
+                    IsService: $("#txtIsService-Insert").val(),
+
+                },
+            type: 'POST',
+            success: function (data) {
+                    if (data.Code == '00') {
+                        swal.fire(
+                          '' + data.Message + '',
+                          'Thêm mới đường thư thành công!',
+                          'success'
+                        );
+                    $('#myModalInsert').modal('hide');
+
+                    } else {
+                        swal.fire(
+                          '' + data.Message + '',
+                          'Thêm mới đường thư thất bại',
+                          'error'
+                        );
+                    }
+                }
+            })
+    }
+
+        function FindIdMailRoute() {
+
+        $.ajax({
+            url: '@Url.Action("FindIdMailRouteTMSKPIReport", "TMSKPI")',
+            data:
+                {
+                ID6Number: $("#txtId6Number").val(),
+
+
+                },
+            type: 'POST',
+            success: function (data) {
+                $(document).ready(function(){
+                    $("#myModalFindId #txtIdMailRoute").val(data.IdMailRoute);
+                    });
+                }
+            })
+        }
+
+    $('#btnexportlist').click(function () {
+            // build the url
+            var url = $(this).data('baseurl') + '?buucuc=' + $('#buucuc').val() + '&Transporttype=' + $('#phuongtien').val();
+            // redirect
+            location.href = url;
+
+
+        });
+
+
+
+
+
+
+</script>
+
+

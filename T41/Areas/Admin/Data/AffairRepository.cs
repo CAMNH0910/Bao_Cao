@@ -68,7 +68,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                   OracleCommand myCommand = new OracleCommand("Affair.GetListAffair", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("Affair.GetListAffair", Helper.OraDCOracleConnection);
                    //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;                                         
                     myCommand.CommandTimeout = 20000;
@@ -97,6 +97,8 @@ namespace T41.Areas.Admin.Data
                             oCustomerDetail.ReceiverFullName = dr["RECEIVERFULLNAME"].ToString();
                             oCustomerDetail.ReceiverAddress = dr["RECEIVERADDRESS"].ToString();
                             oCustomerDetail.ReceiverTel = dr["RECEIVERTEL"].ToString();
+                            oCustomerDetail.PushBccp = dr["PUSHBCCP"].ToString();
+                            oCustomerDetail.PushBccpDateLog = dr["PUSHBCCPDATELOG"].ToString();
                             oCustomerDetail.AffairDate = dr["AFFAIRDATE"].ToString();
                             listAffairDetail.Add(oCustomerDetail);
                         }

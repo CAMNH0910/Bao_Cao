@@ -15,18 +15,18 @@
 
 <style type="text/css">
     p {
-        font-weight:bold;
+        font-weight: bold;
     }
 </style>
 
 <section class="content-header">
-        <h1>
-            <small>Báo Cáo </small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Lược đồ khai thác đo kiểm KPI</li>
-        </ol>
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Lược đồ khai thác đo kiểm KPI</li>
+    </ol>
 </section>
 <section class="content">
     <div class="box box-default">
@@ -34,25 +34,28 @@
 
             <h3 class="box-title">Lược đồ khai thác đo kiểm KPI</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">KT/LDKT</h3>
             </div>
 
         </div>
         <!-- /.box-header -->
         <div class="box-body">
             <div class="row">
-                <div class="col-md-4">         
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Bưu cục</label>
                         <select class="form-control select2" style="width: 100%;" id="buucuc">
                             <option selected="selected" value="0">Chọn bưu cục</option>
+                            <option value="100915">100915-KTV HN QT</option>
                             <option value="100916">100916-KTV HN LT</option>
                             <option value="101000">101000-KTV HN NT</option>
                             <option value="550915">550915-KTV DN LT</option>
                             <option value="550100">550100-KTV DN NT</option>
+                            <option value="700915">700916-KTV HCM QT</option>
                             <option value="700916">700916-KTV HCM LT</option>
                             <option value="701000">701000-KTV HCM NT</option>
-                           
+
                         </select>
                     </div>
                 </div>
@@ -67,8 +70,18 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    @{ 
-                        if(Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
+                    <div class="form-group">
+                        <label>Loại dich vu</label>
+                        <select class="form-control select2" style="width: 100%;" id="dichvu">
+                            <option selected="selected" value="1">Tất cả</option>
+                            <option value="0">Thường</option>
+                            <option value="2">TMD</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @{
+                        if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
                         {
                             <div id="Checkadmin" style="display:none">1</div>
                         }
@@ -78,11 +91,11 @@
                         }
                     }
                 </div>
-             
+
             </div>
             <div class="row">
                 <div class="col-md-8 " style="display:flex; justify-content:center">
-                    @{ 
+                    @{
                         if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
                         {
                             <button data-toggle="modal" data-target="#myModalInsert" type="button" style="margin-right:20px" class="btn btn-primary btn-lrg" id="btnInsert">Thêm mới hành trình đường thư <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
@@ -91,61 +104,61 @@
                     }
                     <button type="button" class="btn btn-info btn-lrg ajax" style="margin-right:20px" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
 
-                   
+
                 </div>
- 
-                </div>
+
             </div>
-
-            @*<div class="box-header">
-                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
-                </div>*@
-
-       
-            <div class="loading-element text-center" style="font-size:50px;">
-                <i class="fa fa-spinner fa-spin"></i>
-                Vui lòng chờ giây lát...
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "TMSKPI")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
-                </div>
-            </div>
-            <div>
-                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
-
-                @{
-                    if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
-                    {
-
-
-
-                    }
-                }
-               
-                <table id="TableAccount" class="table table-bordered table-condensed table-striped">
-                    <thead>
-                        <tr class="bg-light-blue color-palette">
-                            <th class="text-center" >STT<br /></th>
-                            <th class="text-center"width="350px">Tên CutOff</th>
-                            <th class="text-center">ID Hành Trình</th>
-                            <th class="text-center">Tên Hành Trình</th>
-                            <th class="text-center">Thời gian</th>
-                            <th class="text-center">Bưu cục đóng</th>
-                            <th class="text-center">Bưu cục nhận</th>
-                            <th class="text-center">Tên bưu cục nhận</th>
-                            <th class="text-center">Dịch vụ</th>
-                            <th class="text-center">Phương tiện</th>
-                            <th class="text-center">Đo kiểm</th>
-                            <th class="text-center">Cập nhật đường thư</th>
-
-                        </tr>
-                    </thead>
-                    <tbody id="listkpithdvreport"></tbody>
-                </table>
-            </div>
-
         </div>
+
+        @*<div class="box-header">
+                <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+            </div>*@
+
+
+        <div class="loading-element text-center" style="font-size:50px;">
+            <i class="fa fa-spinner fa-spin"></i>
+            Vui lòng chờ giây lát...
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "TMSKPI")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+            </div>
+        </div>
+        <div>
+            @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+
+            @{
+                if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
+                {
+
+
+
+                }
+            }
+
+            <table id="TableAccount" class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr class="bg-light-blue color-palette">
+                        <th class="text-center">STT<br /></th>
+                        <th class="text-center" width="350px">Tên CutOff</th>
+                        <th class="text-center">ID Hành Trình</th>
+                        <th class="text-center">Tên Hành Trình</th>
+                        <th class="text-center">Thời gian</th>
+                        <th class="text-center">Bưu cục đóng</th>
+                        <th class="text-center">Bưu cục nhận</th>
+                        <th class="text-center">Tên bưu cục nhận</th>
+                        <th class="text-center">Dịch vụ</th>
+                        <th class="text-center">Phương tiện</th>
+                        <th class="text-center">Đo kiểm</th>
+                        <th class="text-center">Cập nhật đường thư</th>
+
+                    </tr>
+                </thead>
+                <tbody id="listkpithdvreport"></tbody>
+            </table>
+        </div>
+
+    </div>
     </div>
     <div class="modal fade" id="myModalInsert" role="dialog">
         <div class="modal-dialog modal-sm" style="display:table">
@@ -169,6 +182,7 @@
                                 <th class="text-center">Bưu cục nhận</th>
                                 <th class="text-center">Phương tiện</th>
                                 <th class="text-center">Đo kiểm</th>
+                                <th class="text-center">Dịch vụ</th>
                             </tr>
                         </thead>
                         <tbody id="listkpithdvreport2">
@@ -191,6 +205,13 @@
                                         <option value="1">NOTKPI</option>
                                     </select>
                                 </th>
+                                <th>
+                                    <select class="form-control select2" style="width: 110px;" id="txtIsService-Insert">
+
+                                        <option value="0">Thường</option>
+                                        <option value="2">TMD</option>
+                                    </select>
+                                </th>
                             </tr>
                         </tbody>
                     </table>
@@ -205,14 +226,14 @@
     </div>
 
 
-    <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-sm" style="display:table">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Cập nhật dữ liệu đường thư</h4>
-                
+
                     @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
                 </div>
                 <div class="modal-body edit-content">
@@ -235,19 +256,26 @@
                         </thead>
                         <tbody id="listkpithdvreport1">
                             <tr>
-                                <th ><input id="txtSTT" class="text-center" disabled="disabled" style="width:50px;"/></th>
-                                <th ><input id="txtNameCutOff"class="text-center" style="width:320px"/></th>
-                                <th ><input id="txtIdMailRoute" class="text-center" disabled="disabled" style="width:80px"/></th>
-                                <th ><input id="txtNameMailRoute" class="text-center" disabled="disabled" style="width:180px"/></th>
-                                <th ><input id="txtToTime" class="text-center" style="width:100px"/></th>
-                                <th ><input id="txtWorkCenter" style="width:80px" disabled="disabled" class="text-center"/></th>
-                                <th ><input id="txtCellValue" style="width:80px" class="text-center"/></th>
-                                <th ><input id="txtPosName" disabled="disabled" class="text-center" style="width:130px"/></th>
-                                <th ><input id="txtIdEmsService" disabled="disabled" style="width:60px" class="text-center"/></th>
+                                <th><input id="txtSTT" class="text-center" disabled="disabled" style="width:50px;" /></th>
+                                <th><input id="txtNameCutOff" class="text-center" style="width:320px" /></th>
+                                <th><input id="txtIdMailRoute" class="text-center" disabled="disabled" style="width:80px" /></th>
+                                <th><input id="txtNameMailRoute" class="text-center" disabled="disabled" style="width:180px" /></th>
+                                <th><input id="txtToTime" class="text-center" style="width:100px" /></th>
+                                <th><input id="txtWorkCenter" style="width:80px" disabled="disabled" class="text-center" /></th>
+                                <th><input id="txtCellValue" style="width:80px" class="text-center" /></th>
+                                <th><input id="txtPosName" disabled="disabled" class="text-center" style="width:130px" /></th>
+                                <th>
+                                    <select class="form-control select2" style="width: 110px;" id="txtIdEmsService">
+
+                                        <option value="0">Thường</option>
+                                        <option value="2">TMD</option>
+                                    </select>
+                                </th>
                                 <th>
                                     <input id="txtTransporttype" class="text-center" disabled="disabled" style="width:60px" />
+
                                 </th>
-                                <th >
+                                <th>
                                     <select class="form-control select2" style="width: 110px;" id="txtNotKpi">
 
                                         <option value="0">KPI</option>
@@ -259,7 +287,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-update" >Cập nhật dữ liệu</button>
+                    <button type="button" class="btn btn-danger btn-update">Cập nhật dữ liệu</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -285,10 +313,10 @@
                         </thead>
                         <tbody id="listfindID6Number">
                             <tr>
-                                <th><input class="text-center" style="width:100%" id="txtId6Number"/></th>
-                                <th><input class="test-center" style="width:100%" disabled="disabled" id="txtIdMailRoute"/></th>
+                                <th><input class="text-center" style="width:100%" id="txtId6Number" /></th>
+                                <th><input class="test-center" style="width:100%" disabled="disabled" id="txtIdMailRoute" /></th>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                     <button type="button" class="btn btn-primary" id="btn-find-ID6Num" onclick="javascript:FindIdMailRoute()">Tìm Kiếm</button>
@@ -314,7 +342,7 @@
 
 
 <script type="text/javascript">
-    
+
     $(document).ready(function () {
 
             var d = new Date();
@@ -342,7 +370,7 @@
 
     //Phần Xuất Excel của bảng tổng hợp
 
-    
+
 
 
     $("#btnreport").click(function () {
@@ -353,14 +381,14 @@
         $('.box-footer').show();
         $(".btnUpdate-Icon").hide()
 
-        
+
        });
 
 
 
     //Phần chi tiết của bảng tổng hợp sản lượng đi phát
 
-    
+
 
     //Phần function detail_account
     function detail() {
@@ -373,8 +401,9 @@
             dataType: 'json',
             data:
                 {
-                buucuc: $("#buucuc").val(),
-                    Transporttype: $("#phuongtien").val()
+                    buucuc: $("#buucuc").val(),
+                    Transporttype: $("#phuongtien").val(),
+                    IsService: $("#dichvu").val()
                 },
 
 
@@ -460,7 +489,6 @@
             $("#txtWorkCenter").val($("#WorkCenter-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
             $("#txtCellValue").val($("#CellValue-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
             $("#txtPosName").val($("#PosName-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
-            $("#txtIdEmsService").val($("#IsService-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text());
             $("#txtTransporttype").val($("#Transporttype-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text())
 
 
@@ -468,6 +496,12 @@
                 $("#txtNotKpi").val(0);
             } else {
                 $("#txtNotKpi").val(1);
+            }
+
+            if ($("#IsService-" + IdMailRoute + "-" + WorkCenter + "-" + Cellvalue + "-" + TransportypeInt + "").text() == 'EMS') {
+                $("#txtIdEmsService").val(0);
+            } else {
+                $("#txtIdEmsService").val(2);
             }
 
 
@@ -482,14 +516,14 @@
                  );
             setTimeout(hideModal, 100);
         }
-     
 
-    } 
-        
+
+    }
+
     function hideModal() {
         $('#myModal').modal('hide');
     }
-    
+
 
 
         function UpdateMailRouteAccept(IdMailRoute, WorkCenter, Cellvalue, TransportypeInt) {
@@ -504,6 +538,7 @@
                     NameCutOff: $("#txtNameCutOff").val(),
                     Totime: $("#txtToTime").val(),
                     NotKpi: $("#txtNotKpi").val(),
+                    IsService: $("#txtIdEmsService").val()
 
                 },
             type: 'POST',
@@ -540,6 +575,7 @@
                     NotKpi: $("#txtNotKpi-Insert").val(),
                     TransportypeInt: $("#txtTransporttype-Insert").val(),
                     Totime: $("#txtToTime-Insert").val(),
+                    IsService: $("#txtIsService-Insert").val(),
 
                 },
             type: 'POST',

@@ -9,18 +9,18 @@
 
 <style type="text/css">
     p {
-        font-weight:bold;
+        font-weight: bold;
     }
 </style>
 <title>Báo cáo kpi bd13</title>
 <section class="content-header">
-        <h1>
-            <small>Báo Cáo </small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Báo cáo kpi bd13</li>
-        </ol>
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo kpi bd13</li>
+    </ol>
 </section>
 <section class="content">
     <div class="box box-default">
@@ -28,7 +28,8 @@
 
             <h3 class="box-title">Báo cáo Tổng hợp kpi bd13</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">P/CL_BD13</h3>
             </div>
 
         </div>
@@ -82,10 +83,10 @@
                         <label>Dịch Vụ</label>
                         <select class="form-control select2" style="width: 100%;" id="service">
                             <option selected="selected" value="10">Tất Cả</option>
-                            <option value="0">EMS Thường</option>
-                            <option value="1">COD</option>
-                            <option value="2">Hỏa Tốc</option>
-                            <option value="3">PT9</option>
+                            <option value="1">TMĐT</option>
+                            <option value="2">TT</option>
+                            @*<option value="2">Hỏa Tốc</option>
+                                <option value="3">PT9</option>*@
                         </select>
                     </div>
                     <div class="form-group">
@@ -96,7 +97,7 @@
                         </select>
                     </div>
                 </div>
-                
+
 
             </div>
             <div class="row">
@@ -141,6 +142,9 @@
                             <th class="text-center">Tên Bưu Cục</th>
                             <th class="text-center">SL Bưu  <br /> Gửi Đến</th>
                             <th class="text-center">SL Phát <br /> Thành Công</th>
+                            <th class="text-center">TL Phát <br /> Thành Công</th>
+                            <th class="text-center">SL Phát <br /> Thành Công 72H</th>
+                            <th class="text-center">TL Phát <br /> Thành Công 72H</th>
                             <th class="text-center">SL Phát Chưa <br />Có Thông Tin</th>
                             <th class="text-center">SL PTC <br /> Đúng Quy Định</th>
                             <th class="text-center">SL PTC Không <br />  Đúng Quy Định</th>
@@ -153,9 +157,9 @@
                 </table>
 
             </div>
-            
 
-            
+
+
 
 
 
@@ -366,7 +370,7 @@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script type="text/javascript">
-   
+
 
     var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
        , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
@@ -415,7 +419,7 @@
     //        ExportToExcel('GridView1');
     //    });
     //});
-    
+
     //Function Xuất Excel của bảng chi tiết
     //function ExportToExcel(Id) {
     //    var tab_text = "<table border='2px'><tr>";
@@ -453,7 +457,7 @@
 
 
     $("#btnreport").click(function () {
-        
+
         // goi ham Detail
         $("#listkpibd13report tr").remove();
         detail();
@@ -489,7 +493,7 @@
         chart28.destroy();
     });
 
-   
+
     //Export Excel
     $('#btnexportlist').click(function () {
         // build the url
@@ -514,7 +518,7 @@
                     startdate: $('#fromdate').val(),
                     enddate: $('#todate').val(),
                     service: $("#service").val()
-                    
+
                 },
             success: function (result) {
                 // sau khi chay ham thanh cong lay ra ket qua thi bind html vao id listkpibd13report
@@ -526,7 +530,7 @@
         })
     }
 
-   
+
 
     //Sự kiện thay đổi bưu cục phát theo khu vực
     $(document).ready(function () {
@@ -546,7 +550,7 @@
             })
     });
 
-    
+
 
     //Sự kiện thay đổi tuyến phát theo bưu cục phát
     $(document).ready(function () {
@@ -566,7 +570,7 @@
         })
     });
 
-    
+
 </script>
 
 

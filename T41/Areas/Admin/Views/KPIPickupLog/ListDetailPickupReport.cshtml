@@ -1,0 +1,129 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.listDetailPickup_Report != null)
+{
+    int i = 0; i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;
+    <thead>
+        <tr>
+            <th colspan="14">Chi tiết chất lượng thu gom</th>
+            <th  class="text-right">Tổng số: @ViewBag.Total</th>
+        </tr>
+        <tr class="bg-light-blue color-palette">
+            
+            <th class="text-center">STT</th>
+            <th class="text-center">Ngày</th>
+            <th class="text-center">Bưu cục</th>
+            <th class="text-center">Mã tin</th>
+            <th class="text-center">Tuyến thu gom</th>
+            <th class="text-center">Tên khách hàng</th>
+            <th class="text-center">Mã khách hàng</th>
+            <th class="text-center">Địa chỉ thu gom</th>
+            <th class="text-center">Số lượng</th>
+            <th class="text-center">Khối lượng</th>
+            <th class="text-center">Giờ điều tin</th>
+            <th class="text-center">Giờ yêu cầu thu gom</th>
+            <th class="text-center">Giờ nhận tin</th>
+            <th class="text-center">Giờ xác nhận</th>
+            <th class="text-center">Giờ thu gom</th>
+            <th class="text-center">Giờ xác nhận đến</th>
+            <th class="text-center">Giờ thu KTC</th>
+            <th class="text-center">Tin bưu cục xác nhận</th>
+            <th class="text-center">Sản lượng bưu cục xác nhận</th>
+            <th class="text-center">Lý do</th>
+            <th class="text-center">Người tạo</th>
+            <th class="text-center">Người điều</th>
+            <th class="text-center">Bưu tá gom</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var c in Model.listDetailPickup_Report)
+        {
+
+        <tr>
+            <td>@(i + 1)</td>
+            <td>@c.CREATED_DATE</td>
+            <td>@c.PO_PICKUP_CODE</td>
+            <td>@c.ORDER_CODE</td>
+            <td>@c.ROUTE_CODE</td>
+            <td>@c.CUSTOMER_NAME</td>
+            <td>@c.CUSTOMER_CODE</td>
+            <td>@c.ADDRESS</td>
+            <td>@c.QUANTITY</td>
+            <td>@c.WEIGH</td>
+            <td>@c.GIO_DIEU_TIN</td>
+            <td>@c.REQUEST_PICKUP_TIME</td>
+            <td>@c.GIO_NHAN_TIN</td>
+            <td>@c.GIO_XAC_NHAN_TIN</td>
+            <td>@c.GIO_THU_GOM</td>
+            <td>@c.GIO_XAC_NHAN_DEN</td>
+            <td>@c.GIO_LAY_HANG_KTC</td>
+            <td>@c.EDIT_ARRIVED_QUANTITY</td>
+            <td>@c.EDIT_ARRIVED_WEIGHT</td>
+            <td>@c.COLLECT_REASON</td>
+            <td>@c.NGUOI_TAO</td>
+            <td>@c.NGUOI_DIEU</td>
+            <td>@c.NGUOI_GOM</td>
+            @*<td>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-danger btn-xs ajax btnreportdelete" rel="@c.MAE1"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+            </td>*@
+        </tr>
+        i++;
+
+        }
+    </tbody>
+    <script type="text/javascript">
+        $('#btnexport').show();
+        //Phần xóa dữ liệu theo mã bưu gửi
+        $(document).ready(function () {
+            $('.btnreportdelete').click(function (e) {
+                var delete_id = $(this).attr('rel');
+                swal({
+                    title: 'Bạn có muốn xóa bưu gửi ' + delete_id + ' không?',
+                    text: "Xóa bưu gửi!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Có!',
+                    cancelButtonText: 'Không!'
+                }).then((result) => {
+                    if (result.value) {
+                        alert(delete_id);
+                        
+                    }
+                })
+
+            });
+        });
+    
+    </script>
+}
+
+else
+
+{
+    <script>
+        $('#btnexport').hide();
+        swal(
+           'Không Có Số Liệu',
+           '',
+           'error'
+         )
+    </script>
+
+}
+<input type="hidden" value="@ViewBag.currentPageIndex" id="currentPage" />
+<input type="hidden" id="total_page" value="@ViewBag.total_page" />
+<input type="hidden" id="total" value="@ViewBag.total" />
+
+
+

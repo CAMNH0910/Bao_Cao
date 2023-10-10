@@ -21,7 +21,7 @@ namespace T41.Areas.Admin.Controllers
     {
         Convertion common = new Convertion();
         // GET: Admin/QualityDelivery
-        
+
         //Controller lấy dữ liệu bưu cục phát
         public JsonResult PosCode(int zone)
         {
@@ -48,12 +48,12 @@ namespace T41.Areas.Admin.Controllers
         //Controller gọi đến phần view Tổng hợp sản lượng đi phát
         public ActionResult QualityDeliveryDetailReport()
         {
-            
+
             return View();
 
         }
 
-        
+
 
         [HttpPost]
         //Controller gọi đến chi tiết theo từng mã bưu cục của sản lượng phát thành công trong 6H
@@ -63,7 +63,7 @@ namespace T41.Areas.Admin.Controllers
             ReturnQuality returnquality = new ReturnQuality();
             returnquality = qualitydeliveryRepository.Quality_Delivery_Success6H_Detail(endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service, type);
             return Json(returnquality, JsonRequestBehavior.AllowGet);
-            
+
         }
 
         [HttpPost]
@@ -80,7 +80,7 @@ namespace T41.Areas.Admin.Controllers
         public ActionResult ListDetailedQualityDeliveryReport(int zone, int endpostcode, int routecode, string startdate, string enddate, int service)
         {
             //ViewBag.zone = zone;
-           
+
             ViewBag.endpostcode = endpostcode;
             ViewBag.routecode = routecode;
             ViewBag.service = service;
@@ -88,7 +88,7 @@ namespace T41.Areas.Admin.Controllers
             ViewBag.enddate = enddate;
             QualityDeliveryRepository qualitydeliveryRepository = new QualityDeliveryRepository();
             ReturnQuality returnquality = new ReturnQuality();
-            returnquality = qualitydeliveryRepository.QUALITY_DELIVERY_DETAIL(zone , endpostcode , routecode, common.DateToInt(startdate), common.DateToInt(enddate), service);
+            returnquality = qualitydeliveryRepository.QUALITY_DELIVERY_DETAIL(zone, endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service);
             //return View(returnquality.ListQualityDeliveryReport);
             return View(returnquality);
 
@@ -98,7 +98,7 @@ namespace T41.Areas.Admin.Controllers
         [HttpGet]
         public List<QualityDeliveryDetail> ReturnListExcel(int zone, int endpostcode, int routecode, string startdate, string enddate, int service)
         {
-            
+
             ViewBag.zone = zone;
             ViewBag.endpostcode = endpostcode;
             ViewBag.routecode = routecode;
@@ -115,7 +115,7 @@ namespace T41.Areas.Admin.Controllers
         public Stream CreateExcelFile(Stream stream = null)
         {
             //var list = CreateTestItems();
-            var list = ReturnListExcel(ViewBag.zone,ViewBag.endpostcode,ViewBag.routecode,ViewBag.startdate,ViewBag.enddate,ViewBag.service);
+            var list = ReturnListExcel(ViewBag.zone, ViewBag.endpostcode, ViewBag.routecode, ViewBag.startdate, ViewBag.enddate, ViewBag.service);
             using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
             {
                 // Tạo author cho file Excel
@@ -129,7 +129,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -140,34 +140,50 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<QualityDeliveryDetail> listItems)
         {
+            var list = ReturnListExcel(ViewBag.zone, ViewBag.endpostcode, ViewBag.routecode, ViewBag.startdate, ViewBag.enddate, ViewBag.service);
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Đơn Vị";
-            worksheet.Cells[1, 3].Value = "Bưu Cục";
-            worksheet.Cells[1, 4].Value = "Tên Bưu Cục";
-            worksheet.Cells[1, 5].Value = "SL Bưu Gửi Đến";
-            worksheet.Cells[1, 6].Value = "SL Phát Thành Công";
-            worksheet.Cells[1, 7].Value = "TL Phát Thành Công";
-            worksheet.Cells[1, 8].Value = "SL Phát Chưa Có Thông Tin";
-            worksheet.Cells[1, 9].Value = "SL PTC Đúng Quy Định";
-            worksheet.Cells[1, 10].Value = "SL PTC Không Đúng Quy Định";
-            worksheet.Cells[1, 11].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
-            worksheet.Cells[1, 12].Value = "Tỉ Lệ TC Không Đúng Quy Định";
-            worksheet.Cells[1, 13].Value = "SL PTC Không Xác Định";
-            
+            worksheet.Cells[1, 1].Value = "BÁO CÁO CHẤT LƯỢNG PHÁT";
+            worksheet.Cells["A1:Q1"].Merge = true;
+
+            worksheet.Cells[2, 17].Value = "MÃ BÁO CÁO:P/CLP";
+            worksheet.Cells["Q2:Q2"].Merge = true;
+
+            worksheet.Cells[2, 8].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.endDate;
+            worksheet.Cells["H2:J2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Đơn Vị";
+            worksheet.Cells[4, 3].Value = "Bưu Cục";
+            worksheet.Cells[4, 4].Value = "Tên Bưu Cục";
+            worksheet.Cells[4, 5].Value = "SL Bưu Gửi Đến";
+            worksheet.Cells[4, 6].Value = "SL Phát Thành Công";
+            worksheet.Cells[4, 7].Value = "TL Phát Thành Công";
+            worksheet.Cells[4, 8].Value = "SL Phát Thành Công 24H";
+            worksheet.Cells[4, 9].Value = "TL Phát Thành Công 24H";
+            worksheet.Cells[4, 10].Value = "SL Phát Thành Công 72H";
+            worksheet.Cells[4, 11].Value = "TL Phát Thành Công 72H";
+            worksheet.Cells[4, 12].Value = "SL Phát Chưa Có Thông Tin";
+            worksheet.Cells[4, 13].Value = "SL PTC Đúng Quy Định";
+            worksheet.Cells[4, 14].Value = "SL PTC Không Đúng Quy Định";
+            worksheet.Cells[4, 15].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
+            worksheet.Cells[4, 15].Value = "Tỉ Lệ TC Không Đúng Quy Định";
+            worksheet.Cells[4, 17].Value = "SL PTC Không Xác Định";
+
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A4:Q4"])
+            using (var ranges = worksheet.Cells["A1:Q1"])
+            using (var Ngay = worksheet.Cells["H2:J2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -176,6 +192,14 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 
@@ -191,7 +215,7 @@ namespace T41.Areas.Admin.Controllers
             ViewBag.startdate = startdate;
             ViewBag.enddate = enddate;
             ViewBag.service = service;
-           
+
             //ViewBag.receptacle_id = receptacle_id;
             // Gọi lại hàm để tạo file excel
             var stream = CreateExcelFile();

@@ -101,7 +101,9 @@
                             <th class="text-center" ">Người nhận</th>
                             <th class="text-center" >Địa chỉ nhận</th>
                             <th class="text-center" >Điện thoại nhận</th>
-                            <th class="text-center">Ngày sự vụ</th>                                                                            
+                            <th class="text-center">Trạng thái truyền BCCP</th>  
+                            <th class="text-center">Thời gian truyền BCCP</th>                         
+                            <th class="text-center">Thời gian ghi nhận BCCP</th>                                                                            
                         </tr>
                     </thead>
                     <tbody id="listkpithdvreport"></tbody>
@@ -219,6 +221,8 @@
                     str_body += '<td class="text-center">' + data.ListAffairReport[i].ReceiverFullName + '</td>';
                     str_body += '<td class="text-center">' + data.ListAffairReport[i].ReceiverAddress + '</td>';
                     str_body += '<td class="text-center">' + data.ListAffairReport[i].ReceiverTel + '</td>';
+                    str_body += '<td class="text-center">' + data.ListAffairReport[i].PushBccp + '</td>';
+                    str_body += '<td class="text-center">' + data.ListAffairReport[i].PushBccpDateLog + '</td>';
                     str_body += '<td class="text-center">' + data.ListAffairReport[i].AffairDate + '</td>';                  
                     str_body += '</tr>';
                 });

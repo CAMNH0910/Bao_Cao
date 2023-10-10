@@ -25,7 +25,7 @@ namespace T41.Areas.Admin.Model.DataModel
         public String ErrorWeight { get; set; }
         public String TLSLTC { get; set; }
         public String TLKLTC { get; set; }
-      
+
 
     }
     public class THTCDetail
@@ -46,6 +46,8 @@ namespace T41.Areas.Admin.Model.DataModel
         public String ErrorPRODUCT { get; set; }
         public String ErrorWeight { get; set; }
     }
+
+
     public class CTTCDetail
     {
         public int STT { get; set; }
@@ -79,15 +81,39 @@ namespace T41.Areas.Admin.Model.DataModel
     public class THSLTCDetail
     {
         public int STT { get; set; }
+        public String Status { get; set; }
+        public String TimeToSorting { get; set; }
         public String ItemCode { get; set; }
-        public String WorkDate { get; set; }
+        public String Phan_Loai { get; set; }
+        public String Ma_bc_den { get; set; }
+        public String Ma_Kho { get; set; }
+        public String Ngay_Nhap { get; set; }
+        public String Gio_Nhap { get; set; }
+        public String Ngay_Xuat { get; set; }
+        public String Gio_Xuat { get; set; }
+        public String Huong_Di { get; set; }
+        public String Weight { get; set; }
+        public String IDVNPost { get; set; }
+        public String MailRouteScheduleName { get; set; }
+        public String BC37FromPosCode { get; set; }
+        public String BC37ToPosCode { get; set; }
+        public String BC37DateChar { get; set; }
+        public String BCCPCreateTime { get; set; }
+        public String BC37Index { get; set; }
+        public String BC37Code { get; set; }
+        public String BCCPTime { get; set; }
+        public String MailTripFromProvinceName { get; set; }
         public String FromPosCode { get; set; }
-        public String FromPosCodeName { get; set; }
+        public String MailTripToProvinceName { get; set; }
         public String ToPosCode { get; set; }
-        public String ToPosCodeName { get; set; }
+        public String MailTripNumber { get; set; }
+        public String PostBagIndex { get; set; }
+        public String MailTripDateChar { get; set; }
+        public String KTE4Time { get; set; }
+        public String postbagcode { get; set; }
         public String WorkCenter { get; set; }
-        public String IDVnpost { get; set; }
-        public String MailrouteName { get; set; }
+
+
     }
 
     public class CTSLTCDetail
@@ -152,7 +178,7 @@ namespace T41.Areas.Admin.Model.DataModel
         /// </summary>
         public string Message { get; set; }
 
-         
+
     }
 
     public class ReturnIdMailRoute

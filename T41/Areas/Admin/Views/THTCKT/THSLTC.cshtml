@@ -19,6 +19,7 @@
     var IDVnpost = url.searchParams.get("IDVnpost");
     var startdate = url.searchParams.get("startdate");
     var enddate = url.searchParams.get("enddate");
+    var dichvu = url.searchParams.get("dichvu");
 </script>
 
 
@@ -51,15 +52,29 @@
                     <thead>
                         <tr class="bg-light-blue color-palette">
                             <th class="text-center">STT</th>
+                            <th class="text-center">Trạng thái</th>
+                            <th class="text-center">TG KT</th>
                             <th class="text-center">Mã E1</th>
-                            <th class="text-center">Ngày</th>
-                            <th class="text-center">BC đóng</th>
-                            <th class="text-center">Tên BC đóng</th>
-                            <th class="text-center">BC nhận</th>
-                            <th class="text-center">Tên BC nhận</th>
-                            <th class="text-center">HUB</th>
-                            <th class="text-center">ID Hành trình</th>
+                            <th class="text-center">Khối lượng</th>
+                            <th class="text-center">ID VNPOST</th>
                             <th class="text-center">Tên hành trình</th>
+                            <th class="text-center">BC lập BD10</th>
+                            <th class="text-center">BC nhận BD10</th>
+                            <th class="text-center">Ngày lập BD10</th>
+                            <th class="text-center">Thời gian lập BD10</th>
+                            <th class="text-center">STT BD10</th>
+                            <th class="text-center">ID BD10</th>
+                            <th class="text-center">Thời gian quét túi</th>
+                            <th class="text-center">Tỉnh đóng CT</th>
+                            <th class="text-center">BC đóng CT</th>
+                            <th class="text-center">Tỉnh nhận CT</th>
+                            <th class="text-center">BC nhận CT</th>
+                            <th class="text-center">Chuyến thư</th>
+                            <th class="text-center">Túi số</th>
+                            <th class="text-center">Ngày đóng CT</th>
+                            <th class="text-center">TG đóng túi</th>
+                            <th class="text-center">Mã cổ túi</th>
+
                         </tr>
                     </thead>
                     <tbody id="ListTHSLTCDetail"></tbody>
@@ -92,6 +107,7 @@
     var IDVnpost = url.searchParams.get("IDVnpost");
     var startdate = url.searchParams.get("startdate");
     var enddate = url.searchParams.get("enddate");
+    var dichvu = url.searchParams.get("dichvu");
 
     $(document).ready(function () {
 
@@ -114,7 +130,8 @@
                     WorkCenter: WorkCenter,
                     IDVnpost: IDVnpost,
                     startdate: startdate,
-                    enddate: enddate
+                    enddate: enddate,
+                    dichvu: dichvu
 
                 },
             success: function (data) {
@@ -128,16 +145,29 @@
                     str_body += '<tr>';
                     str_body += '<td class="text-center">' + a++ + '</td>';
 
-                    //str_body += '<td  width="20" >'+data.ListTHSLTCDetailReport[i].ItemCode + '</td>';
-                    str_body += '<td class="text-center"> <a href="/Admin/THTCKT/CTSLTC/?ItemCode=' + data.ListTHSLTCDetailReport[i].ItemCode + '&WorkCenter=' + data.ListTHSLTCDetailReport[i].FromPosCode + ' "target="_blank"">' + data.ListTHSLTCDetailReport[i].ItemCode + '</a> </td>';
-                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].WorkDate + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].Status + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].TimeToSorting + '</td>';
+                    str_body += '<td class="text-center"> <a href="/Admin/THTCKT/CTSLTC/?ItemCode=' + data.ListTHSLTCDetailReport[i].ItemCode + '&WorkCenter=' + data.ListTHSLTCDetailReport[i].WorkCenter + ' "target="_blank"">' + data.ListTHSLTCDetailReport[i].ItemCode + '</a> </td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].Weight + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].IDVNPost + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].MailRouteScheduleName + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].BC37FromPosCode + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].BC37ToPosCode + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].BC37DateChar + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].BCCPCreateTime + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].BC37Index + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].BC37Code + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].BCCPTime + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].MailTripFromProvinceName + '</td>';
                     str_body += '<td ">' + data.ListTHSLTCDetailReport[i].FromPosCode + '</td>';
-                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].FromPosCodeName + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].MailTripToProvinceName + '</td>';
                     str_body += '<td ">' + data.ListTHSLTCDetailReport[i].ToPosCode + '</td>';
-                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].ToPosCodeName + '</td>';
-                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].WorkCenter + '</td>';
-                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].IDVnpost + '</td>';
-                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].MailrouteName + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].MailTripNumber + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].PostBagIndex + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].MailTripDateChar + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].KTE4Time + '</td>';
+                    str_body += '<td ">' + data.ListTHSLTCDetailReport[i].postbagcode + '</td>';
+
                     str_body += '</tr>';
 
 
@@ -184,7 +214,7 @@
     $('#btnexportlist').click(function () {
         // build the url
 
-        var url = $(this).data('baseurl') + '?WorkCenter=' + WorkCenter + '&IDVnpost=' + IDVnpost + '&startdate=' + startdate + '&enddate=' + enddate;
+        var url = $(this).data('baseurl') + '?WorkCenter=' + WorkCenter + '&IDVnpost=' + IDVnpost + '&dichvu=' + dichvu + '&startdate=' + startdate + '&enddate=' + enddate;
         // redirect
         location.href = url;
     });

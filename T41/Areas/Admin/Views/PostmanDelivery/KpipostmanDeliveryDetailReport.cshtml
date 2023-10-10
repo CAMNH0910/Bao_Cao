@@ -28,7 +28,9 @@
 
             <h3 class="box-title">Báo cáo tổng hợp chất lượng bưu tá</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>*@
+                <h3 class="box-title">BT/CLBT</h3>
             </div>
 
         </div>
@@ -87,15 +89,21 @@
                     <div class="form-group">
                         <label>Dịch Vụ</label>
                         <select class="form-control select2" style="width: 100%;" id="service">
-                            <option selected="selected" value="10">Tất Cả</option>
-                            <option value="0">EMS Thường</option>
-                            <option value="1">COD</option>
-                            <option value="2">Hỏa Tốc</option>
-                            <option value="3">Quốc tế</option>
-                            <option value="4">EMS Visa</option>
-                            <option value="5">TCC</option>
-                            <option value="6">TTB</option>
-                            <option value="7">TTV</option>
+                            <option selected="selected" value="20">Tất Cả</option>
+                            <option value="1">EMS Hỏa tốc</option>
+                            <option value="2">EMS Quốc tế đến</option>
+                            <option value="3">EMS Visa</option>
+                            <option value="4">EMS TMDT Đồng giá</option>
+                            <option value="5">EMS TMDT COD</option>
+                            <option value="6">EMS TMDT không COD</option>
+                            <option value="7">EMS Đại lý</option>
+                            <option value="8">EMS TCNH tiêu chuẩn</option>
+                            <option value="9">EMS TCNH gói bạc</option>
+                            <option value="10">EMS TCNH gói vàng</option>
+                            <option value="11">EMS Hàng hóa</option>
+                            <option value="12">EMS Tài liệu</option>
+                            <option value="13">EMS TMDT Đồng giá nội tỉnh</option>
+                           
                         </select>
                     </div>
                     <div class="form-group">
@@ -158,10 +166,10 @@
                             <th class="text-center">SL Bưu  <br /> Gửi Đến</th>
                             <th class="text-center">SL Phát <br /> Thành Công</th>                           
                             <th class="text-center">SL PTC <br /> Đúng Quy Định</th>
-                            <th class="text-center">SL PTC <br /> Đúng Quy Định <br />quá 5KG</th>
+                            <th class="text-center">SL PTC <br /> Đúng Quy Định <br />quá 2KG</th>
                             <th class="text-center">Tỉ Lệ TC Đạt<br />  Đúng Quy Định</th>
                             <th class="text-center">SL PTC Không <br />  Đúng Quy Định</th> 
-                            <th class="text-center">SL PTC Không <br />  Đúng Quy Định<br />quá 5KG</th>                         
+                            <th class="text-center">SL PTC Không <br />  Đúng Quy Định<br />quá 2KG</th>                         
                             <th class="text-center">Tỉ Lệ TC Không<br />  Đúng Quy Định</th>
                             <th class="text-center">SL Phát Chưa <br />Có Thông Tin</th>
                         </tr>

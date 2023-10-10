@@ -35,8 +35,9 @@ namespace T41.Areas.Admin.Models.DataModel
         public String ReceiverFullName { get; set; }
         public String ReceiverAddress { get; set; }
         public String ReceiverTel { get; set; }
+        public String PushBccp { get; set; }
+        public String PushBccpDateLog { get; set; }
         public String AffairDate { get; set; }
-
     }
     //Lấy chi tiết của từng bưu gửi theo số lượng phát thành công trong 6H
    

@@ -190,13 +190,77 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
             }
         }
 
+       
+        //Phần sửa excel
+        private void BindingFormatForExcel(ExcelWorksheet worksheet, List<QualityReportKDDetail> listItems)
+        {
+            var list = ReturnListExcel(ViewBag.donvi, ViewBag.phanloaidichvu, ViewBag.service, ViewBag.startdate, ViewBag.enddate);
+            // Set default width cho tất cả column
+            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultRowHeight = 20;
+            // Tự động xuống hàng khi text quá dài
+            worksheet.Cells.Style.WrapText = true;
+            // Tạo header
+            worksheet.Cells[1, 1].Value = "BÁO CÁO KPI TỔNG HỢP THEO DỊCH VỤ";
+            worksheet.Cells["A1:M1"].Merge = true;
+
+            worksheet.Cells[2, 13].Value = "MÃ BÁO CÁO:KD/THDV";
+            worksheet.Cells["M2:M2"].Merge = true;
+
+            worksheet.Cells[2, 6].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
+            worksheet.Cells["F2:H2"].Merge = true;
+
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Đơn Vị";
+            worksheet.Cells[4, 3].Value = "Phân loại DV";
+            worksheet.Cells[4, 4].Value = "Mã dịch vụ";
+            worksheet.Cells[4, 5].Value = "Tên dịch vụ";
+            worksheet.Cells[4, 6].Value = "SL";
+            worksheet.Cells[4, 7].Value = "KL";
+            worksheet.Cells[4, 8].Value = "Cước chính";
+            worksheet.Cells[4, 9].Value = "PPXD";
+            worksheet.Cells[4, 10].Value = "PPVX";
+            worksheet.Cells[4, 11].Value = "PPMD";
+            worksheet.Cells[4, 12].Value = "Cước DVCT";
+            worksheet.Cells[4, 13].Value = "Tổng cước";
+
+            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            using (var range = worksheet.Cells["A4:M4"])
+            using (var ranges = worksheet.Cells["A1:M1"])
+            using (var Ngay = worksheet.Cells["F2:H2"])
+            {
+                // Set PatternType
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                // Set Màu cho Background
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
+                // Canh giữa cho các text
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                range.Style.Font.SetFromFont(new Font("Arial", 11));
+                // Set Border
+                //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+                // Set màu ch Border
+                //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
+            }
+
+
+        }
         public Stream CreateExcelFileCT(Stream stream = null)
         {
             //var list = CreateTestItems();
@@ -206,50 +270,74 @@ namespace T41.Areas.Admin.Controllers
                 // Tạo author cho file Excel
                 excelPackage.Workbook.Properties.Author = "Window.User";
                 // Tạo title cho file Excel
-              //  excelPackage.Workbook.Properties.Title = "Export Excel";
+                //  excelPackage.Workbook.Properties.Title = "Export Excel";
                 // thêm tí comments vào làm màu 
-               // excelPackage.Workbook.Properties.Comments = "Export Excel Success !";
+                // excelPackage.Workbook.Properties.Comments = "Export Excel Success !";
                 // Add Sheet vào file Excel
                 excelPackage.Workbook.Worksheets.Add("First Sheet");
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true);
                 BindingFormatForExcelCT(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
             }
         }
-        //Phần sửa excel
-        private void BindingFormatForExcel(ExcelWorksheet worksheet, List<QualityReportKDDetail> listItems)
+
+        private void BindingFormatForExcelCT(ExcelWorksheet worksheet, List<QualityReportKDDetailItem> listItems)
         {
+            var list = ReturnListExcelCT(ViewBag.donvi, ViewBag.PhanloaiDV, ViewBag.Madvchinh, ViewBag.startdate, ViewBag.enddate);
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Đơn Vị";
-            worksheet.Cells[1, 3].Value = "Phân loại DV";
-            worksheet.Cells[1, 4].Value = "Mã dịch vụ";
-            worksheet.Cells[1, 5].Value = "Tên dịch vụ";
-            worksheet.Cells[1, 6].Value = "SL";
-            worksheet.Cells[1, 7].Value = "KL";
-            worksheet.Cells[1, 8].Value = "Cước chính";
-            worksheet.Cells[1, 9].Value = "PPXD";
-            worksheet.Cells[1, 10].Value = "PPVX";
-            worksheet.Cells[1, 11].Value = "PPMD";
-            worksheet.Cells[1, 12].Value = "Cước DVCT";
-            worksheet.Cells[1, 13].Value = "Tổng cước";
+            worksheet.Cells[1, 1].Value = "BÁO CÁO CHI TIẾT THEO DỊCH VỤ";
+            worksheet.Cells["A1:X1"].Merge = true;
+
+            worksheet.Cells[2, 24].Value = "MÃ BÁO CÁO:KD/THDV_CT";
+            worksheet.Cells["X2:X2"].Merge = true;
+
+            worksheet.Cells[2, 12].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
+            worksheet.Cells["L2:M2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Đơn Vị";
+            worksheet.Cells[4, 3].Value = "Mã tỉnh nhận";
+            worksheet.Cells[4, 4].Value = "Tên tỉnh nhận";
+            worksheet.Cells[4, 5].Value = "Ngày phát hành";
+            worksheet.Cells[4, 6].Value = "Mã DV chính";
+            worksheet.Cells[4, 7].Value = "Tên DV";
+            worksheet.Cells[4, 8].Value = "Mã E1";
+            worksheet.Cells[4, 9].Value = "Mã KH";
+            worksheet.Cells[4, 10].Value = "Người gửi";
+            worksheet.Cells[4, 11].Value = "Địa chỉ gửi";
+            worksheet.Cells[4, 12].Value = "Người nhận";
+            worksheet.Cells[4, 13].Value = "Địa chỉ nhận";
+            worksheet.Cells[4, 14].Value = "Mã tỉnh trả";
+            worksheet.Cells[4, 15].Value = "Tên tỉnh trả";
+            worksheet.Cells[4, 16].Value = "Trạng thái";
+            worksheet.Cells[4, 17].Value = "KL";
+            worksheet.Cells[4, 18].Value = "KLQD";
+            worksheet.Cells[4, 19].Value = "Cước chính";
+            worksheet.Cells[4, 20].Value = "Cước DVCT";
+            worksheet.Cells[4, 21].Value = "PPXD";
+            worksheet.Cells[4, 22].Value = "PPVX";
+            worksheet.Cells[4, 23].Value = "PP khác";
+            worksheet.Cells[4, 24].Value = "Tổng cước";
+
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A4:X4"])
+            using (var ranges = worksheet.Cells["A1:X1"])
+            using (var Ngay = worksheet.Cells["L2:M2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -258,61 +346,14 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
-            }
-
-
-        }
-
-
-        private void BindingFormatForExcelCT(ExcelWorksheet worksheet, List<QualityReportKDDetailItem> listItems)
-        {
-            // Set default width cho tất cả column
-           // worksheet.DefaultColWidth = 30;
-           // worksheet.DefaultRowHeight = 20;
-            // Tự động xuống hàng khi text quá dài
-           // worksheet.Cells.Style.WrapText = true;
-            // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Đơn Vị";
-            worksheet.Cells[1, 3].Value = "Mã tỉnh nhận";
-            worksheet.Cells[1, 4].Value = "Tên tỉnh nhận";
-            worksheet.Cells[1, 5].Value = "Ngày phát hành";
-            worksheet.Cells[1, 6].Value = "Mã DV chính";
-            worksheet.Cells[1, 7].Value = "Tên DV";
-            worksheet.Cells[1, 8].Value = "Mã E1";
-            worksheet.Cells[1, 9].Value = "Mã KH";
-            worksheet.Cells[1, 10].Value = "Người gửi";
-            worksheet.Cells[1, 11].Value = "Địa chỉ gửi";
-            worksheet.Cells[1, 12].Value = "Người nhận";
-            worksheet.Cells[1, 13].Value = "Địa chỉ nhận";
-            worksheet.Cells[1, 14].Value = "Mã tỉnh trả";
-            worksheet.Cells[1, 15].Value = "Tên tỉnh trả";
-            worksheet.Cells[1, 16].Value = "Trạng thái";
-            worksheet.Cells[1, 17].Value = "KL";
-            worksheet.Cells[1, 18].Value = "KLQD";
-            worksheet.Cells[1, 19].Value = "Cước chính";
-            worksheet.Cells[1, 20].Value = "Cước DVCT";
-            worksheet.Cells[1, 21].Value = "PPXD";
-            worksheet.Cells[1, 22].Value = "PPVX";
-            worksheet.Cells[1, 23].Value = "PP khác";
-            worksheet.Cells[1, 24].Value = "Tổng cước";
-
-
-            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
-            {
-                // Set PatternType
-               // range.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                // Set Màu cho Background
-               // range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
                 // Canh giữa cho các text
-               // range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
-                range.Style.Font.SetFromFont(new Font("Arial", 9));
-                // Set Border
-                //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
-                // Set màu ch Border
-                //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 

@@ -137,7 +137,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -149,44 +149,57 @@ namespace T41.Areas.Admin.Controllers
 
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<BDHN_DI_HCM> listItems)
         {
+            var list = ReturnListExcel(ViewBag.workcenter, ViewBag.AcceptDate, ViewBag.arriveprovince, ViewBag.arrivepartner);
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
+
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Thời gian đến";
-            worksheet.Cells[1, 3].Value = "ID chuyến đến";
-            worksheet.Cells[1, 4].Value = "Tên chuyến đến";
-            worksheet.Cells[1, 5].Value = "Mã Đơn Vị";
-            worksheet.Cells[1, 6].Value = "Tên Đơn Vị";
-            worksheet.Cells[1, 7].Value = "SL đến";
-            worksheet.Cells[1, 8].Value = "KL đến (kg)";
-            worksheet.Cells[1, 9].Value = "SL đến lũy kế";
-            worksheet.Cells[1, 10].Value = "KL đến lũy kế";
-            worksheet.Cells[1, 11].Value = "SL tồn lũy kế";
-            worksheet.Cells[1, 12].Value = "KLg tồn lũy kế";
-            worksheet.Cells[1, 13].Value = "Thời gian";
-            worksheet.Cells[1, 14].Value = "ID Tuyến đi";
-            worksheet.Cells[1, 15].Value = "Tên tuyến đi";
-            worksheet.Cells[1, 16].Value = "ID chuyến đi";
-            worksheet.Cells[1, 17].Value = "Tên chuyến đi";
-            worksheet.Cells[1, 18].Value = "SL đi";
-            worksheet.Cells[1, 19].Value = "KL đi (kg)";
-            worksheet.Cells[1, 20].Value = "SL đi lũy kế";
-            worksheet.Cells[1, 21].Value = "KL đi lũy kế";
-            worksheet.Cells[1, 22].Value = "Đáp ứng (SL)";
-            worksheet.Cells[1, 23].Value = "Đáp ứng (KLg)";
-            worksheet.Cells[1, 24].Value = "Tỷ lệ đáp ứng lũy kế theo KLG";
+            worksheet.Cells[1, 1].Value = "BÁO CÁO KPI TỔNG HỢP SẢN LƯỢNG TRƯỢT CHUYẾN";
+            worksheet.Cells["A1:X1"].Merge = true;
+
+            worksheet.Cells[2, 24].Value = "MÃ BÁO CÁO:KT/THSL_QT";
+            worksheet.Cells["X2:X2"].Merge = true;
+
+            worksheet.Cells[2, 12].Value = "Từ ngày:" + " " + ViewBag.AcceptDate;
+            worksheet.Cells["L2:M2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Thời gian đến";
+            worksheet.Cells[4, 3].Value = "ID chuyến đến";
+            worksheet.Cells[4, 4].Value = "Tên chuyến đến";
+            worksheet.Cells[4, 5].Value = "Mã Đơn Vị";
+            worksheet.Cells[4, 6].Value = "Tên Đơn Vị";
+            worksheet.Cells[4, 7].Value = "SL đến";
+            worksheet.Cells[4, 8].Value = "KL đến (kg)";
+            worksheet.Cells[4, 9].Value = "SL đến lũy kế";
+            worksheet.Cells[4, 10].Value = "KL đến lũy kế";
+            worksheet.Cells[4, 11].Value = "SL tồn lũy kế";
+            worksheet.Cells[4, 12].Value = "KLg tồn lũy kế";
+            worksheet.Cells[4, 13].Value = "Thời gian";
+            worksheet.Cells[4, 14].Value = "ID Tuyến đi";
+            worksheet.Cells[4, 15].Value = "Tên tuyến đi";
+            worksheet.Cells[4, 16].Value = "ID chuyến đi";
+            worksheet.Cells[4, 17].Value = "Tên chuyến đi";
+            worksheet.Cells[4, 18].Value = "SL đi";
+            worksheet.Cells[4, 19].Value = "KL đi (kg)";
+            worksheet.Cells[4, 20].Value = "SL đi lũy kế";
+            worksheet.Cells[4, 21].Value = "KL đi lũy kế";
+            worksheet.Cells[4, 22].Value = "Đáp ứng (SL)";
+            worksheet.Cells[4, 23].Value = "Đáp ứng (KLg)";
+            worksheet.Cells[4, 24].Value = "Tỷ lệ đáp ứng lũy kế theo KLG";
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A4:X4"])
+            using (var ranges = worksheet.Cells["A1:X1"])
+            using (var Ngay = worksheet.Cells["L2:M2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -195,10 +208,18 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 
-        }
+            }
 
         //Hàm Export excel  , truyền parameter vào để export
         [HttpGet]

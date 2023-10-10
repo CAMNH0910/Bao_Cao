@@ -1,0 +1,192 @@
+﻿
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<style>
+    .dataTables_filter {
+        margin-left:55%
+    }
+    #btnSend{
+        margin: 20px;
+    }
+</style>
+@if (Model.listPaymentHMTotalByDate != null)
+{
+    
+    <div class="">
+        <table id="TableAccount" class="table table-bordered table-hover ">
+            <thead>
+                
+                <tr class="bg-light-blue color-palette">
+                    <th class="text-center">Statement Number</th>
+                    <th class="text-center">Total Item</th>
+                    <th class="text-center">Transaction Type</th>
+                    <th class="text-center">Settlement Amount</th>
+                    <th class="text-center">Settlement Currency</th>
+                    <th class="text-center">Upload time</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">View</th>
+                    <th class="text-center">Confirm</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var c in Model.listPaymentHMTotalByDate)
+                {
+                    <tr>
+                        <td>@c.StatementNumber</td>
+                        <td>@c.TotalItem</td>
+                        <td>@c.TransactionType</td>
+                        <td>@c.SettlementAmount</td>
+                        <td>@c.SettlementCurrency</td>
+                        <td>@c.PaymentDate</td>
+                        <td>@c.Status</td>
+                        <td><a href="/Admin/TransferCODDataHM/GetCODDetailData?ID=@c.StatementNumber" type="button" class="btn btn-warning text-center" target="_blank" style="display: flex;margin:auto;justify-content: center">View</a></td>
+                        <td>
+                            @if(c.Posted == "0")
+                            {
+                                <button id="btnSend-@c.StatementNumber" type="button" class="btn btn-warning" style="display: flex;margin:auto;" onclick="javascript: ConfirmCod(@c.StatementNumber)">Confirm</button>
+                            }
+                            else
+                            {
+                                <button id="btnSend" type="button" class="btn btn-warning" style="display: flex;margin:auto;" onclick="javascript: ConfirmCod(@c.StatementNumber)" disabled>Confirm</button>
+                            }
+                        </td>
+                        <td>
+                            @if (c.Posted == "1" || c.Posted  == "2")
+                            {
+                                <button id="btnDelete" type="button" class="btn btn-danger" style="display: flex;margin:auto;" onclick="javascript: DeleteCod(@c.StatementNumber)" disabled>Delete</button>
+                            }
+                            else
+                            {
+                                <button id="btnDelete-@c.StatementNumber" type="button" class="btn btn-danger" style="display: flex;margin:auto;" onclick="javascript: DeleteCod(@c.StatementNumber)">Delete</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
+        <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript">
+            $("#TableAccount").dataTable().fnDestroy();
+            $('#TableAccount').DataTable({
+                "ordering": false,
+                "language": {
+                    " processing": "Message khi đang tải dữ liệu",
+                    "search": "Tìm kiếm:        ",
+                    "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + @Model.listPaymentHMTotalByDate.Count + " bản ghi",
+
+                    "zeroRecords": "Không có dữ liệu !",
+                    "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                    "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "previous": "Trang trước",
+                        "next": "Trang sau",
+                        "last": "Trang cuối"
+                    }
+                }
+            });
+
+
+        </script>
+
+        <script type="text/javascript">
+            function ConfirmCod(ID){
+                Swal.fire({
+                    title: 'Bạn chắc chắn dữ liệu COD đã chính xác?',
+                    text: "Bạn không thể xác nhận lại khi đã xác nhận!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("ConfirmCod", "TransferCODDataHM")',
+                            data:
+                                {
+                                    ID: ID,
+
+                                },
+                            success: function (data) {
+                                if (data.Code == '00') {
+                                    Swal.fire(
+                                          'Thành công!',
+                                          'Dữ liệu thanh toán sẽ được gửi tới khách hàng',
+                                          'success'
+                                        )
+                                    $("#btnSend-"+ID).attr("disabled", true);
+                                    $("#btnDelete-"+ID).attr("disabled", true);
+
+                                } else {
+                                    Swal.fire(
+                                          'Thất bại',
+                                          'Vui lòng liên hệ ADMIN để kiểm tra lại',
+                                          'error'
+                                        )
+                                }
+                            }
+                        })
+                    }
+                })
+
+
+            }
+
+            function DeleteCod(ID) {
+                Swal.fire({
+                    title: 'Bạn chắc chắn muốn xóa file?',
+                    text: "Bạn không thể khôi phục khi đã xóa!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác nhận!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("DeleteCod", "TransferCODDataHM")',
+                            data:
+                                {
+                                    ID: ID,
+
+                                },
+                            success: function (data) {
+                                if (data.Code == '00') {
+                                    Swal.fire(
+                                          'Thành công!',
+                                          'File Thanh toán đã dược xóa',
+                                          'success'
+                                        )
+                                    window.location.reload();
+
+                                } else {
+                                    Swal.fire(
+                                          'Thất bại',
+                                          'Vui lòng liên hệ ADMIN để kiểm tra lại',
+                                          'error'
+                                        )
+                                }
+                            }
+                        })
+                    }
+                })
+
+
+            }
+        </script>
+ }

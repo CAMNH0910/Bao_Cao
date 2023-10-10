@@ -96,7 +96,7 @@ namespace T41.Areas.Admin.Data
 
         //Phần chi tiết của bảng tổng hợp sản lượng đi phát
         #region QUALITY_DETAIL          
-        public ReturnQuality QUALITY_DELIVERY_DETAIL(int zone,int endpostcode,int routecode, int startdate, int enddate, int service)
+        public ReturnQuality QUALITY_DELIVERY_DETAIL(int zone, int endpostcode, int routecode, int startdate, int enddate, int service)
         {
             DataTable da = new DataTable();
             MetaData1 _metadata1 = new MetaData1();
@@ -114,18 +114,18 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                   OracleCommand myCommand = new OracleCommand("kpi_detail_delivery.Detail_area_Ems", Helper.OraDCOracleConnection);
-                   //xử lý tham số truyền vào data table
-                    myCommand.CommandType = CommandType.StoredProcedure;                                         
+                    OracleCommand myCommand = new OracleCommand("kpi_detail_delivery.Detail_area_Ems", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
-                    OracleDataAdapter mAdapter = new OracleDataAdapter();                   
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
                     myCommand.Parameters.Add("v_Zone", OracleDbType.Int32).Value = zone;
                     myCommand.Parameters.Add("v_EndPostCode", OracleDbType.Int32).Value = endpostcode;
                     myCommand.Parameters.Add("v_routecode", OracleDbType.Int32).Value = routecode;
                     myCommand.Parameters.Add("v_Service", OracleDbType.Int32).Value = service;
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
-                   
+
                     myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
                     mAdapter.Fill(da);
@@ -145,6 +145,12 @@ namespace T41.Areas.Admin.Data
                             oQualityDeliveryDetail.TongSL = Convert.ToInt32(dr["TONGSL"].ToString());
                             oQualityDeliveryDetail.SanLuongPTC = Convert.ToInt32(dr["SANLUONGPTC"].ToString());
                             oQualityDeliveryDetail.TylePTC = Convert.ToDecimal(dr["TYLEPTC"].ToString());
+
+                            oQualityDeliveryDetail.SanLuongPTC72H = Convert.ToInt32(dr["TC72"].ToString());
+                            oQualityDeliveryDetail.TylePTC72H = Convert.ToDecimal(dr["TYLEPTC72"].ToString());
+                            oQualityDeliveryDetail.TC24H = Convert.ToInt32(dr["TC24H"].ToString());
+                            oQualityDeliveryDetail.TYLEPTC24 = Convert.ToDecimal(dr["TYLEPTC24"].ToString());
+
                             oQualityDeliveryDetail.SanLuongKTT = Convert.ToInt32(dr["SANLUONGKTT"].ToString());
                             oQualityDeliveryDetail.SanLuongPTC6H = Convert.ToInt32(dr["SANLUONGPTC6H"].ToString());
                             oQualityDeliveryDetail.SanLuongPTCQUA6H = Convert.ToInt32(dr["SANLUONGPTCQUA6H"].ToString());
@@ -152,7 +158,7 @@ namespace T41.Areas.Admin.Data
                             oQualityDeliveryDetail.TyLeQua6H = Convert.ToDecimal(dr["TYLEQUA6H"].ToString());
                             oQualityDeliveryDetail.TCKXD = Convert.ToInt32(dr["TCKXD"].ToString());
                             listQualityDeliveryDetail.Add(oQualityDeliveryDetail);
-                            
+
                         }
                         _returnQuality.Code = "00";
                         _returnQuality.Message = "Lấy dữ liệu thành công.";
@@ -162,7 +168,7 @@ namespace T41.Areas.Admin.Data
                     {
                         _returnQuality.Code = "01";
                         _returnQuality.Message = "Không có dữ liệu";
-                        
+
                     }
 
 
@@ -183,7 +189,7 @@ namespace T41.Areas.Admin.Data
 
         //Phần chi tiết của từng bưu gửi theo số lượng phát thành công trong 6H
         #region QUALITY_DETAIL          
-        public ReturnQuality Quality_Delivery_Success6H_Detail(int endpostcode,int routecode, int startdate, int enddate, int service, int type)
+        public ReturnQuality Quality_Delivery_Success6H_Detail(int endpostcode, int routecode, int startdate, int enddate, int service, int type)
         {
             DataTable da = new DataTable();
             MetaData1 _metadata1 = new MetaData1();
@@ -202,7 +208,7 @@ namespace T41.Areas.Admin.Data
                 {
                     cmd.Connection = Helper.OraDCOracleConnection;
                     cmd.CommandText = Helper.SchemaName + "kpi_detail_delivery.Detail_Item_Ems";
-                    cmd.CommandType = CommandType.StoredProcedure;                   
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new OracleParameter("v_EndPostCode", OracleDbType.Int32)).Value = endpostcode;
                     cmd.Parameters.Add(new OracleParameter("v_routecode", OracleDbType.Int32)).Value = routecode;
                     cmd.Parameters.Add(new OracleParameter("v_Service", OracleDbType.Int32)).Value = service;

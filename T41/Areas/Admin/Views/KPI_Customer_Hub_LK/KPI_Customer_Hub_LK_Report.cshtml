@@ -1,0 +1,363 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+<style type="text/css">
+    p {
+        font-weight: bold;
+    }
+</style>
+<title>Báo cáo kiểm soát bưu gửi phát không thành công, chưa xử lý</title>
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo kiểm soát bưu gửi phát không thành công, chưa xử lý</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Báo cáo kiểm soát bưu gửi phát không thành công, chưa xử lý</h3>
+            <div class="box-tools pull-right">
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">P/KS_PKTC</h3>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Khu Vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="zone">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">Hà Nội</option>
+                            <option value="2">Đà Nẵng</option>
+                            <option value="3">Hồ Chí Minh</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bưu cục phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Dịch Vụ</label>
+                        <select class="form-control select2" style="width: 100%;" id="IsService">
+                            <option selected="selected" value="0">Tất Cả</option>
+                            @* <option value="0">EMS Thường</option>*@
+                            @*<option value="1">COD</option>*@
+                            @* <option value="2">Hỏa Tốc</option>*@
+                            @* <option value="3">PT9</option>*@
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tuyến phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="routecode">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Ca khai thác</label>
+                        <select class="form-control select2" style="width: 100%;" id="CaKT">
+                            <option selected="selected" value="3">Theo ngày</option>
+                            <option value="1">Theo ca</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            @*<div class="box-header">
+                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportKPI_Customer", "KPI_Customer_Hub_LK")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div class="scrollingTable">
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+                <table id="TableAccount" class="table table-bordered table-hover">
+
+
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+
+                            <th class="text-center">STT<br /></th>
+                            <th class="text-center">Mã bưu gửi</th>
+                            <th class="text-center">Mã khách hàng</th>
+                            <th class="text-center">Bưu cục chấp nhận</th>
+                            <th class="text-center">Trạng thái BCCP</th>
+                            <th class="text-center">Ngày trạng thái BCCP</th>
+                            <th class="text-center">Bưu cục phát</th>
+                            <th class="text-center">Mã tuyến phát</th>
+                            <th class="text-center">Ngày lưu tồn, lưu kho</th>
+                            <th class="text-center">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+
+            </div>
+
+</section>
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+       , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+    });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+            , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+            , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+
+
+    $("#btnreport").click(function () {
+
+        // goi ham Detail
+        $("#listkpithdvreport tr").remove();
+        detail();
+        $('.box-footer').show();
+
+
+    });
+
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListKPI_Customer_Hub_LK", "KPI_Customer_Hub_LK")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            dataType: 'json',
+            data:
+                {
+                startdate: $('#fromdate').val(),
+                enddate: $('#todate').val(),
+                endpostcode: $("#endpostcode").val(),
+                CaKT: $("#CaKT").val(),
+                IsService: $("#IsService").val(),
+                routecode: $("#routecode").val(),
+                zone: $("#zone").val(),
+
+                },
+            success: function (data) {
+
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListKPI_Customer_Hub_LKReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td style="width: 2%; text-align: center;">' + a++ + '</td>';
+                    str_body += '<td style="width: 10%;text-align: center;">'  + data.ListKPI_Customer_Hub_LKReport[i].ITEMCODE + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">'  + data.ListKPI_Customer_Hub_LKReport[i].CUSTOMERCODE + '</td>';
+                    str_body += '<td style="width: 12%; text-align: center;">'  + data.ListKPI_Customer_Hub_LKReport[i].STARTPOSTCODENAME + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">'  + data.ListKPI_Customer_Hub_LKReport[i].STATUS + '</td>';
+                    str_body += '<td style="width: 12%; text-align: center;">'  + data.ListKPI_Customer_Hub_LKReport[i].DELIVERYDATE + '</td>';
+                    str_body += '<td style="width: 12%; text-align: center;">'  + data.ListKPI_Customer_Hub_LKReport[i].ENDPOSTCODENAME + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListKPI_Customer_Hub_LKReport[i].ROUTECODE + '</td>';
+                    str_body += '<td style="width: 12%; text-align: center;">' + data.ListKPI_Customer_Hub_LKReport[i].AMND_DATE + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListKPI_Customer_Hub_LKReport[i].Status_LK + '</td>';
+                    if (i == "20000") {
+                        return false;
+                    }
+
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal.fire(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            " processing": "Message khi đang tải dữ liệu",
+                            "search": "Tìm kiếm theo từ khóa:",
+                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListKPI_Customer_Hub_LKReport.length + " bản ghi",
+
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                            "paginate": {
+                                "first": "Trang đầu",
+                                "previous": "Trang trước",
+                                "next": "Trang sau",
+                                "last": "Trang cuối"
+                            }
+                        }
+                    });
+
+
+
+                }
+            }
+        })
+    }
+
+    //Sự kiện thay đổi bưu cục phát theo khu vực
+    $(document).ready(function () {
+        $('#zone').change(function () {
+                $.ajax({
+                    url: "/QualityNBPDelivery/PosCode",
+                    dataType: "json",
+                    data: { zone: $("#zone").val() },
+                    success: function (data) {
+                        $('#endpostcode').html('<option value=0>Bưu Cục Phát </option>');
+                        jQuery.each(data, function (i, val) {
+                            $('#endpostcode').html($('#endpostcode').html() +
+                                "<option value='" + val.POSCODE + "'>" + val.POSCODE + '-' + val.POSNAME + "</option>");
+                        });
+                    }
+                });
+            })
+    });
+
+
+    $('#sportsNFL').on('change', function () {
+        if ($(this).is(':checked')) {
+            table.columns(1).search('nfl');
+        }
+        table.draw();
+    });
+    //Sự kiện thay đổi tuyến phát theo bưu cục phát
+    $(document).ready(function () {
+        $('#endpostcode').change(function () {
+            $.ajax({
+                url: "/QualityNBPDelivery/RouteCode",
+                dataType: "json",
+                data: { endpostcode: $("#endpostcode").val() },
+                success: function (data) {
+                    $('#routecode').html('<option value=0>Tuyến Phát </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#routecode').html($('#routecode').html() +
+                            "<option value='" + val.POSCODE + "'>" + val.POSCODE + '-' + val.POSNAME + "</option>");
+                    });
+                }
+            });
+        })
+    });
+    //Export Excel
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&endpostcode=' + $('#endpostcode').val() + '&CaKT=' + $('#CaKT').val() + '&IsService=' + $('#IsService').val() + '&routecode=' + $('#routecode').val() + '&zone=' + $('#zone').val();
+        // redirect
+        location.href = url;
+    });
+
+</script>
+
+

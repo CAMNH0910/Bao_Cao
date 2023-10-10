@@ -104,7 +104,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -115,29 +115,42 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<QualityReportTHQTDENDetail> listItems)
         {
+            var list = ReturnListExcel(ViewBag.nuocoe, ViewBag.nuocnhan, ViewBag.phanloai, ViewBag.startdate, ViewBag.enddate);
+
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Mã E1";
-            worksheet.Cells[1, 3].Value = "Mã nước gốc";
-            worksheet.Cells[1, 4].Value = "Tên nước gốc";
-            worksheet.Cells[1, 5].Value = "Ngày đến OE nhận";
-            worksheet.Cells[1, 6].Value = "Mã OE nhận";
-            worksheet.Cells[1, 7].Value = "Phân loại D/M";
-            worksheet.Cells[1, 8].Value = "Khối lượng";
-            worksheet.Cells[1, 9].Value = "Trạng thái phát hàng";
-           
+            worksheet.Cells[1, 1].Value = "BÁO CÁO CHI TIẾT THEO MÃ E1 QUỐC TẾ ĐẾN";
+            worksheet.Cells["A1:I1"].Merge = true;
+
+            worksheet.Cells[2, 9].Value = "MÃ BÁO CÁO:KD/EQTDen";
+            worksheet.Cells["I2:I2"].Merge = true;
+
+            worksheet.Cells[2, 4].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
+            worksheet.Cells["D2:F2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Mã E1";
+            worksheet.Cells[4, 3].Value = "Mã nước gốc";
+            worksheet.Cells[4, 4].Value = "Tên nước gốc";
+            worksheet.Cells[4, 5].Value = "Ngày đến OE nhận";
+            worksheet.Cells[4, 6].Value = "Mã OE nhận";
+            worksheet.Cells[4, 7].Value = "Phân loại D/M";
+            worksheet.Cells[4, 8].Value = "Khối lượng";
+            worksheet.Cells[4, 9].Value = "Trạng thái phát hàng";
+
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A4:I4"])
+            using (var ranges = worksheet.Cells["A1:I1"])
+            using (var Ngay = worksheet.Cells["D2:F2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -146,6 +159,14 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 

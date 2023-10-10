@@ -698,6 +698,35 @@ namespace T41.Areas.Admin.Data
             }
             return res;
         }
+        public ReturnTransmited TransmitDataCentertoBCCP(int fromposcode, int toposcode, int date, int mailtrip)
+        {
+            ReturnTransmited res = new ReturnTransmited();
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("transfer_management_ems.UPDATE_CENTER_TO_BCCP", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    myCommand.Parameters.Add("v_Mabc_kt", OracleDbType.Int32).Value = fromposcode;
+                    myCommand.Parameters.Add("v_Mabc", OracleDbType.Int32).Value = toposcode;
+                    myCommand.Parameters.Add("v_Ngay", OracleDbType.Int32).Value = date;
+                    myCommand.Parameters.Add("v_Chthu", OracleDbType.Int32).Value = mailtrip;
+                    myCommand.ExecuteNonQuery();
+                    res.Code = "00";
+                    res.Message = "Success";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Code = "99";
+                res.Message = "Failed";
+            }
+            return res;
+        }
     }  
 }
 

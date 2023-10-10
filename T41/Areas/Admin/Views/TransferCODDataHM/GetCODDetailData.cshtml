@@ -1,0 +1,99 @@
+﻿
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<style>
+    .dataTables_filter {
+        margin-left:55%
+    }
+    #btnSend{
+        margin: 20px;
+    }
+</style>
+@if (Model.listCustomerInforHM != null)
+{
+    
+    <div class="">
+        <table id="TableAccount" class="table table-bordered table-hover ">
+            <thead>
+                
+                <tr class="bg-light-blue color-palette">
+                    <th class="text-center">Statement Number</th>
+                    <th class="text-center">Serial Number</th>
+                    <th class="text-center">Transaction Type</th>
+                    <th class="text-center">Psp Reference</th>
+                    <th class="text-center">Amount Captured</th>
+                    <th class="text-center">Capture Transaction Currency</th>
+                    <th class="text-center">Settlement Amount</th>
+                    <th class="text-center">Settlement Currency</th>
+                    <th class="text-center">Payment Date</th>
+                    <th class="text-center">Posting Date</th>
+                    <th class="text-center">Unique Reference Number</th>
+                    <th class="text-center">Manual Matching Reference</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var c in Model.listCustomerInforHM)
+                {
+
+                    <tr>
+                        @*<td>
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="select_@(i+1)" >
+                            </div>
+                        </td>*@
+                        <td>@c.StatementNumber</td>
+                        <td>@c.SerialNumber</td>
+                        <td>@c.transactionType</td>
+                        <td>@c.pspReference</td>
+                        <td>@c.amountCaptured</td>
+                        <td>@c.captureTransactionCurrency</td>
+                        <td>@c.settlementAmount</td>
+                        <td>@c.settlementCurrency</td>
+                        <td>@c.paymentDate</td>
+                        <td>@c.postingDate</td>
+                        <td>@c.uniqueReferenceNumber</td>
+                        <td>@c.manualMatchingReference</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        
+</div>
+        <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript">
+            $("#TableAccount").dataTable().fnDestroy();
+            $('#TableAccount').DataTable({
+                "ordering": false,
+                "language": {
+                    " processing": "Message khi đang tải dữ liệu",
+                    "search": "Tìm kiếm:        ",
+                    "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + @Model.listCustomerInforHM.Count + " bản ghi",
+
+                    "zeroRecords": "Không có dữ liệu !",
+                    "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                    "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "previous": "Trang trước",
+                        "next": "Trang sau",
+                        "last": "Trang cuối"
+                    }
+                }
+            });
+
+
+        </script>
+
+        <script type="text/javascript">
+            
+        </script>
+ }

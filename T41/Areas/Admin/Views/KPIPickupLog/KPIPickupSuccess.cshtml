@@ -1,0 +1,348 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<!-- daterange picker -->
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+
+
+
+<style type="text/css">
+    p {
+        font-weight:bold;
+    }
+</style>
+
+<section class="content-header">
+        <h1>
+            <small>Báo Cáo </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Báo cáo thu gom thành công</li>
+        </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Báo cáo thu gom thành công</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Khu vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="unit">
+                            <option value="0">Chọn vùng</option>
+                            <option value="0102">EMS Hồ Chí Minh</option>
+                            <option value="0101">EMS Đà Nẵng</option>
+                            <option value="0100">EMS Hà Nội</option>
+                            <option value="0103">EMS Hải Phòng</option>
+                            <option value="0104">EMS Bắc Ninh</option>
+                            <option value="0105">EMS Vĩnh Phúc</option>
+                            <option value="0106">EMS Thái Nguyên</option>
+                            <option value="0107">EMS Quảng Ninh</option>
+                            <option value="0108">EMS Đồng Nai</option>
+                            <option value="0109">EMS Khánh Hòa</option>
+                            <option value="0110">EMS Cần Thơ</option>
+                            <option value="0111">EMS Bình Dương</option>
+                            <option value="0112">EMS Bình Phước</option>
+                            <option value="0113">EMS Vũng Tàu</option>
+                            <option value="0114">EMS Long An</option>
+                            <option value="0115">EMS Tây Ninh</option>
+                            <option value="0116">EMS Hưng Yên</option>
+                            <option value="0117">EMS Bắc Giang</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Bưu cục</label>
+                        <select class="form-control select2" style="width: 100%;" id="poscode">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Tuyến thu gom</label>
+                        <select class="form-control select2" style="width: 100%;" id="route">
+                        </select>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            @*<div class="box-header">
+                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportPickupSuccess", "KPIPickup")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+               
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                          
+                            <th rowspan="2" class="text-center">STT</th>
+                            <th rowspan="2" class="text-center" style="width: 240px">Bưu cục</th>
+                            <th rowspan="2" class="text-center">Tuyến thu gom</th>
+                            <th rowspan="2" class="text-center" style="width: 80px">Tổng số lượng tin</th>
+
+                            <th colspan="3" class="text-center">Thu gom thành công</th>
+                            <th colspan="7" class="text-center">Thu gom không thành công</th>
+
+
+                        </tr>
+                        <tr class="bg-light-blue color-palette">
+
+                            <th class="text-center">Số lượng tin</th>
+                            <th class="text-center">Sản lượng</th>
+                            <th class="text-center">Tỉ lệ</th>
+
+                            <th class="text-center">Số lượng tin</th>
+                            <th class="text-center">R0</th>
+                            <th class="text-center">R1</th>
+                            <th class="text-center">R2</th>
+                            <th class="text-center">R3</th>
+                            <th class="text-center">R4</th>
+                            <th class="text-center">R5</th>
+                            
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="listtotaldatacustomer"></tbody>
+                </table>
+
+
+            </div>
+
+
+
+            <!-- Modal -->
+            
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#listtotaldatacustomer').hide();
+       // detail();
+    });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+
+
+
+    $("#btnreport").click(function () {
+
+        // goi ham Detail
+        $("#listtotaldatacustomer tr").remove();
+        detail();
+        $('.box-footer').show();
+
+
+    });
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail(p) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListKPIPickupSuccessReport", "KPIPickup")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+      
+            dataType: 'json',
+          
+            data:
+                {
+                    StartDate: $('#fromdate').val(),
+                    EndDate: $('#todate').val(),
+                    district: $("#unit").val(),
+                    poscode: $("#poscode").val(),
+                    routecode: $("#route").val()
+
+                },
+            success: function (data) {
+               //  console.log(result);
+                //$('.loading-element').hide();
+                //$('#listtotaldatacustomer').html(result);
+                //$('#btnexportlist').show();
+                debugger;
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListKPIPickupSuccessReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td class="text-left">' + data.ListKPIPickupSuccessReport[i].PO_NAME + '</td>';
+                    str_body += '<td class="text-left">' + data.ListKPIPickupSuccessReport[i].ROUTE_NAME + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].TOTAL_QUANTITY + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_SUCCESS_QUANTITY + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].ARRIVED_WEIGHT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_SUCCESS_PERCENT + '%</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_NOT_SUCCESS_QUANTITY + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_NOT_SUCCESS_QUANTITY_0 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_NOT_SUCCESS_QUANTITY_1 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_NOT_SUCCESS_QUANTITY_2 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_NOT_SUCCESS_QUANTITY_3 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_NOT_SUCCESS_QUANTITY_4 + '</td>';
+                    //str_body += '<td class="text-center">' + data.ListTHTCReport[i].ErrorPRODUCT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPIPickupSuccessReport[i].COLLECT_NOT_SUCCESS_QUANTITY_5 + '</td>';
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+
+                else {
+
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listtotaldatacustomer').html(str_html);
+                    $('.loading-element').hide();
+                    $('#listtotaldatacustomer').show();
+                   
+                }
+            }
+        })
+    }
+    $(document).ready(function () {
+        $("#unit").change(function () {
+            $.ajax({
+                url: "/KPIPickup/PosCodePickup",
+                dataType: "json",
+                data: { unit: $("#unit").val() },
+                success: function (data) {
+                    $('#poscode').html('<option value=0> Tất cả </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#poscode').html($('#poscode').html() +
+                            "<option value='" + val.PosCode + "'>" + val.PosCode + "-" + val.PosName + "</option>");
+                    });
+                    $('#route').html('<option value=0> Tất cả </option>');
+                }
+            })
+        })
+
+        $("#poscode").change(function () {
+            $.ajax({
+                url: "/KPIPickup/RouteCodePickup",
+                dataType: "json",
+                data: { Poscode: $("#poscode").val() },
+                success: function (data) {
+                    $('#route').html('<option value=0> Tất cả </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#route').html($('#route').html() +
+                            "<option value='" + val.RouteCode + "'>" + val.RouteCode + "-" + val.RouteName + "</option>");
+                    });
+                }
+            })
+        })
+    })
+    
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?StartDate=' + $('#fromdate').val() + '&EndDate=' + $('#todate').val() + '&district=' + $('#unit').val()+ '&poscode='+$('#poscode').val() + '&routecode=' +$('#route').val() ;
+        // redirect
+        location.href = url;
+    });
+
+
+
+
+</script>
+
+

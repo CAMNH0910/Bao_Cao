@@ -1,0 +1,208 @@
+﻿
+
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/GridviewScroll/gridviewScroll.css" rel="stylesheet" />
+<script src="~/GridviewScroll/gridviewScroll.js"></script>
+
+<style type="text/css">
+    .divclass {
+        overflow: auto;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+         detail();
+
+    });
+
+
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var StartProvince = url.searchParams.get("StartProvince");
+    var EndProvince = url.searchParams.get("EndProvince");
+    var StartDate = url.searchParams.get("StartDate");
+    var EndDate = url.searchParams.get("EndDate");
+    var IsService = url.searchParams.get("IsService");
+    var Customer = url.searchParams.get("Customer");
+
+</script>
+
+
+
+<section class="content-header">
+    <h1>
+        <small>Báo cáo chất lượng chuyển phát theo dịch vụ phát không thành công </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo chất lượng chuyển phát theo dịch vụ phát không thành công</li>
+    </ol>
+</section>
+
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportKPI_CustomerFail", "KPI_Customer")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+
+
+            <div style="width: 100%;; overflow-x: scroll;">
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Mã E1</th>
+                            <th class="text-center">Ngày chấp nhận</th>
+                            <th class="text-center">BC chấp nhận</th>
+                            <th class="text-center">Tỉnh chấp nhận</th>
+                            <th class="text-center">Ngày PKTC</th>
+                            <th class="text-center">Bưu cục nhập TTP</th>
+                            <th class="text-center">Lý do PKTC</th>
+                            <th class="text-center">Lần</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+
+
+
+<script>
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var StartProvince = url.searchParams.get("StartProvince");
+    var EndProvince = url.searchParams.get("EndProvince");
+    var StartDate = url.searchParams.get("StartDate");
+    var EndDate = url.searchParams.get("EndDate");
+    var IsService = url.searchParams.get("IsService");
+    var Customer = url.searchParams.get("Customer");
+
+    $(document).ready(function () {
+        detail();
+    });
+
+
+
+
+
+
+    function detail() {
+                 $.ajax({
+                     type: "POST",
+
+                     url: '@Url.Action("LIST_KPI_Customer_FAIL", "KPI_Customer")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+            dataType: "json",
+            data:
+                {
+                    StartProvince: StartProvince,
+                    EndProvince: EndProvince,
+                    StartDate: StartDate,
+                    EndDate: EndDate,
+                    IsService: IsService,
+                    Customer: Customer
+
+
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+
+
+                $.each(data.ListKPI_Customer_DetailReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center" style="width: 5%; text-align: center;">' + a++ + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;"><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.ListKPI_Customer_DetailReport[i].ITEMCODE + '" target="_blank" class="mae1" id="' + data.ListKPI_Customer_DetailReport[i].ITEMCODE + '">' + data.ListKPI_Customer_DetailReport[i].ITEMCODE + '</a></td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListKPI_Customer_DetailReport[i].STATUSDATE + '</td>';
+                    str_body += '<td style="width: 15%; text-align: center;">' + data.ListKPI_Customer_DetailReport[i].STARTPOSTCODENAME + '</td>';
+                    str_body += '<td style="width: 15%; text-align: center;">' + data.ListKPI_Customer_DetailReport[i].STARTPROVINCENAME + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListKPI_Customer_DetailReport[i].DELIVERYDATE + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListKPI_Customer_DetailReport[i].ENDPOSTCODENAME + '</td>';
+                    str_body += '<td style="width: 20%; text-align: center;">' + data.ListKPI_Customer_DetailReport[i].CAUSECODE + '</td>';
+                    str_body += '<td style="width: 5%; text-align: center;">' + data.ListKPI_Customer_DetailReport[i].FREQOCCUR + '</td>';
+                    str_body += '</tr>';
+
+
+                }) ;
+                str_html += str_body;
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+
+
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi " + data.ListKPI_Customer_DetailReport.length + " bưu gửi",
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+
+
+    $('#btnexportlist').click(function () {
+
+        var url = $(this).data('baseurl') + '?StartProvince=' + StartProvince + '&EndProvince=' + EndProvince + '&StartDate=' + StartDate + '&EndDate=' + EndDate + '&IsService=' + IsService + '&Customer=' + Customer;
+        // redirect
+        location.href = url;
+    });
+
+
+</script>

@@ -148,7 +148,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcelTotalHub(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -173,7 +173,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcelDetailHubFail(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -184,33 +184,48 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcelTotalHub(ExcelWorksheet worksheet, List<TotalHub_Excel> listItems)
         {
+            var list = ReturnListExcelTotalHub(ViewBag.StartProvince, ViewBag.EndProvince, ViewBag.IsService, ViewBag.StartDate, ViewBag.EndDate);
+
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Mã tỉnh nhận";
-            worksheet.Cells[1, 3].Value = "Tên tỉnh nhận";
-            worksheet.Cells[1, 4].Value = "Phân tuyến tỉnh nhận";
-            worksheet.Cells[1, 5].Value = "Mã tỉnh phát";
-            worksheet.Cells[1, 6].Value = "Tên tỉnh phát";
-            worksheet.Cells[1, 7].Value = "Phân tuyến tỉnh phát";
-            worksheet.Cells[1, 8].Value = "Dịch vụ";
-            worksheet.Cells[1, 9].Value = "Chỉ tiêu";
-            worksheet.Cells[1, 10].Value = "Tổng số bưu gửi";
-            worksheet.Cells[1, 11].Value = "Số bưu gửi đặt chỉ tiêu";
-            worksheet.Cells[1, 12].Value = "Tỉ lệ đặt chỉ tiêu";         // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            worksheet.Cells[1, 13].Value = "Số bưu gửi không đạt chỉ tiêu";         // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            worksheet.Cells[1, 14].Value = "Tỉ lệ không đạt chỉ tiêu";         // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-       // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            worksheet.Cells[1, 1].Value = "BÁO CÁO CHẤT LƯỢNG KPI HƯỚNG TRỌNG ĐIỂM";
+            worksheet.Cells["A1:P1"].Merge = true;
+
+            worksheet.Cells[2, 16].Value = "MÃ BÁO CÁO:TD/KPI_TD";
+            worksheet.Cells["P2:P2"].Merge = true;
+
+            worksheet.Cells[2, 8].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.endDate;
+            worksheet.Cells["H2:I2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Mã tỉnh nhận";
+            worksheet.Cells[4, 3].Value = "Tên tỉnh nhận";
+            worksheet.Cells[4, 4].Value = "Phân tuyến tỉnh nhận";
+            worksheet.Cells[4, 5].Value = "Mã tỉnh phát";
+            worksheet.Cells[4, 6].Value = "Tên tỉnh phát";
+            worksheet.Cells[4, 7].Value = "Phân tuyến tỉnh phát";
+            worksheet.Cells[4, 8].Value = "Dịch vụ";
+            worksheet.Cells[4, 9].Value = "Chỉ tiêu";
+            worksheet.Cells[4, 10].Value = "Tổng số bưu gửi phát thành công";
+            worksheet.Cells[4, 11].Value = "Tỉ lệ bưu gửi phát thành công";
+            worksheet.Cells[4, 12].Value = "Tổng số bưu gửi";
+            worksheet.Cells[4, 13].Value = "Số bưu gửi đặt chỉ tiêu";
+            worksheet.Cells[4, 14].Value = "Tỉ lệ đặt chỉ tiêu";         // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            worksheet.Cells[4, 15].Value = "Số bưu gửi không đạt chỉ tiêu";         // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            worksheet.Cells[4, 16].Value = "Tỉ lệ không đạt chỉ tiêu";         // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+                                                                               // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            using (var range = worksheet.Cells["A4:P4"])
+            using (var ranges = worksheet.Cells["A1:P1"])
+            using (var Ngay = worksheet.Cells["H2:I2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -219,6 +234,14 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 

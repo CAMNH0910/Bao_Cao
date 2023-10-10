@@ -1,0 +1,185 @@
+﻿<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/GridviewScroll/gridviewScroll.css" rel="stylesheet" />
+<script src="~/GridviewScroll/gridviewScroll.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+         detail();
+
+    });
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var startposcode = url.searchParams.get("startposcode");
+    var endposcode = url.searchParams.get("endposcode");
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");   
+</script>
+
+
+
+<section class="content-header">
+    <h1>
+        <small>Báo cáo chi tiết thống kê không sử dụng SMP</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo chi tiết thống kê không sử dụng SMP</li>
+    </ol>
+</section>
+
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export_Detail_CT_TKSL", "TKSL")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+
+
+            <div style="width: 100%;; overflow-x: scroll;">
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT<br /></th>
+                            <th class="text-center">Mã bưu gửi</th>
+                            <th class="text-center">Bưu cục phát</th>
+                            <th class="text-center">Tên BC phát</th>
+                            <th class="text-center">Mã tuyến</th>
+                            <th class="text-center">Tên tuyến</th>
+                            <th class="text-center">Thời gian lập bản kê</th>                    
+                        </tr>
+                    </thead>
+                    <tbody id="ListItemDetail"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+
+
+
+<script>
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var startposcode = url.searchParams.get("startposcode");
+    var endposcode = url.searchParams.get("endposcode");
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+
+    $(document).ready(function () {
+       
+        detail();
+
+    });
+
+    function detail() {
+                 $.ajax({
+                     type: "POST",
+
+                     url: '@Url.Action("ListDetail_CT_TKSL", "TKSL")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+            dataType: "json",
+            data:
+                {
+                    startposcode: startposcode,
+                    endposcode: endposcode,
+                    startdate: startdate,
+                    enddate: enddate,
+
+                },
+            success: function (data) {
+                debugger;
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+
+
+                $.each(data.listDetail_CT_TKSLReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td  width="20" ><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.listDetail_CT_TKSLReport[i].ItemCode + '"target="_blank" "class="mae1" id="' + data.listDetail_CT_TKSLReport[i].ItemCode + '">' + data.listDetail_CT_TKSLReport[i].ItemCode + '</a></td>';
+                    str_body += '<td class="text-center"S>' + data.listDetail_CT_TKSLReport[i].StartPostCode + '</td>';
+                    str_body += '<td class="text-center">' + data.listDetail_CT_TKSLReport[i].StartPostName + '</td>';
+                    str_body += '<td class="text-center">' + data.listDetail_CT_TKSLReport[i].EndPostCode + '</td>';
+                    str_body += '<td class="text-center">' + data.listDetail_CT_TKSLReport[i].EndPostName + '</td>';
+                    str_body += '<td class="text-center">' + data.listDetail_CT_TKSLReport[i].TG + '</td>';
+                    str_body += '</tr>';
+                   
+
+                }) ;
+                str_html += str_body;
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#ListItemDetail').html(str_html);
+                    $('.loading-element').hide();
+                    $('#ListItemDetail').show();
+
+
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi " + data.listDetail_CT_TKSLReport.length + " bưu gửi",
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+
+    $('#btnexportlist').click(function () {
+        // build the url
+
+        var url = $(this).data('baseurl') + '?startposcode=' + startposcode + '&endposcode=' + endposcode + '&startdate=' + startdate + '&enddate=' + enddate;
+        // redirect
+        location.href = url;
+    });
+
+
+</script>

@@ -32,7 +32,8 @@
 
             <h3 class="box-title">Báo cáo tổng hợp KPI hướng trọng điểm</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">TT/KPI_TD</h3>
             </div>
 
         </div>
@@ -59,10 +60,14 @@
                     <div class="form-group">
                         <label>Dịch vụ</label>
                         <select class="form-control select2" style="width: 100%;" id="service">
-                            <option selected="selected" value="5">Tất cả</option>
+                            <option selected="selected" value="0">Tất cả</option>
                             <option value="1">Dịch vụ tài liệu nhanh</option>
                             <option value="2">Dịch vụ hàng hóa nhanh</option>
-                            <option value="3">Dịch vụ TMDT đồng giá</option>                          
+                            <option value="3">Dịch vụ TMDT đồng giá</option>       
+                            <option value="4">EMS Lastmile Standard</option> 
+                            <option value="5">EMS Last Mile Premium</option> 
+                            @*<option value="6">EMS tài chính ngân hàng gói Vàng</option>*@ 
+                                         
                         </select>
                     </div>
 
@@ -84,13 +89,7 @@
                     <div class="form-group">
                         <label>Tỉnh phát</label>
                         <select class="form-control select2" style="width: 100%;" id="tinhphat"></select>
-
-                    </div>
-
-                    
-
-
-                    
+                    </div>                    
                 </div>
                 <!-- /.col -->                                           
             </div>
@@ -133,10 +132,12 @@
                                     <th class="text-center">Phân tuyên tỉnh phát</th>
                                     <th class="text-center">Dịch vụ</th>
                                     <th class="text-center">Chỉ tiêu công bố</th>
-                                    <th class="text-center">Tổng số bưu gửi</th>
-                                    <th class="text-center">Số bưu gửi đạt chỉ tiêu</th>
+                                    <th class="text-center">TS bưu gửi</th>
+                                    <th class="text-center">TS bưu gửi PTC</th>
+                                    <th class="text-center">TL bưu gửi PTC</th>
+                                    <th class="text-center">Số b/g đạt chỉ tiêu</th>
                                     <th class="text-center">Tỉ lệ đạt chỉ tiêu</th>
-                                    <th class="text-center">Số bưu gửi không đạt chỉ tiêu</th>
+                                    <th class="text-center">Số b/g không đạt chỉ tiêu</th>
                                     <th class="text-center">Tỉ lệ không đạt chỉ tiêu</th>
                                 </tr>
                             </thead>
@@ -251,12 +252,14 @@
                     str_body += '<td class="text-center">' + data.ListTotalHubReport[i].Isservice + '</td>';
                     str_body += '<td class="text-center">' + data.ListTotalHubReport[i].Targets + '</td>';
                     str_body += '<td class="text-center">' + data.ListTotalHubReport[i].Total + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTotalHubReport[i].totalPTC + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTotalHubReport[i].TLPTC + '</td>';
                     str_body += '<td class="text-center">' + data.ListTotalHubReport[i].SLSuccess + '</td>';
                     str_body += '<td class="text-center">' + data.ListTotalHubReport[i].TLSuccess + '</td>';
                     str_body += '<td class="text-center"> <a href="/Admin/DetailHub/ListDetailedHubFailReport/?StartProvince=' + item.StartProvince + '&EndProvince=' + item.EndProvince + '&IsSDistrict=' + item.IsSDistrict + '&IsEDistrict=' + item.IsEDistrict + '&IsserviceNumber=' + item.IsserviceNumber + '&IsService=' + $("#service").val() + '&StartDate=' + $('#fromdate').val() + '&EndDate=' + $('#todate').val() + ' "target="_blank"">' + data.ListTotalHubReport[i].IsFailStatus + '</a> </td>';
                     str_body += '<td class="text-center">' + data.ListTotalHubReport[i].TLIsFailStatus + '</td>';
 
-                    if (i == "20000") {
+                    if (i == "50000") {
                         return false;
                     }
 

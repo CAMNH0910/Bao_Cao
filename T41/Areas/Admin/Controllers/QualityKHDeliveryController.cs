@@ -158,7 +158,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -169,44 +169,57 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<QualityDeliveryDetailKH> listItems)
         {
+            var list = ReturnListExcel(ViewBag.type, ViewBag.StartProvince, ViewBag.EndProvince, ViewBag.Isservice, ViewBag.startdate, ViewBag.enddate, ViewBag.CustomerCode);
+
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Mã tỉnh nhận";
-            worksheet.Cells[1, 3].Value = "Mã tỉnh trả";
-            worksheet.Cells[1, 4].Value = "Tên tỉnh nhận";           
-            worksheet.Cells[1, 5].Value = "Tên tỉnh trả";
-            worksheet.Cells[1, 6].Value = "Tổng SL";           
-            worksheet.Cells[1, 7].Value = "SL J1";
-            worksheet.Cells[1, 8].Value = "TL J1";
-            worksheet.Cells[1, 9].Value = "SL J2";
-            worksheet.Cells[1, 10].Value = "TL J2";
-            worksheet.Cells[1, 11].Value = "SL J25";
-            worksheet.Cells[1, 12].Value = "TL J25";
-            worksheet.Cells[1, 13].Value = "SL J3";
-            worksheet.Cells[1, 14].Value = "TL J3";
-            worksheet.Cells[1, 15].Value = "SL J35";
-            worksheet.Cells[1, 16].Value = "TL J35";
-            worksheet.Cells[1, 17].Value = "SL J4";
-            worksheet.Cells[1, 18].Value = "TL J4";
-            worksheet.Cells[1, 19].Value = ">SL J4";
-            worksheet.Cells[1, 20].Value = ">TL J4";
-            worksheet.Cells[1, 21].Value = "SL KTT";
-            worksheet.Cells[1, 22].Value = "TL KTT";
+            worksheet.Cells[1, 1].Value = "BÁO CÁO CHẤT LƯỢNG THEO TRẠNG THÁI";
+            worksheet.Cells["A1:V1"].Merge = true;
+
+            worksheet.Cells[2, 22].Value = "MÃ BÁO CÁO:CL_KHL/CL_TT";
+            worksheet.Cells["V2:V2"].Merge = true;
+
+            worksheet.Cells[2, 12].Value = "Từ ngày:" + " " + ViewBag.StartDate + " " + "Đến ngày" + ViewBag.EndDate;
+            worksheet.Cells["L2:M2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Mã tỉnh nhận";
+            worksheet.Cells[4, 3].Value = "Mã tỉnh trả";
+            worksheet.Cells[4, 4].Value = "Tên tỉnh nhận";           
+            worksheet.Cells[4, 5].Value = "Tên tỉnh trả";
+            worksheet.Cells[4, 6].Value = "Tổng SL";           
+            worksheet.Cells[4, 7].Value = "SL J1";
+            worksheet.Cells[4, 8].Value = "TL J1";
+            worksheet.Cells[4, 9].Value = "SL J2";
+            worksheet.Cells[4, 10].Value = "TL J2";
+            worksheet.Cells[4, 11].Value = "SL J25";
+            worksheet.Cells[4, 12].Value = "TL J25";
+            worksheet.Cells[4, 13].Value = "SL J3";
+            worksheet.Cells[4, 14].Value = "TL J3";
+            worksheet.Cells[4, 15].Value = "SL J35";
+            worksheet.Cells[4, 16].Value = "TL J35";
+            worksheet.Cells[4, 17].Value = "SL J4";
+            worksheet.Cells[4, 18].Value = "TL J4";
+            worksheet.Cells[4, 19].Value = ">SL J4";
+            worksheet.Cells[4, 20].Value = ">TL J4";
+            worksheet.Cells[4, 21].Value = "SL KTT";
+            worksheet.Cells[4, 22].Value = "TL KTT";
 
 
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A4:V4"])
+            using (var ranges = worksheet.Cells["A1:V1"])
+            using (var Ngay = worksheet.Cells["L2:M2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -215,6 +228,14 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 

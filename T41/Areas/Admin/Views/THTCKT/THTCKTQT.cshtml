@@ -1,0 +1,307 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<!-- daterange picker -->
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+
+
+
+<style type="text/css">
+    p {
+        font-weight:bold;
+    }
+</style>
+
+<section class="content-header">
+        <h1>
+            <small>Báo Cáo </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Báo cáo chất lượng KPI khai thác quốc tế Các hành trình trượt chuyến đóng đi</li>
+        </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Báo cáo chất lượng KPI khai thác quốc Các hành trình trượt chuyến đóng đi</h3>
+            <div class="box-tools pull-right">
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">KT/THSL_HTQT</h3>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label>Bưu cục</label>
+                        <select class="form-control select2" style="width: 100%;" id="buucuc">
+                            <option selected="selected" value="0">Chọn bưu cục</option>
+                            <option value="100915">100915-KTV QT HN</option>
+                            <option value="700915">700915-KTV QT NT</option>
+                           
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Loại dich vu</label>
+                        <select class="form-control select2" style="width: 100%;" id="dichvu">
+                            <option value="0">Thường</option>
+                            <option value="2">TMD</option>
+                        </select>
+                    </div>
+
+
+
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            @*<div class="box-header">
+                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportQT", "THTCKT")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+               
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                          
+                            <th rowspan="2" class="text-center">STT</th>
+                            <th rowspan="2" class="text-center">ID HT</th>
+                            <th rowspan="2" class="text-center">Tên HT</th>
+
+                            <th colspan="2" class="text-center">Tồn mang sang</th>
+                            <th colspan="2" class="text-center">Đến trong kỳ</th>
+                            <th colspan="2" class="text-center">Phải khai thác</th>
+                            @*<th colspan="2" class="text-center">Peak</th>*@
+                            <th colspan="2" class="text-center">Đã khai thác</th>
+                            <th colspan="2" class="text-center">Trượt chuyến</th>
+
+                        </tr>
+                        <tr class="bg-light-blue color-palette">
+
+                            <th class="text-center">Sản Lượng</th>
+                            <th class="text-center">Khối lượng</th>
+
+                            <th class="text-center">Sản Lượng</th>
+                            <th class="text-center">Khối lượng</th>
+
+                            <th class="text-center">Sản Lượng</th>
+                            <th class="text-center">Khối lượng</th>
+
+                            <th class="text-center">Sản Lượng</th>
+                            <th class="text-center">Khối lượng</th>
+
+                            @*<th class="text-center">Sản Lượng</th>
+                            <th class="text-center">Khối lượng</th>*@
+
+                            <th class="text-center">Sản Lượng</th>
+                            <th class="text-center">Khối lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listtotaldatacustomer"></tbody>
+                </table>
+
+
+            </div>
+
+
+
+            <!-- Modal -->
+            
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#listtotaldatacustomer').hide();
+       // detail();
+    });
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+
+
+
+    $("#btnreport").click(function () {
+
+        // goi ham Detail
+        $("#listtotaldatacustomer tr").remove();
+        detail();
+        $('.box-footer').show();
+
+
+    });
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail(p) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListTHTCQTReport", "THTCKT")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+      
+            dataType: 'json',
+          
+            data:
+                {
+                    //type: $("#type").val(),
+                    startdate: $('#fromdate').val(),
+                    enddate: $('#todate').val(),
+                    buucuc: $("#buucuc").val()
+
+                },
+            success: function (data) {
+               //  console.log(result);
+                //$('.loading-element').hide();
+                //$('#listtotaldatacustomer').html(result);
+                //$('#btnexportlist').show();
+                debugger;
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListTHTCReport, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td class="text-left">' + data.ListTHTCReport[i].IdVnpost + '</td>';
+                    str_body += '<td class="text-left">' + data.ListTHTCReport[i].MailrouteName + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].INSTOCKPRODUCT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].InstockWeight + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].ArrivePRODUCT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].ArriveWeight + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].totalproduct + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].totalweight + '</td>';
+                    //str_body += '<td class="text-center">' + data.ListTHTCReport[i].PeakProduct + '</td>';
+                    //str_body += '<td class="text-center">' + data.ListTHTCReport[i].Peakweight + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].LeaveProduction + '</td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].LeaveWeight + '</td>';
+                    //str_body += '<td class="text-center">' + data.ListTHTCReport[i].ErrorPRODUCT + '</td>';
+                    str_body += '<td class="text-center"> <a href="/Admin/THTCKT/THSLTCQT/?WorkCenter=' + $('#buucuc').val() + '&IDVnpost=' + data.ListTHTCReport[i].IdVnpost + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + ' "target="_blank"">' + data.ListTHTCReport[i].ErrorPRODUCT + '</a> </td>';
+                    str_body += '<td class="text-center">' + data.ListTHTCReport[i].ErrorWeight + '</td>';
+                    str_body += '</tr>';
+                });
+                str_html += str_body;
+
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+
+                else {
+
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listtotaldatacustomer').html(str_html);
+                    $('.loading-element').hide();
+                    $('#listtotaldatacustomer').show();
+                   
+                }
+            }
+        })
+    }
+    
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?buucuc=' + $('#buucuc').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
+        // redirect
+        location.href = url;
+    });
+
+
+
+
+</script>
+
+

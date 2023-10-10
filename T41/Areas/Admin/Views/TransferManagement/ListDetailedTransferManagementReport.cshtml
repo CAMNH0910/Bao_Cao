@@ -22,7 +22,15 @@
             <td>@c.ToPosName</td>
             <td>@c.PickUpDate</td>
             <td>
-                <a data-toggle="modal" data-id="@c.TotalMailTrip" class="modal-chthu" data-target="#myModal" href="#myModal" rel="@c.PickUpDate" rel1="@c.FromPosCode" rel2="@c.ToPosCode">@c.TotalMailTrip </a>
+                @if (@c.Typecomunication == 1)
+                {
+                     <a data-toggle="modal" data-id="@c.TotalMailTrip" class="modal-chthu" data-target="#myModal" href="#myModal" rel="@c.PickUpDate" rel1="@c.FromPosCode" rel2="@c.ToPosCode">@c.TotalMailTrip </a>
+
+                }
+                else
+                {
+                    <a data-toggle="modal" data-id="@c.TotalMailTrip" class="modal-chthu-2" data-target="#myModal" href="#myModal" rel="@c.PickUpDate" rel1="@c.FromPosCode" rel2="@c.ToPosCode">@c.TotalMailTrip </a>
+                }
             </td>
             <td>
                 @if(@c.Typecomunication == 1)
@@ -87,6 +95,7 @@
                         str_html += '<th>Chuyến Thư</th>';
                         str_html += '<th>Số Túi</th>';
                         str_html += '<th>Tổng Số Bưu Gửi</th>';
+                        str_html += '<th>Truyền lại</th>';
                         str_html += '</tr>';
                         str_html += '</thead>';
                         str_html += '<tbody>';
@@ -95,6 +104,102 @@
 
 
                         $.each(data.ListTransferManagement_CTTS_Report, function (i, item) {
+                            var date = item.PickUpDate;
+                            var newdate = date.split("/").reverse().join("");
+                            fromposcode = item.FromPosCode;
+                            str_body += '<tr>';
+                            str_body += '<td>' + a++ + '</td>';
+                            str_body += '<td>' + item.FromPosCode + '</td>';
+                            str_body += '<td>' + item.FromPosName + '</td>';
+                            str_body += '<td>' + item.ToPosCode + '</td>';
+                            str_body += '<td>' + item.ToPosName + '</td>';
+                            str_body += '<td>' + item.PickUpDate + '</td>';
+                            str_body += '<td>' + item.TotalMailTrip + '</td>';
+                            str_body += '<td> <a href="/Admin/TransferManagement/SOTUITRONGCHTHU/?fromposcode=' + item.FromPosCode + '&toposcode=' + item.ToPosCode + '&date=' + item.PickUpDate + '&mailtrip=' + item.TotalMailTrip + '&postbag=' + item.TotalPostBag + '&typecomunication=@ViewBag.typecomunication' + ' "target="_blank"">' + item.TotalPostBag + '</a> </td>';
+                            //str_body += '<td> <a data-toggle="modal" data-id="' + item.TotalMailTrip + '" class="modal-sotuitrongchthu" data-target="#myModalSoTui" href="#myModalSoTui" data-dismiss="modal" rel="' + item.PickUpDate + '" rel1="' + item.FromPosCode + '" rel2="' + item.ToPosCode + '" rel3="' + item.TotalMailTrip + '">' + item.TotalPostBag + ' </a></td>'
+                            str_body += '<td>' + item.TotalItem + '</td>';
+                            str_body += '<td><button type="button" class="btn btn-primary" onclick="CenterToBccp(' + item.FromPosCode + ',' + item.ToPosCode + ',' + newdate + ',' + item.TotalMailTrip + ')">Xác nhận</button></td>';
+                            str_body += '</tr>';
+                        });
+                        str_html += str_body;
+
+                        str_html += '</tbody>';
+                        str_html += '</table>';
+
+                        if (data.Code == '01') {
+                            $('.loading-element').hide();
+                            $("#list_test tr").remove();
+                            alert("Không Có Số Liệu");
+
+                        }
+                        else {
+                            $('.loading-element').hide();
+                            $('#list_test').html(str_html);
+
+
+                        }
+
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            });
+        });
+
+
+        $(document).ready(function () {
+            $('.modal-chthu-2').click(function (e) {
+
+                var fromposcode = $(this).attr("rel1");
+                var toposcode = $(this).attr("rel2");
+                var date = $(this).attr("rel");
+                var type = 1;
+                var typecomunication = '@ViewBag.typecomunication';
+                var da = {
+                    fromposcode: fromposcode,
+                    toposcode: toposcode,
+                    date: date,
+                    type: type,
+                    typecomunication: typecomunication
+
+                };
+                $.ajax({
+                    type: "POST",
+                    //url: "/QualityDelivery/QualityDeliverySuccess6HDetailReport",
+                    beforeSend: function () {
+                        $('.loading-element').show();
+                    },
+
+                    url: '@Url.Action("ListTransferManagement_CTTS_Report", "TransferManagement")',
+                    // The key needs to match your method's input parameter (case-sensitive).
+                    data: JSON.stringify(da),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        //$('#myModal').on('show.bs.modal', function (e) { });
+                        var str_html = '<table id="GridView1" class="table table-bordered table-hover">';
+                        str_html += '<thead>';
+                        str_html += '<tr class="bg-light-blue color-palette">';
+                        str_html += '<th>STT</th>';
+                        str_html += '<th>Bưu Cục Đóng</th>';
+                        str_html += '<th>Tên Bưu Cục Đóng</th>';
+                        str_html += '<th>Bưu Cục Nhận</th>';
+                        str_html += '<th>Tên Bưu Cục Nhận</th>';
+                        str_html += '<th>Ngày</th>';
+                        str_html += '<th>Chuyến Thư</th>';
+                        str_html += '<th>Số Túi</th>';
+                        str_html += '<th>Tổng Số Bưu Gửi</th>';
+                        str_html += '</tr>';
+                        str_html += '</thead>';
+                        str_html += '<tbody>';
+                        var str_body = "";
+                        var a = 1;
+
+
+                        $.each(data.ListTransferManagement_CTTS_Report, function (i, item) {
+                            var date = item.PickUpDate;
+                            var newdate = date.split("/").reverse().join("");
                             fromposcode = item.FromPosCode;
                             str_body += '<tr>';
                             str_body += '<td>' + a++ + '</td>';
@@ -134,7 +239,6 @@
                 });
             });
         });
-
 
         //Phần popup theo tổng số túi
         $(document).ready(function () {
@@ -269,6 +373,23 @@
             })
         }
 
+        function CenterToBccp(fromposocde, toposcode, date, mailtrip) {
+            Swal.fire({
+                title: 'Bạn chắc chắn chứ ?',
+                text: "Vui lòng đợi 5p để dữ liệu lấy về bưu cục phát!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    TransmittCenterToBccp(fromposocde, toposcode, date, mailtrip)
+
+                }
+            })
+        }
+
         function TransmittCenterToBcp(fromposcode, toposcode, date, mailtrip, posbag) {
             debugger;
             $.ajax({
@@ -286,6 +407,50 @@
                     date: date,
                     mailtrip: mailtrip,
                     posbag: posbag
+                },
+                dataType: "json",
+                success: function (result) {
+
+                    if (result.Code == '00') {
+                        $('.loading-element').hide();
+                        Swal.fire(
+                                  'Success!',
+                                  'Truyền lại thành công.',
+                                  'success'
+                                )
+
+
+                    }
+                    else {
+                        Swal.fire(
+                                  'Failed!',
+                                  'Truyền lại thất bại.',
+                                  'error'
+                                )
+
+
+                    }
+
+                }
+            });
+        }
+
+        function TransmittCenterToBccp(fromposcode, toposcode, date, mailtrip) {
+            debugger;
+            $.ajax({
+                type: "POST",
+                //url: "/QualityDelivery/QualityDeliverySuccess6HDetailReport",
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+                url: '@Url.Action("TransmitDataCentertoBCCP", "TransferManagement")',
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: {
+                    fromposcode: fromposcode,
+                    toposcode: toposcode,
+                    date: date,
+                    mailtrip: mailtrip
                 },
                 dataType: "json",
                 success: function (result) {

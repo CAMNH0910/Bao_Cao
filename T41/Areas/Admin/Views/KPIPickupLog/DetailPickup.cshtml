@@ -1,0 +1,325 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+
+
+<title>Chi tiết e1 bd13 đi PNS</title>
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo chi tiết chất lượng thu gom</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Báo cáo chi tiết chất lượng thu gom</h3>
+            <div class="box-tools pull-right">
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">TG/CTTG</h3>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Điều kiện tìm kiếm</label>
+                        <select class="form-control select2" style="width: 100%;" id="searchcondition">
+                            <option value="1">Thời gian tạo</option>
+                            <option value="2">Thời gian điều tin</option>
+                            <option value="3">Thời gian yêu cầu thu gom</option>
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Khu vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="unit">
+                            <option value="0">Chọn vùng</option>
+                            <option value="0102">EMS Hồ Chí Minh</option>
+                            <option value="0101">EMS Đà Nẵng</option>
+                            <option value="0100">EMS Hà Nội</option>
+                            <option value="0103">EMS Hải Phòng</option>
+                            <option value="0104">EMS Bắc Ninh</option>
+                            <option value="0105">EMS Vĩnh Phúc</option>
+                            <option value="0106">EMS Thái Nguyên</option>
+                            <option value="0107">EMS Quảng Ninh</option>
+                            <option value="0108">EMS Đồng Nai</option>
+                            <option value="0109">EMS Khánh Hòa</option>
+                            <option value="0110">EMS Cần Thơ</option>
+                            <option value="0111">EMS Bình Dương</option>
+                            <option value="0112">EMS Bình Phước</option>
+                            <option value="0113">EMS Vũng Tàu</option>
+                            <option value="0114">EMS Long An</option>
+                            <option value="0115">EMS Tây Ninh</option>
+                            <option value="0116">EMS Hưng Yên</option>
+                            <option value="0117">EMS Bắc Giang</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Bưu cục gom</label>
+                        <select class="form-control select2" style="width: 100%;" id="poscode">
+                        </select>
+                    </div>
+
+                    <!-- /.form-group -->
+                </div>
+                <div class="col-md-4">
+                    
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control select2" style="width: 100%;" id="StatusOrder">
+                            <option value="">Trạng thái tin</option>
+                            <option value="C1">Tin mới</option>
+                            <option value="C2">Tin hủy</option>
+                            <option value="C3">Đã phân hướng</option>
+                            <option value="C30">Lấy hàng không thành công</option>
+                            <option value="C36">Xác nhận đến bưu cục</option>
+                            <option value="C5">Chấp nhận</option>
+                            <option value="C6">Đang lấy hàng</option>
+                            <option value="C7">Lấy hàng thành công</option>
+                            <option value="C8">Hủy lấy hàng</option>
+                            <option value="C9">Lấy hàng hất bại</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tuyến phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="routecode"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Chất lượng thu gom</label>
+                        <select class="form-control" id="cbCollectQuality" name="cbCollectQuality">
+                            <option value="0">--- Tất cả ---</option>
+                            <option value="1">Thu gom chậm</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Từ ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Đến ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="txtTimeRage">Từ giờ - đến giờ</label>
+                        <div class="input-group">
+                            <input class="form-control" id="FromTime" name="FromTime" placeholder="Từ giờ" type="time" value="" />
+                            <span class="input-group-btn" style="width:50%">
+                                <input class="form-control" id="ToTime" name="ToTime" placeholder="Đến giờ" type="time" value="" />
+                                <button class="btn btn-pns" onclick="RefreshTime()" type="button"><i class="fa fa-refresh"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                
+                <div class="col-md-12 col-md-offset-6">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexport" data-baseurl="@Url.Action("ExportDetailPickup", "KPIPickup")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+
+                </div>
+            </div>
+            
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div style="overflow-x:auto;">
+                <table id="listbd13report" class="table table-bordered table-hover"></table>
+            </div>
+            
+
+            <div class="row">
+                <div id="page-selection" class="col-sm-12 text-center">
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        
+    </div>
+
+
+</section>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+    var chthu, tuiso;
+
+    $(document).ready(function () {
+        $('#btnexport').hide();
+        $('.loading-element').hide();
+        $('.select2').select2();
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+    });
+
+
+    $("#btnreport").click(function () {
+        // goi ham Detail
+        $("#listbd13report tr").remove();
+        detail(1);
+
+    });
+
+    //Export Excel
+    $('#btnexport').click(function () {
+
+
+
+        // build the url
+        var url = $(this).data('baseurl') + '?fromdate=' + $("#fromdate").val() + '&todate=' + $("#todate").val() + '&fromtime=' + $('#FromTime').val() + '&totime=' + $("#ToTime").val() + '&poscode=' + $("#poscode").val() + '&unit=' + $("#unit").val() + '&routeid=' + $("#routecode").val() + '&status=' + $("#StatusOrder").val() + '&page=' + 1 + '&datatype=' + $("#searchcondition").val() + '&collectquality=' + $("#cbCollectQuality").val();
+        // redirect
+        location.href = url;
+    });
+
+    
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+    function detail(p) {
+        
+
+        $.ajax({
+            url: '@Url.Action("ListDetailPickupReport", "KPIPickup")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            dataType: 'html',
+            data:
+                {
+                    fromdate: $("#fromdate").val(),
+                    todate: $("#todate").val(),
+                    fromtime: $('#FromTime').val(),
+                    totime: $("#ToTime").val(),
+                    poscode: $("#poscode").val(),
+                    unit: $("#unit").val(),
+                    routeid: $("#routecode").val(),
+                    status: $("#StatusOrder").val(),
+                    page: p,
+                    datatype: $("#searchcondition").val(),
+                    collectquality: $("#cbCollectQuality").val(),
+                    
+                },
+            success: function (result) {
+                // sau khi chay ham thanh cong lay ra ket qua thi bind html vao id listbd13report
+                    $('.loading-element').hide();
+                    $('#listbd13report').html(result);
+
+                    if (p == 1) refreshPaging();
+            }
+        })
+    }
+
+    //Phần Phân Trang
+    function refreshPaging() {
+        $('#page-selection').bootpag({
+            total: $('#total_page').val(),
+            maxVisible: 10,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            detail(num);
+            $("#listbd13report tr").remove();
+        });
+    }
+
+    //Sự kiện thay đổi bưu cục phát theo khu vực
+    $(document).ready(function () {
+        $("#unit").change(function () {
+            $.ajax({
+                url: "/KPIPickup/PosCodePickup",
+                dataType: "json",
+                data: { unit: $("#unit").val() },
+                success: function (data) {
+                    $('#poscode').html('<option value=0> Tất cả </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#poscode').html($('#poscode').html() +
+                            "<option value='" + val.PosCode + "'>" + val.PosCode + "-" + val.PosName + "</option>");
+                    });
+                    $('#routecode').html('<option value=0> Tất cả </option>');
+                }
+            })
+        })
+
+        $("#poscode").change(function () {
+            $.ajax({
+                url: "/KPIPickup/RouteCodePickup",
+                dataType: "json",
+                data: { Poscode: $("#poscode").val() },
+                success: function (data) {
+                    $('#routecode').html('<option value=0> Tất cả </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#routecode').html($('#routecode').html() +
+                            "<option value='" + val.RouteCode + "'>" + val.RouteCode + "-" + val.RouteName + "</option>");
+                    });
+                }
+            })
+        })
+    })
+
+   
+
+
+</script>
+
+

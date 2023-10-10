@@ -130,16 +130,15 @@ namespace T41.Areas.Admin.Data
         {
             TrackAndTrace_VNPOST.TrackAndTrace Tracking = new TrackAndTrace_VNPOST.TrackAndTrace();
             TrackAndTrace_VNPOST.UserCredentical uc = new TrackAndTrace_VNPOST.UserCredentical();
-            uc.user = "vnpost";
-            uc.pass = "vn!@#post";
+            uc.user = "ems";
+            uc.pass = "ems@123";
             Tracking.EnableDecompression = true;
             Tracking.UserCredenticalValue = uc;
             Tracking.Timeout = 60000;
-            DataSet ds = new DataSet();
-            ds = Tracking.TrackAndTrace_Items(itemcode);
-            ds = Tracking.TrackAndTrace_Items(itemcode);
-            //ds = Tracking.TrackAndTrace_ItemsAsync(itemcode);
-            ds = Tracking.TrackAndTrace_Items(itemcode);
+            DataSet ds = new DataSet();                     
+            ds = Tracking.TrackAndTrace_Items_Public(itemcode);
+        
+
             DataTable da = new DataTable();
             ReturnTrackAndTrace _returnTrackAndTrace = new ReturnTrackAndTrace();
 
@@ -204,7 +203,7 @@ namespace T41.Areas.Admin.Data
                         oTBL_INFODetail.DataCode = dr["DataCode"].ToString();
                         oTBL_INFODetail.Weight = dr["Weight"].ToString();
                         oTBL_INFODetail.TotalFreightVAT = dr["TotalFreightVAT"].ToString();
-                        oTBL_INFODetail.SendingContent = dr["SendingContent"].ToString();
+                        oTBL_INFODetail.SendingContent = "";// dr["SendingContent"].ToString();
                         oTBL_INFODetail.ReceiverTel = dr["ReceiverTel"].ToString();
                         try
                         {

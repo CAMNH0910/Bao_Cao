@@ -41,13 +41,19 @@ namespace T41.Areas.Admin.Controllers
 
         }
 
+        public ActionResult TMSKPIQT()
+        {
+            return View();
+
+        }
+
 
         //public ActionResult Delete(int id)
         //{
         //    KPIKTRepository KPIKTRepository = new KPIKTRepository();
         //    try
         //    {
-                
+
         //        if (KPIKTRepository.UpdateNotKPI(id))
         //        {
         //            ViewBag.AlertMsg = "Student Deleted Successfully";
@@ -63,31 +69,44 @@ namespace T41.Areas.Admin.Controllers
 
         //Controller gọi đến chi tiết của bảng tổng hợp sản lượng đi phát
         [HttpPost]
-        public JsonResult ListTMSKPIReport( string buucuc, string Transporttype)
+        public JsonResult ListTMSKPIReport( string buucuc, string Transporttype, string IsService)
         {           
             ViewBag.buucuc = buucuc;
             ViewBag.Transporttype = Transporttype;
 
             KPIKTRepository KPIKTRepository = new KPIKTRepository();
             ReturnKPIKT returnKPIKT = new ReturnKPIKT();
-            returnKPIKT = KPIKTRepository.TMSKPI(buucuc,Transporttype);
+            returnKPIKT = KPIKTRepository.TMSKPI(buucuc,Transporttype, IsService);
             //return View(returntrackingorder);
             return Json(returnKPIKT, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult UpdateMailRouteTMSKPIReport(int IdMailRoute, int WorkCenter, string Cellvalue, int TransportypeInt, string NameCutOff, string Totime,int NotKpi)
+        public JsonResult ListTMSKPIQTReport(string buucuc, string StartDate, string EndDate)
         {
+            ViewBag.buucuc = buucuc;
+            ViewBag.StartDate = StartDate;
 
             KPIKTRepository KPIKTRepository = new KPIKTRepository();
-            return Json(KPIKTRepository.UpdateMailRoute(IdMailRoute, WorkCenter, Cellvalue, TransportypeInt, NameCutOff, Totime, NotKpi), JsonRequestBehavior.AllowGet);
+            ReturnKPIKT returnKPIKT = new ReturnKPIKT();
+            returnKPIKT = KPIKTRepository.TMSKPIQT(buucuc, StartDate, EndDate);
+            //return View(returntrackingorder);
+            return Json(returnKPIKT, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InsertMailRouteTMSKPIReport(int IdMailRoute, int WorkCenter, int Cellvalue, int TransportypeInt,int NotKpi, string NameCutOff, string Totime)
+        [HttpPost]
+        public JsonResult UpdateMailRouteTMSKPIReport(int IdMailRoute, int WorkCenter, string Cellvalue, int TransportypeInt, string NameCutOff, string Totime,int NotKpi,string IsService)
         {
 
             KPIKTRepository KPIKTRepository = new KPIKTRepository();
-            return Json(KPIKTRepository.InsertMailRoute(IdMailRoute, WorkCenter, Cellvalue, TransportypeInt, NotKpi, NameCutOff, Totime), JsonRequestBehavior.AllowGet);
+            return Json(KPIKTRepository.UpdateMailRoute(IdMailRoute, WorkCenter, Cellvalue, TransportypeInt, NameCutOff, Totime, NotKpi, IsService), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult InsertMailRouteTMSKPIReport(int IdMailRoute, int WorkCenter, int Cellvalue, int TransportypeInt,int NotKpi, string NameCutOff, string Totime, string IsService)
+        {
+
+            KPIKTRepository KPIKTRepository = new KPIKTRepository();
+            return Json(KPIKTRepository.InsertMailRoute(IdMailRoute, WorkCenter, Cellvalue, TransportypeInt, NotKpi, NameCutOff, Totime, IsService), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult FindIdMailRouteTMSKPIReport(string ID6Number)
@@ -105,15 +124,16 @@ namespace T41.Areas.Admin.Controllers
 
         //Phần trả về data theo list để xuất excel
         [HttpGet]
-        public List<TMSKPIDetail> ReturnListExcel(string buucuc, string Transporttype)
+        public List<TMSKPIDetail> ReturnListExcel(string buucuc, string Transporttype, string IsService)
         {
 
             ViewBag.buucuc = buucuc;
             ViewBag.Transporttype = Transporttype;
+            ViewBag.IsService = IsService;
 
             KPIKTRepository KPIKTRepository = new KPIKTRepository();
             ReturnKPIKT returnKPIKT = new ReturnKPIKT();
-            returnKPIKT = KPIKTRepository.TMSKPI(buucuc,Transporttype);
+            returnKPIKT = KPIKTRepository.TMSKPI(buucuc,Transporttype,IsService);
             return returnKPIKT.ListTMSKPIReport;
         }
 
@@ -121,7 +141,7 @@ namespace T41.Areas.Admin.Controllers
         public Stream CreateExcelFile(Stream stream = null)
         {
             //var list = CreateTestItems();
-            var list = ReturnListExcel(ViewBag.buucuc, ViewBag.Transporttype);
+            var list = ReturnListExcel(ViewBag.buucuc, ViewBag.Transporttype, ViewBag.IsService);
             using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
             {
                 // Tạo author cho file Excel
@@ -135,7 +155,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -152,25 +172,33 @@ namespace T41.Areas.Admin.Controllers
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "CutOff";
-            worksheet.Cells[1, 3].Value = "ID hành trình";
-            worksheet.Cells[1, 4].Value = "Tên hành trình";
-            worksheet.Cells[1, 5].Value = "Thời gian";
-            worksheet.Cells[1, 6].Value = "Bưu cục đóng";
-            worksheet.Cells[1, 7].Value = "Bưu cục nhận";
-            worksheet.Cells[1, 8].Value = "Tên bưu cục nhận";
-            worksheet.Cells[1, 9].Value = "Dịch vụ";
-            worksheet.Cells[1, 10].Value = "Phương tiện";
-            worksheet.Cells[1, 11].Value = "Đo kiểm";
+            worksheet.Cells[1, 1].Value = "LƯỢC ĐỒ KHAI THÁC";
+            worksheet.Cells["A1:M1"].Merge = true;
+
+            worksheet.Cells[2, 13].Value = "MÃ BÁO CÁO:KT/LDKT";
+            worksheet.Cells["M2:M2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "CutOff";
+            worksheet.Cells[4, 3].Value = "ID hành trình";
+            worksheet.Cells[4, 4].Value = "Tên hành trình";
+            worksheet.Cells[4, 5].Value = "Thời gian";
+            worksheet.Cells[4, 6].Value = "Bưu cục đóng";
+            worksheet.Cells[4, 7].Value = "Bưu cục nhận";
+            worksheet.Cells[4, 8].Value = "Tên bưu cục nhận";
+            worksheet.Cells[4, 9].Value = "Dịch vụ";
+            worksheet.Cells[4, 10].Value = "Phương tiện";
+            worksheet.Cells[4, 11].Value = "Đo kiểm";
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:Z1"])
+            using (var range = worksheet.Cells["A4:M4"])
+            using (var ranges = worksheet.Cells["A1:M1"])
+           
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
@@ -179,6 +207,14 @@ namespace T41.Areas.Admin.Controllers
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+               
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 

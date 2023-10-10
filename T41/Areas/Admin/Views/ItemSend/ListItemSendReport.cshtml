@@ -1,0 +1,91 @@
+﻿
+
+@{
+    Layout = null;
+}
+@if (Model.listItemSendReport != null)
+{
+    int i = 0; i = (ViewBag.currentPageIndex - 1) * ViewBag.PageSize;
+    <thead>
+        <tr>
+            <th class="text-left">Chi tiết thống kê dịch vụ GTGT</th>
+            <th  class="text-right">Tổng số: @ViewBag.Total</th>
+        </tr>
+        <tr class="bg-light-blue color-palette">
+            @*<th>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="select_all" >
+                </div>
+            </th>*@
+            <th class="text-center">STT</th>
+            <th class="text-center">Mã Khách hàng</th>
+            <th class="text-center">Mã E1</th>
+            <th class="text-center">BC chấp nhận</th>
+            <th class="text-center">Kênh GTGT</th>
+            <th class="text-center">ĐT gửi</th>
+            <th class="text-center">ĐT nhận</th>
+            <th class="text-center">Email nhận</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Gửi tin</th>
+            <th class="text-center">Thời gian gửi</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var c in Model.listItemSendReport)
+        {
+
+        <tr>
+            @*<td>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="select_@(i+1)" >
+                </div>
+            </td>*@
+            <td>@(i + 1)</td>
+            <td>@c.CustomerCode</td>
+            <td>@c.ItemCode</td>
+            <td>@c.AcceptancePos</td>
+            <td>@c.Gate</td>
+            <td>@c.SenderPhone</td>
+            <td>@c.ReceiverPhone</td>
+            <td>@c.ReceiverEmail</td>
+            <td>@c.DeliveryState</td>
+            <td>@c.SendState</td>
+            <td>@c.SendingTime</td>
+        </tr>
+        i++;
+
+        }
+    </tbody>
+    <script type="text/javascript">
+        $('#btnexport').show();
+
+        $('#select_all').click(function () {
+            var c = this.checked;
+            $(':checkbox').prop('checked', c);
+        });
+
+    
+    </script>
+}
+
+else
+
+{
+    <script>
+        $('#btnexport').hide();
+        swal(
+           'Không Có Số Liệu',
+           '',
+           'error'
+         )
+    </script>
+
+}
+<input type="hidden" value="@ViewBag.currentPageIndex" id="currentPage" />
+<input type="hidden" id="total_page" value="@ViewBag.total_page" />
+<input type="hidden" id="total" value="@ViewBag.total" />
+
+
+

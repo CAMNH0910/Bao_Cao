@@ -246,7 +246,7 @@ namespace T41.Areas.Admin.Models.DataModel
         public String TenDV { get; set; }
         public String NacKL { get; set; }
         public String TenNacKL { get; set; }
-       // public String NacKLNumber { get; set; }
+        // public String NacKLNumber { get; set; }
         public String SL { get; set; }
         //public int BuuCuc { get; set; }
         public String KL { get; set; }
@@ -346,12 +346,13 @@ namespace T41.Areas.Admin.Models.DataModel
         public String Tentinhnhan { get; set; }
         //public int BuuCuc { get; set; }
         public String Mae1 { get; set; }
+        public String MaKH { get; set; }
         public String Manuoctra { get; set; }
         public String Ten_Nuoc { get; set; }
         public String NgayPhatHanh { get; set; }
 
         public String Madvchinh { get; set; }
-      //  public String TenDV { get; set; }
+        //  public String TenDV { get; set; }
         public String PhanLoai { get; set; }
         public String khoiluong { get; set; }
         public String KLQD { get; set; }
@@ -367,7 +368,31 @@ namespace T41.Areas.Admin.Models.DataModel
 
 
     }
+    public class QualityReportTHQTDIDetail_NEW
+    {
+        public int STT { get; set; }
+        public String Donvi { get; set; }
+        public String Matinhnhan { get; set; }
+        public String Tentinhnhan { get; set; }
+        //public int BuuCuc { get; set; }
+        public String Mae1 { get; set; }
+        public String MaKH { get; set; }
+        public String Manuoctra { get; set; }
+        public String Ten_Nuoc { get; set; }
+        public String NgayPhatHanh { get; set; }
 
+        public String Madvchinh { get; set; }
+        //  public String TenDV { get; set; }
+        public String PhanLoai { get; set; }
+        public String khoiluong { get; set; }
+        public String KLQD { get; set; }
+        
+        public String Tongcuoc { get; set; }
+
+        public String TrangThaiPhat { get; set; }
+
+
+    }
     public class QualityReportTHQTDENDetail
     {
         public int STT { get; set; }
@@ -570,10 +595,36 @@ namespace T41.Areas.Admin.Models.DataModel
         public QualityReportTHQTDIDetail QualityReportQTDI { get; set; }
         public List<QualityReportTHQTDIDetail> ListDetailedQualityTHQTDIReport;
 
+       
+
         // public QualityDeliverySuccess6HDetail QualityDeliverySuccess6HReport { get; set; }
         //public List<QualityDeliverySuccess6HDetail> ListQualityDeliverySuccess6HReport;
 
         public MetaDataQTDI MetaDataQTDI { get; set; }
+
+
+    }
+    public class ReturnReportQTDI_NEW
+    {
+        public string Code { get; set; }
+
+        /// <summary>
+        /// Message
+        /// </summary>
+        public string Message { get; set; }
+
+        /// <summary>
+        /// Value
+        /// </summary>
+        public int Total { get; set; }
+        public QualityReportTHQTDIDetail_NEW QualityReportQTDI_NEW { get; set; }
+        public List<QualityReportTHQTDIDetail_NEW> ListDetailedQualityTHQTDIReport_NEW;
+
+
+
+        // public QualityDeliverySuccess6HDetail QualityDeliverySuccess6HReport { get; set; }
+        //public List<QualityDeliverySuccess6HDetail> ListQualityDeliverySuccess6HReport;
+
 
 
     }
@@ -633,7 +684,7 @@ namespace T41.Areas.Admin.Models.DataModel
         public QualityReportTHDVCTDetail QualityReportTHDVCT { get; set; }
         public List<QualityReportTHDVCTDetail> ListDetailedQualityTHDVCTReport;
 
-     
+
 
         public MetaDataTHDVCT MetaDataTHDVCT { get; set; }
 

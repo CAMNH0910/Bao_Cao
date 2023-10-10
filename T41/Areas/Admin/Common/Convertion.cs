@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -50,6 +51,14 @@ namespace T41.Areas.Admin.Common
             {
                 return 0;
             }
+        }
+
+        public int ConvertTimeToInt(string timeString)
+        {
+            DateTime time = DateTime.ParseExact(timeString, "hh:mm:ss tt", CultureInfo.InvariantCulture);
+            string hhmm = time.ToString("HHmm");
+            int result = int.Parse(hhmm);
+            return result;
         }
     }
 }

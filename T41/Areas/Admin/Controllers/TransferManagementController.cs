@@ -158,5 +158,15 @@ namespace T41.Areas.Admin.Controllers
             return Json(returntransmition, JsonRequestBehavior.AllowGet);
 
         }
+
+        [HttpPost]
+        public ActionResult TransmitDataCentertoBCCP(int fromposcode, int toposcode, int date, int mailtrip)
+        {
+            TransferManagementRepository transfermanagementRepository = new TransferManagementRepository();
+            ReturnTransmited returntransmition = new ReturnTransmited();
+            returntransmition = transfermanagementRepository.TransmitDataCentertoBCCP(fromposcode, toposcode, date, mailtrip);
+            return Json(returntransmition, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace T41.Areas.Admin.Controllers
     {
         Convertion common = new Convertion();
         // GET: Admin/KpiBD13Delivery
-        
+
         //Controller lấy dữ liệu bưu cục phát
         public JsonResult PosCode(int zone)
         {
@@ -52,7 +52,7 @@ namespace T41.Areas.Admin.Controllers
 
         }
 
-        
+
 
         [HttpPost]
         //Controller gọi đến chi tiết theo từng mã bưu cục của sản lượng phát thành công trong 6H
@@ -62,7 +62,7 @@ namespace T41.Areas.Admin.Controllers
             ReturnKpiBD13 returnKpiBD13 = new ReturnKpiBD13();
             returnKpiBD13 = KpiBD13DeliveryRepository.KpiBD13_Delivery_Success6H_Detail(endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service, type);
             return Json(returnKpiBD13, JsonRequestBehavior.AllowGet);
-            
+
         }
 
         [HttpPost]
@@ -86,7 +86,7 @@ namespace T41.Areas.Admin.Controllers
             ViewBag.enddate = enddate;
             KpiBD13DeliveryRepository KpiBD13DeliveryRepository = new KpiBD13DeliveryRepository();
             ReturnKpiBD13 returnKpiBD13 = new ReturnKpiBD13();
-            returnKpiBD13 = KpiBD13DeliveryRepository.KpiBD13_DELIVERY_DETAIL(zone , endpostcode , routecode, common.DateToInt(startdate), common.DateToInt(enddate), service);
+            returnKpiBD13 = KpiBD13DeliveryRepository.KpiBD13_DELIVERY_DETAIL(zone, endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service);
             //return View(returnKpiBD13.ListKpiBD13DeliveryReport);
             return View(returnKpiBD13);
 
@@ -112,7 +112,7 @@ namespace T41.Areas.Admin.Controllers
         public Stream CreateExcelFile(Stream stream = null)
         {
             //var list = CreateTestItems();
-            var list = ReturnListExcel(ViewBag.zone,ViewBag.endpostcode,ViewBag.routecode,ViewBag.startdate,ViewBag.enddate,ViewBag.service);
+            var list = ReturnListExcel(ViewBag.zone, ViewBag.endpostcode, ViewBag.routecode, ViewBag.startdate, ViewBag.enddate, ViewBag.service);
             using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
             {
                 // Tạo author cho file Excel
@@ -126,7 +126,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[4, 1].LoadFromCollection(list, true, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -137,41 +137,66 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<KpiBD13DeliveryDetail> listItems)
         {
+            var list = ReturnListExcel(ViewBag.zone, ViewBag.endpostcode, ViewBag.routecode, ViewBag.startdate, ViewBag.enddate, ViewBag.service);
+
+
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 30;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
+            worksheet.Cells[1, 1].Value = "BÁO CÁO CHI TIẾT DỊCH VỤ CỘNG THÊM";
+            worksheet.Cells["A1:O1"].Merge = true;
+
+            worksheet.Cells[2, 15].Value = "MÃ BÁO CÁO:KD/CT_DVCT_CT";
+            worksheet.Cells["O2:O2"].Merge = true;
+
+            worksheet.Cells[2, 7].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
+            worksheet.Cells["G2:I2"].Merge = true;
+
             worksheet.Cells[1, 1].Value = "STT";
             worksheet.Cells[1, 2].Value = "Đơn Vị";
             worksheet.Cells[1, 3].Value = "Bưu Cục";
             worksheet.Cells[1, 4].Value = "Tên Bưu Cục";
             worksheet.Cells[1, 5].Value = "SL Bưu Gửi Đến";
             worksheet.Cells[1, 6].Value = "SL Phát Thành Công";
-            worksheet.Cells[1, 7].Value = "SL Phát Chưa Có Thông Tin";
-            worksheet.Cells[1, 8].Value = "SL PTC Đúng Quy Định";
-            worksheet.Cells[1, 9].Value = "SL PTC Không Đúng Quy Định";
-            worksheet.Cells[1, 10].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
-            worksheet.Cells[1, 11].Value = "Tỉ Lệ TC Không Đúng Quy Định";
-            worksheet.Cells[1, 12].Value = "SL PTC Không Xác Định";
-            
+            worksheet.Cells[1, 7].Value = "TL Phát Thành Công";
+            worksheet.Cells[1, 8].Value = "SL Phát Thành Công 72H";
+            worksheet.Cells[1, 9].Value = "TL Phát Thành Công 72H";
+            worksheet.Cells[1, 10].Value = "SL Phát Chưa Có Thông Tin";
+            worksheet.Cells[1, 11].Value = "SL PTC Đúng Quy Định";
+            worksheet.Cells[1, 12].Value = "SL PTC Không Đúng Quy Định";
+            worksheet.Cells[1, 13].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
+            worksheet.Cells[1, 14].Value = "Tỉ Lệ TC Không Đúng Quy Định";
+            worksheet.Cells[1, 15].Value = "SL PTC Không Xác Định";
+
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:L1"])
+            using (var range = worksheet.Cells["A4:O4"])
+            using (var ranges = worksheet.Cells["A1:O1"])
+            using (var Ngay = worksheet.Cells["G2:I2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
                 // Set Màu cho Background
-                range.Style.Fill.BackgroundColor.SetColor(Color.Orange);
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
-                range.Style.Font.SetFromFont(new Font("Roboto", 12, FontStyle.Bold));
+                range.Style.Font.SetFromFont(new Font("Arial", 11));
                 // Set Border
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
                 //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
             }
 
 
