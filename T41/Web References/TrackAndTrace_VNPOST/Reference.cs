@@ -40,8 +40,6 @@ namespace T41.TrackAndTrace_VNPOST {
         
         private System.Threading.SendOrPostCallback GetLogisticInfoOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetPUDInfoOperationCompleted;
-        
         private System.Threading.SendOrPostCallback GetUPSInfoOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetParcelPackagesOperationCompleted;
@@ -54,7 +52,27 @@ namespace T41.TrackAndTrace_VNPOST {
         
         private System.Threading.SendOrPostCallback GetLogisticByListOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetPUDInfoOperationCompleted;
+        
         private System.Threading.SendOrPostCallback TrackAndTrace_ItemsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_BCCPOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_BCCP_NewOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback MyVNP_GetOrderHistoryOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback MyVNP_GetOrderHistory_UATOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback MyVNP_TrackAndTrace_ItemOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback MyVNP_TrackAndTrace_Items_ListOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback MyVNP_GetCallHistoryOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback MyVNP_GetImageListOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_V2OperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_By_DataCodeOperationCompleted;
         
@@ -62,17 +80,47 @@ namespace T41.TrackAndTrace_VNPOST {
         
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_PublicOperationCompleted;
         
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Public_NoHOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Info_ForZNSOperationCompleted;
+        
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_By_DataCode_PublicOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_By_DataCode_Public_NoHOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_BatchOperationCompleted;
         
+        private System.Threading.SendOrPostCallback TrackAndTrace_Batch_V2OperationCompleted;
+        
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_ArrOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_HTKHOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_LocationOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_DataCode_ArrOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_OE_ArrOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_wTableOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_List_ACFCOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Item_ACFCOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_v2_wTableOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_Location_wTableOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_wTable_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_v2_wTable_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_Arr_Location_wTable_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_DataCode_Arr_wTableOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_DataCode_Arr_wTable_ArchivedOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_BD8OperationCompleted;
         
@@ -90,11 +138,19 @@ namespace T41.TrackAndTrace_VNPOST {
         
         private System.Threading.SendOrPostCallback BCCP_GetTraceBySMSOperationCompleted;
         
+        private System.Threading.SendOrPostCallback TrackAndTrace_Item_GetAccPOSOperationCompleted;
+        
         private System.Threading.SendOrPostCallback TrackAndTrace_OrderOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Order_NoHOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_CustomerOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_Customer_NewOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Customer_ForDVKHOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CTT_GetDataFastCheckOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_KHL_by_POOperationCompleted;
         
@@ -116,6 +172,8 @@ namespace T41.TrackAndTrace_VNPOST {
         
         private System.Threading.SendOrPostCallback KHL_GetTimePart_Items_Arr_InfoOperationCompleted;
         
+        private System.Threading.SendOrPostCallback Address_GetRestrictInfoOperationCompleted;
+        
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_UATOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_Items_By_DataCode_UATOperationCompleted;
@@ -127,6 +185,24 @@ namespace T41.TrackAndTrace_VNPOST {
         private System.Threading.SendOrPostCallback TrackAndTrace_BD8_UATOperationCompleted;
         
         private System.Threading.SendOrPostCallback TrackAndTrace_BD10_UATOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback BCCP_GetImageEMSOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_BCCP_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Items_By_DataCode_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Batch_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Order_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_Customer_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_BD8_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback TrackAndTrace_BD10_ArchivedOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback BCCP_GetContractCPPAOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -188,9 +264,6 @@ namespace T41.TrackAndTrace_VNPOST {
         public event GetLogisticInfoCompletedEventHandler GetLogisticInfoCompleted;
         
         /// <remarks/>
-        public event GetPUDInfoCompletedEventHandler GetPUDInfoCompleted;
-        
-        /// <remarks/>
         public event GetUPSInfoCompletedEventHandler GetUPSInfoCompleted;
         
         /// <remarks/>
@@ -209,7 +282,37 @@ namespace T41.TrackAndTrace_VNPOST {
         public event GetLogisticByListCompletedEventHandler GetLogisticByListCompleted;
         
         /// <remarks/>
+        public event GetPUDInfoCompletedEventHandler GetPUDInfoCompleted;
+        
+        /// <remarks/>
         public event TrackAndTrace_ItemsCompletedEventHandler TrackAndTrace_ItemsCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_BCCPCompletedEventHandler TrackAndTrace_Items_BCCPCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_BCCP_NewCompletedEventHandler TrackAndTrace_Items_BCCP_NewCompleted;
+        
+        /// <remarks/>
+        public event MyVNP_GetOrderHistoryCompletedEventHandler MyVNP_GetOrderHistoryCompleted;
+        
+        /// <remarks/>
+        public event MyVNP_GetOrderHistory_UATCompletedEventHandler MyVNP_GetOrderHistory_UATCompleted;
+        
+        /// <remarks/>
+        public event MyVNP_TrackAndTrace_ItemCompletedEventHandler MyVNP_TrackAndTrace_ItemCompleted;
+        
+        /// <remarks/>
+        public event MyVNP_TrackAndTrace_Items_ListCompletedEventHandler MyVNP_TrackAndTrace_Items_ListCompleted;
+        
+        /// <remarks/>
+        public event MyVNP_GetCallHistoryCompletedEventHandler MyVNP_GetCallHistoryCompleted;
+        
+        /// <remarks/>
+        public event MyVNP_GetImageListCompletedEventHandler MyVNP_GetImageListCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_V2CompletedEventHandler TrackAndTrace_Items_V2Completed;
         
         /// <remarks/>
         public event TrackAndTrace_Items_By_DataCodeCompletedEventHandler TrackAndTrace_Items_By_DataCodeCompleted;
@@ -221,13 +324,28 @@ namespace T41.TrackAndTrace_VNPOST {
         public event TrackAndTrace_Items_PublicCompletedEventHandler TrackAndTrace_Items_PublicCompleted;
         
         /// <remarks/>
+        public event TrackAndTrace_Items_Public_NoHCompletedEventHandler TrackAndTrace_Items_Public_NoHCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Info_ForZNSCompletedEventHandler TrackAndTrace_Items_Info_ForZNSCompleted;
+        
+        /// <remarks/>
         public event TrackAndTrace_Items_By_DataCode_PublicCompletedEventHandler TrackAndTrace_Items_By_DataCode_PublicCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_By_DataCode_Public_NoHCompletedEventHandler TrackAndTrace_Items_By_DataCode_Public_NoHCompleted;
         
         /// <remarks/>
         public event TrackAndTrace_BatchCompletedEventHandler TrackAndTrace_BatchCompleted;
         
         /// <remarks/>
+        public event TrackAndTrace_Batch_V2CompletedEventHandler TrackAndTrace_Batch_V2Completed;
+        
+        /// <remarks/>
         public event TrackAndTrace_Items_ArrCompletedEventHandler TrackAndTrace_Items_ArrCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Arr_HTKHCompletedEventHandler TrackAndTrace_Items_Arr_HTKHCompleted;
         
         /// <remarks/>
         public event TrackAndTrace_Items_Arr_LocationCompletedEventHandler TrackAndTrace_Items_Arr_LocationCompleted;
@@ -237,6 +355,36 @@ namespace T41.TrackAndTrace_VNPOST {
         
         /// <remarks/>
         public event TrackAndTrace_Items_OE_ArrCompletedEventHandler TrackAndTrace_Items_OE_ArrCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Arr_wTableCompletedEventHandler TrackAndTrace_Items_Arr_wTableCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_List_ACFCCompletedEventHandler TrackAndTrace_Items_List_ACFCCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Item_ACFCCompletedEventHandler TrackAndTrace_Item_ACFCCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Arr_v2_wTableCompletedEventHandler TrackAndTrace_Items_Arr_v2_wTableCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Arr_Location_wTableCompletedEventHandler TrackAndTrace_Items_Arr_Location_wTableCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Arr_wTable_ArchivedCompletedEventHandler TrackAndTrace_Items_Arr_wTable_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompletedEventHandler TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompletedEventHandler TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_DataCode_Arr_wTableCompletedEventHandler TrackAndTrace_DataCode_Arr_wTableCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_DataCode_Arr_wTable_ArchivedCompletedEventHandler TrackAndTrace_DataCode_Arr_wTable_ArchivedCompleted;
         
         /// <remarks/>
         public event TrackAndTrace_BD8CompletedEventHandler TrackAndTrace_BD8Completed;
@@ -263,13 +411,25 @@ namespace T41.TrackAndTrace_VNPOST {
         public event BCCP_GetTraceBySMSCompletedEventHandler BCCP_GetTraceBySMSCompleted;
         
         /// <remarks/>
+        public event TrackAndTrace_Item_GetAccPOSCompletedEventHandler TrackAndTrace_Item_GetAccPOSCompleted;
+        
+        /// <remarks/>
         public event TrackAndTrace_OrderCompletedEventHandler TrackAndTrace_OrderCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Order_NoHCompletedEventHandler TrackAndTrace_Order_NoHCompleted;
         
         /// <remarks/>
         public event TrackAndTrace_CustomerCompletedEventHandler TrackAndTrace_CustomerCompleted;
         
         /// <remarks/>
         public event TrackAndTrace_Customer_NewCompletedEventHandler TrackAndTrace_Customer_NewCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Customer_ForDVKHCompletedEventHandler TrackAndTrace_Customer_ForDVKHCompleted;
+        
+        /// <remarks/>
+        public event CTT_GetDataFastCheckCompletedEventHandler CTT_GetDataFastCheckCompleted;
         
         /// <remarks/>
         public event TrackAndTrace_KHL_by_POCompletedEventHandler TrackAndTrace_KHL_by_POCompleted;
@@ -302,6 +462,9 @@ namespace T41.TrackAndTrace_VNPOST {
         public event KHL_GetTimePart_Items_Arr_InfoCompletedEventHandler KHL_GetTimePart_Items_Arr_InfoCompleted;
         
         /// <remarks/>
+        public event Address_GetRestrictInfoCompletedEventHandler Address_GetRestrictInfoCompleted;
+        
+        /// <remarks/>
         public event TrackAndTrace_Items_UATCompletedEventHandler TrackAndTrace_Items_UATCompleted;
         
         /// <remarks/>
@@ -318,6 +481,33 @@ namespace T41.TrackAndTrace_VNPOST {
         
         /// <remarks/>
         public event TrackAndTrace_BD10_UATCompletedEventHandler TrackAndTrace_BD10_UATCompleted;
+        
+        /// <remarks/>
+        public event BCCP_GetImageEMSCompletedEventHandler BCCP_GetImageEMSCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_BCCP_ArchivedCompletedEventHandler TrackAndTrace_Items_BCCP_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Items_By_DataCode_ArchivedCompletedEventHandler TrackAndTrace_Items_By_DataCode_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Batch_ArchivedCompletedEventHandler TrackAndTrace_Batch_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Order_ArchivedCompletedEventHandler TrackAndTrace_Order_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_Customer_ArchivedCompletedEventHandler TrackAndTrace_Customer_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_BD8_ArchivedCompletedEventHandler TrackAndTrace_BD8_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event TrackAndTrace_BD10_ArchivedCompletedEventHandler TrackAndTrace_BD10_ArchivedCompleted;
+        
+        /// <remarks/>
+        public event BCCP_GetContractCPPACompletedEventHandler BCCP_GetContractCPPACompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
@@ -436,36 +626,6 @@ namespace T41.TrackAndTrace_VNPOST {
             if ((this.GetLogisticInfoCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetLogisticInfoCompleted(this, new GetLogisticInfoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/GetPUDInfo", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet GetPUDInfo(string idBP) {
-            object[] results = this.Invoke("GetPUDInfo", new object[] {
-                        idBP});
-            return ((System.Data.DataSet)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetPUDInfoAsync(string idBP) {
-            this.GetPUDInfoAsync(idBP, null);
-        }
-        
-        /// <remarks/>
-        public void GetPUDInfoAsync(string idBP, object userState) {
-            if ((this.GetPUDInfoOperationCompleted == null)) {
-                this.GetPUDInfoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPUDInfoOperationCompleted);
-            }
-            this.InvokeAsync("GetPUDInfo", new object[] {
-                        idBP}, this.GetPUDInfoOperationCompleted, userState);
-        }
-        
-        private void OnGetPUDInfoOperationCompleted(object arg) {
-            if ((this.GetPUDInfoCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetPUDInfoCompleted(this, new GetPUDInfoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -648,6 +808,36 @@ namespace T41.TrackAndTrace_VNPOST {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/GetPUDInfo", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetPUDInfo(string idBP) {
+            object[] results = this.Invoke("GetPUDInfo", new object[] {
+                        idBP});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPUDInfoAsync(string idBP) {
+            this.GetPUDInfoAsync(idBP, null);
+        }
+        
+        /// <remarks/>
+        public void GetPUDInfoAsync(string idBP, object userState) {
+            if ((this.GetPUDInfoOperationCompleted == null)) {
+                this.GetPUDInfoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPUDInfoOperationCompleted);
+            }
+            this.InvokeAsync("GetPUDInfo", new object[] {
+                        idBP}, this.GetPUDInfoOperationCompleted, userState);
+        }
+        
+        private void OnGetPUDInfoOperationCompleted(object arg) {
+            if ((this.GetPUDInfoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPUDInfoCompleted(this, new GetPUDInfoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet TrackAndTrace_Items(string ItemCode) {
             object[] results = this.Invoke("TrackAndTrace_Items", new object[] {
@@ -673,6 +863,282 @@ namespace T41.TrackAndTrace_VNPOST {
             if ((this.TrackAndTrace_ItemsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.TrackAndTrace_ItemsCompleted(this, new TrackAndTrace_ItemsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_BCCP", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_BCCP(string ItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Items_BCCP", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_BCCPAsync(string ItemCode) {
+            this.TrackAndTrace_Items_BCCPAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_BCCPAsync(string ItemCode, object userState) {
+            if ((this.TrackAndTrace_Items_BCCPOperationCompleted == null)) {
+                this.TrackAndTrace_Items_BCCPOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_BCCPOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_BCCP", new object[] {
+                        ItemCode}, this.TrackAndTrace_Items_BCCPOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_BCCPOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_BCCPCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_BCCPCompleted(this, new TrackAndTrace_Items_BCCPCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_BCCP_New", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_BCCP_New(string ItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Items_BCCP_New", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_BCCP_NewAsync(string ItemCode) {
+            this.TrackAndTrace_Items_BCCP_NewAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_BCCP_NewAsync(string ItemCode, object userState) {
+            if ((this.TrackAndTrace_Items_BCCP_NewOperationCompleted == null)) {
+                this.TrackAndTrace_Items_BCCP_NewOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_BCCP_NewOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_BCCP_New", new object[] {
+                        ItemCode}, this.TrackAndTrace_Items_BCCP_NewOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_BCCP_NewOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_BCCP_NewCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_BCCP_NewCompleted(this, new TrackAndTrace_Items_BCCP_NewCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/MyVNP_GetOrderHistory", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet MyVNP_GetOrderHistory(string ItemCode) {
+            object[] results = this.Invoke("MyVNP_GetOrderHistory", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetOrderHistoryAsync(string ItemCode) {
+            this.MyVNP_GetOrderHistoryAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetOrderHistoryAsync(string ItemCode, object userState) {
+            if ((this.MyVNP_GetOrderHistoryOperationCompleted == null)) {
+                this.MyVNP_GetOrderHistoryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMyVNP_GetOrderHistoryOperationCompleted);
+            }
+            this.InvokeAsync("MyVNP_GetOrderHistory", new object[] {
+                        ItemCode}, this.MyVNP_GetOrderHistoryOperationCompleted, userState);
+        }
+        
+        private void OnMyVNP_GetOrderHistoryOperationCompleted(object arg) {
+            if ((this.MyVNP_GetOrderHistoryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MyVNP_GetOrderHistoryCompleted(this, new MyVNP_GetOrderHistoryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/MyVNP_GetOrderHistory_UAT", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet MyVNP_GetOrderHistory_UAT(string ItemCode) {
+            object[] results = this.Invoke("MyVNP_GetOrderHistory_UAT", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetOrderHistory_UATAsync(string ItemCode) {
+            this.MyVNP_GetOrderHistory_UATAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetOrderHistory_UATAsync(string ItemCode, object userState) {
+            if ((this.MyVNP_GetOrderHistory_UATOperationCompleted == null)) {
+                this.MyVNP_GetOrderHistory_UATOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMyVNP_GetOrderHistory_UATOperationCompleted);
+            }
+            this.InvokeAsync("MyVNP_GetOrderHistory_UAT", new object[] {
+                        ItemCode}, this.MyVNP_GetOrderHistory_UATOperationCompleted, userState);
+        }
+        
+        private void OnMyVNP_GetOrderHistory_UATOperationCompleted(object arg) {
+            if ((this.MyVNP_GetOrderHistory_UATCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MyVNP_GetOrderHistory_UATCompleted(this, new MyVNP_GetOrderHistory_UATCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/MyVNP_TrackAndTrace_Item", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet MyVNP_TrackAndTrace_Item(string ItemCode) {
+            object[] results = this.Invoke("MyVNP_TrackAndTrace_Item", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MyVNP_TrackAndTrace_ItemAsync(string ItemCode) {
+            this.MyVNP_TrackAndTrace_ItemAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void MyVNP_TrackAndTrace_ItemAsync(string ItemCode, object userState) {
+            if ((this.MyVNP_TrackAndTrace_ItemOperationCompleted == null)) {
+                this.MyVNP_TrackAndTrace_ItemOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMyVNP_TrackAndTrace_ItemOperationCompleted);
+            }
+            this.InvokeAsync("MyVNP_TrackAndTrace_Item", new object[] {
+                        ItemCode}, this.MyVNP_TrackAndTrace_ItemOperationCompleted, userState);
+        }
+        
+        private void OnMyVNP_TrackAndTrace_ItemOperationCompleted(object arg) {
+            if ((this.MyVNP_TrackAndTrace_ItemCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MyVNP_TrackAndTrace_ItemCompleted(this, new MyVNP_TrackAndTrace_ItemCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/MyVNP_TrackAndTrace_Items_List", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet MyVNP_TrackAndTrace_Items_List(string arrItemCode) {
+            object[] results = this.Invoke("MyVNP_TrackAndTrace_Items_List", new object[] {
+                        arrItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MyVNP_TrackAndTrace_Items_ListAsync(string arrItemCode) {
+            this.MyVNP_TrackAndTrace_Items_ListAsync(arrItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void MyVNP_TrackAndTrace_Items_ListAsync(string arrItemCode, object userState) {
+            if ((this.MyVNP_TrackAndTrace_Items_ListOperationCompleted == null)) {
+                this.MyVNP_TrackAndTrace_Items_ListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMyVNP_TrackAndTrace_Items_ListOperationCompleted);
+            }
+            this.InvokeAsync("MyVNP_TrackAndTrace_Items_List", new object[] {
+                        arrItemCode}, this.MyVNP_TrackAndTrace_Items_ListOperationCompleted, userState);
+        }
+        
+        private void OnMyVNP_TrackAndTrace_Items_ListOperationCompleted(object arg) {
+            if ((this.MyVNP_TrackAndTrace_Items_ListCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MyVNP_TrackAndTrace_Items_ListCompleted(this, new MyVNP_TrackAndTrace_Items_ListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/MyVNP_GetCallHistory", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet MyVNP_GetCallHistory(string ItemCode) {
+            object[] results = this.Invoke("MyVNP_GetCallHistory", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetCallHistoryAsync(string ItemCode) {
+            this.MyVNP_GetCallHistoryAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetCallHistoryAsync(string ItemCode, object userState) {
+            if ((this.MyVNP_GetCallHistoryOperationCompleted == null)) {
+                this.MyVNP_GetCallHistoryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMyVNP_GetCallHistoryOperationCompleted);
+            }
+            this.InvokeAsync("MyVNP_GetCallHistory", new object[] {
+                        ItemCode}, this.MyVNP_GetCallHistoryOperationCompleted, userState);
+        }
+        
+        private void OnMyVNP_GetCallHistoryOperationCompleted(object arg) {
+            if ((this.MyVNP_GetCallHistoryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MyVNP_GetCallHistoryCompleted(this, new MyVNP_GetCallHistoryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/MyVNP_GetImageList", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet MyVNP_GetImageList(string ItemCode) {
+            object[] results = this.Invoke("MyVNP_GetImageList", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetImageListAsync(string ItemCode) {
+            this.MyVNP_GetImageListAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void MyVNP_GetImageListAsync(string ItemCode, object userState) {
+            if ((this.MyVNP_GetImageListOperationCompleted == null)) {
+                this.MyVNP_GetImageListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMyVNP_GetImageListOperationCompleted);
+            }
+            this.InvokeAsync("MyVNP_GetImageList", new object[] {
+                        ItemCode}, this.MyVNP_GetImageListOperationCompleted, userState);
+        }
+        
+        private void OnMyVNP_GetImageListOperationCompleted(object arg) {
+            if ((this.MyVNP_GetImageListCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MyVNP_GetImageListCompleted(this, new MyVNP_GetImageListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_V2", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_V2(string ItemCode, string HeThong, string Username, string Description) {
+            object[] results = this.Invoke("TrackAndTrace_Items_V2", new object[] {
+                        ItemCode,
+                        HeThong,
+                        Username,
+                        Description});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_V2Async(string ItemCode, string HeThong, string Username, string Description) {
+            this.TrackAndTrace_Items_V2Async(ItemCode, HeThong, Username, Description, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_V2Async(string ItemCode, string HeThong, string Username, string Description, object userState) {
+            if ((this.TrackAndTrace_Items_V2OperationCompleted == null)) {
+                this.TrackAndTrace_Items_V2OperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_V2OperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_V2", new object[] {
+                        ItemCode,
+                        HeThong,
+                        Username,
+                        Description}, this.TrackAndTrace_Items_V2OperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_V2OperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_V2Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_V2Completed(this, new TrackAndTrace_Items_V2CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -768,6 +1234,66 @@ namespace T41.TrackAndTrace_VNPOST {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Public_NoH", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Public_NoH(string ItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Public_NoH", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Public_NoHAsync(string ItemCode) {
+            this.TrackAndTrace_Items_Public_NoHAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Public_NoHAsync(string ItemCode, object userState) {
+            if ((this.TrackAndTrace_Items_Public_NoHOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Public_NoHOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Public_NoHOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Public_NoH", new object[] {
+                        ItemCode}, this.TrackAndTrace_Items_Public_NoHOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Public_NoHOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Public_NoHCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Public_NoHCompleted(this, new TrackAndTrace_Items_Public_NoHCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Info_ForZNS", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Info_ForZNS(string ItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Info_ForZNS", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Info_ForZNSAsync(string ItemCode) {
+            this.TrackAndTrace_Items_Info_ForZNSAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Info_ForZNSAsync(string ItemCode, object userState) {
+            if ((this.TrackAndTrace_Items_Info_ForZNSOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Info_ForZNSOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Info_ForZNSOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Info_ForZNS", new object[] {
+                        ItemCode}, this.TrackAndTrace_Items_Info_ForZNSOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Info_ForZNSOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Info_ForZNSCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Info_ForZNSCompleted(this, new TrackAndTrace_Items_Info_ForZNSCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_By_DataCode_Public", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet TrackAndTrace_Items_By_DataCode_Public(string ItemCode) {
             object[] results = this.Invoke("TrackAndTrace_Items_By_DataCode_Public", new object[] {
@@ -793,6 +1319,36 @@ namespace T41.TrackAndTrace_VNPOST {
             if ((this.TrackAndTrace_Items_By_DataCode_PublicCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.TrackAndTrace_Items_By_DataCode_PublicCompleted(this, new TrackAndTrace_Items_By_DataCode_PublicCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_By_DataCode_Public_NoH", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_By_DataCode_Public_NoH(string ItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Items_By_DataCode_Public_NoH", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_By_DataCode_Public_NoHAsync(string ItemCode) {
+            this.TrackAndTrace_Items_By_DataCode_Public_NoHAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_By_DataCode_Public_NoHAsync(string ItemCode, object userState) {
+            if ((this.TrackAndTrace_Items_By_DataCode_Public_NoHOperationCompleted == null)) {
+                this.TrackAndTrace_Items_By_DataCode_Public_NoHOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_By_DataCode_Public_NoHOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_By_DataCode_Public_NoH", new object[] {
+                        ItemCode}, this.TrackAndTrace_Items_By_DataCode_Public_NoHOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_By_DataCode_Public_NoHOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_By_DataCode_Public_NoHCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_By_DataCode_Public_NoHCompleted(this, new TrackAndTrace_Items_By_DataCode_Public_NoHCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -828,6 +1384,36 @@ namespace T41.TrackAndTrace_VNPOST {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Batch_V2", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Batch_V2(string BatchCode) {
+            object[] results = this.Invoke("TrackAndTrace_Batch_V2", new object[] {
+                        BatchCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Batch_V2Async(string BatchCode) {
+            this.TrackAndTrace_Batch_V2Async(BatchCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Batch_V2Async(string BatchCode, object userState) {
+            if ((this.TrackAndTrace_Batch_V2OperationCompleted == null)) {
+                this.TrackAndTrace_Batch_V2OperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Batch_V2OperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Batch_V2", new object[] {
+                        BatchCode}, this.TrackAndTrace_Batch_V2OperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Batch_V2OperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Batch_V2Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Batch_V2Completed(this, new TrackAndTrace_Batch_V2CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet TrackAndTrace_Items_Arr(string arrItemCode) {
             object[] results = this.Invoke("TrackAndTrace_Items_Arr", new object[] {
@@ -853,6 +1439,36 @@ namespace T41.TrackAndTrace_VNPOST {
             if ((this.TrackAndTrace_Items_ArrCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.TrackAndTrace_Items_ArrCompleted(this, new TrackAndTrace_Items_ArrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr_HTKH", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Arr_HTKH(string arrItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Arr_HTKH", new object[] {
+                        arrItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_HTKHAsync(string arrItemCode) {
+            this.TrackAndTrace_Items_Arr_HTKHAsync(arrItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_HTKHAsync(string arrItemCode, object userState) {
+            if ((this.TrackAndTrace_Items_Arr_HTKHOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Arr_HTKHOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Arr_HTKHOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Arr_HTKH", new object[] {
+                        arrItemCode}, this.TrackAndTrace_Items_Arr_HTKHOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Arr_HTKHOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Arr_HTKHCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Arr_HTKHCompleted(this, new TrackAndTrace_Items_Arr_HTKHCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -943,6 +1559,314 @@ namespace T41.TrackAndTrace_VNPOST {
             if ((this.TrackAndTrace_Items_OE_ArrCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.TrackAndTrace_Items_OE_ArrCompleted(this, new TrackAndTrace_Items_OE_ArrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr_wTable", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Arr_wTable(System.Data.DataTable dtList) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Arr_wTable", new object[] {
+                        dtList});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_wTableAsync(System.Data.DataTable dtList) {
+            this.TrackAndTrace_Items_Arr_wTableAsync(dtList, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_wTableAsync(System.Data.DataTable dtList, object userState) {
+            if ((this.TrackAndTrace_Items_Arr_wTableOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Arr_wTableOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Arr_wTableOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Arr_wTable", new object[] {
+                        dtList}, this.TrackAndTrace_Items_Arr_wTableOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Arr_wTableOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Arr_wTableCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Arr_wTableCompleted(this, new TrackAndTrace_Items_Arr_wTableCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_List_ACFC", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_List_ACFC(System.Data.DataTable dtList) {
+            object[] results = this.Invoke("TrackAndTrace_Items_List_ACFC", new object[] {
+                        dtList});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_List_ACFCAsync(System.Data.DataTable dtList) {
+            this.TrackAndTrace_Items_List_ACFCAsync(dtList, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_List_ACFCAsync(System.Data.DataTable dtList, object userState) {
+            if ((this.TrackAndTrace_Items_List_ACFCOperationCompleted == null)) {
+                this.TrackAndTrace_Items_List_ACFCOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_List_ACFCOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_List_ACFC", new object[] {
+                        dtList}, this.TrackAndTrace_Items_List_ACFCOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_List_ACFCOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_List_ACFCCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_List_ACFCCompleted(this, new TrackAndTrace_Items_List_ACFCCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Item_ACFC", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Item_ACFC(string ItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Item_ACFC", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Item_ACFCAsync(string ItemCode) {
+            this.TrackAndTrace_Item_ACFCAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Item_ACFCAsync(string ItemCode, object userState) {
+            if ((this.TrackAndTrace_Item_ACFCOperationCompleted == null)) {
+                this.TrackAndTrace_Item_ACFCOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Item_ACFCOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Item_ACFC", new object[] {
+                        ItemCode}, this.TrackAndTrace_Item_ACFCOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Item_ACFCOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Item_ACFCCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Item_ACFCCompleted(this, new TrackAndTrace_Item_ACFCCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr_v2_wTable", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Arr_v2_wTable(System.Data.DataTable dtList) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Arr_v2_wTable", new object[] {
+                        dtList});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_v2_wTableAsync(System.Data.DataTable dtList) {
+            this.TrackAndTrace_Items_Arr_v2_wTableAsync(dtList, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_v2_wTableAsync(System.Data.DataTable dtList, object userState) {
+            if ((this.TrackAndTrace_Items_Arr_v2_wTableOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Arr_v2_wTableOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Arr_v2_wTableOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Arr_v2_wTable", new object[] {
+                        dtList}, this.TrackAndTrace_Items_Arr_v2_wTableOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Arr_v2_wTableOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Arr_v2_wTableCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Arr_v2_wTableCompleted(this, new TrackAndTrace_Items_Arr_v2_wTableCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr_Location_wTable", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Arr_Location_wTable(System.Data.DataTable dtList) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Arr_Location_wTable", new object[] {
+                        dtList});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_Location_wTableAsync(System.Data.DataTable dtList) {
+            this.TrackAndTrace_Items_Arr_Location_wTableAsync(dtList, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_Location_wTableAsync(System.Data.DataTable dtList, object userState) {
+            if ((this.TrackAndTrace_Items_Arr_Location_wTableOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Arr_Location_wTableOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Arr_Location_wTableOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Arr_Location_wTable", new object[] {
+                        dtList}, this.TrackAndTrace_Items_Arr_Location_wTableOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Arr_Location_wTableOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Arr_Location_wTableCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Arr_Location_wTableCompleted(this, new TrackAndTrace_Items_Arr_Location_wTableCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr_wTable_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Arr_wTable_Archived(System.Data.DataTable dtList, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Arr_wTable_Archived", new object[] {
+                        dtList,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year) {
+            this.TrackAndTrace_Items_Arr_wTable_ArchivedAsync(dtList, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year, object userState) {
+            if ((this.TrackAndTrace_Items_Arr_wTable_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Arr_wTable_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Arr_wTable_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Arr_wTable_Archived", new object[] {
+                        dtList,
+                        Year}, this.TrackAndTrace_Items_Arr_wTable_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Arr_wTable_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Arr_wTable_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Arr_wTable_ArchivedCompleted(this, new TrackAndTrace_Items_Arr_wTable_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr_v2_wTable_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Arr_v2_wTable_Archived(System.Data.DataTable dtList, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Arr_v2_wTable_Archived", new object[] {
+                        dtList,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_v2_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year) {
+            this.TrackAndTrace_Items_Arr_v2_wTable_ArchivedAsync(dtList, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_v2_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year, object userState) {
+            if ((this.TrackAndTrace_Items_Arr_v2_wTable_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Arr_v2_wTable_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Arr_v2_wTable_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Arr_v2_wTable_Archived", new object[] {
+                        dtList,
+                        Year}, this.TrackAndTrace_Items_Arr_v2_wTable_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Arr_v2_wTable_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompleted(this, new TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_Arr_Location_wTable_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_Arr_Location_wTable_Archived(System.Data.DataTable dtList, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Items_Arr_Location_wTable_Archived", new object[] {
+                        dtList,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_Location_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year) {
+            this.TrackAndTrace_Items_Arr_Location_wTable_ArchivedAsync(dtList, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_Arr_Location_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year, object userState) {
+            if ((this.TrackAndTrace_Items_Arr_Location_wTable_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Items_Arr_Location_wTable_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_Arr_Location_wTable_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_Arr_Location_wTable_Archived", new object[] {
+                        dtList,
+                        Year}, this.TrackAndTrace_Items_Arr_Location_wTable_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_Arr_Location_wTable_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompleted(this, new TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_DataCode_Arr_wTable", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_DataCode_Arr_wTable(System.Data.DataTable dtList) {
+            object[] results = this.Invoke("TrackAndTrace_DataCode_Arr_wTable", new object[] {
+                        dtList});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_DataCode_Arr_wTableAsync(System.Data.DataTable dtList) {
+            this.TrackAndTrace_DataCode_Arr_wTableAsync(dtList, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_DataCode_Arr_wTableAsync(System.Data.DataTable dtList, object userState) {
+            if ((this.TrackAndTrace_DataCode_Arr_wTableOperationCompleted == null)) {
+                this.TrackAndTrace_DataCode_Arr_wTableOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_DataCode_Arr_wTableOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_DataCode_Arr_wTable", new object[] {
+                        dtList}, this.TrackAndTrace_DataCode_Arr_wTableOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_DataCode_Arr_wTableOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_DataCode_Arr_wTableCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_DataCode_Arr_wTableCompleted(this, new TrackAndTrace_DataCode_Arr_wTableCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_DataCode_Arr_wTable_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_DataCode_Arr_wTable_Archived(System.Data.DataTable dtList, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_DataCode_Arr_wTable_Archived", new object[] {
+                        dtList,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_DataCode_Arr_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year) {
+            this.TrackAndTrace_DataCode_Arr_wTable_ArchivedAsync(dtList, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_DataCode_Arr_wTable_ArchivedAsync(System.Data.DataTable dtList, string Year, object userState) {
+            if ((this.TrackAndTrace_DataCode_Arr_wTable_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_DataCode_Arr_wTable_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_DataCode_Arr_wTable_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_DataCode_Arr_wTable_Archived", new object[] {
+                        dtList,
+                        Year}, this.TrackAndTrace_DataCode_Arr_wTable_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_DataCode_Arr_wTable_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_DataCode_Arr_wTable_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_DataCode_Arr_wTable_ArchivedCompleted(this, new TrackAndTrace_DataCode_Arr_wTable_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1188,6 +2112,36 @@ namespace T41.TrackAndTrace_VNPOST {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Item_GetAccPOS", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Item_GetAccPOS(string ItemCode) {
+            object[] results = this.Invoke("TrackAndTrace_Item_GetAccPOS", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Item_GetAccPOSAsync(string ItemCode) {
+            this.TrackAndTrace_Item_GetAccPOSAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Item_GetAccPOSAsync(string ItemCode, object userState) {
+            if ((this.TrackAndTrace_Item_GetAccPOSOperationCompleted == null)) {
+                this.TrackAndTrace_Item_GetAccPOSOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Item_GetAccPOSOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Item_GetAccPOS", new object[] {
+                        ItemCode}, this.TrackAndTrace_Item_GetAccPOSOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Item_GetAccPOSOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Item_GetAccPOSCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Item_GetAccPOSCompleted(this, new TrackAndTrace_Item_GetAccPOSCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Order", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet TrackAndTrace_Order(string OrderCode) {
             object[] results = this.Invoke("TrackAndTrace_Order", new object[] {
@@ -1213,6 +2167,36 @@ namespace T41.TrackAndTrace_VNPOST {
             if ((this.TrackAndTrace_OrderCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.TrackAndTrace_OrderCompleted(this, new TrackAndTrace_OrderCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Order_NoH", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Order_NoH(string OrderCode) {
+            object[] results = this.Invoke("TrackAndTrace_Order_NoH", new object[] {
+                        OrderCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Order_NoHAsync(string OrderCode) {
+            this.TrackAndTrace_Order_NoHAsync(OrderCode, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Order_NoHAsync(string OrderCode, object userState) {
+            if ((this.TrackAndTrace_Order_NoHOperationCompleted == null)) {
+                this.TrackAndTrace_Order_NoHOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Order_NoHOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Order_NoH", new object[] {
+                        OrderCode}, this.TrackAndTrace_Order_NoHOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Order_NoHOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Order_NoHCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Order_NoHCompleted(this, new TrackAndTrace_Order_NoHCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1281,6 +2265,70 @@ namespace T41.TrackAndTrace_VNPOST {
             if ((this.TrackAndTrace_Customer_NewCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.TrackAndTrace_Customer_NewCompleted(this, new TrackAndTrace_Customer_NewCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Customer_ForDVKH", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Customer_ForDVKH(string CustomerId, System.DateTime FromDate, System.DateTime ToDate) {
+            object[] results = this.Invoke("TrackAndTrace_Customer_ForDVKH", new object[] {
+                        CustomerId,
+                        FromDate,
+                        ToDate});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Customer_ForDVKHAsync(string CustomerId, System.DateTime FromDate, System.DateTime ToDate) {
+            this.TrackAndTrace_Customer_ForDVKHAsync(CustomerId, FromDate, ToDate, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Customer_ForDVKHAsync(string CustomerId, System.DateTime FromDate, System.DateTime ToDate, object userState) {
+            if ((this.TrackAndTrace_Customer_ForDVKHOperationCompleted == null)) {
+                this.TrackAndTrace_Customer_ForDVKHOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Customer_ForDVKHOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Customer_ForDVKH", new object[] {
+                        CustomerId,
+                        FromDate,
+                        ToDate}, this.TrackAndTrace_Customer_ForDVKHOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Customer_ForDVKHOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Customer_ForDVKHCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Customer_ForDVKHCompleted(this, new TrackAndTrace_Customer_ForDVKHCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/CTT_GetDataFastCheck", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet CTT_GetDataFastCheck(string arrItemCode) {
+            object[] results = this.Invoke("CTT_GetDataFastCheck", new object[] {
+                        arrItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CTT_GetDataFastCheckAsync(string arrItemCode) {
+            this.CTT_GetDataFastCheckAsync(arrItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void CTT_GetDataFastCheckAsync(string arrItemCode, object userState) {
+            if ((this.CTT_GetDataFastCheckOperationCompleted == null)) {
+                this.CTT_GetDataFastCheckOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCTT_GetDataFastCheckOperationCompleted);
+            }
+            this.InvokeAsync("CTT_GetDataFastCheck", new object[] {
+                        arrItemCode}, this.CTT_GetDataFastCheckOperationCompleted, userState);
+        }
+        
+        private void OnCTT_GetDataFastCheckOperationCompleted(object arg) {
+            if ((this.CTT_GetDataFastCheckCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CTT_GetDataFastCheckCompleted(this, new CTT_GetDataFastCheckCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1632,6 +2680,38 @@ namespace T41.TrackAndTrace_VNPOST {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/Address_GetRestrictInfo", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet Address_GetRestrictInfo(string ProvinceCode, int Type) {
+            object[] results = this.Invoke("Address_GetRestrictInfo", new object[] {
+                        ProvinceCode,
+                        Type});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void Address_GetRestrictInfoAsync(string ProvinceCode, int Type) {
+            this.Address_GetRestrictInfoAsync(ProvinceCode, Type, null);
+        }
+        
+        /// <remarks/>
+        public void Address_GetRestrictInfoAsync(string ProvinceCode, int Type, object userState) {
+            if ((this.Address_GetRestrictInfoOperationCompleted == null)) {
+                this.Address_GetRestrictInfoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnAddress_GetRestrictInfoOperationCompleted);
+            }
+            this.InvokeAsync("Address_GetRestrictInfo", new object[] {
+                        ProvinceCode,
+                        Type}, this.Address_GetRestrictInfoOperationCompleted, userState);
+        }
+        
+        private void OnAddress_GetRestrictInfoOperationCompleted(object arg) {
+            if ((this.Address_GetRestrictInfoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.Address_GetRestrictInfoCompleted(this, new Address_GetRestrictInfoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_UAT", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet TrackAndTrace_Items_UAT(string ItemCode) {
             object[] results = this.Invoke("TrackAndTrace_Items_UAT", new object[] {
@@ -1811,6 +2891,308 @@ namespace T41.TrackAndTrace_VNPOST {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/BCCP_GetImageEMS", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet BCCP_GetImageEMS(string ItemCode) {
+            object[] results = this.Invoke("BCCP_GetImageEMS", new object[] {
+                        ItemCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void BCCP_GetImageEMSAsync(string ItemCode) {
+            this.BCCP_GetImageEMSAsync(ItemCode, null);
+        }
+        
+        /// <remarks/>
+        public void BCCP_GetImageEMSAsync(string ItemCode, object userState) {
+            if ((this.BCCP_GetImageEMSOperationCompleted == null)) {
+                this.BCCP_GetImageEMSOperationCompleted = new System.Threading.SendOrPostCallback(this.OnBCCP_GetImageEMSOperationCompleted);
+            }
+            this.InvokeAsync("BCCP_GetImageEMS", new object[] {
+                        ItemCode}, this.BCCP_GetImageEMSOperationCompleted, userState);
+        }
+        
+        private void OnBCCP_GetImageEMSOperationCompleted(object arg) {
+            if ((this.BCCP_GetImageEMSCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.BCCP_GetImageEMSCompleted(this, new BCCP_GetImageEMSCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_BCCP_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_BCCP_Archived(string ItemCode, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Items_BCCP_Archived", new object[] {
+                        ItemCode,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_BCCP_ArchivedAsync(string ItemCode, string Year) {
+            this.TrackAndTrace_Items_BCCP_ArchivedAsync(ItemCode, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_BCCP_ArchivedAsync(string ItemCode, string Year, object userState) {
+            if ((this.TrackAndTrace_Items_BCCP_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Items_BCCP_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_BCCP_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_BCCP_Archived", new object[] {
+                        ItemCode,
+                        Year}, this.TrackAndTrace_Items_BCCP_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_BCCP_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_BCCP_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_BCCP_ArchivedCompleted(this, new TrackAndTrace_Items_BCCP_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Items_By_DataCode_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Items_By_DataCode_Archived(string DataCode, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Items_By_DataCode_Archived", new object[] {
+                        DataCode,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_By_DataCode_ArchivedAsync(string DataCode, string Year) {
+            this.TrackAndTrace_Items_By_DataCode_ArchivedAsync(DataCode, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Items_By_DataCode_ArchivedAsync(string DataCode, string Year, object userState) {
+            if ((this.TrackAndTrace_Items_By_DataCode_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Items_By_DataCode_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Items_By_DataCode_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Items_By_DataCode_Archived", new object[] {
+                        DataCode,
+                        Year}, this.TrackAndTrace_Items_By_DataCode_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Items_By_DataCode_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Items_By_DataCode_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Items_By_DataCode_ArchivedCompleted(this, new TrackAndTrace_Items_By_DataCode_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Batch_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Batch_Archived(string BatchCode, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Batch_Archived", new object[] {
+                        BatchCode,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Batch_ArchivedAsync(string BatchCode, string Year) {
+            this.TrackAndTrace_Batch_ArchivedAsync(BatchCode, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Batch_ArchivedAsync(string BatchCode, string Year, object userState) {
+            if ((this.TrackAndTrace_Batch_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Batch_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Batch_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Batch_Archived", new object[] {
+                        BatchCode,
+                        Year}, this.TrackAndTrace_Batch_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Batch_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Batch_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Batch_ArchivedCompleted(this, new TrackAndTrace_Batch_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Order_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Order_Archived(string OrderCode, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Order_Archived", new object[] {
+                        OrderCode,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Order_ArchivedAsync(string OrderCode, string Year) {
+            this.TrackAndTrace_Order_ArchivedAsync(OrderCode, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Order_ArchivedAsync(string OrderCode, string Year, object userState) {
+            if ((this.TrackAndTrace_Order_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Order_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Order_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Order_Archived", new object[] {
+                        OrderCode,
+                        Year}, this.TrackAndTrace_Order_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Order_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Order_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Order_ArchivedCompleted(this, new TrackAndTrace_Order_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_Customer_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_Customer_Archived(string CustomerCode, System.DateTime FromDate, System.DateTime ToDate, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_Customer_Archived", new object[] {
+                        CustomerCode,
+                        FromDate,
+                        ToDate,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Customer_ArchivedAsync(string CustomerCode, System.DateTime FromDate, System.DateTime ToDate, string Year) {
+            this.TrackAndTrace_Customer_ArchivedAsync(CustomerCode, FromDate, ToDate, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_Customer_ArchivedAsync(string CustomerCode, System.DateTime FromDate, System.DateTime ToDate, string Year, object userState) {
+            if ((this.TrackAndTrace_Customer_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_Customer_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_Customer_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_Customer_Archived", new object[] {
+                        CustomerCode,
+                        FromDate,
+                        ToDate,
+                        Year}, this.TrackAndTrace_Customer_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_Customer_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_Customer_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_Customer_ArchivedCompleted(this, new TrackAndTrace_Customer_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_BD8_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_BD8_Archived(string BD8Code, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_BD8_Archived", new object[] {
+                        BD8Code,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_BD8_ArchivedAsync(string BD8Code, string Year) {
+            this.TrackAndTrace_BD8_ArchivedAsync(BD8Code, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_BD8_ArchivedAsync(string BD8Code, string Year, object userState) {
+            if ((this.TrackAndTrace_BD8_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_BD8_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_BD8_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_BD8_Archived", new object[] {
+                        BD8Code,
+                        Year}, this.TrackAndTrace_BD8_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_BD8_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_BD8_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_BD8_ArchivedCompleted(this, new TrackAndTrace_BD8_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/TrackAndTrace_BD10_Archived", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet TrackAndTrace_BD10_Archived(string BD10Code, string Year) {
+            object[] results = this.Invoke("TrackAndTrace_BD10_Archived", new object[] {
+                        BD10Code,
+                        Year});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_BD10_ArchivedAsync(string BD10Code, string Year) {
+            this.TrackAndTrace_BD10_ArchivedAsync(BD10Code, Year, null);
+        }
+        
+        /// <remarks/>
+        public void TrackAndTrace_BD10_ArchivedAsync(string BD10Code, string Year, object userState) {
+            if ((this.TrackAndTrace_BD10_ArchivedOperationCompleted == null)) {
+                this.TrackAndTrace_BD10_ArchivedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTrackAndTrace_BD10_ArchivedOperationCompleted);
+            }
+            this.InvokeAsync("TrackAndTrace_BD10_Archived", new object[] {
+                        BD10Code,
+                        Year}, this.TrackAndTrace_BD10_ArchivedOperationCompleted, userState);
+        }
+        
+        private void OnTrackAndTrace_BD10_ArchivedOperationCompleted(object arg) {
+            if ((this.TrackAndTrace_BD10_ArchivedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TrackAndTrace_BD10_ArchivedCompleted(this, new TrackAndTrace_BD10_ArchivedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("UserCredenticalValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("vnpost.ws/BCCP_GetContractCPPA", RequestNamespace="vnpost.ws", ResponseNamespace="vnpost.ws", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet BCCP_GetContractCPPA(string CMSCode, string CRMCode, string Tel, string Name, string CPPANo, string ContractNo, string MgrCode, string MgrName) {
+            object[] results = this.Invoke("BCCP_GetContractCPPA", new object[] {
+                        CMSCode,
+                        CRMCode,
+                        Tel,
+                        Name,
+                        CPPANo,
+                        ContractNo,
+                        MgrCode,
+                        MgrName});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void BCCP_GetContractCPPAAsync(string CMSCode, string CRMCode, string Tel, string Name, string CPPANo, string ContractNo, string MgrCode, string MgrName) {
+            this.BCCP_GetContractCPPAAsync(CMSCode, CRMCode, Tel, Name, CPPANo, ContractNo, MgrCode, MgrName, null);
+        }
+        
+        /// <remarks/>
+        public void BCCP_GetContractCPPAAsync(string CMSCode, string CRMCode, string Tel, string Name, string CPPANo, string ContractNo, string MgrCode, string MgrName, object userState) {
+            if ((this.BCCP_GetContractCPPAOperationCompleted == null)) {
+                this.BCCP_GetContractCPPAOperationCompleted = new System.Threading.SendOrPostCallback(this.OnBCCP_GetContractCPPAOperationCompleted);
+            }
+            this.InvokeAsync("BCCP_GetContractCPPA", new object[] {
+                        CMSCode,
+                        CRMCode,
+                        Tel,
+                        Name,
+                        CPPANo,
+                        ContractNo,
+                        MgrCode,
+                        MgrName}, this.BCCP_GetContractCPPAOperationCompleted, userState);
+        }
+        
+        private void OnBCCP_GetContractCPPAOperationCompleted(object arg) {
+            if ((this.BCCP_GetContractCPPACompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.BCCP_GetContractCPPACompleted(this, new BCCP_GetContractCPPACompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -1982,32 +3364,6 @@ namespace T41.TrackAndTrace_VNPOST {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
-    public delegate void GetPUDInfoCompletedEventHandler(object sender, GetPUDInfoCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetPUDInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetPUDInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public System.Data.DataSet Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((System.Data.DataSet)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
     public delegate void GetUPSInfoCompletedEventHandler(object sender, GetUPSInfoCompletedEventArgs e);
     
     /// <remarks/>
@@ -2164,6 +3520,32 @@ namespace T41.TrackAndTrace_VNPOST {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void GetPUDInfoCompletedEventHandler(object sender, GetPUDInfoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPUDInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPUDInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
     public delegate void TrackAndTrace_ItemsCompletedEventHandler(object sender, TrackAndTrace_ItemsCompletedEventArgs e);
     
     /// <remarks/>
@@ -2175,6 +3557,240 @@ namespace T41.TrackAndTrace_VNPOST {
         private object[] results;
         
         internal TrackAndTrace_ItemsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_BCCPCompletedEventHandler(object sender, TrackAndTrace_Items_BCCPCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_BCCPCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_BCCPCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_BCCP_NewCompletedEventHandler(object sender, TrackAndTrace_Items_BCCP_NewCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_BCCP_NewCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_BCCP_NewCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void MyVNP_GetOrderHistoryCompletedEventHandler(object sender, MyVNP_GetOrderHistoryCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MyVNP_GetOrderHistoryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MyVNP_GetOrderHistoryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void MyVNP_GetOrderHistory_UATCompletedEventHandler(object sender, MyVNP_GetOrderHistory_UATCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MyVNP_GetOrderHistory_UATCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MyVNP_GetOrderHistory_UATCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void MyVNP_TrackAndTrace_ItemCompletedEventHandler(object sender, MyVNP_TrackAndTrace_ItemCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MyVNP_TrackAndTrace_ItemCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MyVNP_TrackAndTrace_ItemCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void MyVNP_TrackAndTrace_Items_ListCompletedEventHandler(object sender, MyVNP_TrackAndTrace_Items_ListCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MyVNP_TrackAndTrace_Items_ListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MyVNP_TrackAndTrace_Items_ListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void MyVNP_GetCallHistoryCompletedEventHandler(object sender, MyVNP_GetCallHistoryCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MyVNP_GetCallHistoryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MyVNP_GetCallHistoryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void MyVNP_GetImageListCompletedEventHandler(object sender, MyVNP_GetImageListCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MyVNP_GetImageListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MyVNP_GetImageListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_V2CompletedEventHandler(object sender, TrackAndTrace_Items_V2CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_V2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_V2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2268,6 +3884,58 @@ namespace T41.TrackAndTrace_VNPOST {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Public_NoHCompletedEventHandler(object sender, TrackAndTrace_Items_Public_NoHCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Public_NoHCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Public_NoHCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Info_ForZNSCompletedEventHandler(object sender, TrackAndTrace_Items_Info_ForZNSCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Info_ForZNSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Info_ForZNSCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
     public delegate void TrackAndTrace_Items_By_DataCode_PublicCompletedEventHandler(object sender, TrackAndTrace_Items_By_DataCode_PublicCompletedEventArgs e);
     
     /// <remarks/>
@@ -2279,6 +3947,32 @@ namespace T41.TrackAndTrace_VNPOST {
         private object[] results;
         
         internal TrackAndTrace_Items_By_DataCode_PublicCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_By_DataCode_Public_NoHCompletedEventHandler(object sender, TrackAndTrace_Items_By_DataCode_Public_NoHCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_By_DataCode_Public_NoHCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_By_DataCode_Public_NoHCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2320,6 +4014,32 @@ namespace T41.TrackAndTrace_VNPOST {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Batch_V2CompletedEventHandler(object sender, TrackAndTrace_Batch_V2CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Batch_V2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Batch_V2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
     public delegate void TrackAndTrace_Items_ArrCompletedEventHandler(object sender, TrackAndTrace_Items_ArrCompletedEventArgs e);
     
     /// <remarks/>
@@ -2331,6 +4051,32 @@ namespace T41.TrackAndTrace_VNPOST {
         private object[] results;
         
         internal TrackAndTrace_Items_ArrCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Arr_HTKHCompletedEventHandler(object sender, TrackAndTrace_Items_Arr_HTKHCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Arr_HTKHCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Arr_HTKHCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2409,6 +4155,266 @@ namespace T41.TrackAndTrace_VNPOST {
         private object[] results;
         
         internal TrackAndTrace_Items_OE_ArrCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Arr_wTableCompletedEventHandler(object sender, TrackAndTrace_Items_Arr_wTableCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Arr_wTableCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Arr_wTableCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_List_ACFCCompletedEventHandler(object sender, TrackAndTrace_Items_List_ACFCCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_List_ACFCCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_List_ACFCCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Item_ACFCCompletedEventHandler(object sender, TrackAndTrace_Item_ACFCCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Item_ACFCCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Item_ACFCCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Arr_v2_wTableCompletedEventHandler(object sender, TrackAndTrace_Items_Arr_v2_wTableCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Arr_v2_wTableCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Arr_v2_wTableCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Arr_Location_wTableCompletedEventHandler(object sender, TrackAndTrace_Items_Arr_Location_wTableCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Arr_Location_wTableCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Arr_Location_wTableCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Arr_wTable_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Items_Arr_wTable_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Arr_wTable_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Arr_wTable_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Arr_v2_wTable_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_Arr_Location_wTable_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_DataCode_Arr_wTableCompletedEventHandler(object sender, TrackAndTrace_DataCode_Arr_wTableCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_DataCode_Arr_wTableCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_DataCode_Arr_wTableCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_DataCode_Arr_wTable_ArchivedCompletedEventHandler(object sender, TrackAndTrace_DataCode_Arr_wTable_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_DataCode_Arr_wTable_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_DataCode_Arr_wTable_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2632,6 +4638,32 @@ namespace T41.TrackAndTrace_VNPOST {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Item_GetAccPOSCompletedEventHandler(object sender, TrackAndTrace_Item_GetAccPOSCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Item_GetAccPOSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Item_GetAccPOSCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
     public delegate void TrackAndTrace_OrderCompletedEventHandler(object sender, TrackAndTrace_OrderCompletedEventArgs e);
     
     /// <remarks/>
@@ -2643,6 +4675,32 @@ namespace T41.TrackAndTrace_VNPOST {
         private object[] results;
         
         internal TrackAndTrace_OrderCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Order_NoHCompletedEventHandler(object sender, TrackAndTrace_Order_NoHCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Order_NoHCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Order_NoHCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2695,6 +4753,58 @@ namespace T41.TrackAndTrace_VNPOST {
         private object[] results;
         
         internal TrackAndTrace_Customer_NewCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Customer_ForDVKHCompletedEventHandler(object sender, TrackAndTrace_Customer_ForDVKHCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Customer_ForDVKHCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Customer_ForDVKHCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void CTT_GetDataFastCheckCompletedEventHandler(object sender, CTT_GetDataFastCheckCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CTT_GetDataFastCheckCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CTT_GetDataFastCheckCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2970,6 +5080,32 @@ namespace T41.TrackAndTrace_VNPOST {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void Address_GetRestrictInfoCompletedEventHandler(object sender, Address_GetRestrictInfoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Address_GetRestrictInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal Address_GetRestrictInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
     public delegate void TrackAndTrace_Items_UATCompletedEventHandler(object sender, TrackAndTrace_Items_UATCompletedEventArgs e);
     
     /// <remarks/>
@@ -3111,6 +5247,240 @@ namespace T41.TrackAndTrace_VNPOST {
         private object[] results;
         
         internal TrackAndTrace_BD10_UATCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void BCCP_GetImageEMSCompletedEventHandler(object sender, BCCP_GetImageEMSCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class BCCP_GetImageEMSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal BCCP_GetImageEMSCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_BCCP_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Items_BCCP_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_BCCP_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_BCCP_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Items_By_DataCode_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Items_By_DataCode_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Items_By_DataCode_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Items_By_DataCode_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Batch_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Batch_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Batch_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Batch_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Order_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Order_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Order_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Order_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_Customer_ArchivedCompletedEventHandler(object sender, TrackAndTrace_Customer_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_Customer_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_Customer_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_BD8_ArchivedCompletedEventHandler(object sender, TrackAndTrace_BD8_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_BD8_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_BD8_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void TrackAndTrace_BD10_ArchivedCompletedEventHandler(object sender, TrackAndTrace_BD10_ArchivedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TrackAndTrace_BD10_ArchivedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TrackAndTrace_BD10_ArchivedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    public delegate void BCCP_GetContractCPPACompletedEventHandler(object sender, BCCP_GetContractCPPACompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9037.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class BCCP_GetContractCPPACompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal BCCP_GetContractCPPACompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

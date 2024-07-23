@@ -60,5 +60,12 @@ namespace T41.Areas.Admin.Common
             int result = int.Parse(hhmm);
             return result;
         }
+        public int ConvertTimeToInt_NEW(string timeString)
+        {
+            DateTime time = DateTime.ParseExact(timeString, "HH:mm", CultureInfo.InvariantCulture);
+            string hhmm = time.ToString("HHmm");
+            int result = int.Parse(hhmm);
+            return result;
+        }
     }
 }

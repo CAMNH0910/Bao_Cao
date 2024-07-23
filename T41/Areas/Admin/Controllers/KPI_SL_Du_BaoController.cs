@@ -116,7 +116,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[8, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[8, 1].LoadFromCollection(list, false, TableStyles.Dark9);
                 BindingFormatForExcelKPI_SL_Du_Bao(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;

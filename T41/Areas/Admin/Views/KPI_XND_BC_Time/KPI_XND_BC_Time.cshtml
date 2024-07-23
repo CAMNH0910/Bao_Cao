@@ -23,17 +23,17 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Thống kê sản lượng đến của bưu cục phát</li>
+        <li class="active">Sản lượng đến phát theo khung giờ</li>
     </ol>
 </section>
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
 
-            <h3 class="box-title">Thống kê sản lượng đến của bưu cục phát</h3>
+            <h3 class="box-title">Sản lượng đến phát theo khung giờ</h3>
             <div class="box-tools pull-right">
                 @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
-                <h3 class="box-title">BT/TKSLP_N</h3>
+                <h3 class="box-title">P/SLPTG</h3>
             </div>
 
         </div>
@@ -71,7 +71,6 @@
                             <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label>Bưu cục phát</label>
                         <select class="form-control select2" style="width: 100%;" id="endpostcode">
@@ -83,46 +82,23 @@
                 <!-- /.col -->
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Dịch Vụ</label>
-                        <select class="form-control select2" style="width: 100%;" id="service">
-                            <option selected="selected" value="0">Tất Cả</option>
-                            <option value="1">EMS Hỏa tốc</option>
-                            <option value="2">EMS Quốc tế đến</option>
-                            <option value="3">EMS Visa</option>
-                            <option value="4">EMS TMDT Đồng giá</option>
-                            <option value="5">EMS TMDT COD</option>
-                            <option value="6">EMS TMDT không COD</option>
-                            <option value="7">EMS Đại lý</option>
-                            <option value="8">EMS TCNH tiêu chuẩn</option>
-                            @*<option value="9">EMS TCNH gói bạc</option>*@
-                            <option value="10">EMS TCNH gói vàng</option>
-                            <option value="11">EMS Hàng hóa</option>
-                            <option value="12">EMS Tài liệu</option>
-                            <option value="13">EMS TMDT Đồng giá nội tỉnh</option> 
-
-                        </select>
+                        <label for="txtTimeRage">Từ giờ - đến giờ</label>
+                        <div class="input-group">
+                            <input class="form-control" id="startime" name="startime" placeholder="Từ giờ" type="time" value="00:01" />
+                            <span class="input-group-btn" style="width:50%">
+                                <input class="form-control" id="endtime" name="endtime" placeholder="Đến giờ" type="time" value="23:59" />
+                                <button class="btn btn-pns" onclick="RefreshTime()" type="button"><i class="fa fa-refresh"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                 </div>
-
+                    
                 <div class="col-md-4">
                     <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
-                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist_KG" data-baseurl="@Url.Action("Export_KG", "KPI_Delivery_Wage")">Xuất Excel trên dưới 5KG <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
-                </div>
-                <div class="col-md-4 ">
-                    <div class="form-group">
-                        <p>
-                            Lưu ý: <br />
-                            Chọn xuất Excel trên dưới 5kg:<br />
-                            +Xuất Excel  trên dưới 5kg<br />
-                            Chọn hiển thị:<br />
-                            +Hiển thị báo cáo sản lượng đến BCP<br />
-                            +Xuất Excel sản lượng đến BCP
-                        </p>
-                    </div>
                 </div>
                 <div class="col-md-4 ">
                     <div class="form-group">
@@ -140,7 +116,7 @@
             <div class="row">
                 <div class="col-md-12 text-right">
                     @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
-                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "KPI_Delivery_Wage")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "KPI_XND_BC_Time")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
                 </div>
             </div>
             <div>
@@ -148,22 +124,49 @@
                 <table id="ExcelView" class="table table-bordered table-hover">
                     <thead>
                         <tr class="bg-light-blue color-palette">
-                            <th rowspan="4" class="text-center">STT<br /></th>
-                            <th rowspan="4" class="text-center">Đơn Vị</th>
-                            <th rowspan="4" class="text-center">Mã Bưu Cục</th>
-                            <th rowspan="4" class="text-center">Tên Bưu Cục</th>
-                            <th rowspan="4" class="text-center">Dịch vụ</th>
-                            <th rowspan="4" class="text-center">SL Bưu gửi đến</th>
-                            <th rowspan="4" class="text-center">SL đã lập BD13</th>
-                            <th rowspan="4" class="text-center">SL chưa Lập BD13</th>
-                            <th colspan="3" class="text-center">Trạng thái phát bưu gửi</th>
-                            <th rowspan="4" class="text-center">SL Phát TC 6h</th>
-                            <th rowspan="4" class="text-center">SL Phát TC 72h</th>
+                            <th rowspan="2" class="text-center">STT<br /></th>
+                            <th rowspan="2" class="text-center">Khu vực</th>
+                            <th rowspan="2" class="text-center">Mã Bưu Cục</th>
+                            <th rowspan="2" class="text-center">Tên Bưu Cục</th>
+                            <th rowspan="2" class="text-center">Tổng cộng</th>
+                            <th colspan="2" class="text-center">Hỏa tốc</th>
+                            <th colspan="2" class="text-center">Quốc tế</th>
+                            <th colspan="2" class="text-center">Visa</th>
+                            <th colspan="2" class="text-center">TMĐT Đồng giá</th>
+                            <th colspan="2" class="text-center">TMĐT COD</th>
+                            <th colspan="2" class="text-center">TMĐT K COD</th>
+                            <th colspan="2" class="text-center">Đại lý</th>
+                            <th colspan="2" class="text-center">TTC</th>
+                            <th colspan="2" class="text-center">TTB</th>
+                            <th colspan="2" class="text-center">TTV</th>
+                            <th colspan="2" class="text-center">Hàng hóa</th>
+                            <th colspan="2" class="text-center">Tài liệu</th>
                         </tr>
                         <tr class="bg-light-blue color-palette">
-                            <th colspan="1" class="text-center">SL phát thành công</th>
-                            <th colspan="1" class="text-center">SL phát không thành công </th>
-                            <th colspan="1" class="text-center">Tổng cộng </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
+                            <th colspan="1" rowspan="1" class="text-center">Xe máy </th>
+                            <th colspan="1" rowspan="1" class="text-center">Ô tô </th>
                         </tr>
                     </thead>
                     <tbody id="listkpithdvreport"></tbody>
@@ -224,8 +227,6 @@
         }
     })()
 
-
-
     $("#btnreport").click(function () {
         // goi ham Detail
         $("#listkpithdvreport tr").remove();
@@ -233,13 +234,16 @@
         $('.box-footer').show();
  
     });
-
+    function RefreshTime() {
+        document.getElementById('startime').value = "00:01";
+        document.getElementById('endtime').value = "23:59";
+    }
     //Phần chi tiết của bảng tổng hợp sản lượng đi phát
     function detail() {
 
         $.ajax({
             type: "POST",
-            url: '@Url.Action("ListKPI_Delivery_Wage", "KPI_Delivery_Wage")',
+            url: '@Url.Action("ListKPI_XND_BC_Time", "KPI_XND_BC_Time")',
             beforeSend: function () {
                 $('.loading-element').show();
             },
@@ -250,7 +254,8 @@
                 enddate: $('#todate').val(),
                 zone: $("#zone").val(),
                 endpostcode: $("#endpostcode").val(),
-                service: $("#service").val(),
+                startime: $('#startime').val(),
+                endtime: $("#endtime").val(),
 
                 },
             success: function (data) {
@@ -258,21 +263,37 @@
                 var str_html = "";
                 var str_body = "";
                 var a = 1;
-                $.each(data.ListDetaiKPI_Delivery_Wage, function (i, item) {
+                $.each(data.ListKPI_XND_BC_Time, function (i, item) {
                     str_body += '<tr>';
                     str_body += '<td width="10" class="text-center">' + a++ + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].ZONE + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].STARTPOSTCODE + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].STARTPOSTCODENAME + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].ServiceTypeName + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].Total + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].SL_DG + '</td>';
-                    str_body += '<td class="text-center"><a href="/Admin/KPI_Delivery_Wage/KPI_Delivery_KGD?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + item.ZONE + '&endpostcode=' + item.STARTPOSTCODE + '&service=' + item.ServiceTypeNumber + ' "target="_blank"">' + data.ListDetaiKPI_Delivery_Wage[i].KXD + '</a> </td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].TotalPTC + '</td>';
-                    str_body += '<td class="text-center"><a href="/Admin/KPI_Delivery_Wage/KPI_Delivery_CTTH?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + item.ZONE + '&endpostcode=' + item.STARTPOSTCODE + '&service=' + item.ServiceTypeNumber + ' "target="_blank"">' + data.ListDetaiKPI_Delivery_Wage[i].TotalPKTC + '</a> </td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].TC + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].PTC6H + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiKPI_Delivery_Wage[i].PTC72H + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].ZONE + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].STARTPOSTCODE + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].STARTPOSTCODENAME + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].Total + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_HT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_HT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_QT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_QT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_VISA + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_VISA + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_DG + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_DG + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_COD + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_COD + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_KCOD + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_KCOD + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_DAILY + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_DAILY + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_TTC + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_TTC + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_TTB + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_TTB + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_TTV + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_TTV + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_HH + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_HH + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].XeMay_TL + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_XND_BC_Time[i].OTo_TL + '</td>';
                     str_body += '</tr>';
                 });
                 str_html += str_body;
@@ -299,7 +320,7 @@
                         "language": {
                             " processing": "Message khi đang tải dữ liệu",
                             "search": "Tìm kiếm theo từ khóa:",
-                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListDetaiKPI_Delivery_Wage.length + " bản ghi",
+                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListKPI_XND_BC_Time.length + " bản ghi",
 
                             "zeroRecords": "Không có dữ liệu !",
                             "info": "Hiển thị trang _PAGE_ đến _PAGES_",
@@ -323,15 +344,8 @@
 
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?StartDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&service=' + $("#service").val();
+        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&startime=' + $('#startime').val() + '&endtime=' + $("#endtime").val() ;
        // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
-        location.href = url;
-    });
-
-    $('#btnexportlist_KG').click(function () {
-        // build the url
-        var url = $(this).data('baseurl') + '?StartDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&service=' + $("#service").val();
-        // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
         location.href = url;
     });
 

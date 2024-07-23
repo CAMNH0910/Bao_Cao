@@ -44,8 +44,8 @@ namespace T41.Areas.Admin.Data
                 if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
                 //xử lý tham số truyền vào data table
                 myCommand.CommandType = CommandType.StoredProcedure;
-                myCommand.Parameters.Add("@Fromdate", SqlDbType.Int).Value = startdate;
-                myCommand.Parameters.Add("@Todate", SqlDbType.Int).Value = enddate;
+                myCommand.Parameters.Add("@Fromdate", SqlDbType.NVarChar).Value = startdate;
+                myCommand.Parameters.Add("@Todate", SqlDbType.NVarChar).Value = enddate;
                 myCommand.Parameters.Add("@MailrouteScheduleName", SqlDbType.NVarChar).Value = mailrouteScheduleName;
                 SqlDataReader dr = myCommand.ExecuteReader();
                 if (dr.HasRows)

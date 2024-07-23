@@ -257,7 +257,7 @@ namespace T41.Areas.Admin.Data
             return _returnPostMan;
         }
         public ReturnKPIKT THTCQT(string buucuc, int startdate, int enddate)
-        {
+        { 
             DataTable da = new DataTable();
             MetaData1 _metadata1 = new MetaData1();
             Convertion common = new Convertion();

@@ -30,7 +30,7 @@ namespace T41.Areas.Admin.Data
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
-                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();   
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = StartDate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = EndDate;
                     myCommand.Parameters.Add("v_IsService", OracleDbType.Int32).Value = IsService;

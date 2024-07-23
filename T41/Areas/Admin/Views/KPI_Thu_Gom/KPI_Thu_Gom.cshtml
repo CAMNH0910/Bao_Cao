@@ -1,36 +1,40 @@
 ﻿@{
-//  Layout = null;
+    //  Layout = null;
 }
 
 <!-- daterange picker -->
+<!-- daterange picker -->
 <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/font-awesome/css/font-awesome.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 <style type="text/css">
     p {
         font-weight: bold;
     }
 </style>
-<title>Báo cáo thời gian xác nhận đến đến bưu điện tỉnh</title>
+
+
+
 <section class="content-header">
     <h1>
-        <small>Báo Cáo </small>
+        <small>Báo cáo thu gom </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Báo cáo thời gian xác nhận đến đến bưu điện tỉnh</li>
+        <li class="active">Thống kê sản lượng thu gom</li>
     </ol>
 </section>
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
 
-            <h3 class="box-title">Báo cáo thời gian xác nhận đến đến bưu điện tỉnh</h3>
+            <h3 class="box-title">Thống kê sản lượng thu gom </h3>
             <div class="box-tools pull-right">
                 @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>*@
-                <h3 class="box-title">NVCL/XND_BDT</h3>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>*@
+                <h3 class="box-title">TG/TKSLTG_N</h3>
             </div>
 
         </div>
@@ -48,6 +52,17 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>Khu Vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="zone">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">CN Hà nội</option>
+                            <option value="2">CN Đà Nẵng</option>
+                            <option value="3">CN Hồ Chí Minh</option>
+                            @*<option value="4">BC Logistic</option>*@
+                        </select>
+                    </div>
+
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -59,15 +74,22 @@
                             <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
+
+
+                    <div class="form-group">
+                        <label>Bưu cục</label>
+                        <select class="form-control select2" style="width: 100%;" id="poscode">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+
                 </div>
                 <!-- /.col -->
             </div>
             <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label>Đường thư</label>
-                    </div>
-                    <textarea class="form-control" id="mailrouteScheduleName" name="mailrouteScheduleName" placeholder="Nhập đường thư..."></textarea>
+                <div class="col-md-4">
+
                 </div>
                 <div class="col-md-4">
                     <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
@@ -75,8 +97,8 @@
             </div>
 
             @*<div class="box-header">
-                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
-                </div>*@
+                <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+            </div>*@
             <div class="loading-element text-center" style="font-size:50px;">
                 <i class="fa fa-spinner fa-spin"></i>
                 Vui lòng chờ giây lát...
@@ -84,32 +106,26 @@
             <div class="row">
                 <div class="col-md-12 text-right">
                     @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
-                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportKPI_BD10_HubEX", "KPI_BD10_Hub")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "KPI_Thu_Gom")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
                 </div>
             </div>
-            <div class="scrollingTable">
-                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
-                <table id="TableAccount" class="table table-bordered table-hover">
-
-
-                    <thead>
-                        <tr class="bg-light-blue color-palette">
-
-                            <th class="text-center">STT<br /></th>
-                            <th class="text-center">Ngày<br /></th>
-                            <th class="text-center">Đường thư</th>
-                            <th class="text-center">Mã đường thư</th>
-                            <th class="text-center">BD 10</th>
-                            <th class="text-center">Mã bưu gửi</th>
-                            <th class="text-center">Bưu cục đến</th>
-                            <th class="text-center">Ngày giờ đến</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listkpithdvreport"></tbody>
-                </table>
-
-            </div>
-
+            @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+            <table id="ExcelView" class="table table-bordered table-hover">
+                <thead>
+                    <tr class="bg-light-blue color-palette">
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã BCGD</th>
+                        <th class="text-center">Tên BCGD</th>
+                        <th class="text-center">Mã tuyến thu gom</th>
+                        <th class="text-center">Tên tuyến thu gom</th>
+                        <th class="text-center">Mã nhân viên</th>
+                        <th class="text-center">Họ tên nhân viên</th>
+                        <th class="text-center">Số tin</th>
+                        <th class="text-center">Sản lượng</th>
+                    </tr>
+                </thead>
+                <tbody id="listkpithdvreport"></tbody>
+            </table>
 
         </div>
     </div>
@@ -121,7 +137,6 @@
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 @*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script type="text/javascript">
@@ -146,8 +161,6 @@
             dateFormat: "dd/mm/yyyy",
             todayHighlight: true
         }).datepicker("setDate", "0");
-
-        var mailrouteScheduleName = $("#mailrouteScheduleName").val();
         $('.loading-element').hide();
         $('.box-footer').hide();
         $('#btnexportlist').hide();
@@ -157,9 +170,9 @@
 
     var tableToExcel = (function () {
         var uri = 'data:application/vnd.ms-excel;base64,'
-            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
-            , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-            , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
         return function (table, name) {
             if (!table.nodeType) table = document.getElementById(table)
             var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
@@ -167,50 +180,47 @@
         }
     })()
 
-
     $("#btnreport").click(function () {
 
         // goi ham Detail
         $("#listkpithdvreport tr").remove();
         detail();
         $('.box-footer').show();
-
-
     });
-
     //Phần chi tiết của bảng tổng hợp sản lượng đi phát
     function detail() {
         $.ajax({
             type: "POST",
-            url: '@Url.Action("KPI_BD10_Hub", "KPI_BD10_Hub")',
+            url: '@Url.Action("ListKPI_Thu_Gom", "KPI_Thu_Gom")',
             beforeSend: function () {
                 $('.loading-element').show();
             },
             dataType: 'json',
             data:
-                {
+            {
                 startdate: $('#fromdate').val(),
                 enddate: $('#todate').val(),
-                mailrouteScheduleName: $('#mailrouteScheduleName').val()
-                },
+                zone: $("#zone").val(),
+                endpostcode: $("#poscode").val(),
+                routecode: $("#routecode").val(),
+                date: $("#date").val(),
+            },
             success: function (data) {
 
                 var str_html = "";
                 var str_body = "";
                 var a = 1;
-                $.each(data.ListKPI_BD10_Hub, function (i, item) {
+                $.each(data.ListKPI_Thu_Gom, function (i, item) {
                     str_body += '<tr>';
-                    str_body += '<td style="width: 5%; text-align: center;">' + a++ + '</td>';
-                    str_body += '<td style="width: 10%;text-align: center;">' + data.ListKPI_BD10_Hub[i].Ngay_Di + '</td>';
-                    str_body += '<td style="width: 10%;text-align: center;">' + data.ListKPI_BD10_Hub[i].Duong_Thu + '</td>';
-                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListKPI_BD10_Hub[i].Ma_DT + '</td>';
-                    str_body += '<td style="width: 15%; text-align: center;">' + data.ListKPI_BD10_Hub[i].BD10 + '</td>';
-                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListKPI_BD10_Hub[i].Ma_BG + '</td>';
-                    str_body += '<td style="width: 20%; text-align: center;">' + data.ListKPI_BD10_Hub[i].BC_Den + '</td>';
-                    str_body += '<td style="width: 20%; text-align: center;">' + data.ListKPI_BD10_Hub[i].Ngay_Gio_Den + '</td>';
-                    if (i == "20000") {
-                        return false;
-                    }
+                    str_body += '<td width="10" class="text-center">' + a++ + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].PO_CODE + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].PO_NAME + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].ROUTE_CODE + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].ROUTE_NAME + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].Id_Postman + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].PostMan_Name + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].Total + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].ARRIVED_WEIGHT + '</td>';
 
                     str_body += '</tr>';
                 });
@@ -220,9 +230,9 @@
                 if (data.Code == '01' || data.Code == '99') {
                     $('.loading-element').hide();
                     swal.fire(
-                      data.Message,
-                      '',
-                      'error'
+                        data.Message,
+                        '',
+                        'error'
                     );
 
                 }
@@ -234,10 +244,11 @@
                     $('#btnexportlist').show();
                     $('#TableAccount').DataTable({
                         "ordering": false,
+                        "scrollX": true,
                         "language": {
                             " processing": "Message khi đang tải dữ liệu",
                             "search": "Tìm kiếm theo từ khóa:",
-                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListKPI_BD10_Hub.length + " bản ghi",
+                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListKPI_Thu_Gom.length + " bản ghi",
 
                             "zeroRecords": "Không có dữ liệu !",
                             "info": "Hiển thị trang _PAGE_ đến _PAGES_",
@@ -254,18 +265,37 @@
                     });
 
 
-
                 }
             }
         })
     }
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&mailrouteScheduleName=' + $('#mailrouteScheduleName').val();
-        // redirect
+        var url = $(this).data('baseurl') + '?StartDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val() + '&endpostcode=' + $("#poscode").val();
+        // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
         location.href = url;
     });
 
+        $(document).ready(function () {
+            $('#zone').change(function () {
+                $.ajax({
+                    url: "/KPIPickup/PosCode",
+                    dataType: "json",
+                    data: { zone: $("#zone").val() },
+                    success: function (data) {
+                        $('#poscode').html('<option value=0>Bưu cục giao dịch</option>');
+                        jQuery.each(data, function (i, val) {
+                            $('#poscode').html($('#poscode').html() +
+                                "<option value='" + val.PosCode + "'>" + val.PosCode + '-' + val.PosName + "</option>");
+                        });
+                    }
+                });
+            })
+        });
+
 </script>
+
+
+
 
 

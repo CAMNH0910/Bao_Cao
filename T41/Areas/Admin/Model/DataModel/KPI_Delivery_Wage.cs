@@ -125,7 +125,6 @@ namespace T41.Areas.Admin.Model.DataModel
         public string ServiceTypeName { get; set; }
         public string Total { get; set; }
         public string N_5KG { get; set; }
-
         public string KL_N_5KG { get; set; }
         public string L_5KG { get; set; }
         public string KL_L_5KG { get; set; }

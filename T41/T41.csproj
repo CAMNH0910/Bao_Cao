@@ -236,6 +236,8 @@
     <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_SLController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_TimeController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Thu_GomController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_XND_BC_TimeController.cs" />
     <Compile Include="Areas\Admin\Controllers\QT_DI_NEWController.cs" />
     <Compile Include="Areas\Admin\Controllers\ZNS_TCBController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_Customer_HPTCController.cs" />
@@ -341,6 +343,8 @@
     <Compile Include="Areas\Admin\Data\KPI_Delivery_Time_Repository.cs" />
     <Compile Include="Areas\Admin\Data\KPI_Delivery_WageRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPI_SL_Du_BaoRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Thu_GomRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_XND_BC_TimeRepository.cs" />
     <Compile Include="Areas\Admin\Data\QT_DI_NEWRepository.cs" />
     <Compile Include="Areas\Admin\Data\TKSLGDRepository.cs" />
     <Compile Include="Areas\Admin\Data\HistoryCallRepository.cs" />
@@ -412,6 +416,8 @@
     <Compile Include="Areas\Admin\Model\DataModel\KPI_Delivery_Time.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_Delivery_Wage.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_SL_Du_Bao.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Thu_Gom.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_XND_BC_Time.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\QT_DI_NEW.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TKSLGD.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TK_LD.cs" />
@@ -3647,6 +3653,8 @@
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_KGD.cshtml" />
     <Content Include="Areas\Admin\Views\ZNS_TCB\ZNS_TCBReport.cshtml" />
     <Content Include="Areas\Admin\Views\QT_DI_NEW\QT_Di_NEW.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Thu_Gom\KPI_Thu_Gom.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_XND_BC_Time\KPI_XND_BC_Time.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3671,10 +3679,10 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web References\TrackAndTrace_VNPOST\Reference.map">
+    <None Include="Web References\TrackAndTrace_VNPOST\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web References\TrackAndTrace_VNPOST\TrackAndTrace.disco" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -3729,10 +3737,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://ws.vnpost.vn/TrackAndTrace/TrackAndTrace.asmx">
+    <WebReferenceUrl Include="https://ws.vnpost.vn/TrackAndTrace/TrackAndTrace.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\TrackAndTrace_VNPOST\</RelPath>
-      <UpdateFromURL>http://ws.vnpost.vn/TrackAndTrace/TrackAndTrace.asmx</UpdateFromURL>
+      <UpdateFromURL>https://ws.vnpost.vn/TrackAndTrace/TrackAndTrace.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

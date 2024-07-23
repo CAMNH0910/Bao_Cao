@@ -137,7 +137,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[6, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[6, 1].LoadFromCollection(list, false, TableStyles.Dark9);
                 BindingFormatForExcel(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -600,7 +600,7 @@ namespace T41.Areas.Admin.Controllers
                 // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
-                workSheet.Cells[8, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                workSheet.Cells[8, 1].LoadFromCollection(list, false, TableStyles.Dark9);
                 BindingFormatForExcel_Detail(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
