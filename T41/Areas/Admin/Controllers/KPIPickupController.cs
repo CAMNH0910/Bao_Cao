@@ -137,6 +137,7 @@ namespace T41.Areas.Admin.Controllers
             return jsonResult;
         }
 
+
         [HttpPost]
         public JsonResult ListTotalKPIPickupV2(int Zone, int Poscode, string StartDate, string EndDate)
         {
@@ -157,7 +158,7 @@ namespace T41.Areas.Admin.Controllers
         public JsonResult ListDetailKPIPickupV2(int Poscode, string StartDate, string EndDate)
         {
             ViewBag.poscode = Poscode;
-            ViewBag.StartDate = StartDate;
+            ViewBag.StartDate = StartDate; 
             ViewBag.EndDate = EndDate;
 
             KPIPickupRepository qualityKPIServiceRepository = new KPIPickupRepository();

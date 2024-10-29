@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/Areas/Admin/Content/dist/css/AdminLTE.min.css">
-    <!-- Theme style --> 
+    <!-- Theme style -->
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
        page. However, you can choose any other skin. Make sure you
        apply the skin class to the body tag so the changes take effect. -->
@@ -197,7 +197,7 @@
                                 <ul class="treeview-menu">
                                     @*<li><a href="/Admin/ReportSMS/ReportSMS">Báo cáo nhắn tin SMS</a></li>
 
-        >*@
+                                        >*@
                                     <li><a href="/Admin/ReportSMS/ReportZNSTotal">Báo cáo tổng hợp tin nhắn ZNS</a></li>
                                     <li><a href="/Admin/ReportSMS/ReportZNSDetail">Báo cáo chi tiết tin nhắn ZNS</a></li>
                                     <li><a href="/Admin/ReportSMSBrand/ReportSMSBrand">Báo cáo sản lượng dịch vụ<br /> SMS BrandName </a></li>
@@ -214,8 +214,8 @@
                         if (Convert.ToInt32(Session["Role"]) == 1)
                         {
                             <li class="header" style="color:cornflowerblue;"><strong>TRA CỨU ĐỊNH VỊ</strong></li>
-                        <!-- Group 1 -->
-                        <!-- Group Quốc Tế -->
+                            <!-- Group 1 -->
+                            <!-- Group Quốc Tế -->
                             <li>
                                 <a href="/Admin/FindReceptacle/Index">
                                     <i class="fa fa-search"></i> <span>Tra cứu túi gói <br />đi quốc tế</span>
@@ -227,8 +227,8 @@
 
 
                             <li class="header" style="color:cornflowerblue;"><strong>QUẢN LÝ SỰ VỤ</strong></li>
-                        <!-- Group 1 -->
-                        <!-- Group Quốc Tế -->
+                            <!-- Group 1 -->
+                            <!-- Group Quốc Tế -->
                             <li>
                                 <a href="/Admin/Affair/Affair">
                                     <i class="fa fa-search"></i> <span>Tra cứu lập sự vụ</span>
@@ -236,7 +236,7 @@
                             </li>
 
 
-                        <!-- Group Đối Soát truyền nhận giao dịch -->
+                            <!-- Group Đối Soát truyền nhận giao dịch -->
                             <li class="header" style="color:cornflowerblue;"><strong>ĐỐI SOÁT TRUYỀN NHẬN</strong></li>
                             <li>
                                 <a href="/Admin/CheckDealTransfer/CheckDealTransferDetailReport">
@@ -273,7 +273,7 @@
                                 </ul>
                             </li>
 
-                        <!-- Group 10 -->
+                            <!-- Group 10 -->
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-angle-double-right"></i> <span>Quản lý truyền nhận</span>
@@ -308,7 +308,7 @@
                         if (Convert.ToInt32(Session["Role"]) == 10)
                         {
                             <li class="header" style="color:cornflowerblue;"><strong>BÁO CÁO TỔNG HỢP</strong></li>
-                        <!-- Group Sàn KT -->
+                            <!-- Group Sàn KT -->
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-building"></i> <span>Báo cáo tổng hợp <br />dữ liệu mạng lưới </span>
@@ -340,7 +340,7 @@
                         if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["userid"]) == 3)
                         {
                             <li class="header" style="color:cornflowerblue;"><strong>BÁO CÁO</strong></li>
-                        <!-- Group Sàn KT -->
+                            <!-- Group Sàn KT -->
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-building"></i> <span>Báo Cáo Hoạt Động<br /> Tại Sàn KT </span>
@@ -361,7 +361,7 @@
                     @{
                         if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 2)
                         {
-                        <!-- Group 9 -->
+                            <!-- Group 9 -->
 
                             <li class="treeview">
                                 <a href="#">
@@ -384,6 +384,7 @@
                                     <li><a href="/Admin/ReportCTDVCT/CTDVCT">Chi tiết DVCT</a></li>
                                     <li><a href="/Admin/ReportCTLO/CTLO">Chi tiết dịch vụ Lô</a></li>
                                     <li><a href="/Admin/ReportTHCH/TH_CH">Tổng hợp Chuyển hoàn</a></li>
+                                    <li><a href="/Admin/Bao_Cao_COD/Bao_Cao_COD">Báo cáo trạng thái chi hộ COD</a></li>
                                     <li><a href="https://portal.ems.com.vn/Bao_Cao_SLDT_Thang.aspx">SLDT theo ngày tại BĐT</a></li>
                                 </ul>
                             </li>
@@ -429,10 +430,12 @@
                                     <li><a href="/Admin/KPIKT/THSL">Tổng hợp sản lượng</a></li>
                                     <li><a href="/Admin/THTCKT/THTCKT">Tổng hợp theo hành trình</a></li>
                                     <li><a href="/Admin/CTTCKT/CTTCKT">Chi tiết theo hành trình</a></li>
+                                    <li><a href="/Admin/KPIKT/KPI_KTHT">Cảnh báo trượt chuyến<br /> bưu gửi hỏa tốc</a></li>
                                     <li><a href="/Admin/KPIKT/THSLQT">Tổng hợp sản lượng QT</a></li>
                                     <li><a href="/Admin/THTCKT/THTCKTQT">Tổng hợp theo hành trình QT</a></li>
                                     <li><a href="/Admin/CTTCKT/CTTCKTQT">Chi tiết theo hành trình QT</a></li>
                                     <li><a href="/Admin/TMSKPI/TMSKPI">Lược đồ khai thác</a></li>
+                                    <li><a href="/Admin/Tms_Kpi_HT/Tms_Kpi_HT">Lược đồ khai thác hỏa tốc</a></li>
 
                                 </ul>
                             </li>
@@ -462,11 +465,11 @@
                                     <li><a href="/Admin/QualityNBPDelivery/QualityDeliveryNBPDetailReport">Chất lượng nhập báo phát</a></li>
                                     <li><a href="/Admin/KpiBD13Delivery/KpiBD13DeliveryDetailReport">Chất lượng bd13</a></li>
                                     <li><a href="/Admin/KPI_Customer_Hub_Phat/KPI_Customer_Hub_Phat_Report">Kiểm soát nộp tiền COD</a></li>
-                                    <li><a href="/Admin/KPI_Customer_Hub_LK/KPI_Customer_Hub_LK_Report">Kiểm soát BG PKTC<br/> chưa xử lý</a></li>
+                                    <li><a href="/Admin/KPI_Customer_Hub_LK/KPI_Customer_Hub_LK_Report">Kiểm soát BG PKTC<br /> chưa xử lý</a></li>
                                     <li><a href="/Admin/KPi_Customer_PKTC/KPi_Customer_PKTC_Report">Báo cáo lý do  PKTC</a></li>
                                     <li><a href="/Admin/KPI_Customer_HPTC/KPI_Customer_HPTC_Report">Báo cáo hủy phát thành công </a></li>
-                                    <li><a href="/Admin/KPI_XND_BC_Time/KPI_XND_BC_Time">Sản lượng đến phát <br/> theo khung giờ </a></li>
-                                    
+                                    <li><a href="/Admin/KPI_XND_BC_Time/KPI_XND_BC_Time">Sản lượng đến phát <br /> theo khung giờ </a></li>
+
                                 </ul>
                             </li>
 
@@ -530,7 +533,7 @@
                                     <li><a href="/Admin/KPI_Delivery_Wage/KPI_Detail_Wage">Thống kê chi tiết sản lượng<br />phát của bưu tá</a></li>
                                 </ul>
                             </li>
-                        <!-- Group 11 -->
+                            <!-- Group 11 -->
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-plane"></i> <span>Báo cáo quốc tế </span>
@@ -553,22 +556,30 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="/Admin/KPI_BD10_Hub_Time/KPI_BD10_Hub_Report">Báo cáo bưu gửi <br /> xác nhận đến Hub</a></li>
-                                    <li><a href="/Admin/KPI_BD10_Hub_SL/KPI_BD10_Hub_Report">Báo cáo sản lượng, khối lượng <br/>theo đường thư</a></li>
+                                    <li><a href="/Admin/KPI_BD10_Hub_SL/KPI_BD10_Hub_Report">Báo cáo sản lượng, khối lượng <br />theo đường thư</a></li>
                                     <li><a href="/Admin/KPI_BD10_Hub/KPI_BD10_Hub_Report">Báo cáo thời gian xác nhận<br />  đến BĐT</a></li>
                                     <li><a href="/Admin/KPI_Delivery_Time/KPI_Delivery_Time_Report">Báo cáo dự kiến thời gian<br />  phát bưu gửi</a></li>
                                     <li><a href="/Admin/KPI_SL_Du_Bao/KPI_SL_Du_Bao_Report">Báo cáo dự báo hàng đến KTV</a></li>
+                                    <li><a href="/Admin/Kien_Di_Ngoai_TTKTV/Kien_Di_Ngoai_TTKTVReport">Báo cáo thống kê kiện đi ngoài<br /> tại các TTKTV</a></li>
                                 </ul>
                             </li>
                         }
                     }
 
+                    @{
+                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 20 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                        {
+                            <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
 
-
+                            <li><a href="/Admin/TMS_TICKET/TMS_TICKET">Quản lý nhân viên </a></li>
+                            <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET">Quản lý Ticket </a></li>
+                        }
+                    }
                     @{
                         if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4 || Convert.ToString(Session["UserName"]) == "kinhdoanhems")
                         {
                             <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ KHÁCH HÀNG</strong></li>
-                        <!-- Group QUẢN LÝ KH CRM -->
+                            <!-- Group QUẢN LÝ KH CRM -->
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-users"></i> <span>Quản Lý Khách Hàng</span>

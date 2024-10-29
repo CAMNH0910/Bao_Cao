@@ -48,14 +48,17 @@ namespace T41.Areas.Admin.Models.DataModel
         public String BuuCuc { get; set; }
         public String TenBuuCuc { get; set; }
         public int TongSL { get; set; }
-        public Decimal TylePTC72H { get; set; }
+        public int SanLuongPTC { get; set; }
+        public Decimal TylePTC { get; set; }
         public int SanLuongPTC72H { get; set; }
+        public Decimal TylePTC72H { get; set; }
 
+        public int SanLuongPTC48H { get; set; }
+        public Decimal TylePTC48H { get; set; }
+      
         public int TC24H { get; set; }
         public Decimal TYLEPTC24 { get; set; }
-        public Decimal TylePTC { get; set; }
-        public int SanLuongPTC { get; set; }
-
+     
         public int SanLuongKTT { get; set; }
         public int SanLuongPTC6H { get; set; }
         public int SanLuongPTCQUA6H { get; set; }

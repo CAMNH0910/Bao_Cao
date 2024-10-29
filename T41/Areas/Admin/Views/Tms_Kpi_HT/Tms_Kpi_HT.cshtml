@@ -1,0 +1,523 @@
+﻿@{
+//  Layout = null;
+}
+
+<!-- daterange picker -->
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+    p {
+        font-weight: bold;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Lược đồ khai thác đo kiểm KPI hỏa tốc</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Lược đồ khai thác đo kiểm KPI hỏa tốc</h3>
+            <div class="box-tools pull-right">
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">KT/LDKT_HT</h3>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Bưu cục</label>
+                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
+                            <option selected="selected" value="0">Chọn bưu cục</option>
+                            @* <option value="100915">100915-KTV HN QT</option>*@
+                            <option value="100916">100916-KTV HN LT</option>
+                            <option value="101000">101000-KTV HN NT</option>
+                            @*<option value="550915">550915-KTV DN LT</option>
+                    <option value="550100">550100-KTV DN NT</option>*@
+                            @* <option value="700915">700916-KTV HCM QT</option>*@
+                            <option value="700916">700916-KTV HCM LT</option>
+                            <option value="701000">701000-KTV HCM NT</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Id hành trình</label>
+                        <input type="text" rows="1" class="form-control" id="hanh_trinh" placeholder="Nhập Id hành trình"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control select2" style="width: 100%;" id="isdelete">
+                            <option selected="selected" value="0">KPI</option>
+                            <option value="1">NOT KPI</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @{
+                        if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
+                        {
+                            <div id="Checkadmin" style="display:none">1</div>
+                        }
+                        else
+                        {
+                            <div id="Checkadmin" style="display:none">0</div>
+                        }
+                    }
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-8 " style="display:flex; justify-content:center">
+                    @{
+                        if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
+                        {
+                            <button data-toggle="modal" data-target="#myModalInsert" type="button" style="margin-right:20px" class="btn btn-primary btn-lrg" id="btnInsert">Thêm mới hành trình đường thư <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                            @*<button data-toggle="modal" data-target="#myModalFindId" type="button" style="margin-right:20px" class="btn btn-primary btn-lrg" id="btnFindId">Tìm ID hành trình cho ID 6 số <i class="fa fa-list-alt" aria-hidden="true"></i></button>*@
+                        }
+                    }
+                    <button type="button" class="btn btn-info btn-lrg ajax" style="margin-right:20px" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        @*<div class="box-header">
+                <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+            </div>*@
+
+
+        <div class="loading-element text-center" style="font-size:50px;">
+            <i class="fa fa-spinner fa-spin"></i>
+            Vui lòng chờ giây lát...
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "Tms_Kpi_HT")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+            </div>
+        </div>
+        <div>
+            @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+
+            @{
+                if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "nghiepvuems")
+                {
+                }
+            }
+
+            <table id="TableAccount" class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr class="bg-light-blue color-palette">
+                        <th class="text-center">STT<br /></th>
+                        <th class="text-center">HUB</th>
+                        <th class="text-center">Tỉnh phát</th>
+                        <th class="text-center">Huyện phát</th>
+                        <th class="text-center">Tên huyện</th>
+                        <th class="text-center">ID hành trình</th>
+                        <th class="text-center">Tên hành trình</th>
+                        <th class="text-center">Thời gian xuất phát</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody id="listkpithdvreport"></tbody>
+            </table>
+        </div>
+
+    </div>
+    </div>
+    <div class="modal fade" id="myModalInsert" role="dialog">
+        <div class="modal-dialog modal-sm" style="display:table">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thêm mới hành trình đường thư</h4>
+
+                    @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
+                </div>
+                <div class="modal-body edit-content">
+                    <div type="reset" id="list_test"></div>
+                    <table id="TableAccount" class="table table-bordered table-condensed table-striped">
+                        <thead>
+                            <tr class="bg-light-blue color-palette">
+                                <th class="text-center">HUB</th>
+                                <th class="text-center">Tỉnh phát</th>
+                                <th class="text-center">Huyện phát</th>
+                                <th class="text-center">Tên huyện</th>
+                                <th class="text-center">ID hành trình</th>
+                                <th class="text-center">Tên hành trình</th>
+                                <th class="text-center">Thời gian xuất phát</th>
+                                <th class="text-center">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listkpithdvreport2">
+                            <tr>
+                                <th><input id="txtHUB-Insert" class="text-center" style="width: 100px" /></th>
+                                <th><input id="txtTINH_PHAT-Insert" class="text-center" style="width: 100px " /></th>
+                                <th><input id="txtHUYEN_PHAT-Insert" class="text-center" style="width:100px" /></th>
+                                <th><input id="txtTEN_HUYEN-Insert" style="width: 200px " class="text-center" /></th>
+                                <th><input id="txtID_HANH_TRINH-Insert" style="width: 100px " class="text-center" /></th>
+                                <th><input id="txtTEN_HANH_TRINH-Insert" style="width: 200px " class="text-center" /></th>
+                                <th><input id="txtTHOI_GIAN_DI-Insert" style="width: 100px " class="text-center" /></th>
+                                <th>
+                                    <select class="form-control select2" style="width: 110px;" id="txtTrang_thai-Insert">
+                                        <option value="0">KPI</option>
+                                        <option value="1">NOT KPI</option>
+                                    </select>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-insert" onclick="javascript:InsertTms_Kpi_HT()">Thêm đường thư</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm" style="display:table">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cập nhật dữ liệu đường thư</h4>
+
+                    @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
+                </div>
+                <div class="modal-body edit-content">
+                    <div type="reset" id="list_test"></div>
+                    <table id="TableAccount" class="table table-bordered table-condensed table-striped">
+                        <thead>
+                            <tr class="bg-light-blue color-palette">
+                                <th class="text-center">STT<br /></th>
+                                <th class="text-center">HUB</th>
+                                <th class="text-center">Tỉnh phát</th>
+                                <th class="text-center">Huyện phát</th>
+                                <th class="text-center">Tên huyện</th>
+                                <th class="text-center">ID hành trình</th> 
+                                <th class="text-center">Tên hành trình</th>
+                                <th class="text-center">Thời gian xuất phát</th>
+                                <th class="text-center">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listkpithdvreport1">
+                            <tr>
+                                <th><input id="txtSTT" class="text-center" disabled="disabled" style="width: 100px;" /></th>
+                                <th><input id="txtHUB" class="text-center" disabled="disabled" style="width: 100px" /></th>
+                                <th><input id="txtTINH_PHAT" class="text-center" disabled="disabled" style="width: 100px" /></th>
+                                <th><input id="txtHUYEN_PHAT" class="text-center" disabled="disabled" style="width:100px" /></th>
+                                <th><input id="txtTEN_HUYEN" style="width: 350px" class="text-center" /></th>
+                                <th><input id="txtID_HANH_TRINH" style="width: 100px" disabled="disabled" class="text-center" /></th>
+                                <th><input id="txtTEN_HANH_TRINH" style="width: 350px" class="text-center" /></th>
+                                <th><input id="txtTHOI_GIAN_DI" style="width: 100px" class="text-center" /></th>
+                                <th>
+                                    <select class="form-control select2" style="width: 110px;" id="txtTrang_thai">
+                                        <option value="0">KPI</option>
+                                        <option value="1">NOT KPI</option>
+                                    </select>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-update">Cập nhật dữ liệu</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+            var d = new Date();
+            var currMonth = d.getMonth();
+            var currYear = d.getFullYear();
+            var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+            // detail();
+        });
+
+    //Phần Xuất Excel của bảng tổng hợp
+    $("#btnreport").click(function () {
+
+
+        $("#listkpithdvreport tr").remove();
+        detail();
+        $('.box-footer').show();
+        $(".btnUpdate-Icon").hide()
+       });
+
+
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+
+
+
+    //Phần function detail_account
+    function detail() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListTms_Kpi_HT", "Tms_Kpi_HT")',
+            beforeSend: function () {
+                $('.loading-element').show();
+                },
+            dataType: 'json',
+            data:
+                {
+                endpostcode: $("#endpostcode").val(),
+                hanh_trinh: $("#hanh_trinh").val(),
+                isdelete: $("#isdelete").val(),
+                },
+            success: function (data) {
+                    var str_html = "";
+                    var str_body = "";
+                    var a = 1;
+                $.each(data.List_Tms_Kpi_HT, function (i, item) {
+                     str_body += '<tr>';
+                    str_body += '<td class="text-center" id="STT-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + a++ + '</td>';
+                    str_body += '<td style="width:100px;" id="HUB-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].HUB + '</td>';
+                    str_body += '<td class="text-center" id="TINH_PHAT-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '</td>';
+                    str_body += '<td class="text-center" id="HUYEN_PHAT-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '</td>';
+                    str_body += '<td class="text-center" id="TEN_HUYEN-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].TEN_HUYEN + '</td>';
+                    str_body += '<td class="text-center" id="ID_HANH_TRINH-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '</td>';
+                    str_body += '<td class="text-center" id="TEN_HANH_TRINH-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].TEN_HANH_TRINH + '</td>';
+                    str_body += '<td class="text-center" id="THOI_GIAN_DI-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].THOI_GIAN_DI + '</td>'; 
+                    str_body += '<td class="text-center" id="Trang_Thai-' + data.List_Tms_Kpi_HT[i].HUB + '-' + data.List_Tms_Kpi_HT[i].TINH_PHAT + '-' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + '-' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + '">' + data.List_Tms_Kpi_HT[i].Trang_Thai + '</td>';
+                    str_body += '<td class="text-center btnUpdate-Icon"><a data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-edit" href="#" onclick="javascript:UpdateTms_Kpi_HT(' + data.List_Tms_Kpi_HT[i].HUB + ',' + data.List_Tms_Kpi_HT[i].TINH_PHAT + ',' + data.List_Tms_Kpi_HT[i].HUYEN_PHAT + ',' + data.List_Tms_Kpi_HT[i].ID_HANH_TRINH + ')" rel1="' + data.List_Tms_Kpi_HT[i].TEN_HUYEN + '" rel2="' + data.List_Tms_Kpi_HT[i].TEN_HANH_TRINH + '" rel3="' + data.List_Tms_Kpi_HT[i].THOI_GIAN_DI + '" rel4="' + data.List_Tms_Kpi_HT[i].Trang_Thai + '"></a></td>';
+                    str_body += '</tr>';
+                    });
+                    str_html += str_body;
+
+                    if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                        swal.fire(
+                          data.Message,
+                          '',
+                          'error'
+                        );
+
+                    }
+                    else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+                    $('#TableAccount').DataTable({
+                            "ordering": false,
+                        "language": {
+                                " processing": "Message khi đang tải dữ liệu",
+                            "search": "Tìm kiếm theo từ khóa:",
+                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.List_Tms_Kpi_HT.length + " bản ghi",
+
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                            "paginate": {
+                                    "first": "Trang đầu",
+                                "previous": "Trang trước",
+                                "next": "Trang sau",
+                                "last": "Trang cuối"
+                            }
+                            }
+                        });
+
+                    }
+                }
+            })
+
+    }
+
+
+
+
+
+    function UpdateTms_Kpi_HT(HUB, TINH_PHAT, HUYEN_PHAT, ID_HANH_TRINH) {
+
+        var check = $("#Checkadmin").text();
+        if (check == '1') {
+
+            $("#txtSTT").val($("#STT-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+            $("#txtHUB").val($("#HUB-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+            $("#txtTINH_PHAT").val($("#TINH_PHAT-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+            $("#txtHUYEN_PHAT").val($("#HUYEN_PHAT-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+            $("#txtTEN_HUYEN").val($("#TEN_HUYEN-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+            $("#txtID_HANH_TRINH").val($("#ID_HANH_TRINH-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+            $("#txtTEN_HANH_TRINH").val($("#TEN_HANH_TRINH-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+            $("#txtTHOI_GIAN_DI").val($("#THOI_GIAN_DI-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text());
+
+            if ($("#Trang_Thai-" + HUB + "-" + TINH_PHAT + "-" + HUYEN_PHAT + "-" + ID_HANH_TRINH + "").text() == 'KPI') {
+                $("#txtTrang_thai").val(0);
+            } else {
+                $("#txtTrang_thai").val(1);
+            }
+            $(".btn-update").attr('onclick', 'UpdateMailRouteAccept(' + HUB + ',' + TINH_PHAT + ',' + HUYEN_PHAT + ',' + ID_HANH_TRINH + ')')
+        }else
+        {
+            swal.fire(
+                          'Cảnh báo',
+                          'Tài khoản của bạn không được cấp phép sử dụng chức năng này!',
+                          'warning'
+                 );
+            setTimeout(hideModal, 100);
+        }
+
+
+    }
+
+    function hideModal() {
+        $('#myModal').modal('hide');
+    }
+
+
+
+    function UpdateMailRouteAccept(HUB, TINH_PHAT, HUYEN_PHAT, ID_HANH_TRINH) {
+        $.ajax({
+            url: '@Url.Action("UpdateTms_Kpi_HT", "Tms_Kpi_HT")',
+            data:
+                {
+                HUB: HUB,
+                TINH_PHAT: TINH_PHAT,
+                HUYEN_PHAT: HUYEN_PHAT,
+                TEN_HUYEN: $("#txtTEN_HUYEN").val(),
+                ID_HANH_TRINH: ID_HANH_TRINH,
+                TEN_HANH_TRINH: $("#txtTEN_HANH_TRINH").val(),
+                THOI_GIAN_DI: $("#txtTHOI_GIAN_DI").val(),
+                Trang_Thai: $("#txtTrang_thai").val(),
+
+                },
+            type: 'POST',
+            success: function (data) {
+                    if (data.Code == '00') {
+                        swal.fire(
+                          ''+data.Message+'',
+                            'Cập nhật dữ liệu cho đường thư ' + ID_HANH_TRINH + ' thành công!',
+                          'success'
+                        );
+                        detail();
+                    $('#myModal').modal('hide');
+
+                    } else {
+                        swal.fire(
+                          ''+data.Message+'',
+                            'Cập nhật dữ liệu cho đường thư ' + ID_HANH_TRINH + ' thất bại!',
+                          'error'
+                        );
+                    }
+                }
+            })
+    }
+
+    function InsertTms_Kpi_HT() {
+        $.ajax({
+            url: '@Url.Action("InsertTms_Kpi_HT", "Tms_Kpi_HT")',
+            data:
+                {
+                HUB: $("#txtHUB-Insert").val(),
+                TINH_PHAT: $("#txtTINH_PHAT-Insert").val(),
+                HUYEN_PHAT: $("#txtHUYEN_PHAT-Insert").val(),
+                TEN_HUYEN: $("#txtTEN_HUYEN-Insert").val(),
+                ID_HANH_TRINH: $("#txtID_HANH_TRINH-Insert").val(),
+                TEN_HANH_TRINH: $("#txtTEN_HANH_TRINH-Insert").val(),
+                THOI_GIAN_DI: $("#txtTHOI_GIAN_DI-Insert").val(),
+                Trang_Thai: $("#txtTrang_thai-Insert").val(),
+                },
+            type: 'POST',
+            success: function (data) {
+                    if (data.Code == '00') {
+                        swal.fire(
+                          '' + data.Message + '',
+                          'Thêm mới đường thư thành công!',
+                          'success'
+                        );
+                    $('#myModalInsert').modal('hide');
+
+                    } else {
+                        swal.fire(
+                          '' + data.Message + '',
+                          'Thêm mới đường thư thất bại',
+                          'error'
+                        );
+                    }
+                }
+            })
+    }
+
+    $('#btnexportlist').click(function () {
+            // build the url
+        var url = $(this).data('baseurl') + '?endpostcode=' + $('#endpostcode').val() + '&hanh_trinh=' + $('#hanh_trinh').val() + '&isdelete=' + $('#isdelete').val();
+            // redirect
+            location.href = url;
+
+
+        });
+
+
+
+
+
+
+</script>
+
+

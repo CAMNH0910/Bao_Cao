@@ -17,7 +17,7 @@ namespace T41.Areas.Admin.Data
 {
     public class QT_DI_NEWRepository
     {
-        public ReturnQT_DI_NEW QT_DI_NEW_DETAIL( int startdate, int enddate)
+        public ReturnQT_DI_NEW QT_DI_NEW_DETAIL( int startdate, int enddate,int zone)
         {
             DataTable da = new DataTable();
             Convertion common = new Convertion();
@@ -35,7 +35,7 @@ namespace T41.Areas.Admin.Data
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
-
+                    myCommand.Parameters.Add("v_zone", OracleDbType.Int32).Value = zone;
                     myCommand.Parameters.Add(new OracleParameter("v_DataReport", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
 
                     mAdapter = new OracleDataAdapter(myCommand);
@@ -61,8 +61,9 @@ namespace T41.Areas.Admin.Data
                             oQT_DI_NEW.NgayPhatHanh = dr["NGAYPHATHANH"].ToString();
                             oQT_DI_NEW.Madvchinh = dr["MADVCHINH"].ToString();
                             // oQT_DI_NEW.TenDV = dr["TENDV"].ToString();
-                            oQT_DI_NEW.PhanLoai = dr["PHANLOAI"].ToString();
+                            oQT_DI_NEW.PhanLoai = dr["PHANLOAI"].ToString(); 
                             oQT_DI_NEW.khoiluong = dr["KL"].ToString();
+                            oQT_DI_NEW.NacKL = dr["NacKL"].ToString();
                             oQT_DI_NEW.KLQD = dr["KLQD"].ToString();
                             oQT_DI_NEW.Tongcuoc = dr["TONGCUOC"].ToString();
 

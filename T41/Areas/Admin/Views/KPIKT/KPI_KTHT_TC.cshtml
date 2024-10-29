@@ -1,0 +1,203 @@
+﻿
+
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/GridviewScroll/gridviewScroll.css" rel="stylesheet" />
+<script src="~/GridviewScroll/gridviewScroll.js"></script>
+
+<style type="text/css">
+    .divclass {
+        overflow: auto;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+         detail();
+
+    });
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var buucuc = url.searchParams.get("buucuc");
+    var id_hanh_trinh = url.searchParams.get("id_hanh_trinh");
+    var time = url.searchParams.get("time");
+
+
+</script>
+
+<section class="content-header">
+    <h1>
+        <small>Báo cáo chi tiết </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Chi tiết bưu gửi trượt chuyến</li>
+    </ol>
+</section>
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export_KPI_KTHT_TC", "KPIKT")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+
+
+            <div style="width: 100%;; overflow-x: scroll;">
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT<br /></th>
+                            <th class="text-center">ID hành trình</th>
+                            <th class="text-center">Tên hành trình</th>
+                            <th class="text-center">T/G di <br/> dự kiến</th>
+                            <th class="text-center">Mã E1</th>
+                            <th class="text-center">Nội dung</th>
+                            <th class="text-center">Người nhận</th>
+                            <th class="text-center">Địa chỉ</th>
+                            <th class="text-center">Khối lượng</th>
+                            <th class="text-center">Thời gian đến</th>
+                            <th class="text-center">Thời gian đi</th>
+                            <th class="text-center">T/G hành trình đi</th>
+                            <th class="text-center">HT <br/> thực tế</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+
+
+
+<script>
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var buucuc = url.searchParams.get("buucuc");
+    var id_hanh_trinh = url.searchParams.get("id_hanh_trinh");
+    var time = url.searchParams.get("time");
+
+    $(document).ready(function () {
+        detail();
+    });
+
+
+    function detail() {
+                 $.ajax({
+                     type: "POST",
+
+                     url: '@Url.Action("ListKTHT_TCReport", "KPIKT")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+            dataType: "json",
+            data:
+                {
+                startdate: startdate,
+                enddate: enddate,
+                buucuc: buucuc,
+                id_hanh_trinh: id_hanh_trinh,
+                time: time
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+
+
+                $.each(data.LisKPI_KTHT_TC, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center" style="width: 1%; text-align: center; font-size: smaller;">'  + a++ + '</td>';
+                    str_body += '<td style="width: 5%; text-align: center; font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Id_Hanh_Trinh + '</td>';
+                    str_body += '<td style="width: 10%; text-align: left;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].TEN_HANH_TRINH + '</td>';
+                    str_body += '<td style="width: 5%; text-align: center;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].THOI_GIAN_DI + '</td>';
+                    str_body += '<td style="width: 5%; text-align: center;font-size: smaller;"><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.LisKPI_KTHT_TC[i].Mae1 + '" target="_blank" class="mae1" id="' + data.LisKPI_KTHT_TC[i].Mae1 + '">' + data.LisKPI_KTHT_TC[i].Mae1 + '</a></td>';
+                    str_body += '<td style="width: 10%; text-align: left;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Noi_Dung + '</td>';
+                    str_body += '<td style="width: 10%; text-align: left;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Nguoi_Nhan + '</td>';
+                    str_body += '<td style="width: 15%; text-align: left;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Dia_Chi + '</td>';
+                    str_body += '<td style="width: 5%; text-align: center;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Khoi_Luong + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Gio_Den + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Gio_Di + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].Ngay_HT_Di + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;font-size: smaller;">' + data.LisKPI_KTHT_TC[i].IDVNPOST + '</td>';
+                    str_body += '</tr>';
+
+                });
+
+                str_html += str_body;
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+
+
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi " + data.LisKPI_KTHT_TC.length + " bưu gửi",
+                            "zeroRecords": "Không có dữ liệu  !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+
+
+    $('#btnexportlist').click(function () {
+
+        var url = $(this).data('baseurl') + '?StartDate=' + startdate + '&enddate=' + enddate + '&buucuc=' + buucuc + '&id_hanh_trinh=' + id_hanh_trinh + '&time=' + time;
+        // redirect
+        location.href = url;
+    });
+
+
+</script>

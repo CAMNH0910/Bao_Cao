@@ -125,46 +125,51 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
             worksheet.Cells[1, 1].Value = "BÁO CÁO THỐNG KÊ SẢN LƯỢNG THU GOM";
-            worksheet.Cells["A1:I1"].Merge = true;
+            worksheet.Cells["A1:Q1"].Merge = true;
 
-            worksheet.Cells[2, 9].Value = "MÃ BÁO CÁO:TG/TKSLTG_N";
-            worksheet.Cells["H2:H2"].Merge = true;
+            worksheet.Cells[2, 17].Value = "MÃ BÁO CÁO:TG/TKSLTG";
+            worksheet.Cells["Q2:Q2"].Merge = true;
 
-            worksheet.Cells[2, 4].Value = "Từ ngày:" + " " + ViewBag.startdate + "-" + "Đến ngày" + " " + ViewBag.endDate;
-            worksheet.Cells["D2:F2"].Merge = true;
+            worksheet.Cells[2, 8].Value = "Từ ngày:" + " " + ViewBag.startdate + "-" + "Đến ngày" + " " + ViewBag.endDate;
+            worksheet.Cells["H2:J2"].Merge = true;
 
             worksheet.Cells[4, 1].Value = "STT";
             worksheet.Cells["A4:A5"].Merge = true;
-
             worksheet.Cells[4, 2].Value = "Mã BCGG";
             worksheet.Cells["B4:B5"].Merge = true;
-
             worksheet.Cells[4, 3].Value = "Tên BCGD";
             worksheet.Cells["C4:C5"].Merge = true;
-
             worksheet.Cells[4, 4].Value = "Mã tuyến thu gom";
             worksheet.Cells["D4:D5"].Merge = true;
-
             worksheet.Cells[4, 5].Value = "Tên tuyến thu gom";
             worksheet.Cells["E4:E5"].Merge = true;
-
-            worksheet.Cells[4, 6].Value = "Id nhân viên";
+            worksheet.Cells[4, 6].Value = "Mã nhân viên";
             worksheet.Cells["F4:F5"].Merge = true;
-
             worksheet.Cells[4, 7].Value = "Tên nhân viên";
             worksheet.Cells["G4:G5"].Merge = true;
-
-            worksheet.Cells[4, 8].Value = "Số tin";
+            worksheet.Cells[4, 8].Value = "Dịch vụ";
             worksheet.Cells["H4:H5"].Merge = true;
 
             worksheet.Cells[4, 9].Value = "Sản lượng";
-            worksheet.Cells["I4:I5"].Merge = true;
+            worksheet.Cells["I4:K4"].Merge = true;
+            worksheet.Cells[5, 9].Value = "Thu gom thành công";
+            worksheet.Cells[5, 10].Value = "Phát hành";
+            worksheet.Cells[5, 11].Value = "Trả lại/ không phát hành";
+
+            worksheet.Cells[4, 12].Value = "Sản lượng thu gom thành công đã phát hành theo khối lượng";
+            worksheet.Cells["L4:N4"].Merge = true;
+            worksheet.Cells[5, 12].Value = "SL đến 2kg";
+            worksheet.Cells[5, 13].Value = "KL đến 2kg";
+            worksheet.Cells[5, 14].Value = "SL trên 2kg";
+            worksheet.Cells[5, 15].Value = "KL trên 2kg";
+            worksheet.Cells[5, 16].Value = "Tổng cộng SL";
+            worksheet.Cells[5, 17].Value = "Tổng cộng KL";
 
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A4:I5"])
-            using (var ranges = worksheet.Cells["A1:I1"])
-            using (var Ngay = worksheet.Cells["D2:F2"])
+            using (var range = worksheet.Cells["A4:Q5"])
+            using (var ranges = worksheet.Cells["A1:Q1"])
+            using (var Ngay = worksheet.Cells["H2:J2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;

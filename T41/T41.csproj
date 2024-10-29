@@ -110,9 +110,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -231,7 +231,9 @@
     <Compile Include="Areas\Admin\Common\LoggerGeneral.cs" />
     <Compile Include="Areas\Admin\Common\Security.cs" />
     <Compile Include="Areas\Admin\Controllers\AdministratorsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Bao_Cao_CODController.cs" />
     <Compile Include="Areas\Admin\Controllers\ItemSendController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Kien_Di_Ngoai_TTKTVController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_BD10_HubController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_SLController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_TimeController.cs" />
@@ -239,6 +241,8 @@
     <Compile Include="Areas\Admin\Controllers\KPI_Thu_GomController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_XND_BC_TimeController.cs" />
     <Compile Include="Areas\Admin\Controllers\QT_DI_NEWController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Tms_Kpi_HTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TMS_TICKETController.cs" />
     <Compile Include="Areas\Admin\Controllers\ZNS_TCBController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_Customer_HPTCController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_Customer_Hub_LKController.cs" />
@@ -328,7 +332,9 @@
     <Compile Include="Areas\Admin\Controllers\TransferManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\SaleUserManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
+    <Compile Include="Areas\Admin\Data\Bao_Cao_CODRepository.cs" />
     <Compile Include="Areas\Admin\Data\ItemSendRepository.cs" />
+    <Compile Include="Areas\Admin\Data\Kien_Di_Ngoai_TTKTVRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPIDeliveryLOGRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPIHTRepository.cs" />
     <Compile Include="Areas\Admin\Data\DetailHubRepository.cs" />
@@ -351,6 +357,8 @@
     <Compile Include="Areas\Admin\Data\TK_LDRepository.cs" />
     <Compile Include="Areas\Admin\Data\TKSLPRepository.cs" />
     <Compile Include="Areas\Admin\Data\TKSLRepository.cs" />
+    <Compile Include="Areas\Admin\Data\Tms_Kpi_HTRepository.cs" />
+    <Compile Include="Areas\Admin\Data\TMS_TICKETRepository.cs" />
     <Compile Include="Areas\Admin\Data\TransferCODDataHMRepository.cs" />
     <Compile Include="Areas\Admin\Data\PrintBarcode_CGIRepository.cs" />
     <Compile Include="Areas\Admin\Data\DeliveryImportRepository.cs" />
@@ -403,8 +411,10 @@
     <Compile Include="Areas\Admin\Model\BusinessModel\ReflectionController.cs" />
     <Compile Include="Areas\Admin\Model\CanvasModel\DataPoint.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\Administrator.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\Bao_Cao_COD.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\HistoryCall.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\ItemSend.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\Kien_Di_Ngoai_TTKTV.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_BD10_Hub.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_BD10_Hub_SL.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_BD10_Hub_Time.cs" />
@@ -427,6 +437,8 @@
     <Compile Include="Areas\Admin\Model\DataModel\LinkInternalCommunityService.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DetailHub.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TKSL.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\Tms_Kpi_HT.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\TMS_TICKET.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TransferCODDataHM.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\PrintBarcodeCGI.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\DeliveryImport.cs" />
@@ -3655,6 +3667,14 @@
     <Content Include="Areas\Admin\Views\QT_DI_NEW\QT_Di_NEW.cshtml" />
     <Content Include="Areas\Admin\Views\KPI_Thu_Gom\KPI_Thu_Gom.cshtml" />
     <Content Include="Areas\Admin\Views\KPI_XND_BC_Time\KPI_XND_BC_Time.cshtml" />
+    <Content Include="Areas\Admin\Views\Tms_Kpi_HT\Tms_Kpi_HT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIKT\KPI_KTHT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIKT\KPI_KTHT_CT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPIKT\KPI_KTHT_TC.cshtml" />
+    <Content Include="Areas\Admin\Views\Bao_Cao_COD\Bao_Cao_COD.cshtml" />
+    <Content Include="Areas\Admin\Views\Kien_Di_Ngoai_TTKTV\Kien_Di_Ngoai_TTKTVReport.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\Report_TMS_TICKET.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\TMS_TICKET.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

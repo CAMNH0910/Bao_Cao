@@ -113,16 +113,29 @@
             <table id="ExcelView" class="table table-bordered table-hover">
                 <thead>
                     <tr class="bg-light-blue color-palette">
-                        <th class="text-center">STT</th>
-                        <th class="text-center">Mã BCGD</th>
-                        <th class="text-center">Tên BCGD</th>
-                        <th class="text-center">Mã tuyến thu gom</th>
-                        <th class="text-center">Tên tuyến thu gom</th>
-                        <th class="text-center">Mã nhân viên</th>
-                        <th class="text-center">Họ tên nhân viên</th>
-                        <th class="text-center">Số tin</th>
-                        <th class="text-center">Sản lượng</th>
+                        <th rowspan="4" class="text-center">STT<br /></th>
+                        <th rowspan="4" class="text-center">Mã BCGD</th>
+                        <th rowspan="4" class="text-center">Tên BCGD</th>
+                        <th rowspan="4" class="text-center">Mã tuyến thu gom</th>
+                        <th rowspan="4" class="text-center">Tên tuyến thu gom</th>
+                        <th rowspan="4" class="text-center">Mã nhân viên</th>
+                        <th rowspan="4" class="text-center">Họ tên nhân viên</th>
+                        <th rowspan="4" class="text-center">Dịch vụ</th>
+                        <th colspan= "3" class="text-center">Sản lượng</th>
+                        <th colspan="6" class="text-center">Sản lượng thu gom thành công đã phát hành theo khối lượng</th>
                     </tr>
+                    <tr class="bg-light-blue color-palette">
+                        <th colspan="1" class="text-center">Thu gom thành công</th>
+                        <th colspan="1" class="text-center">Phát hành</th>
+                        <th colspan="1" class="text-center">Trả lại/ không phát hành </th>
+                        <th colspan="1" class="text-center">SL đến 2kg </th>
+                        <th colspan="1" class="text-center">KL đến 2kg </th>
+                        <th colspan="1" class="text-center">SL trên 2kg</th>
+                        <th colspan="1" class="text-center">KL trên 2kg</th>
+                        <th colspan="1" class="text-center">Tổng SL</th>
+                        <th colspan="1" class="text-center">Tổng KL</th>
+                    </tr>
+
                 </thead>
                 <tbody id="listkpithdvreport"></tbody>
             </table>
@@ -219,9 +232,16 @@
                     str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].ROUTE_NAME + '</td>';
                     str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].Id_Postman + '</td>';
                     str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].PostMan_Name + '</td>';
-                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].Total + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].DV + '</td>';
                     str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].ARRIVED_WEIGHT + '</td>';
-
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].San_Luong + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].Tra_Lai + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].SL2kg + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].KL2kg + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].SLL2kg + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].KLL2kg + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].TongKG + '</td>';
+                    str_body += '<td class="text-center">' + data.ListKPI_Thu_Gom[i].TongKL + '</td>';
                     str_body += '</tr>';
                 });
                 str_html += str_body;

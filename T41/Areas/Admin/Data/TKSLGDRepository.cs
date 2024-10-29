@@ -39,7 +39,7 @@ namespace T41.Areas.Admin.Data
                         var listDetail_TKSLGD = new List<TKSLGD>();
                         while (dr.Read())
                         {
-                            
+
                             var oDetail_TKSLGD = new TKSLGD();
                             oDetail_TKSLGD.STT = a++;
                             oDetail_TKSLGD.ROLE = dr["ROLE"].ToString();
@@ -57,6 +57,8 @@ namespace T41.Areas.Admin.Data
                             oDetail_TKSLGD.TLVDDT = dr["TLVDDT"].ToString();
                             oDetail_TKSLGD.SLMCS = dr["SLMCS"].ToString();
                             oDetail_TKSLGD.TLMCS = dr["TLMCS"].ToString();
+                            oDetail_TKSLGD.SLKhac = dr["SLKhac"].ToString();
+                            oDetail_TKSLGD.TLKhac = dr["TLKhac"].ToString();
                             listDetail_TKSLGD.Add(oDetail_TKSLGD);
                         }
                         _return.Code = "00";

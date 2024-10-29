@@ -15,25 +15,23 @@
     }
 </style>
 
-
-
 <section class="content-header">
     <h1>
-        <small>Hệ thống báo cáo kinh doanh</small>
+        <small>Báo Cáo </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Báo cáo chi tiết theo mã E1 QT đi</li>
+        <li class="active">Báo cáo trạng thái chi hộ COD</li>
     </ol>
 </section>
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
 
-            <h3 class="box-title">Báo cáo chi tiết theo mã E1 QT đi</h3>
+            <h3 class="box-title">Báo cáo trạng thái chi hộ COD</h3>
             <div class="box-tools pull-right">
                 @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
-                <h3 class="box-title">KD/QT_DI_N</h3>
+                <h3 class="box-title">KD/TTCH_COD</h3>
             </div>
 
         </div>
@@ -50,7 +48,10 @@
                             <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label>Số hiệu khách hàng</label>
+                        <textarea rows="1" class="form-control" id="So_hieu" placeholder="Nhập số hiệu"></textarea>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -62,85 +63,83 @@
                             <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Khu Vực</label>
-                        <select class="form-control select2" style="width: 100%;" id="zone">
-                            <option selected="selected" value="0">Đơn vị</option>
-                            <option value="1">BĐT</option>
-                            <option value="2">EMS</option>
+                        <label>Trạng thái</label>
+                        <select class="form-control select2" style="width: 100%;" id="Trang_thai">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">Đã trả tiền cho người gửi </option>
+                            <option value="2">Chưa trả tiền cho người gửi </option>
                         </select>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Mã khách Hàng</label>
+                        <textarea rows="1" class="form-control" id="Ma_kh" placeholder="Nhập mã khách hàng"></textarea>
+                    </div>
+                </div>
+                <!-- /.col -->
             </div>
-                <div class="row">
-                    <div class="col-md-4">
 
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
-                        <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist_KG" data-baseurl="@Url.Action("Export", "QT_Di_NEW")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
-                    </div>
-                </div>
+            <div class="row">
+                <div class="col-md-4">
 
-                <div class="loading-element text-center" style="font-size:50px;">
-                    <i class="fa fa-spinner fa-spin"></i>
-                    Vui lòng chờ giây lát...
                 </div>
-                @*<div class="box-header">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist_KG" data-baseurl="@Url.Action("Export_Bao_Cao_COD", "Bao_Cao_COD")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+
+            @*<div class="box-header">
             <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
         </div>*@
 
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                             Vui lòng chờ giây lát...
+            </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
                         @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
-                        <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "QT_Di_NEW")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                        <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export_Bao_Cao_COD", "Bao_Cao_COD")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
                     </div>
                 </div>
-                <div>
+                <div class="scrollingTable">
                     @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
-                    <table id="ExcelView" class="table table-bordered table-hover">
+                    <table id="TableAccount" class="table table-bordered table-hover">
                         <thead>
                             <tr class="bg-light-blue color-palette">
+
                                 <th class="text-center">STT<br /></th>
-                                <th class="text-center">Đơn vị</th>
-                                <th class="text-center">Mã tỉnh nhân</th>
-                                <th class="text-center">Tên tỉnh nhận</th>
-                                <th class="text-center">Mã E1</th>
+                                <th class="text-center">Ngày chấp nhận</th>
+                                <th class="text-center">Ngày trả tiền</th>
                                 <th class="text-center">Mã khách hàng</th>
-                                <th class="text-center">Mã nc nhận</th>
-                                <th class="text-center">Tên nc nhận</th>
-                                <th class="text-center">Ngày phát hành</th>
-                                <th class="text-center">Mã DV</th>
-                                <th class="text-center">Phân loại</th>
-                                <th class="text-center">KL thực tế</th>
-                                <th class="text-center">Nấc KL</th>
-                                <th class="text-center">KL quy đổi</th>
-                                <th class="text-center">Tổng cước</th>
+                                <th class="text-center">Mã khách hàng tổng</th>
+                                <th class="text-center">Tên khách hàng</th>
+                                <th class="text-center">Chi nhánh</th>
+                                <th class="text-center">Số hiệu khách hàng</th>
+                                <th class="text-center">Mã vận đơn</th>
+                                <th class="text-center">Số tiền thu hộ</th>
+                                <th class="text-center">Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody id="listkpithdvreport"></tbody>
                     </table>
-
                 </div>
-
             </div>
-    </div>
+        </div>
 </section>
-
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 @*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
 
 <script type="text/javascript">
 
-
-    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
-       , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
     $(document).ready(function () {
 
         var d = new Date();
@@ -148,10 +147,11 @@
         var currYear = d.getFullYear();
         var startDate = new Date(currYear, currMonth, 1);
 
+
         $("#fromdate").datepicker({
             dateFormat: "dd/mm/yyyy",
             todayHighlight: true
-        }).datepicker("setDate", startDate);
+        }).datepicker("setDate", "0");
 
         $("#todate").datepicker({
             dateFormat: "dd/mm/yyyy",
@@ -162,57 +162,63 @@
         $('.loading-element').hide();
         $('.box-footer').hide();
         $('#btnexportlist').hide();
+       // detail();
     });
 
+    //Phần Xuất Excel của bảng tổng hợp
+
+
+
+
     $("#btnreport").click(function () {
+
         // goi ham Detail
         $("#listkpithdvreport tr").remove();
         detail();
         $('.box-footer').show();
 
+
     });
 
     //Phần chi tiết của bảng tổng hợp sản lượng đi phát
-    function detail() {
 
+    //Phần function detail_account
+    function detail() {
         $.ajax({
             type: "POST",
-            url: '@Url.Action("ListDetailedQualityQTDIReport", "QT_Di_NEW")',
+            url: '@Url.Action("ListBao_Cao_CODReport", "Bao_Cao_COD")',
             beforeSend: function () {
-                $('.loading-element').show();
+              //  $('.loading-element').show();
             },
             dataType: 'json',
             data:
-            {
-                startdate: $('#fromdate').val(),
-                enddate: $('#todate').val(),
-                zone:$('#zone').val(),
+                {
+                Startdate: $('#fromdate').val(),
+                Enddate: $('#todate').val(),
+                Ma_kh: $("#Ma_kh").val(),
+                So_hieu: $("#So_hieu").val(),
+                Trang_thai: $("#Trang_thai").val(),
                 },
             success: function (data) {
-
                 var str_html = "";
                 var str_body = "";
                 var a = 1;
-                $.each(data.ListDetaiQT_DI_NEW, function (i, item) {
+                $.each(data.ListBao_Cao_COD, function (i, item) {
                     str_body += '<tr>';
-                    str_body += '<td width="10" class="text-center">' + a++ + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Donvi + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Matinhnhan + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Tentinhnhan + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Mae1 + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].MaKH + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Manuoctra + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Ten_Nuoc + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].NgayPhatHanh + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Madvchinh + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].PhanLoai + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].khoiluong + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].NacKL + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].KLQD + '</td>';
-                    str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Tongcuoc + '</td>';
+                    str_body += '<td class="text-center">' + a++ + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].Ngay_CN + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].Ngay_COD + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].Makh + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].Ma_Tong + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].NguoiGui + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].Chi_Nhanh + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].SO_THAM_CHIEU + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].Mae1 + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].COD + '</td>';
+                    str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].Trang_Thai + '</td>';
+                    //str_body += '<td class="text-center">' + data.ListBao_Cao_COD[i].San_Luong + '</td>';
                     str_body += '</tr>';
                 });
-
                 str_html += str_body;
 
 
@@ -233,11 +239,10 @@
                     $('#btnexportlist').show();
                     $('#TableAccount').DataTable({
                         "ordering": false,
-                        "scrollX": true,
                         "language": {
                             " processing": "Message khi đang tải dữ liệu",
                             "search": "Tìm kiếm theo từ khóa:",
-                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListDetaiQT_DI_NEW.length + " bản ghi",
+                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListBao_Cao_COD.length + " bản ghi",
 
                             "zeroRecords": "Không có dữ liệu !",
                             "info": "Hiển thị trang _PAGE_ đến _PAGES_",
@@ -252,24 +257,24 @@
                             }
                         }
                     });
-
-
                 }
             }
         })
     }
 
-    $('#btnexportlist_KG').click(function () {
-        // build the url
-        var url = $(this).data('baseurl') + '?startDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val(); 
-        // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
-        location.href = url;
-    });
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?startDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val(); 
-       // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
+        var url = $(this).data('baseurl') + '?Startdate=' + $('#fromdate').val() + '&Enddate=' + $('#todate').val() + '&Ma_kh=' + $('#Ma_kh').val() + '&So_hieu=' + $('#So_hieu').val() + '&Trang_thai=' + $('#Trang_thai').val() ;
+        // redirect
+        location.href = url;
+    });
+    $('#btnexportlist_KG').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?Startdate=' + $('#fromdate').val() + '&Enddate=' + $('#todate').val() + '&Ma_kh=' + $('#Ma_kh').val() + '&So_hieu=' + $('#So_hieu').val() + '&Trang_thai=' + $('#Trang_thai').val();
+        // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
         location.href = url;
     });
 
 </script>
+
+

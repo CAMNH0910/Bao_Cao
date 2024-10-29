@@ -22,6 +22,7 @@ namespace T41.Areas.Admin.Model.DataModel
         //  public String TenDV { get; set; }
         public String PhanLoai { get; set; }
         public String khoiluong { get; set; }
+        public String NacKL { get; set; }
         public String KLQD { get; set; }
         public String Tongcuoc { get; set; }
     }

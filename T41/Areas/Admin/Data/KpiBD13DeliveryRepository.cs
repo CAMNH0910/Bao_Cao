@@ -144,7 +144,9 @@ namespace T41.Areas.Admin.Data
                             oKpiBD13DeliveryDetail.SanLuongPTC = Convert.ToInt32(dr["SANLUONGPTC"].ToString());
                             oKpiBD13DeliveryDetail.TLPTC = Convert.ToDecimal(dr["TLPTC"].ToString());
                             oKpiBD13DeliveryDetail.TC72 = Convert.ToInt32(dr["TC72"].ToString());
-                            oKpiBD13DeliveryDetail.TLPTC72 = Convert.ToDecimal(dr["TLPTC72"].ToString());
+                            oKpiBD13DeliveryDetail.TLPTC48 = Convert.ToDecimal(dr["TLPTC72"].ToString());
+                            oKpiBD13DeliveryDetail.TC48 = Convert.ToInt32(dr["TC48"].ToString());
+                            oKpiBD13DeliveryDetail.TLPTC72 = Convert.ToDecimal(dr["TLPTC48"].ToString());
                             oKpiBD13DeliveryDetail.SanLuongKTT = Convert.ToInt32(dr["SANLUONGKTT"].ToString());
                             oKpiBD13DeliveryDetail.SanLuongPTC6H = Convert.ToInt32(dr["SANLUONGPTC6H"].ToString());
                             oKpiBD13DeliveryDetail.SanLuongPTCQUA6H = Convert.ToInt32(dr["SANLUONGPTCQUA6H"].ToString());
@@ -164,8 +166,6 @@ namespace T41.Areas.Admin.Data
                         _returnKpiBD13.Message = "Không có dữ liệu";
 
                     }
-
-
                 }
             }
             catch (Exception ex)

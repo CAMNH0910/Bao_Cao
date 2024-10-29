@@ -134,6 +134,53 @@ namespace T41.Areas.Admin.Model.DataModel
     }
 
     //Dữ liệu trả về sau khi gọi dữ liệu dưới DB
+
+    public class KPI_KTHT{
+        public int STT { get; set; }
+        public string Id_Hanh_Trinh { get; set; }
+        public string TEN_HANH_TRINH { get; set; }
+        public string THOI_GIAN_DI { get; set; }
+        public string San_Luong { get; set; }
+        public string San_Luong_TC { get; set; }
+
+
+    }
+
+    public class KPI_KTHT_CT
+    {
+        public int STT { get; set; }
+        public string Id_Hanh_Trinh { get; set; }
+        public string TEN_HANH_TRINH { get; set; }
+        public string THOI_GIAN_DI { get; set; }
+        public string Mae1 { get; set; }
+        public string Noi_Dung { get; set; }
+        public string Nguoi_Nhan { get; set; }
+        public string Dia_Chi { get; set; }
+        public string Khoi_Luong { get; set; }
+        public string Gio_Den { get; set; }
+        public string Gio_Di { get; set; }
+        public string Ngay_HT_Di { get; set; }
+        
+    }
+
+    public class KPI_KTHT_TC
+    {
+        public int STT { get; set; }
+        public string Id_Hanh_Trinh { get; set; }
+        public string TEN_HANH_TRINH { get; set; }
+        public string THOI_GIAN_DI { get; set; }
+        public string Mae1 { get; set; }
+        public string Noi_Dung { get; set; }
+        public string Nguoi_Nhan { get; set; }
+        public string Dia_Chi { get; set; }
+        public string Khoi_Luong { get; set; }
+        public string Gio_Den { get; set; }
+        public string Gio_Di { get; set; }
+        public string Ngay_HT_Di { get; set; }
+        public string IDVNPOST { get; set; }
+        
+
+    }
     public class ReturnKPIKT
     {
         public string Code { get; set; }
@@ -147,6 +194,15 @@ namespace T41.Areas.Admin.Model.DataModel
         /// Value
         /// </summary>
         public int Total { get; set; }
+        public KPI_KTHT KPI_KTHT { get; set; }
+        public List<KPI_KTHT> LisKPI_KTHT;
+
+        public KPI_KTHT_CT KPI_KTHT_CT { get; set; }
+        public List<KPI_KTHT_CT> LisKPI_KTHT_CT;
+
+        public KPI_KTHT_TC KPI_KTHT_TC { get; set; }
+        public List<KPI_KTHT_TC> LisKPI_KTHT_TC;
+
 
         public THTCDetail THTCDetailReport { get; set; }
         public List<THTCDetail> ListTHTCReport;

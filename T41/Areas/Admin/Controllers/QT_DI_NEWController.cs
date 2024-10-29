@@ -13,6 +13,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using OfficeOpenXml.Style;
 using T41.Areas.Admin.Model.DataModel;
+using System.Security.Policy;
 
 namespace T41.Areas.Admin.Controllers
 {
@@ -24,15 +25,16 @@ namespace T41.Areas.Admin.Controllers
             return View();
 
         }
-        public ActionResult ListDetailedQualityQTDIReport( string startdate, string enddate)
+        public ActionResult ListDetailedQualityQTDIReport( string startdate, string enddate,int zone)
         {
 
 
             ViewBag.startdate = startdate;
             ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
             QT_DI_NEWRepository qualityTHDVRepository = new QT_DI_NEWRepository();
             ReturnQT_DI_NEW returnquality = new ReturnQT_DI_NEW();
-            returnquality = qualityTHDVRepository.QT_DI_NEW_DETAIL( common.DateToInt(startdate), common.DateToInt(enddate));
+            returnquality = qualityTHDVRepository.QT_DI_NEW_DETAIL( common.DateToInt(startdate), common.DateToInt(enddate), zone);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -41,13 +43,14 @@ namespace T41.Areas.Admin.Controllers
 
         //Phần trả về data theo list để xuất excel
         [HttpGet]
-        public List<QT_DI_NEW> ReturnListExcel(string startdate, string enddate)
+        public List<QT_DI_NEW> ReturnListExcel(string startdate, string enddate,int zone)
         {
             ViewBag.startdate = startdate;
             ViewBag.enddate = enddate;
-            QT_DI_NEWRepository qualityTHDVRepository = new QT_DI_NEWRepository();
+            ViewBag.zone = zone;
+           QT_DI_NEWRepository qualityTHDVRepository = new QT_DI_NEWRepository();
             ReturnQT_DI_NEW returnquality = new ReturnQT_DI_NEW();
-            returnquality = qualityTHDVRepository.QT_DI_NEW_DETAIL(common.DateToInt(startdate), common.DateToInt(enddate));
+            returnquality = qualityTHDVRepository.QT_DI_NEW_DETAIL(common.DateToInt(startdate), common.DateToInt(enddate), zone);
             return returnquality.ListDetaiQT_DI_NEW;
         }
 
@@ -55,7 +58,7 @@ namespace T41.Areas.Admin.Controllers
         public Stream CreateExcelFile(Stream stream = null)
         {
             //var list = CreateTestItems();
-            var list = ReturnListExcel(ViewBag.startdate, ViewBag.enddate);
+            var list = ReturnListExcel(ViewBag.startdate, ViewBag.enddate, ViewBag.zone);
             using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
             {
                 // Tạo author cho file Excel
@@ -80,7 +83,7 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<QT_DI_NEW> listItems)
         {
-            var list = ReturnListExcel(ViewBag.startdate, ViewBag.enddate);
+            var list = ReturnListExcel(ViewBag.startdate, ViewBag.enddate, ViewBag.zone);
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 30;
             worksheet.DefaultRowHeight = 20;
@@ -88,13 +91,13 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
             worksheet.Cells[1, 1].Value = "BÁO CÁO CHI TIẾT THEO MÃ E1 QUỐC TẾ ĐI";
-            worksheet.Cells["A1:N1"].Merge = true;
+            worksheet.Cells["A1:O1"].Merge = true;
 
-            worksheet.Cells[2, 14].Value = "MÃ BÁO CÁO:KD/EQTDi_N";
-            worksheet.Cells["N2:N2"].Merge = true;
+            worksheet.Cells[2, 15].Value = "MÃ BÁO CÁO:KD/EQTDi_N";
+            worksheet.Cells["N2:O2"].Merge = true;
 
             worksheet.Cells[2, 7].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
-            worksheet.Cells["G2:H2"].Merge = true;
+            worksheet.Cells["G2:I2"].Merge = true;
 
             worksheet.Cells[4, 1].Value = "STT";
             worksheet.Cells[4, 2].Value = "Đơn Vị";
@@ -108,13 +111,14 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[4, 10].Value = "Mã dịch vụ";
             // worksheet.Cell4[1, 10].Value = "Tên dịch vụ";           
             worksheet.Cells[4, 11].Value = "Phân loại";
-            worksheet.Cells[4, 12].Value = "KL";
-            worksheet.Cells[4, 13].Value = "KLQD";
-            worksheet.Cells[4, 14].Value = "Tổng cước";
+            worksheet.Cells[4, 12].Value = "Khối lượng";
+            worksheet.Cells[4, 13].Value = "Nấc KL";
+            worksheet.Cells[4, 14].Value = "KLQD";
+            worksheet.Cells[4, 15].Value = "Tổng cước";
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A4:N4"])
-            using (var ranges = worksheet.Cells["A1:N1"])
-            using (var Ngay = worksheet.Cells["G2:H2"])
+            using (var range = worksheet.Cells["A4:O4"])
+            using (var ranges = worksheet.Cells["A1:O1"])
+            using (var Ngay = worksheet.Cells["G2:I2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -143,10 +147,11 @@ namespace T41.Areas.Admin.Controllers
 
         //Hàm Export excel  , truyền parameter vào để export
         [HttpGet]
-        public ActionResult Export( string startdate, string enddate)
+        public ActionResult Export( string startdate, string enddate, int zone)
         {
             ViewBag.startdate = startdate;
             ViewBag.enddate = enddate;
+            ViewBag.zone= zone;
             //ViewBag.receptacle_id = receptacle_id;
             // Gọi lại hàm để tạo file excel
             var stream = CreateExcelFile();

@@ -132,21 +132,24 @@ namespace T41.Areas.Admin.Data
             }
 
             return listGetRouteCode;
-        }  
+        }
 
         #endregion
+
+
         public ReturnKPI_Thu_Gom KPI_Thu_Gom(int StartDate, int EndDate, int zone, int endpostcode)
         {
             DataTable da = new DataTable();
             Convertion common = new Convertion();
             ReturnKPI_Thu_Gom _ReturnKPI_Thu_Gom = new ReturnKPI_Thu_Gom();
-            var test = Helper.OraPNSOracleConnection;
+            var test = Helper.OraDCDevOracleConnection;
             try
             {
-                // Gọi vào DB để lấy dữ liệu.
+                // Gọi vào DB để lấy dữ liệu. KPI_delivery_PICKUP.REPORT_KPI_Thu_Gom
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("REPORT_COLLECT_PKG.REPORT_KPI_Thu_Gom", Helper.OraPNSOracleConnection);
+
+                    OracleCommand myCommand = new OracleCommand("REPORT_COLLECT_PKG.REPORT_KPI_Thu_Gom", Helper.OraDCDevOracleConnection);
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -158,7 +161,6 @@ namespace T41.Areas.Admin.Data
                     myCommand.Parameters.Add(new OracleParameter("P_OUT_CURSOR", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
                     mAdapter.Fill(da);
-
                     DataTableReader dr = da.CreateDataReader();
                     if (dr.HasRows)
                     {
@@ -166,7 +168,6 @@ namespace T41.Areas.Admin.Data
                         var listKPI_Thu_Gom = new List<KPI_Thu_Gom>();
                         while (dr.Read())
                         {
-
                             var oKPI_Thu_Gom = new KPI_Thu_Gom();
                             oKPI_Thu_Gom.STT = a++;
                             oKPI_Thu_Gom.PO_CODE = dr["PO_CODE"].ToString();
@@ -176,9 +177,16 @@ namespace T41.Areas.Admin.Data
                             oKPI_Thu_Gom.ROUTE_NAME = dr["ROUTE_NAME"].ToString();
                             oKPI_Thu_Gom.Id_Postman = dr["Id_Postman"].ToString();
                             oKPI_Thu_Gom.PostMan_Name = dr["PostMan_Name"].ToString();
-                            oKPI_Thu_Gom.Total = dr["Total"].ToString();
+                            oKPI_Thu_Gom.DV = dr["DV"].ToString();
                             oKPI_Thu_Gom.ARRIVED_WEIGHT = dr["ARRIVED_WEIGHT"].ToString();
-
+                            oKPI_Thu_Gom.San_Luong = dr["San_Luong"].ToString();
+                            oKPI_Thu_Gom.Tra_Lai = dr["Tra_Lai"].ToString();
+                            oKPI_Thu_Gom.SL2kg = dr["SL2kg"].ToString();
+                            oKPI_Thu_Gom.KL2kg = dr["KL2kg"].ToString();
+                            oKPI_Thu_Gom.SLL2kg = dr["SLL2kg"].ToString();
+                            oKPI_Thu_Gom.KLL2kg = dr["KLL2kg"].ToString();
+                            oKPI_Thu_Gom.TongKG = dr["TongKG"].ToString();
+                            oKPI_Thu_Gom.TongKL = dr["TongKL"].ToString();
                             listKPI_Thu_Gom.Add(oKPI_Thu_Gom);
                         }
                         _ReturnKPI_Thu_Gom.Code = "00";
@@ -197,7 +205,6 @@ namespace T41.Areas.Admin.Data
             {
                 _ReturnKPI_Thu_Gom.Code = "99";
                 _ReturnKPI_Thu_Gom.Message = "Lỗi xử lý dữ liệu";
-
             }
             return _ReturnKPI_Thu_Gom;
         }

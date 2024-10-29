@@ -11,18 +11,18 @@
 
 <style type="text/css">
     p {
-        font-weight:bold;
+        font-weight: bold;
     }
 </style>
 
 <section class="content-header">
-        <h1>
-            <small>Báo Cáo </small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Báo cáo thống kê sản lượng chấp nhập tại BC</li>
-        </ol>
+    <h1>
+        <small>Báo Cáo </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo thống kê sản lượng chấp nhập tại BC</li>
+    </ol>
 </section>
 <section class="content">
     <div class="box box-default">
@@ -30,7 +30,8 @@
 
             <h3 class="box-title">Báo cáo thống kê sản lượng chấp nhập tại BC</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">QLTN/CNTGD</h3>
             </div>
 
         </div>
@@ -58,9 +59,9 @@
                             <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
 
-                    </div>                                   
+                    </div>
                 </div>
-                <!-- /.col -->                                           
+                <!-- /.col -->
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -68,7 +69,7 @@
                 </div>
                 <div class="col-md-4">
                     <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
-                </div>              
+                </div>
             </div>
 
             <div class="loading-element text-center" style="font-size:50px;">
@@ -83,6 +84,7 @@
             </div>
             <div>
                 @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+
                 <table id="TableAccount" class="table table-bordered table-striped table-responsive-stack" style="width:100%">
                     <thead>
                         <tr class="bg-light-blue color-palette">
@@ -90,24 +92,26 @@
                             <th class="text-center">Chi nhánh</th>
                             <th class="text-center">Mã BC</th>
                             <th class="text-center">Tên BC</th>
-                            <th class="text-center">Tổng số BG chấp nhận</th>
+                            <th class="text-center">Tổng số</th>
                             <th class="text-center">Tỷ lệ</th>
-                            <th class="text-center">Số BG chấp nhận thủ công</th>
+                            <th class="text-center">SL thủ công</th>
                             <th class="text-center">Tỷ lệ</th>
-                            <th class="text-center">Số BG chấp nhận qua import Excel</th>
+                            <th class="text-center">SL import Excel</th>
                             <th class="text-center">Tỷ lệ</th>
-                            <th class="text-center">Số BG chấp nhận qua EMSONE</th>
+                            <th class="text-center">SL EMSONE</th>
                             <th class="text-center">Tỷ lệ</th>
-                            <th class="text-center">Số BG chấp nhận qua VDDT</th>
+                            <th class="text-center">SL VDDT</th>
                             <th class="text-center">Tỷ lệ</th>
-                            <th class="text-center">Số BG chấp nhận qua MCS</th>
-                            <th class="text-center">Tỷ lệ</th>                                                                                        
+                            <th class="text-center">SL MCS</th>
+                            <th class="text-center">Tỷ lệ</th>
+                            <th class="text-center">SL Khác</th>
+                            <th class="text-center">Tỷ lệ</th>
                         </tr>
                     </thead>
                     <tbody id="listkpithdvreport"></tbody>
                 </table>
 
-            </div>                       
+            </div>
 
         </div>
     </div>
@@ -121,7 +125,7 @@
 
 
 <script type="text/javascript">
-   
+
 
     var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
        , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
@@ -170,17 +174,17 @@
     //        ExportToExcel('GridView1');
     //    });
     //});
-    
-    
+
+
 
     $("#btnreport").click(function () {
-        
+
         // goi ham Detail
         $("#listkpithdvreport tr").remove();
         detail();
         $('.box-footer').show();
 
-        
+
     });
 
 
@@ -203,24 +207,28 @@
                 var str_body = "";
                 var a = 1;
                 $.each(data.listDetail_TKSLGDReport, function (i, item) {
-                    str_body += '<tr>';
-                    str_body += '<td width="10" class="text-center">' + a++ + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].ROLE + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].POSCODE + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].POSNAME + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].SLTOTAL + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].TLTOTAL + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].SLTHUCONG + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].TLTHUCONG + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].SLEXCEL + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].TLEXCEL + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].SLONE + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].TLONE + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].SLVDDT + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].TLVDDT + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].SLMCS + '</td>';
-                    str_body += '<td class="text-center">' + data.listDetail_TKSLGDReport[i].TLMCS + '</td>';
-                    str_body += '</tr>';
+                    str_body += `
+                        <tr>
+                            <td style="width: 2%;" class="text-center">${a++}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].ROLE}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].POSCODE}</td>
+                            <td style="width: 15%;" >${data.listDetail_TKSLGDReport[i].POSNAME}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].SLTOTAL}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].TLTOTAL}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].SLTHUCONG}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].TLTHUCONG}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].SLEXCEL}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].TLEXCEL}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].SLONE}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].TLONE}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].SLVDDT}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].TLVDDT}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].SLMCS}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].TLMCS}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].SLKhac}</td>
+                            <td style="width: 5%;" class="text-center">${data.listDetail_TKSLGDReport[i].TLKhac}</td>
+                        </tr>`;
+
                 });
                 str_html += str_body;
 
@@ -235,7 +243,7 @@
 
                 }
                 else {
-                 
+
                     $("#TableAccount").dataTable().fnDestroy();
                     $('#listkpithdvreport').html(str_html);
                     $('.loading-element').hide();
@@ -246,7 +254,7 @@
                             " processing": "Message khi đang tải dữ liệu",
                             "search": "Tìm kiếm theo từ khóa:",
                             "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.listDetail_TKSLGDReport.length + " bản ghi",
-                        
+
                             "zeroRecords": "Không có dữ liệu !",
                             "info": "Hiển thị trang _PAGE_ đến _PAGES_",
                             "infoEmpty": "Không tồn tại bản ghi !",
@@ -266,7 +274,7 @@
             }
         })
     }
-   
+
     $('#btnexportlist').click(function () {
         // build the url
         var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
@@ -326,7 +334,7 @@
             });
         })
     });
-    
+
 </script>
 
 

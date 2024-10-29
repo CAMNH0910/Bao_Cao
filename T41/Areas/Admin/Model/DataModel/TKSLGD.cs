@@ -20,9 +20,12 @@ namespace T41.Areas.Admin.Model.DataModel
         public string SLONE { get; set; }
         public string TLONE { get; set; }
         public string SLVDDT { get; set; }
-        public string TLVDDT { get; set; } 
+        public string TLVDDT { get; set; }
         public string SLMCS { get; set; }
         public string TLMCS { get; set; }
+        public string SLKhac { get; set; }
+        public string TLKhac { get; set; }
+
 
     }
     public class ResponseTKSLGD

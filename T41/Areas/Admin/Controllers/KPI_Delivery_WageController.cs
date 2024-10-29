@@ -187,9 +187,9 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[5, 10].Value = "SL phát không thành công ";
             worksheet.Cells[5, 11].Value = "Tổng cộng";
 
-            worksheet.Cells[4, 12].Value = "SL Phát TC 6h";
+            worksheet.Cells[4, 12].Value = "SL Phát TC (Xe máy - 6h; Ô tô - 12h";
             worksheet.Cells["L4:L5"].Merge = true;
-            worksheet.Cells[4, 13].Value = "SL Phát TC 72h";
+            worksheet.Cells[4, 13].Value = "SL Phát TC (TT - 48h; TMĐT - 72h)";
             worksheet.Cells["M4:M5"].Merge = true;
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
@@ -683,9 +683,9 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[5, 21].Value = "Tổng cộng";
             worksheet.Cells["U5:U7"].Merge = true;
 
-            worksheet.Cells[4, 22].Value = "SL Phát TC 6h";
+            worksheet.Cells[4, 22].Value = "SL Phát TC (Xe máy - 6h; Ô tô - 12h";
             worksheet.Cells["V4:V7"].Merge = true;
-            worksheet.Cells[4, 23].Value = "SL Phát TC 72h";
+            worksheet.Cells[4, 23].Value = "SL Phát TC (TT - 48h; TMĐT - 72h)";
             worksheet.Cells["W4:W7"].Merge = true;
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
@@ -1140,8 +1140,8 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[1, 8].Value = "KL Dưới 5KG";
             worksheet.Cells[1, 9].Value = "SL Trên 5KG";
             worksheet.Cells[1, 10].Value = "KL Trên 5KG";
-            worksheet.Cells[1, 11].Value = "PTC 6H";
-            worksheet.Cells[1, 12].Value = "PTC 72H";
+            worksheet.Cells[1, 11].Value = "SL Phát TC (Xe máy - 6h; Ô tô - 12h";
+            worksheet.Cells[1, 12].Value = "SL Phát TC (TT - 48h; TMĐT - 72h)";
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
             using (var range = worksheet.Cells["A1:L1"])
             {

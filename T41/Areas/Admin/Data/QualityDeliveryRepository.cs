@@ -7,6 +7,7 @@ using T41.Areas.Admin.Common;
 using System.Data;
 using T41.Areas.Admin.Model.DataModel;
 using T41.Areas.Admin.Models.DataModel;
+using System.Security.Policy;
 
 
 namespace T41.Areas.Admin.Data
@@ -148,6 +149,8 @@ namespace T41.Areas.Admin.Data
 
                             oQualityDeliveryDetail.SanLuongPTC72H = Convert.ToInt32(dr["TC72"].ToString());
                             oQualityDeliveryDetail.TylePTC72H = Convert.ToDecimal(dr["TYLEPTC72"].ToString());
+                            oQualityDeliveryDetail.SanLuongPTC48H = Convert.ToInt32(dr["TC48"].ToString());
+                            oQualityDeliveryDetail.TylePTC48H = Convert.ToDecimal(dr["TYLEPTC48"].ToString());
                             oQualityDeliveryDetail.TC24H = Convert.ToInt32(dr["TC24H"].ToString());
                             oQualityDeliveryDetail.TYLEPTC24 = Convert.ToDecimal(dr["TYLEPTC24"].ToString());
 
@@ -159,7 +162,7 @@ namespace T41.Areas.Admin.Data
                             oQualityDeliveryDetail.TCKXD = Convert.ToInt32(dr["TCKXD"].ToString());
                             listQualityDeliveryDetail.Add(oQualityDeliveryDetail);
 
-                        }
+                        } 
                         _returnQuality.Code = "00";
                         _returnQuality.Message = "Lấy dữ liệu thành công.";
                         _returnQuality.ListQualityDeliveryReport = listQualityDeliveryDetail;
@@ -189,7 +192,7 @@ namespace T41.Areas.Admin.Data
 
         //Phần chi tiết của từng bưu gửi theo số lượng phát thành công trong 6H
         #region QUALITY_DETAIL          
-        public ReturnQuality Quality_Delivery_Success6H_Detail(int endpostcode, int routecode, int startdate, int enddate, int service, int type)
+        public ReturnQuality Quality_Delivery_Success6H_Detail(int zone,int endpostcode, int routecode, int startdate, int enddate, int service, int type)
         {
             DataTable da = new DataTable();
             MetaData1 _metadata1 = new MetaData1();
@@ -209,6 +212,7 @@ namespace T41.Areas.Admin.Data
                     cmd.Connection = Helper.OraDCOracleConnection;
                     cmd.CommandText = Helper.SchemaName + "kpi_detail_delivery.Detail_Item_Ems";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new OracleParameter("v_Zone", OracleDbType.Int32)).Value = zone;
                     cmd.Parameters.Add(new OracleParameter("v_EndPostCode", OracleDbType.Int32)).Value = endpostcode;
                     cmd.Parameters.Add(new OracleParameter("v_routecode", OracleDbType.Int32)).Value = routecode;
                     cmd.Parameters.Add(new OracleParameter("v_Service", OracleDbType.Int32)).Value = service;
@@ -262,7 +266,7 @@ namespace T41.Areas.Admin.Data
 
         //Phần chi tiết của từng bưu gửi theo số lượng phát thành công không có thông tin
         #region QUALITY_DETAIL          
-        public ReturnQuality Quality_Delivery_NoInformation_Detail(int endpostcode, int routecode, int startdate, int enddate, int service, int type)
+        public ReturnQuality Quality_Delivery_NoInformation_Detail(int zone,int endpostcode, int routecode, int startdate, int enddate, int service, int type)
         {
             DataTable da = new DataTable();
             MetaData1 _metadata1 = new MetaData1();
@@ -278,6 +282,7 @@ namespace T41.Areas.Admin.Data
                     cmd.Connection = Helper.OraDCOracleConnection;
                     cmd.CommandText = Helper.SchemaName + "kpi_detail_delivery.Detail_Item_Ems_KTT";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new OracleParameter("v_Zone", OracleDbType.Int32)).Value = zone;
                     cmd.Parameters.Add(new OracleParameter("v_EndPostCode", OracleDbType.Int32)).Value = endpostcode;
                     cmd.Parameters.Add(new OracleParameter("v_routecode", OracleDbType.Int32)).Value = routecode;
                     cmd.Parameters.Add(new OracleParameter("v_Service", OracleDbType.Int32)).Value = service;

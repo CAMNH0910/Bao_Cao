@@ -19,6 +19,9 @@ namespace T41.Areas.Admin.Models.DataModel
         public Decimal TLPTC { get; set; }
         public int TC72 { get; set; }
         public Decimal TLPTC72 { get; set; }
+
+        public int TC48 { get; set; }
+        public Decimal TLPTC48 { get; set; }
         public int SanLuongKTT { get; set; }
         public int SanLuongPTC6H { get; set; }
         public int SanLuongPTCQUA6H { get; set; }

@@ -57,30 +57,29 @@ namespace T41.Areas.Admin.Controllers
 
         [HttpPost]
         //Controller gọi đến chi tiết theo từng mã bưu cục của sản lượng phát thành công trong 6H
-        public ActionResult QualityDeliveryDetailReport_Success6H(int endpostcode, int routecode, string startdate, string enddate, int service, int type)
+        public ActionResult QualityDeliveryDetailReport_Success6H(int zone,int endpostcode, int routecode, string startdate, string enddate, int service, int type)
         {
             QualityDeliveryRepository qualitydeliveryRepository = new QualityDeliveryRepository();
             ReturnQuality returnquality = new ReturnQuality();
-            returnquality = qualitydeliveryRepository.Quality_Delivery_Success6H_Detail(endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service, type);
+            returnquality = qualitydeliveryRepository.Quality_Delivery_Success6H_Detail(zone,endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service, type);
             return Json(returnquality, JsonRequestBehavior.AllowGet);
 
         }
 
         [HttpPost]
         //Controller gọi đến chi tiết theo từng mã bưu cục của sản lượng phát thành công không có thông tin 
-        public ActionResult QualityDeliveryDetailReport_NoInformation(int endpostcode, int routecode, string startdate, string enddate, int service, int type)
+        public ActionResult QualityDeliveryDetailReport_NoInformation(int zone ,int endpostcode, int routecode, string startdate, string enddate, int service, int type)
         {
             QualityDeliveryRepository qualitydeliveryRepository = new QualityDeliveryRepository();
             ReturnQuality returnquality = new ReturnQuality();
-            returnquality = qualitydeliveryRepository.Quality_Delivery_NoInformation_Detail(endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service, type);
+            returnquality = qualitydeliveryRepository.Quality_Delivery_NoInformation_Detail(zone,endpostcode, routecode, common.DateToInt(startdate), common.DateToInt(enddate), service, type);
             return Json(returnquality, JsonRequestBehavior.AllowGet);
         }
 
         //Controller gọi đến chi tiết của bảng tổng hợp sản lượng đi phát
         public ActionResult ListDetailedQualityDeliveryReport(int zone, int endpostcode, int routecode, string startdate, string enddate, int service)
         {
-            //ViewBag.zone = zone;
-
+            ViewBag.zone = zone;
             ViewBag.endpostcode = endpostcode;
             ViewBag.routecode = routecode;
             ViewBag.service = service;
@@ -148,13 +147,13 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
             worksheet.Cells[1, 1].Value = "BÁO CÁO CHẤT LƯỢNG PHÁT";
-            worksheet.Cells["A1:Q1"].Merge = true;
+            worksheet.Cells["A1:S1"].Merge = true;
 
-            worksheet.Cells[2, 17].Value = "MÃ BÁO CÁO:P/CLP";
-            worksheet.Cells["Q2:Q2"].Merge = true;
+            worksheet.Cells[2, 19].Value = "MÃ BÁO CÁO:P/CLP";
+            worksheet.Cells["S2:S2"].Merge = true;
 
-            worksheet.Cells[2, 8].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.endDate;
-            worksheet.Cells["H2:J2"].Merge = true;
+            worksheet.Cells[2, 9].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.endDate;
+            worksheet.Cells["I2:K2"].Merge = true;
 
             worksheet.Cells[4, 1].Value = "STT";
             worksheet.Cells[4, 2].Value = "Đơn Vị";
@@ -163,22 +162,24 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[4, 5].Value = "SL Bưu Gửi Đến";
             worksheet.Cells[4, 6].Value = "SL Phát Thành Công";
             worksheet.Cells[4, 7].Value = "TL Phát Thành Công";
-            worksheet.Cells[4, 8].Value = "SL Phát Thành Công 24H";
-            worksheet.Cells[4, 9].Value = "TL Phát Thành Công 24H";
-            worksheet.Cells[4, 10].Value = "SL Phát Thành Công 72H";
-            worksheet.Cells[4, 11].Value = "TL Phát Thành Công 72H";
-            worksheet.Cells[4, 12].Value = "SL Phát Chưa Có Thông Tin";
-            worksheet.Cells[4, 13].Value = "SL PTC Đúng Quy Định";
-            worksheet.Cells[4, 14].Value = "SL PTC Không Đúng Quy Định";
-            worksheet.Cells[4, 15].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
-            worksheet.Cells[4, 15].Value = "Tỉ Lệ TC Không Đúng Quy Định";
-            worksheet.Cells[4, 17].Value = "SL PTC Không Xác Định";
+            worksheet.Cells[4, 8].Value = "SL Phát Thành Công 72H";
+            worksheet.Cells[4, 9].Value = "TL Phát Thành Công 72H";
+            worksheet.Cells[4, 10].Value = "SL Phát Thành Công 48H";
+            worksheet.Cells[4, 11].Value = "TL Phát Thành Công 48H";
+            worksheet.Cells[4, 12].Value = "SL Phát Thành Công 24H";
+            worksheet.Cells[4, 13].Value = "TL Phát Thành Công 24H";
+            worksheet.Cells[4, 14].Value = "SL Phát Chưa Có Thông Tin";
+            worksheet.Cells[4, 15].Value = "SL PTC Đúng Quy Định";
+            worksheet.Cells[4, 16].Value = "SL PTC Không Đúng Quy Định";
+            worksheet.Cells[4, 17].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
+            worksheet.Cells[4, 18].Value = "Tỉ Lệ TC Không Đúng Quy Định";
+            worksheet.Cells[4, 19].Value = "SL PTC Không Xác Định";
 
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
             using (var range = worksheet.Cells["A4:Q4"])
             using (var ranges = worksheet.Cells["A1:Q1"])
-            using (var Ngay = worksheet.Cells["H2:J2"])
+            using (var Ngay = worksheet.Cells["I2:K2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;

@@ -25,12 +25,15 @@
             <td class="text-center">@c.SanLuongPTC72H</td>
             <td class="text-center">@c.TylePTC72H</td>
 
+            <td class="text-center">@c.SanLuongPTC48H</td>
+            <td class="text-center">@c.TylePTC48H</td>
+
 
             <td class="text-center">@c.TC24H</td>
             <td class="text-center">@c.TYLEPTC24</td>
 
             <td class="text-center">
-                <a data-toggle="modal" data-id="@c.SanLuongKTT" class="modal-ktt" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.SanLuongKTT </a>
+                <a data-toggle="modal" data-id="@c.BuuCuc" class="modal-ktt" data-target="#myModal" href="#myModal" rel="@c.BuuCuc">@c.SanLuongKTT </a>
             </td>
             <td class="text-center">@c.SanLuongPTC6H </td>
             <td class="text-center">
@@ -52,7 +55,7 @@
 
     <script type="text/javascript" src="~/Areas/Admin/Content/bower_components/QualityDelivertChartJS/Chart.js"></script>
     //Thuộc tính attr sẽ gọi đến rel VD : $(this).attr("rel"); sẽ gọi đến rel , $(this).attr("data-id"); sẽ gọi đến data-id.
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
         $(document).ready(function () {
@@ -60,23 +63,31 @@
 
             $('.modal-sanluong').click(function (e) {
 
-                var endpostcode = $(this).attr("rel");
-                var routecode = '@ViewBag.routecode';
-                @*var zone = '@ViewBag.zone';*@
-                var service = '@ViewBag.service';
-                var startdate = '@ViewBag.startdate';
-                var enddate = '@ViewBag.enddate';
+                    var zone = '@ViewBag.zone';
+                       var endpostcode;
+                     var routecode;
+                     if ($("#endpostcode").val() === "0") {
+                         endpostcode = $(this).attr("data-id");
+                         routecode = 0;
+                     } else {
+                         endpostcode = $("#endpostcode").val();
+                         routecode =  $(this).attr("data-id");
+                     }
+                     var service = '@ViewBag.service';
+                     var startdate = '@ViewBag.startdate';
+                     var enddate = '@ViewBag.enddate';
+                    var type = 1;
 
-                var type = 1;
                 var da = {
-                    endpostcode: endpostcode,
-                    //zone: zone,
-                    routecode: routecode,
-                    service: service,
-                    startdate: startdate,
-                    enddate: enddate,
-                    type: type,
-                };
+                        zone : zone,
+                        endpostcode: endpostcode,
+                        //zone: zone, // Nếu cần sử dụng, bạn có thể thêm dòng này
+                        routecode: routecode,
+                        service: service,
+                        startdate: startdate,
+                        enddate: enddate,
+                        type: type,
+                    };
                 $.ajax({
                     type: "POST",
                     beforeSend: function () {
@@ -162,6 +173,7 @@
                 var enddate = '@ViewBag.enddate';
                 var type = 2;
                 var da = {
+
                     endpostcode: endpostcode,
                     routecode: routecode,
                     //zone: zone,
@@ -244,15 +256,22 @@
 
         $(document).ready(function () {
             $('.modal-ktt').click(function (e) {
-
-                var endpostcode = $(this).attr("rel");
-                var routecode = '@ViewBag.routecode';
-                @*var zone = '@ViewBag.zone';*@
-                var service = '@ViewBag.service';
-                var startdate = '@ViewBag.startdate';
-                var enddate = '@ViewBag.enddate';
+                var zone = '@ViewBag.zone';
+                   var endpostcode;
+                 var routecode;
+                 if ($("#endpostcode").val() === "0") {
+                     endpostcode = $(this).attr("data-id");
+                     routecode = 0;
+                 } else {
+                     endpostcode = $("#endpostcode").val();
+                     routecode =  $(this).attr("data-id");
+                 }
+                 var service = '@ViewBag.service';
+                 var startdate = '@ViewBag.startdate';
+                 var enddate = '@ViewBag.enddate';
                 var type = 3;
                 var da = {
+                    zone: zone,
                     endpostcode: endpostcode,
                     //zone: zone,
                     routecode: routecode,
@@ -331,7 +350,7 @@
             });
         });
 
-    </script>
+</script>
 }
 else
 {

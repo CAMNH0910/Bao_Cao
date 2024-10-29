@@ -1,0 +1,365 @@
+﻿
+
+
+
+@{
+    // Layout = null;
+}
+
+<!-- Link đến các thư viện CSS -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    p {
+        font-weight: bold;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        <small>TICKET</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">TICKET</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">TICKET</h3>
+        </div>
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>User</label>
+                        <select class="form-control select2" style="width: 100%;" id="user">
+                            <option selected="selected" value="0">Chọn User</option>
+                            <option value="006">006</option>
+                            <option value="0031">0031</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nhóm</label>
+                        <select class="form-control select2" style="width: 100%;" id="nhomtinh">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Thời gian</label>
+                        <select class="form-control select2" style="width: 100%;" id="time">
+                            <option selected="selected" value="1">Hạn xử lý</option>
+                            <option value="2">Ngày khởi tạo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nhóm</label>
+                        <select class="form-control select2" style="width: 100%;" id="id">
+                            <option selected="selected" value="0">Tất cả</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label for="fileUpload">Chọn File Excel:</label>
+                        <input type="file" id="fileUpload" class="form-control" />
+                    </div>
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                    <button type="button" class="btn btn-primary" id="btnImport">Nhập Dữ Liệu <i class="fa fa-upload"></i></button>
+                </div>
+            </div>
+
+            <div class="loading-element text-center" style="font-size:50px; display:none;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export_TICKET", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+
+                <table id="TableAccount" class="table table-bordered table-striped table-responsive-stack" style="width:100%">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Ticket</th>
+                            <th class="text-center">TTK_TYPE</th>
+                            <th class="text-center">MÃ BG/GD</th>
+                            <th class="text-center">TTK_STATUS</th>
+                            <th class="text-center">Hạn xử lý</th>
+                            <th class="text-center">NEXT_ORG</th>
+                            <th class="text-center">NEXT_ORG_NAME</th>
+                            <th class="text-center">MANAGED_ORG</th>
+                            <th class="text-center">REF_ORG</th>
+                            <th class="text-center">REF_ORG_NAME</th>
+                            <th class="text-center">Ngày khởi tạo</th>
+                            <th class="text-center">CREATED_ORG</th>
+                            <th class="text-center">ACT_CONTENT</th>
+                            <th class="text-center">Phân tỉnh</th>
+                            <th class="text-center">Tên nhân viên</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+        , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
+    $(document).ready(function () {
+        // Ẩn phần loading
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+        $('.loading-element').hide();
+    });
+        $('#btnImport').click(function () {
+            var fileInput = $('#fileUpload')[0];
+            var formData = new FormData();
+
+            if (fileInput.files.length === 0) {
+                alert("Vui lòng chọn file để nhập.");
+                return;
+            }
+
+            formData.append("file", fileInput.files[0]);
+
+            $('.loading-element').show(); // Hiển thị loading
+
+            $.ajax({
+                url: '@Url.Action("ImportTrackingItems", "TMS_TICKET")', // Thay YourControllerName bằng tên controller của bạn
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('.loading-element').hide(); // Ẩn loading
+                    if (response.Code === "00") {
+                        alert("Nhập dữ liệu thành công!");
+                    } else {
+                        alert("Lỗi: " + response.Message);
+                    }
+                },
+                error: function () {
+                    $('.loading-element').hide(); // Ẩn loading
+                    alert("Đã xảy ra lỗi khi nhập dữ liệu.");
+                }
+            });
+        });
+        $("#btnreport").click(function () {
+
+            // goi ham Detail
+            $("#listkpithdvreport tr").remove();
+            detail();
+            $('.box-footer').show();
+        });
+
+        function detail() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("List_TICKET", "TMS_TICKET")',
+            beforeSend: function () {
+                $('.loading-element').show();
+            },
+            dataType: 'json',
+            data:
+                {
+                    startdate: $('#fromdate').val(),
+                    enddate: $('#todate').val(),
+                time: $('#time').val(),
+                user: $('#user').val(),
+                nhomtinh: $('#nhomtinh').val(),
+                id: $('#id').val(),
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+                $.each(data.ListTICKET, function (i, item) {
+                    str_body += `
+                        <tr>
+                            <td style="width: 2%;" class="text-center">${a++}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_CODE}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_TYPE}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].PARCEL_ID}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_STATUS}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_EXPIRATION}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].NEXT_ORG}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].NEXT_ORG_NAME}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].MANAGED_ORG}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].REF_ORG}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].REF_ORG_NAME}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].CREATED_DATE}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].CREATED_ORG}</td>
+                            <td style="width: 15%;" >${data.ListTICKET[i].ACT_CONTENT}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].PHAN_TINH}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TEN_NV}</td>
+                        </tr>`;
+
+                });
+                str_html += str_body;
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal.fire(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+                }
+                else {
+
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            " processing": "Message khi đang tải dữ liệu",
+                            "search": "Tìm kiếm theo từ khóa:",
+                            "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListTICKET.length + " bản ghi",
+
+                            "zeroRecords": "Không có dữ liệu !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+
+                            "paginate": {
+                                "first": "Trang đầu",
+                                "previous": "Trang trước",
+                                "next": "Trang sau",
+                                "last": "Trang cuối"
+                                }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
+       // var url = $(this).data('baseurl') + '?donvi=' + $('#donvi').val() + '&phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
+        location.href = url;
+    });
+
+
+    $(document).ready(function () {
+        $('#user').change(function () {
+            $.ajax({
+                url: "/TMS_TICKET/Get_User",
+                dataType: "json",
+                data: { user: $("#user").val() },
+                success: function (data) {
+                    $('#nhomtinh').html('<option value=0>Chọn nhóm </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#nhomtinh').html($('#nhomtinh').html() +
+                            "<option value='" + val.Nhom_Tinh + "'>" + val.Ten_Nhom_Tinh + "</option>");
+                    });
+                }
+            });
+        })
+    });
+
+
+    //Sự kiện thay đổi tuyến phát theo bưu cục phát
+    $(document).ready(function () {
+        $('#nhomtinh').change(function () {
+            $.ajax({
+                url: "/TMS_TICKET/Get_Nhom_Tinh",
+                dataType: "json",
+                data: { nhomtinh: $("#nhomtinh").val() },
+                success: function (data) {
+                    $('#id').html('<option value=0>Chọn tuyến phát </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#id').html($('#id').html() +
+                            "<option value='" + val.ID + "'>" + val.TEN_NV + "</option>");
+                    });
+                }
+            });
+        })
+    });
+
+    //Sự kiện thay đổi tuyến phát theo bưu cục phát
+    $(document).ready(function () {
+        $('#nhomtinh').change(function () {
+            $.ajax({
+                url: "/TMS_TICKET/Get_Nhan_Vien",
+                dataType: "json",
+                data: { nhomtinh: $("#nhomtinh").val() },
+                success: function (data) {
+                    $('#id').html('<option value=0>Chọn tuyến phát </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#id').html($('#id').html() +
+                            "<option value='" + val.ID + "'>" + val.TEN_NV + "</option>");
+                    });
+                }
+            });
+        })
+    });
+</script>

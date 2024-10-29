@@ -710,7 +710,7 @@ namespace T41.Areas.Admin.Data
             return R_update;
         }
 
-
+         
         public ReturnIdMailRoute FindIdMailRoute(string Id6Number)
         {
 
@@ -1036,7 +1036,227 @@ namespace T41.Areas.Admin.Data
         }
         #endregion
 
+        public ReturnKPIKT KPI_KTHT(string buucuc, int startdate, int enddate)
+        {
+            DataTable da = new DataTable();
+            MetaData1 _metadata1 = new MetaData1();
+            Convertion common = new Convertion();
+            ReturnKPIKT _returnPostMan = new ReturnKPIKT();
 
+
+            List<KPI_KTHT> listTHSLDetail = null;
+            KPI_KTHT oTHSLDetail = null;
+            int a = 1;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("KPI_HT_Report.Detail_Tms_Kpi_HT", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_PostCode", OracleDbType.NVarchar2).Value = buucuc;
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        listTHSLDetail = new List<KPI_KTHT>();
+                        while (dr.Read())
+                        {
+                            oTHSLDetail = new KPI_KTHT();
+                            oTHSLDetail.STT = a++;
+                            oTHSLDetail.Id_Hanh_Trinh = dr["Id_Hanh_Trinh"].ToString();
+                            oTHSLDetail.TEN_HANH_TRINH = dr["TEN_HANH_TRINH"].ToString();
+                            oTHSLDetail.THOI_GIAN_DI = dr["THOI_GIAN_DI"].ToString();
+                            oTHSLDetail.San_Luong = dr["San_Luong"].ToString();
+                            oTHSLDetail.San_Luong_TC = dr["San_Luong_TC"].ToString();
+                            listTHSLDetail.Add(oTHSLDetail);
+
+                        }
+                        _returnPostMan.Code = "00";
+                        _returnPostMan.Message = "Lấy dữ liệu thành công.";
+                        _returnPostMan.LisKPI_KTHT = listTHSLDetail;
+                    }
+                    else
+                    {
+                        _returnPostMan.Code = "01";
+                        _returnPostMan.Message = "Không có dữ liệu";
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "PostmanDeliveryRepository.POSTMAN_DELIVERY_DETAIL" + ex.Message);
+                _returnPostMan.Code = "99";
+                _returnPostMan.Message = "Lỗi xử lý dữ liệu";
+                _returnPostMan.ListTHSLReport = null;
+            }
+            return _returnPostMan;
+        }
+
+        public ReturnKPIKT KPI_KTHT_CT(string buucuc, int startdate, int enddate, int id_hanh_trinh, int time)
+        {
+            DataTable da = new DataTable();
+            MetaData1 _metadata1 = new MetaData1();
+            Convertion common = new Convertion();
+            ReturnKPIKT _returnPostMan = new ReturnKPIKT();
+
+
+            List<KPI_KTHT_CT> listTHSLDetail = null;
+            KPI_KTHT_CT oTHSLDetail = null;
+            int a = 1;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("KPI_HT_Report.CT_Tms_Kpi_HT", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_PostCode", OracleDbType.Int32).Value = buucuc;
+                    myCommand.Parameters.Add("v_ID_HT", OracleDbType.Int32).Value = id_hanh_trinh;
+                    myCommand.Parameters.Add("V_Time", OracleDbType.NVarchar2).Value = time;
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        listTHSLDetail = new List<KPI_KTHT_CT>();
+                        while (dr.Read())
+                        {
+                            oTHSLDetail = new KPI_KTHT_CT();
+                            oTHSLDetail.STT = a++;
+                            oTHSLDetail.Id_Hanh_Trinh = dr["Id_Hanh_Trinh"].ToString();
+                            oTHSLDetail.TEN_HANH_TRINH = dr["TEN_HANH_TRINH"].ToString();
+                            oTHSLDetail.THOI_GIAN_DI = dr["THOI_GIAN_DI"].ToString();
+                            oTHSLDetail.Mae1 = dr["Mae1"].ToString();
+                            oTHSLDetail.Noi_Dung = dr["Noi_Dung"].ToString();
+                            oTHSLDetail.Nguoi_Nhan = dr["Nguoi_Nhan"].ToString();
+                            oTHSLDetail.Dia_Chi = dr["Dia_Chi"].ToString();
+                            oTHSLDetail.Khoi_Luong = dr["Khoi_Luong"].ToString();
+                            oTHSLDetail.Gio_Den = dr["Gio_Den"].ToString();
+                            oTHSLDetail.Gio_Di = dr["Gio_Di"].ToString();
+                            oTHSLDetail.Ngay_HT_Di = dr["Ngay_HT_Di"].ToString();
+                            listTHSLDetail.Add(oTHSLDetail);
+
+                        }
+                        _returnPostMan.Code = "00";
+                        _returnPostMan.Message = "Lấy dữ liệu thành công.";
+                        _returnPostMan.LisKPI_KTHT_CT = listTHSLDetail;
+                    }
+                    else
+                    {
+                        _returnPostMan.Code = "01";
+                        _returnPostMan.Message = "Không có dữ liệu";
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "PostmanDeliveryRepository.POSTMAN_DELIVERY_DETAIL" + ex.Message);
+                _returnPostMan.Code = "99";
+                _returnPostMan.Message = "Lỗi xử lý dữ liệu";
+                _returnPostMan.ListTHSLReport = null;
+            }
+            return _returnPostMan;
+        }
+
+
+        public ReturnKPIKT KPI_KTHT_TC(string buucuc, int startdate, int enddate, int id_hanh_trinh, int time)
+        {
+            DataTable da = new DataTable();
+            MetaData1 _metadata1 = new MetaData1();
+            Convertion common = new Convertion();
+            ReturnKPIKT _returnPostMan = new ReturnKPIKT();
+
+
+            List<KPI_KTHT_TC> listTHSLDetail = null;
+            KPI_KTHT_TC oTHSLDetail = null;
+            int a = 1;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("KPI_HT_Report.Tms_Kpi_HT_TC", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_PostCode", OracleDbType.Int32).Value = buucuc;
+                    myCommand.Parameters.Add("v_ID_HT", OracleDbType.Int32).Value = id_hanh_trinh;
+                    myCommand.Parameters.Add("V_Time", OracleDbType.NVarchar2).Value = time;
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        listTHSLDetail = new List<KPI_KTHT_TC>();
+                        while (dr.Read())
+                        {
+                            oTHSLDetail = new KPI_KTHT_TC();
+                            oTHSLDetail.STT = a++;
+                            oTHSLDetail.Id_Hanh_Trinh = dr["Id_Hanh_Trinh"].ToString();
+                            oTHSLDetail.TEN_HANH_TRINH = dr["TEN_HANH_TRINH"].ToString();
+                            oTHSLDetail.THOI_GIAN_DI = dr["THOI_GIAN_DI"].ToString();
+                            oTHSLDetail.Mae1 = dr["Mae1"].ToString();
+                            oTHSLDetail.Noi_Dung = dr["Noi_Dung"].ToString();
+                            oTHSLDetail.Nguoi_Nhan = dr["Nguoi_Nhan"].ToString();
+                            oTHSLDetail.Dia_Chi = dr["Dia_Chi"].ToString();
+                            oTHSLDetail.Khoi_Luong = dr["Khoi_Luong"].ToString();
+                            oTHSLDetail.Gio_Den = dr["Gio_Den"].ToString();
+                            oTHSLDetail.Gio_Di = dr["Gio_Di"].ToString(); 
+                            oTHSLDetail.Ngay_HT_Di = dr["Ngay_HT_Di"].ToString();
+                            oTHSLDetail.IDVNPOST = dr["IDVNPOST"].ToString();
+                            listTHSLDetail.Add(oTHSLDetail);
+
+                        }
+                        _returnPostMan.Code = "00";
+                        _returnPostMan.Message = "Lấy dữ liệu thành công.";
+                        _returnPostMan.LisKPI_KTHT_TC = listTHSLDetail;
+                    }
+                    else
+                    {
+                        _returnPostMan.Code = "01";
+                        _returnPostMan.Message = "Không có dữ liệu";
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "PostmanDeliveryRepository.POSTMAN_DELIVERY_DETAIL" + ex.Message);
+                _returnPostMan.Code = "99";
+                _returnPostMan.Message = "Lỗi xử lý dữ liệu";
+                _returnPostMan.ListTHSLReport = null;
+            }
+            return _returnPostMan;
+        }
     }
 
 }

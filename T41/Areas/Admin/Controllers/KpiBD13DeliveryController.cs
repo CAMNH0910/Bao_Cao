@@ -146,36 +146,38 @@ namespace T41.Areas.Admin.Controllers
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "BÁO CÁO CHI TIẾT DỊCH VỤ CỘNG THÊM";
-            worksheet.Cells["A1:O1"].Merge = true;
+            worksheet.Cells[1, 1].Value = "BÁO CÁO TỔNG HỢP KPI BD13";
+            worksheet.Cells["A1:Q1"].Merge = true;
 
-            worksheet.Cells[2, 15].Value = "MÃ BÁO CÁO:KD/CT_DVCT_CT";
-            worksheet.Cells["O2:O2"].Merge = true;
+            worksheet.Cells[2, 17].Value = "MÃ BÁO CÁO:P/CL_BD13";
+            worksheet.Cells["Q2:Q2"].Merge = true;
 
-            worksheet.Cells[2, 7].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
-            worksheet.Cells["G2:I2"].Merge = true;
+            worksheet.Cells[2, 8].Value = "Từ ngày:" + " " + ViewBag.startdate + " " + "Đến ngày" + ViewBag.enddate;
+            worksheet.Cells["H2:J2"].Merge = true;
 
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Đơn Vị";
-            worksheet.Cells[1, 3].Value = "Bưu Cục";
-            worksheet.Cells[1, 4].Value = "Tên Bưu Cục";
-            worksheet.Cells[1, 5].Value = "SL Bưu Gửi Đến";
-            worksheet.Cells[1, 6].Value = "SL Phát Thành Công";
-            worksheet.Cells[1, 7].Value = "TL Phát Thành Công";
-            worksheet.Cells[1, 8].Value = "SL Phát Thành Công 72H";
-            worksheet.Cells[1, 9].Value = "TL Phát Thành Công 72H";
-            worksheet.Cells[1, 10].Value = "SL Phát Chưa Có Thông Tin";
-            worksheet.Cells[1, 11].Value = "SL PTC Đúng Quy Định";
-            worksheet.Cells[1, 12].Value = "SL PTC Không Đúng Quy Định";
-            worksheet.Cells[1, 13].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
-            worksheet.Cells[1, 14].Value = "Tỉ Lệ TC Không Đúng Quy Định";
-            worksheet.Cells[1, 15].Value = "SL PTC Không Xác Định";
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Đơn Vị";
+            worksheet.Cells[4, 3].Value = "Bưu Cục";
+            worksheet.Cells[4, 4].Value = "Tên Bưu Cục";
+            worksheet.Cells[4, 5].Value = "SL Bưu Gửi Đến";
+            worksheet.Cells[4, 6].Value = "SL Phát Thành Công";
+            worksheet.Cells[4, 7].Value = "TL Phát Thành Công";
+            worksheet.Cells[4, 8].Value = "SL Phát Thành Công 72H";
+            worksheet.Cells[4, 9].Value = "TL Phát Thành Công 72H";
+            worksheet.Cells[4, 10].Value = "SL Phát Thành Công 48H";
+            worksheet.Cells[4, 11].Value = "TL Phát Thành Công 48H";
+            worksheet.Cells[4, 12].Value = "SL Phát Chưa Có Thông Tin";
+            worksheet.Cells[4, 13].Value = "SL PTC Đúng Quy Định";
+            worksheet.Cells[4, 14].Value = "SL PTC Không Đúng Quy Định";
+            worksheet.Cells[4, 15].Value = "Tỉ Lệ TC Đạt Đúng Quy Định";
+            worksheet.Cells[4, 16].Value = "Tỉ Lệ TC Không Đúng Quy Định";
+            worksheet.Cells[4, 17].Value = "SL PTC Không Xác Định";
 
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A4:O4"])
-            using (var ranges = worksheet.Cells["A1:O1"])
-            using (var Ngay = worksheet.Cells["G2:I2"])
+            using (var range = worksheet.Cells["A4:Q4"])
+            using (var ranges = worksheet.Cells["A1:Q1"])
+            using (var Ngay = worksheet.Cells["H2:J2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
