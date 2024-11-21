@@ -145,7 +145,7 @@ namespace T41.Areas.Admin.Data
             var test = Helper.OraDCDevOracleConnection;
             try
             {
-                // Gọi vào DB để lấy dữ liệu. KPI_delivery_PICKUP.REPORT_KPI_Thu_Gom
+                // Gọi vào DB để lấy dữ liệu. KPI_delivery_PICKUP.REPORT_KPI_Thu_Gom_TEST
                 using (OracleCommand cmd = new OracleCommand())
                 {
 

@@ -158,499 +158,510 @@
                     }
                 }
 
-                <ul class="sidebar-menu" data-widget="tree">
+            <ul class="sidebar-menu" data-widget="tree">
 
-                    <!-- Optionally, you can add icons to the links -->
-                    @{
-                        if (Convert.ToInt32(Session["isadmin"]) == 1)
-                        {
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-wrench"></i> <span>Danh mục</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/Categories">Danh mục chủ đề</a></li>
-                                    <li><a href="/Admin/Posts">Danh mục bài viết</a></li>
-                                    <li><a href="/Admin/Businesses">Danh mục nghiệp vụ</a></li>
-                                    <li><a href="/Admin/Administrators">Danh mục người dùng</a></li>
-                                </ul>
-                            </li>
-
-                        }
-                    }
-
-                    @{
-                        if (Convert.ToInt32(Session["Role"]) == 4 || Convert.ToInt32(Session["Role"]) == 1 || Convert.ToString(Session["UserName"]) == "doisoatems" || Convert.ToString(Session["UserName"]) == "kinhdoanhems")
-                        {
-
-                            <li class="header" style="color:cornflowerblue;"><strong>QUẢN LÝ BÁO CÁO TIN NHẮN</strong></li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo tin nhắn</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    @*<li><a href="/Admin/ReportSMS/ReportSMS">Báo cáo nhắn tin SMS</a></li>
-
-                                        >*@
-                                    <li><a href="/Admin/ReportSMS/ReportZNSTotal">Báo cáo tổng hợp tin nhắn ZNS</a></li>
-                                    <li><a href="/Admin/ReportSMS/ReportZNSDetail">Báo cáo chi tiết tin nhắn ZNS</a></li>
-                                    <li><a href="/Admin/ReportSMSBrand/ReportSMSBrand">Báo cáo sản lượng dịch vụ<br /> SMS BrandName </a></li>
-                                    <li><a href="/Admin/ItemSend/ItemSendReport">Báo cáo thống kê dịch vụ GTGT</a></li>
-                                    <li><a href="/Admin/ZNS_TCB/ZNS_TCBReport">Báo cáo thống kê sản lượng <br />ZNS TCB</a></li>
-                                </ul>
-
-                            </li>
-
-                        }
-                    }
-
-                    @{
-                        if (Convert.ToInt32(Session["Role"]) == 1)
-                        {
-                            <li class="header" style="color:cornflowerblue;"><strong>TRA CỨU ĐỊNH VỊ</strong></li>
-                            <!-- Group 1 -->
-                            <!-- Group Quốc Tế -->
-                            <li>
-                                <a href="/Admin/FindReceptacle/Index">
-                                    <i class="fa fa-search"></i> <span>Tra cứu túi gói <br />đi quốc tế</span>
-                                </a>
-                            </li>
-
-
-
-
-
-                            <li class="header" style="color:cornflowerblue;"><strong>QUẢN LÝ SỰ VỤ</strong></li>
-                            <!-- Group 1 -->
-                            <!-- Group Quốc Tế -->
-                            <li>
-                                <a href="/Admin/Affair/Affair">
-                                    <i class="fa fa-search"></i> <span>Tra cứu lập sự vụ</span>
-                                </a>
-                            </li>
-
-
-                            <!-- Group Đối Soát truyền nhận giao dịch -->
-                            <li class="header" style="color:cornflowerblue;"><strong>ĐỐI SOÁT TRUYỀN NHẬN</strong></li>
-                            <li>
-                                <a href="/Admin/CheckDealTransfer/CheckDealTransferDetailReport">
-                                    <i class="fa fa-calculator"></i> <span>Đối soát chuyến thư đi</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Admin/CheckDealDelivery/CheckDealDeliveryDetailReport">
-                                    <i class="fa fa-calculator"></i> <span>Đối soát báo phát</span>
-                                </a>
-                            </li>
-                            @*<li>
-                                    <a href="/Admin/DetailLadingToPostMan/DeleteDuplicateBD13">
-                                        <i class="fa fa-times"></i> <span>Xử lý trùng BD13</span>
-                                    </a>
-                                </li>*@
-                        }
+                <!-- Optionally, you can add icons to the links -->
+                @{
+                    if (Convert.ToInt32(Session["isadmin"]) == 1)
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-wrench"></i> <span>Danh mục</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/Categories">Danh mục chủ đề</a></li>
+                                <li><a href="/Admin/Posts">Danh mục bài viết</a></li>
+                                <li><a href="/Admin/Businesses">Danh mục nghiệp vụ</a></li>
+                                <li><a href="/Admin/Administrators">Danh mục người dùng</a></li>
+                            </ul>
+                        </li>
 
                     }
+                }
 
-                    @{
-                        if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 2)
-                        {
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-link"></i> <span>Tra cứu bd13</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/DetailBD13/BD13DetailReport">Chi tiết E1 BD13 DATACENTER</a></li>
-                                    <li><a href="/Admin/DetailLadingToPostMan/LadingToPostManDetailReport">Chi tiết E1 BD13 PNS</a></li>
-                                </ul>
-                            </li>
+                @{
+                    if (Convert.ToInt32(Session["Role"]) == 4 || Convert.ToInt32(Session["Role"]) == 1 || Convert.ToString(Session["UserName"]) == "doisoatems" || Convert.ToString(Session["UserName"]) == "kinhdoanhems")
+                    {
 
-                            <!-- Group 10 -->
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-angle-double-right"></i> <span>Quản lý truyền nhận</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/TransferManagement/TransferManagementDetailReport">Quản lý truyền nhận EMS</a></li>
-                                    <li><a href="/Admin/TransferManagementVNPOST/TransferManagementVNPOSTDetailReport">Quản lý truyền nhận VNPOST</a></li>
-                                    <li><a href="/Admin/TKSLGD/Detail_TKSLGD">Báo cáo chấp nhận tại GD</a></li>
-                                </ul>
-                            </li>
+                        <li class="header" style="color:cornflowerblue;"><strong>QUẢN LÝ BÁO CÁO TIN NHẮN</strong></li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo tin nhắn</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @*<li><a href="/Admin/ReportSMS/ReportSMS">Báo cáo nhắn tin SMS</a></li>
 
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-calculator"></i> <span>Hỗ trợ import báo phát</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
+                        >*@
+                                <li><a href="/Admin/ReportSMS/ReportZNSTotal">Báo cáo tổng hợp tin nhắn ZNS</a></li>
+                                <li><a href="/Admin/ReportSMS/ReportZNSDetail">Báo cáo chi tiết tin nhắn ZNS</a></li>
+                                <li><a href="/Admin/ReportSMSBrand/ReportSMSBrand">Báo cáo sản lượng dịch vụ<br /> SMS BrandName </a></li>
+                                <li><a href="/Admin/ItemSend/ItemSendReport">Báo cáo thống kê dịch vụ GTGT</a></li>
+                                <li><a href="/Admin/ZNS_TCB/ZNS_TCBReport">Báo cáo thống kê sản lượng <br />ZNS TCB</a></li>
+                            </ul>
 
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/DeliveryImport/DeliveryImport">Import báo phát theo <br />danh sách</a></li>
-                                    <li><a href="/Admin/DeliveryImport/DeliveryInsert">Cập nhật báo phát</a></li>
-                                </ul>
-                            </li>
-                        }
+                        </li>
+
+                    }
+                }
+
+                @{
+                    if (Convert.ToInt32(Session["Role"]) == 1)
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>TRA CỨU ĐỊNH VỊ</strong></li>
+                        <!-- Group 1 -->
+                        <!-- Group Quốc Tế -->
+                        <li>
+                            <a href="/Admin/FindReceptacle/Index">
+                                <i class="fa fa-search"></i> <span>Tra cứu túi gói <br />đi quốc tế</span>
+                            </a>
+                        </li>
+
+
+
+
+
+                        <li class="header" style="color:cornflowerblue;"><strong>QUẢN LÝ SỰ VỤ</strong></li>
+                        <!-- Group 1 -->
+                        <!-- Group Quốc Tế -->
+                        <li>
+                            <a href="/Admin/Affair/Affair">
+                                <i class="fa fa-search"></i> <span>Tra cứu lập sự vụ</span>
+                            </a>
+                        </li>
+
+
+                        <!-- Group Đối Soát truyền nhận giao dịch -->
+                        <li class="header" style="color:cornflowerblue;"><strong>ĐỐI SOÁT TRUYỀN NHẬN</strong></li>
+                        <li>
+                            <a href="/Admin/CheckDealTransfer/CheckDealTransferDetailReport">
+                                <i class="fa fa-calculator"></i> <span>Đối soát chuyến thư đi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/CheckDealDelivery/CheckDealDeliveryDetailReport">
+                                <i class="fa fa-calculator"></i> <span>Đối soát báo phát</span>
+                            </a>
+                        </li>
+                        @*<li>
+                    <a href="/Admin/DetailLadingToPostMan/DeleteDuplicateBD13">
+                        <i class="fa fa-times"></i> <span>Xử lý trùng BD13</span>
+                    </a>
+                </li>*@
                     }
 
-                    @{
-                        if (Convert.ToInt32(Session["Role"]) == 10)
-                        {
-                            <li class="header" style="color:cornflowerblue;"><strong>BÁO CÁO TỔNG HỢP</strong></li>
-                            <!-- Group Sàn KT -->
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-building"></i> <span>Báo cáo tổng hợp <br />dữ liệu mạng lưới </span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/ReportTHDV/TH_DV">Tổng hợp theo dịch vụ</a></li>
-                                    <li><a href="/Admin/ReportTHDONVI/TH_DONVI">Tổng hợp theo đơn vị</a></li>
-                                    <li><a href="/Admin/ReportTHDONVIDICHVU/TH_DONVIDICHVU">TH theo Dịch vụ và đơn vị</a></li>
-                                    <li><a href="/Admin/ReportTHTINHTINH/TH_TINHTINH">Tỉnh-Tỉnh DV EMS TN</a></li>
-                                    <li><a href="/Admin/ReportTHHUYENHUYEN/TH_HUYENHUYEN">Huyện-Huyện DV EMS TN</a></li>
-                                    <li><a href="/Admin/ReportTHE1TN/E1TN">Theo mã E1 trong nước</a></li>
-                                    <li><a href="/Admin/ReportTHQTDI/QTDI">Theo mã E1 QT đi</a></li>
-                                    <li><a href="/Admin/ReportTHQTDEN/QTDEN">Theo mã E1 QT đến</a></li>
-                                    <li><a href="/Admin/ReportTHDVCT/THDVCT">Tổng hợp DVCT</a></li>
-                                    <li><a href="/Admin/ReportCTDVCT/CTDVCT">Chi tiết DVCT</a></li>
-                                    <li><a href="/Admin/ReportCTLO/CTLO">Chi tiết dịch vụ Lô</a></li>
-                                    <li><a href="/Admin/ReportTHCH/TH_CH">Tổng hợp Chuyển hoàn</a></li>
-                                    <li><a href="https://portal.ems.com.vn/Bao_Cao_SLDT_Thang.aspx">SLDT theo ngày tại BĐT</a></li>
-                                </ul>
-                            </li>
+                }
 
-                        }
+                @{
+                    if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 2)
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-link"></i> <span>Tra cứu bd13</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/DetailBD13/BD13DetailReport">Chi tiết E1 BD13 DATACENTER</a></li>
+                                <li><a href="/Admin/DetailLadingToPostMan/LadingToPostManDetailReport">Chi tiết E1 BD13 PNS</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Group 10 -->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-angle-double-right"></i> <span>Quản lý truyền nhận</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/TransferManagement/TransferManagementDetailReport">Quản lý truyền nhận EMS</a></li>
+                                <li><a href="/Admin/TransferManagementVNPOST/TransferManagementVNPOSTDetailReport">Quản lý truyền nhận VNPOST</a></li>
+                                <li><a href="/Admin/TKSLGD/Detail_TKSLGD">Báo cáo chấp nhận tại GD</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-calculator"></i> <span>Hỗ trợ import báo phát</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/DeliveryImport/DeliveryImport">Import báo phát theo <br />danh sách</a></li>
+                                <li><a href="/Admin/DeliveryImport/DeliveryInsert">Cập nhật báo phát</a></li>
+                            </ul>
+                        </li>
                     }
+                }
 
-                    @{
-                        if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["userid"]) == 3)
-                        {
-                            <li class="header" style="color:cornflowerblue;"><strong>BÁO CÁO</strong></li>
-                            <!-- Group Sàn KT -->
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-building"></i> <span>Báo Cáo Hoạt Động<br /> Tại Sàn KT </span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/DevelopActivity/DevelopActivityDetailReport">Liên Tỉnh</a></li>
-                                    <li><a href="/Admin/DevelopActivity/DevelopActivity_NOI_TINH_DetailReport">Nội Tỉnh</a></li>
-                                </ul>
-                            </li>
+                @{
+                    if (Convert.ToInt32(Session["Role"]) == 10)
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>BÁO CÁO TỔNG HỢP</strong></li>
+                        <!-- Group Sàn KT -->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-building"></i> <span>Báo cáo tổng hợp <br />dữ liệu mạng lưới </span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/ReportTHDV/TH_DV">Tổng hợp theo dịch vụ</a></li>
+                                <li><a href="/Admin/ReportTHDONVI/TH_DONVI">Tổng hợp theo đơn vị</a></li>
+                                <li><a href="/Admin/ReportTHDONVIDICHVU/TH_DONVIDICHVU">TH theo Dịch vụ và đơn vị</a></li>
+                                <li><a href="/Admin/ReportTHTINHTINH/TH_TINHTINH">Tỉnh-Tỉnh DV EMS TN</a></li>
+                                <li><a href="/Admin/ReportTHHUYENHUYEN/TH_HUYENHUYEN">Huyện-Huyện DV EMS TN</a></li>
+                                <li><a href="/Admin/ReportTHE1TN/E1TN">Theo mã E1 trong nước</a></li>
+                                <li><a href="/Admin/ReportTHQTDI/QTDI">Theo mã E1 QT đi</a></li>
+                                <li><a href="/Admin/ReportTHQTDEN/QTDEN">Theo mã E1 QT đến</a></li>
+                                <li><a href="/Admin/ReportTHDVCT/THDVCT">Tổng hợp DVCT</a></li>
+                                <li><a href="/Admin/ReportCTDVCT/CTDVCT">Chi tiết DVCT</a></li>
+                                <li><a href="/Admin/ReportCTLO/CTLO">Chi tiết dịch vụ Lô</a></li>
+                                <li><a href="/Admin/ReportTHCH/TH_CH">Tổng hợp Chuyển hoàn</a></li>
+                                <li><a href="https://portal.ems.com.vn/Bao_Cao_SLDT_Thang.aspx">SLDT theo ngày tại BĐT</a></li>
+                            </ul>
+                        </li>
 
-
-                        }
                     }
+                }
 
-                    @{
-                        if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 2)
-                        {
-                            <!-- Group 9 -->
-
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-building"></i> <span>Báo cáo kinh doanh</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/ReportTHDV/TH_DV">Tổng hợp theo dịch vụ</a></li>
-                                    <li><a href="/Admin/ReportTHDONVI/TH_DONVI">Tổng hợp theo đơn vị</a></li>
-                                    <li><a href="/Admin/ReportTHDONVIDICHVU/TH_DONVIDICHVU">TH theo Dịch vụ và đơn vị</a></li>
-                                    <li><a href="/Admin/ReportTHTINHTINH/TH_TINHTINH">Tỉnh-Tỉnh DV EMS TN</a></li>
-                                    <li><a href="/Admin/ReportTHHUYENHUYEN/TH_HUYENHUYEN">Huyện-Huyện DV EMS TN</a></li>
-                                    <li><a href="/Admin/ReportTHE1TN/E1TN">Theo mã E1 trong nước</a></li>
-                                    <li><a href="/Admin/ReportTHQTDI/QTDI">Theo mã E1 QT đi</a></li>
-                                    <li><a href="/Admin/QT_Di_NEW/QT_Di_NEW">Theo mã E1 QT đi New</a></li>
-                                    <li><a href="/Admin/ReportTHQTDEN/QTDEN">Theo mã E1 QT đến</a></li>
-                                    <li><a href="/Admin/ReportTHDVCT/THDVCT">Tổng hợp DVCT</a></li>
-                                    <li><a href="/Admin/ReportCTDVCT/CTDVCT">Chi tiết DVCT</a></li>
-                                    <li><a href="/Admin/ReportCTLO/CTLO">Chi tiết dịch vụ Lô</a></li>
-                                    <li><a href="/Admin/ReportTHCH/TH_CH">Tổng hợp Chuyển hoàn</a></li>
-                                    <li><a href="/Admin/Bao_Cao_COD/Bao_Cao_COD">Báo cáo trạng thái chi hộ COD</a></li>
-                                    <li><a href="https://portal.ems.com.vn/Bao_Cao_SLDT_Thang.aspx">SLDT theo ngày tại BĐT</a></li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI thu gom</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/KPIPickup/DetailPickup">Báo cáo chất lượng  CT <br /> Thu gom</a></li>
-                                    <li><a href="/Admin/KPIPickup/KPIPickupSuccess">Báo cáo Thu gom Thành công</a></li>
-                                    <li><a href="/Admin/KPIPickup/KPIPickupSuccessDQD">Báo cáo Thu gom đúng <br /> quy định</a></li>
-                                    <li><a href="/Admin/KPIPickup/KPIPickup">Báo cáo chất lượng Thu gom</a></li>
-                                    <li><a href="/Admin/KPIPickup/KPIPickupV2">Báo cáo chất lượng Thu gom V2</a></li>
-                                    <li><a href="/Admin/KPIPickupLog/KPIPickupLog">Báo cáo chất lượng <br /> Thu gom KHL</a></li>
-                                    <li><a href="/Admin/KPI_Thu_Gom/KPI_Thu_Gom">Báo cáo thống kê sản lượng <br /> thu gom</a></li>
-
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI KTVC</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/KPITransport/KPITransport">Khai thác vận chuyển EMS</a></li>
-                                    <li><a href="/Admin/THHub/THHub">Tổng hợp các HUB</a></li>
-
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI khai thác</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/KPIKT/THSL">Tổng hợp sản lượng</a></li>
-                                    <li><a href="/Admin/THTCKT/THTCKT">Tổng hợp theo hành trình</a></li>
-                                    <li><a href="/Admin/CTTCKT/CTTCKT">Chi tiết theo hành trình</a></li>
-                                    <li><a href="/Admin/KPIKT/KPI_KTHT">Cảnh báo trượt chuyến<br /> bưu gửi hỏa tốc</a></li>
-                                    <li><a href="/Admin/KPIKT/THSLQT">Tổng hợp sản lượng QT</a></li>
-                                    <li><a href="/Admin/THTCKT/THTCKTQT">Tổng hợp theo hành trình QT</a></li>
-                                    <li><a href="/Admin/CTTCKT/CTTCKTQT">Chi tiết theo hành trình QT</a></li>
-                                    <li><a href="/Admin/TMSKPI/TMSKPI">Lược đồ khai thác</a></li>
-                                    <li><a href="/Admin/Tms_Kpi_HT/Tms_Kpi_HT">Lược đồ khai thác hỏa tốc</a></li>
-
-                                </ul>
-                            </li>
-
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI toàn trình</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/DetailHub/TotalHub">Chất lượng KPI hướng <br />trọng điểm</a></li>
-
-                                </ul>
-                            </li>
-
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI phát</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/QualityDelivery/QualityDeliveryDetailReport">Chất lượng phát</a></li>
-                                    <li><a href="/Admin/QualityNBPDelivery/QualityDeliveryNBPDetailReport">Chất lượng nhập báo phát</a></li>
-                                    <li><a href="/Admin/KpiBD13Delivery/KpiBD13DeliveryDetailReport">Chất lượng bd13</a></li>
-                                    <li><a href="/Admin/KPI_Customer_Hub_Phat/KPI_Customer_Hub_Phat_Report">Kiểm soát nộp tiền COD</a></li>
-                                    <li><a href="/Admin/KPI_Customer_Hub_LK/KPI_Customer_Hub_LK_Report">Kiểm soát BG PKTC<br /> chưa xử lý</a></li>
-                                    <li><a href="/Admin/KPi_Customer_PKTC/KPi_Customer_PKTC_Report">Báo cáo lý do  PKTC</a></li>
-                                    <li><a href="/Admin/KPI_Customer_HPTC/KPI_Customer_HPTC_Report">Báo cáo hủy phát thành công </a></li>
-                                    <li><a href="/Admin/KPI_XND_BC_Time/KPI_XND_BC_Time">Sản lượng đến phát <br /> theo khung giờ </a></li>
-
-                                </ul>
-                            </li>
-
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KHL</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/QualityKHDelivery/QualityDeliveryKHDetailReport">Chất lượng theo trạng thái</a></li>
-                                    <li><a href="/Admin/TotalDataCustomer/TotalDataCustomerDetailReport">Chất lượng chuyển phát</a></li>
-                                    <li><a href="/Admin/KPI_Customer/KPI_Customer_Report">Chất lượng chuyển phát <br /> theo dịch vụ</a></li>
-
-                                </ul>
-                            </li>
-
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> bưu cục KHL</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-
-                                    <li><a href="/Admin/KPIDeliveryLOG/Detail_PLD_XND">Chất lượng PLD bưu cục</a></li>
-                                    <li><a href="/Admin/KPIDeliveryLOG/Detail_PTC_XND">Chất lượng PTC bưu cục</a></li>
-                                    <li><a href="/Admin/KPIDeliveryLOG/Detail_PLD_BT">Chất lượng PLD giao bưu tá</a></li>
-                                    <li><a href="/Admin/KPIDeliveryLOG/Detail_PTC_BT">Chất lượng PTC giao bưu tá</a></li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-building"></i> <span>BC chất lượng dịch vụ</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/KPIHT/KPI_Total_HT">Chất lượng dịch vụ hỏa tốc</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-building"></i> <span>BC chất lượng bưu tá </span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    @*<li><a href="/Admin/PostmanDelivery/KpipostmanDeliveryDetailReport">KPI chất lượng bưu tá</a></li>*@
-                                    <li><a href="/Admin/TKSL/Detail_TKSL">Thống kê sử dụng SMP</a></li>
-                                    @*<li><a href="/Admin/TKSLP/Detail_TKSLP">Thống kê sản lượng phát</a></li>*@
-                                    <li><a href="/Admin/TK_LD/Detail_TK_LD">Thống kê lý do phát thất bại</a></li>
-                                    <li><a href="/Admin/HistoryCall/THHistoryCall">Thống kê tổng hợp cuộc gọi</a></li>
-                                    <li><a href="/Admin/HistoryCall/CTHistoryCall">Thống kê chi tiết  cuộc gọi</a></li>
-                                    <li><a href="/Admin/KPI_Delivery_Wage/KPI_Delivery_Wage">Thống kê sản lượng đến BCP</a></li>
-                                    <li><a href="/Admin/KPI_Delivery_Wage/KPI_Detail_Wage">Thống kê chi tiết sản lượng<br />phát của bưu tá</a></li>
-                                </ul>
-                            </li>
-                            <!-- Group 11 -->
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-plane"></i> <span>Báo cáo quốc tế </span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/InternationalDetail/InternationalDetailReport">Báo cáo chi tiết <br /> hàng quốc tế đến VN</a></li>
-                                </ul>
-                            </li>
+                @{
+                    if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["userid"]) == 3)
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>BÁO CÁO</strong></li>
+                        <!-- Group Sàn KT -->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-building"></i> <span>Báo Cáo Hoạt Động<br /> Tại Sàn KT </span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/DevelopActivity/DevelopActivityDetailReport">Liên Tỉnh</a></li>
+                                <li><a href="/Admin/DevelopActivity/DevelopActivity_NOI_TINH_DetailReport">Nội Tỉnh</a></li>
+                            </ul>
+                        </li>
 
 
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Báo cáo NVCL </span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/KPI_BD10_Hub_Time/KPI_BD10_Hub_Report">Báo cáo bưu gửi <br /> xác nhận đến Hub</a></li>
-                                    <li><a href="/Admin/KPI_BD10_Hub_SL/KPI_BD10_Hub_Report">Báo cáo sản lượng, khối lượng <br />theo đường thư</a></li>
-                                    <li><a href="/Admin/KPI_BD10_Hub/KPI_BD10_Hub_Report">Báo cáo thời gian xác nhận<br />  đến BĐT</a></li>
-                                    <li><a href="/Admin/KPI_Delivery_Time/KPI_Delivery_Time_Report">Báo cáo dự kiến thời gian<br />  phát bưu gửi</a></li>
-                                    <li><a href="/Admin/KPI_SL_Du_Bao/KPI_SL_Du_Bao_Report">Báo cáo dự báo hàng đến KTV</a></li>
-                                    <li><a href="/Admin/Kien_Di_Ngoai_TTKTV/Kien_Di_Ngoai_TTKTVReport">Báo cáo thống kê kiện đi ngoài<br /> tại các TTKTV</a></li>
-                                </ul>
-                            </li>
-                        }
                     }
+                }
 
-                    @{
-                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 20 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
-                        {
-                            <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
+                @{
+                    if (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 2)
+                    {
+                        <!-- Group 9 -->
 
-                            <li><a href="/Admin/TMS_TICKET/TMS_TICKET">Quản lý nhân viên </a></li>
-                            <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET">Quản lý Ticket </a></li>
-                        }
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-building"></i> <span>Báo cáo kinh doanh</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/ReportTHDV/TH_DV">Tổng hợp theo dịch vụ</a></li>
+                                <li><a href="/Admin/ReportTHDONVI/TH_DONVI">Tổng hợp theo đơn vị</a></li>
+                                <li><a href="/Admin/ReportTHDONVIDICHVU/TH_DONVIDICHVU">TH theo Dịch vụ và đơn vị</a></li>
+                                <li><a href="/Admin/ReportTHTINHTINH/TH_TINHTINH">Tỉnh-Tỉnh DV EMS TN</a></li>
+                                <li><a href="/Admin/ReportTHHUYENHUYEN/TH_HUYENHUYEN">Huyện-Huyện DV EMS TN</a></li>
+                                <li><a href="/Admin/ReportTHE1TN/E1TN">Theo mã E1 trong nước</a></li>
+                                <li><a href="/Admin/ReportTHQTDI/QTDI">Theo mã E1 QT đi</a></li>
+                                <li><a href="/Admin/QT_Di_NEW/QT_Di_NEW">Theo mã E1 QT đi New</a></li>
+                                <li><a href="/Admin/ReportTHQTDEN/QTDEN">Theo mã E1 QT đến</a></li>
+                                <li><a href="/Admin/ReportTHDVCT/THDVCT">Tổng hợp DVCT</a></li>
+                                <li><a href="/Admin/ReportCTDVCT/CTDVCT">Chi tiết DVCT</a></li>
+                                <li><a href="/Admin/ReportCTLO/CTLO">Chi tiết dịch vụ Lô</a></li>
+                                <li><a href="/Admin/ReportTHCH/TH_CH">Tổng hợp Chuyển hoàn</a></li>
+                                <li><a href="/Admin/Bao_Cao_COD/Bao_Cao_COD">Báo cáo trạng thái chi hộ COD</a></li>
+                                <li><a href="https://portal.ems.com.vn/Bao_Cao_SLDT_Thang.aspx">SLDT theo ngày tại BĐT</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI thu gom</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/KPIPickup/DetailPickup">Báo cáo chất lượng  CT <br /> Thu gom</a></li>
+                                <li><a href="/Admin/KPIPickup/KPIPickupSuccess">Báo cáo Thu gom Thành công</a></li>
+                                <li><a href="/Admin/KPIPickup/KPIPickupSuccessDQD">Báo cáo Thu gom đúng <br /> quy định</a></li>
+                                <li><a href="/Admin/KPIPickup/KPIPickup">Báo cáo chất lượng Thu gom</a></li>
+                                <li><a href="/Admin/KPIPickup/KPIPickupV2">Báo cáo chất lượng Thu gom V2</a></li>
+                                <li><a href="/Admin/KPIPickupLog/KPIPickupLog">Báo cáo chất lượng <br /> Thu gom KHL</a></li>
+                                <li><a href="/Admin/KPI_Thu_Gom/KPI_Thu_Gom">Báo cáo thống kê sản lượng <br /> thu gom</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI KTVC</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/KPITransport/KPITransport">Khai thác vận chuyển EMS</a></li>
+                                <li><a href="/Admin/THHub/THHub">Tổng hợp các HUB</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI khai thác</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/KPIKT/THSL">Tổng hợp sản lượng</a></li>
+                                <li><a href="/Admin/THTCKT/THTCKT">Tổng hợp theo hành trình</a></li>
+                                <li><a href="/Admin/CTTCKT/CTTCKT">Chi tiết theo hành trình</a></li>
+                                <li><a href="/Admin/KPIKT/KPI_KTHT">Cảnh báo trượt chuyến<br /> bưu gửi hỏa tốc</a></li>
+                                <li><a href="/Admin/KPIKT/THSLQT">Tổng hợp sản lượng QT</a></li>
+                                <li><a href="/Admin/THTCKT/THTCKTQT">Tổng hợp theo hành trình QT</a></li>
+                                <li><a href="/Admin/CTTCKT/CTTCKTQT">Chi tiết theo hành trình QT</a></li>
+                                <li><a href="/Admin/TMSKPI/TMSKPI">Lược đồ khai thác</a></li>
+                                <li><a href="/Admin/Tms_Kpi_HT/Tms_Kpi_HT">Lược đồ khai thác hỏa tốc</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI toàn trình</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/DetailHub/TotalHub">Chất lượng KPI hướng <br />trọng điểm</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI phát</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/QualityDelivery/QualityDeliveryDetailReport">Chất lượng phát</a></li>
+                                <li><a href="/Admin/QualityNBPDelivery/QualityDeliveryNBPDetailReport">Chất lượng nhập báo phát</a></li>
+                                <li><a href="/Admin/KpiBD13Delivery/KpiBD13DeliveryDetailReport">Chất lượng bd13</a></li>
+                                <li><a href="/Admin/KPI_Customer_Hub_Phat/KPI_Customer_Hub_Phat_Report">Kiểm soát nộp tiền COD</a></li>
+                                <li><a href="/Admin/KPI_Customer_Hub_LK/KPI_Customer_Hub_LK_Report">Kiểm soát BG PKTC<br /> chưa xử lý</a></li>
+                                <li><a href="/Admin/KPi_Customer_PKTC/KPi_Customer_PKTC_Report">Báo cáo lý do  PKTC</a></li>
+                                <li><a href="/Admin/KPI_Customer_HPTC/KPI_Customer_HPTC_Report">Báo cáo hủy phát thành công </a></li>
+                                <li><a href="/Admin/KPI_XND_BC_Time/KPI_XND_BC_Time">Sản lượng đến phát <br /> theo khung giờ </a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KHL</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/QualityKHDelivery/QualityDeliveryKHDetailReport">Chất lượng theo trạng thái</a></li>
+                                <li><a href="/Admin/TotalDataCustomer/TotalDataCustomerDetailReport">Chất lượng chuyển phát</a></li>
+                                <li><a href="/Admin/KPI_Customer/KPI_Customer_Report">Chất lượng chuyển phát <br /> theo dịch vụ</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> bưu cục KHL</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li><a href="/Admin/KPIDeliveryLOG/Detail_PLD_XND">Chất lượng PLD bưu cục</a></li>
+                                <li><a href="/Admin/KPIDeliveryLOG/Detail_PTC_XND">Chất lượng PTC bưu cục</a></li>
+                                <li><a href="/Admin/KPIDeliveryLOG/Detail_PLD_BT">Chất lượng PLD giao bưu tá</a></li>
+                                <li><a href="/Admin/KPIDeliveryLOG/Detail_PTC_BT">Chất lượng PTC giao bưu tá</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-building"></i> <span>BC chất lượng dịch vụ</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/KPIHT/KPI_Total_HT">Chất lượng dịch vụ hỏa tốc</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-building"></i> <span>BC chất lượng bưu tá </span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @*<li><a href="/Admin/PostmanDelivery/KpipostmanDeliveryDetailReport">KPI chất lượng bưu tá</a></li>*@
+                                <li><a href="/Admin/TKSL/Detail_TKSL">Thống kê sử dụng SMP</a></li>
+                                @*<li><a href="/Admin/TKSLP/Detail_TKSLP">Thống kê sản lượng phát</a></li>*@
+                                <li><a href="/Admin/TK_LD/Detail_TK_LD">Thống kê lý do phát thất bại</a></li>
+                                <li><a href="/Admin/HistoryCall/THHistoryCall">Thống kê tổng hợp cuộc gọi</a></li>
+                                <li><a href="/Admin/HistoryCall/CTHistoryCall">Thống kê chi tiết  cuộc gọi</a></li>
+                                <li><a href="/Admin/KPI_Delivery_Wage/KPI_Delivery_Wage">Thống kê sản lượng đến BCP</a></li>
+                                <li><a href="/Admin/KPI_Delivery_Wage/KPI_Detail_Wage">Thống kê chi tiết sản lượng<br />phát của bưu tá</a></li>
+                                <li><a href="/Admin/DM_Lai_Xe/DM_Lai_Xe">Quản lý lái xe</a></li>
+                            </ul>
+                        </li>
+                        <!-- Group 11 -->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-plane"></i> <span>Báo cáo quốc tế </span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/InternationalDetail/InternationalDetailReport">Báo cáo chi tiết <br /> hàng quốc tế đến VN</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Báo cáo NVCL </span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/KPI_BD10_Hub_Time/KPI_BD10_Hub_Report">Báo cáo bưu gửi <br /> xác nhận đến Hub</a></li>
+                                <li><a href="/Admin/KPI_BD10_Hub_SL/KPI_BD10_Hub_Report">Báo cáo sản lượng, khối lượng <br />theo đường thư</a></li>
+                                <li><a href="/Admin/KPI_BD10_Hub/KPI_BD10_Hub_Report">Báo cáo thời gian xác nhận<br />  đến BĐT</a></li>
+                                <li><a href="/Admin/KPI_Delivery_Time/KPI_Delivery_Time_Report">Báo cáo dự kiến thời gian<br />  phát bưu gửi</a></li>
+                                <li><a href="/Admin/KPI_SL_Du_Bao/KPI_SL_Du_Bao_Report">Báo cáo dự báo hàng đến KTV</a></li>
+                                <li><a href="/Admin/Kien_Di_Ngoai_TTKTV/Kien_Di_Ngoai_TTKTVReport">Báo cáo thống kê kiện đi ngoài<br /> tại các TTKTV</a></li>
+                            </ul>
+                        </li>
                     }
-                    @{
-                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4 || Convert.ToString(Session["UserName"]) == "kinhdoanhems")
-                        {
-                            <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ KHÁCH HÀNG</strong></li>
-                            <!-- Group QUẢN LÝ KH CRM -->
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-users"></i> <span>Quản Lý Khách Hàng</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/UserManagement/UserManagementDetailReport">DS Deal chưa nhập trên CRM</a></li>
-                                    <li><a href="/Admin/SaleUserManagement/SaleUserManagementDetailReport">Thông Tin Nhân Viên KD</a></li>
-                                    <li><a href="/Admin/DealAndAccountFalse/CheckDealAndAccountReport">DS Deal & Account Sai</a></li>
-                                    <li><a href="/Admin/ChannelManagement/Index">KH kết nối zalo</a></li>
-                                    <li><a href="/Admin/CustomerPortal/CustomerPortalReport">Thu nhập dữ liệu khách hàng</a></li>
-                                </ul>
-                            </li>
+                }
 
-                        }
+                @{
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 20 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
+
+                        <li><a href="/Admin/TMS_TICKET/TMS_TICKET">Quản lý nhân viên </a></li>
+                        <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET">Quản lý yêu cầu </a></li>
                     }
+                }
 
-                    @{
-                        //Userid = 18 (KH Adupia)
-                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 18 || Convert.ToInt32(Session["userid"]) == 3016 || Convert.ToInt32(Session["Role"]) == 8)
-                        {
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-user"></i> <span>Hỗ Trợ Khách Hàng</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="/Admin/TotalDataCustomer/TotalDataCustomerDetailReport">Tổng Hợp Dữ Liệu KHL</a></li>
-                                    <li><a href="/Admin/TrackingOrder/TrackingOrderDetailReport">Theo Dõi Đơn Hàng</a></li>
-                                    <li><a href="/Admin/TransferCODDataHM/InsertCODDataHM">Hỗ Trợ Khách Hàng H&M</a></li>
-                                </ul>
-                            </li>
-                        }
+                @{
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 21 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
+
+                        <li><a href="/Admin/Insert_Itemcode/Insert_Itemcode_NEW">Insert Itemcode</a></li>
                     }
+                }
 
-                    @{
-                        //Accout ktqt
-                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 16 || Convert.ToString(Session["UserName"]) == "nghiepvuems" || Convert.ToString(Session["UserName"]) == "saohd")
-                        {
-                            <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ QUỐC TẾ</strong></li>
-                            <li>
-                                <a href="/Admin/InsertStatusInternational/InsertStatusInternationalView">
-                                    <i class="fa fa-calculator"></i> <span>Nhập trạng thái quốc tế</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Admin/InsertStatusInternationalForPartner/InsertStatusInternationalForPartnerView">
-                                    <i class="fa fa-calculator"></i> <span>Nhập trạng thái quốc tế<br />cho đối tác</span>
-                                </a>
-                            </li>
-                        }
+                @{
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4 || Convert.ToString(Session["UserName"]) == "kinhdoanhems")
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ KHÁCH HÀNG</strong></li>
+                        <!-- Group QUẢN LÝ KH CRM -->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-users"></i> <span>Quản Lý Khách Hàng</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/UserManagement/UserManagementDetailReport">DS Deal chưa nhập trên CRM</a></li>
+                                <li><a href="/Admin/SaleUserManagement/SaleUserManagementDetailReport">Thông Tin Nhân Viên KD</a></li>
+                                <li><a href="/Admin/DealAndAccountFalse/CheckDealAndAccountReport">DS Deal & Account Sai</a></li>
+                                <li><a href="/Admin/ChannelManagement/Index">KH kết nối zalo</a></li>
+                                <li><a href="/Admin/CustomerPortal/CustomerPortalReport">Thu nhập dữ liệu khách hàng</a></li>
+                            </ul>
+                        </li>
+
                     }
+                }
 
-                    @{
-                        //Accout ktqt
-                        if (Convert.ToInt32(Session["userid"]) == 1)
-                        {
-                            <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ ĐẠI SỨ QUÁN MỸ</strong></li>
-                            <li>
-                                <a href="/Admin/PrintBarcode_CGI/BarcodeInsert">
-                                    <i class="fa-solid fa-print">  </i><span>                    In BarCode CGI</span>
-                                </a>
-                            </li>
-                        }
+                @{
+                    //Userid = 18 (KH Adupia)
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 18 || Convert.ToInt32(Session["userid"]) == 3016 || Convert.ToInt32(Session["Role"]) == 8)
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user"></i> <span>Hỗ Trợ Khách Hàng</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/TotalDataCustomer/TotalDataCustomerDetailReport">Tổng Hợp Dữ Liệu KHL</a></li>
+                                <li><a href="/Admin/TrackingOrder/TrackingOrderDetailReport">Theo Dõi Đơn Hàng</a></li>
+                                <li><a href="/Admin/TransferCODDataHM/InsertCODDataHM">Hỗ Trợ Khách Hàng H&M</a></li>
+                            </ul>
+                        </li>
                     }
+                }
 
-                </ul>
+                @{
+                    //Accout ktqt
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 16 || Convert.ToString(Session["UserName"]) == "nghiepvuems" || Convert.ToString(Session["UserName"]) == "saohd")
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ QUỐC TẾ</strong></li>
+                        <li>
+                            <a href="/Admin/InsertStatusInternational/InsertStatusInternationalView">
+                                <i class="fa fa-calculator"></i> <span>Nhập trạng thái quốc tế</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/InsertStatusInternationalForPartner/InsertStatusInternationalForPartnerView">
+                                <i class="fa fa-calculator"></i> <span>Nhập trạng thái quốc tế<br />cho đối tác</span>
+                            </a>
+                        </li>
+                    }
+                }
+
+                @{
+                    //Accout ktqt
+                    if (Convert.ToInt32(Session["userid"]) == 1)
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ ĐẠI SỨ QUÁN MỸ</strong></li>
+                        <li>
+                            <a href="/Admin/PrintBarcode_CGI/BarcodeInsert">
+                                <i class="fa-solid fa-print">  </i><span>                    In BarCode CGI</span>
+                            </a>
+                        </li>
+                    }
+                }
+
+            </ul>
 
                 <!-- /.sidebar-menu -->
             </section>

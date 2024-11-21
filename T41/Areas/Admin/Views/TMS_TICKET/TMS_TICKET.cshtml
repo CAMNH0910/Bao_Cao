@@ -150,6 +150,8 @@
                                         <option value="1">HN</option>
                                         <option value="2">Tỉnh</option>
                                         <option value="3">KHL</option>
+                                        <option value="4">Chốt phạt</option>
+                                        <option value="5">HCM</option>
                                     </select>
                                 </th>
                                 <th><input id="txtGhi_Chu-Insert" style="width: 300px " class="text-center" /></th>
@@ -158,7 +160,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-insert" onclick="javascript:InsertTMS_TICKET()">Thêm đường thư</button>
+                    <button type="button" class="btn btn-danger btn-insert" onclick="javascript:InsertTMS_TICKET()">Chấp nhận</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -202,6 +204,8 @@
                                         <option value="1">HN</option>
                                         <option value="2">Tỉnh</option>
                                         <option value="3">KHL</option>
+                                        <option value="4">Chốt phạt</option>
+                                        <option value="5">HCM</option>
                                     </select>
                                 </th>
                                 <th><input id="txtGhi_Chu" class="text-center" style="width:500px" /></th>
@@ -299,7 +303,7 @@ function detail() {
                 str_body += `<td class="text-center" id="ID-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.ID}</td>`;
                 str_body += `<td class="text-center" id="Ten_NV-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Ten_NV}</td>`;
                 str_body += `<td class="text-center" id="Phan_User-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Phan_User}</td>`;
-                str_body += `<td class="text-center" id="Phan_Tinh-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Phan_Tinh}</td>`;
+                str_body += `<td  id="Phan_Tinh-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Phan_Tinh}</td>`;
                 str_body += `<td class="text-center" id="Nhom_Tinh-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Nhom_Tinh}</td>`;
                 str_body += `<td class="text-center" id="Ghi_Chu-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Ghi_Chu}</td>`;
                 str_body += `<td class="text-center" id="isdelete-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.isdelete}</td>`;
@@ -354,8 +358,10 @@ function detail() {
             $("#txtPhan_Tinh").val(Phan_Tinh);
             $("#txtNhom_Tinh").val(
                 Nhom_Tinh === 'HN' ? 1 :
-                    Nhom_Tinh === 'Tỉnh' ? 2 :
+                Nhom_Tinh === 'Tỉnh' ? 2 :
                         Nhom_Tinh === 'KHL' ? 3 :
+                            Nhom_Tinh === 'Chốt phạt' ? 4 :
+                                Nhom_Tinh === 'HCM' ? 5 :
                             null  // Giá trị mặc định
             );
 
@@ -431,7 +437,7 @@ function detail() {
                 Ten_NV: $("#txtTen_NV-Insert").val(),
                 Phan_User: $("#txtPhan_User-Insert").val(),
                 Phan_Tinh: $("#txtPhan_Tinh-Insert").val(),
-                Nhom_Tinh: $("#txtNhom_Tinh-Insert").val(),
+                Nhom_Tinh: $("#txtNhom_Tinh-insert").val(),
                 GhiChu: $("#txtGhiChu-Insert").val(),
                 },
             type: 'POST',

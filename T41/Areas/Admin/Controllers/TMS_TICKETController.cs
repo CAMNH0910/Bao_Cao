@@ -204,7 +204,7 @@ namespace T41.Areas.Admin.Controllers
 
         #region import
 
-        public JsonResult ImportTrackingItems(HttpPostedFileBase file)
+        public JsonResult ImportTrackingItems(HttpPostedFileBase file,string user)
         {
             TMS_TICKETRepository _ticketRepository = new TMS_TICKETRepository();
 
@@ -232,7 +232,6 @@ namespace T41.Areas.Admin.Controllers
                     {
                         return Json(new { Code = "01", Message = "File không có worksheet nào." });
                     }
-
                     // Lấy worksheet đầu tiên mà không cần kiểm tra tên
                     var worksheet = package.Workbook.Worksheets[1];
                     var rowCount = worksheet.Dimension?.Rows;
@@ -246,31 +245,42 @@ namespace T41.Areas.Admin.Controllers
                     // Lặp qua từng hàng dữ liệu, bỏ qua dòng tiêu đề
                     for (int row = 2; row <= rowCount; row++)
                     {
-                        string TTK_CODE = worksheet.Cells[row, 1]?.Text;
+                        string soHoSo = worksheet.Cells[row, 1]?.Text;
 
-                        if (string.IsNullOrWhiteSpace(TTK_CODE))
+                        if (string.IsNullOrWhiteSpace(soHoSo))
                         {
                             continue; // Bỏ qua hàng nếu TTK_CODE rỗng
                         }
-
+                       // object column8Value = worksheet.Cells[row, 8]?.Value;
                         // Tạo trackElement với các trường có thể null
                         XElement trackElement = new XElement("TRACK",
-                            new XElement("TTK_CODE", TTK_CODE),
-                            new XElement("TTK_TYPE", worksheet.Cells[row, 2]?.Text),
-                            new XElement("PARCEL_ID", worksheet.Cells[row, 3]?.Text),
-                            new XElement("TTK_STATUS", worksheet.Cells[row, 4]?.Text),
-                            new XElement("TTK_EXPIRATION", ConvertToDateInt(worksheet.Cells[row, 5]?.Text)), // Sử dụng hàm
-                            new XElement("NEXT_ORG", worksheet.Cells[row, 6]?.Text),
-                            new XElement("NEXT_ORG_NAME", worksheet.Cells[row, 7]?.Text),
-                            new XElement("MANAGED_ORG", worksheet.Cells[row, 8]?.Text),
-                            new XElement("REF_ORG", worksheet.Cells[row, 9]?.Text),
-                            new XElement("REF_ORG_NAME", worksheet.Cells[row, 10]?.Text),
-                            new XElement("CREATED_DATE", ConvertToDateInt(worksheet.Cells[row, 11]?.Text)), // Sử dụng hàm
-                            new XElement("CREATED_ORG", worksheet.Cells[row, 12]?.Text),
-                            new XElement("ACT_CONTENT", worksheet.Cells[row, 13]?.Text),
-                            new XElement("ROW_NUM", worksheet.Cells[row, 14]?.Text),
-                            new XElement("IDSESSION", sessionId)
-                        );
+                                            new XElement("Collum1", soHoSo),
+                                            new XElement("Collum2", worksheet.Cells[row, 2]?.Text),
+                                            new XElement("Collum3", worksheet.Cells[row, 3]?.Text),
+                                            new XElement("Collum4", worksheet.Cells[row, 4]?.Text),
+                                            new XElement("Collum5", worksheet.Cells[row, 5]?.Text),
+                                            new XElement("Collum6", worksheet.Cells[row, 6]?.Text),
+                                            new XElement("Collum7", worksheet.Cells[row, 7]?.Text),
+                                            new XElement("Collum8", worksheet.Cells[row, 8]?.Value),
+                                            new XElement("Collum9", worksheet.Cells[row, 9]?.Text),
+                                            new XElement("Collum10", worksheet.Cells[row, 10]?.Text),
+                                            new XElement("Collum11", worksheet.Cells[row, 11]?.Text),
+                                            new XElement("Collum12", worksheet.Cells[row, 12]?.Text),
+                                            new XElement("Collum13", worksheet.Cells[row, 13]?.Text),
+                                            new XElement("Collum14", worksheet.Cells[row, 14]?.Text),
+                                            new XElement("Collum15", worksheet.Cells[row, 15]?.Text),
+                                            new XElement("Collum16", worksheet.Cells[row, 16]?.Text),
+                                            new XElement("Collum17", worksheet.Cells[row, 17]?.Value),
+                                            new XElement("Collum18", worksheet.Cells[row, 18]?.Value),
+                                            new XElement("Collum19", worksheet.Cells[row, 19]?.Text),
+                                            new XElement("Collum20", worksheet.Cells[row, 20]?.Text),
+                                            new XElement("Collum21", worksheet.Cells[row, 21]?.Text),
+                                            new XElement("Collum22", worksheet.Cells[row, 22]?.Text),
+                                            new XElement("Collum23", worksheet.Cells[row, 23]?.Value),
+                                            new XElement("Collum24", worksheet.Cells[row, 24]?.Text),
+                                            new XElement("IDSESSION", sessionId),
+                                            new XElement("user", user)
+);
 
                         documentElement.Add(trackElement); // Thêm từng TRACK vào DOCUMENTELEMENT
                     }
@@ -284,43 +294,10 @@ namespace T41.Areas.Admin.Controllers
             string xmlString = new XDocument(documentElement).ToString(); // Chuyển đổi sang chuỗi XML
 
             // Gọi phương thức import từ repository
-            var response = _ticketRepository.ImportTickets(xmlString, sessionId);
+            var response = _ticketRepository.ImportTickets(xmlString, sessionId, user);
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
-
-
-        private int? ConvertToDateInt(string dateString)
-        {
-            if (string.IsNullOrWhiteSpace(dateString))
-            {
-                return null; // Return null if the input string is empty
-            }
-
-            DateTime parsedDate;
-            string[] formats = {
-        "M/d/yyyy h:mm tt",      // 10/14/2024 7:58 AM
-        "MM/dd/yyyy h:mm tt",    // 10/14/2024 7:58 AM
-        "yyyy-MM-dd HH:mm:ss",    // 2024-10-14 07:58:00
-        "yyyy/MM/dd HH:mm:ss",    // 2024/10/14 07:58:00
-        "MM/dd/yyyy",              // 10/14/2024
-        "M/d/yyyy",                // 10/14/2024
-        "dd/MM/yyyy"               // 14/10/2024
-    };
-
-            foreach (var format in formats)
-            {
-                if (DateTime.TryParseExact(dateString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
-                {
-                    // Return the date in yyyMMdd format as an integer
-                    return int.Parse(parsedDate.ToString("yyyyMMdd"));
-                }
-            }
-
-            Console.WriteLine($"Không thể phân tích ngày: {dateString}");
-            return null; // Return null if parsing fails
-        }
-
         #endregion
 
         #region List Ticket
@@ -369,6 +346,10 @@ namespace T41.Areas.Admin.Controllers
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
                 workSheet.Cells[4, 1].LoadFromCollection(list, false, TableStyles.Dark9);
+                var range = workSheet.Cells[4, 1, workSheet.Dimension.End.Row, workSheet.Dimension.End.Column];
+                // Áp dụng filter cho tất cả các cột
+                range.AutoFilter = true;
+
                 BindingFormatForExcel_TICKET(workSheet, list);
                 excelPackage.Save();
                 return excelPackage.Stream;
@@ -386,23 +367,46 @@ namespace T41.Areas.Admin.Controllers
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "TICKET";
-            worksheet.Cells["A1:G1"].Merge = true;
+            worksheet.Cells[1, 1].Value = "QUẢN LÝ YÊU CẦU";
+            worksheet.Cells["A1:AB1"].Merge = true;
 
-            worksheet.Cells[2, 7].Value = "MÃ BÁO CÁO:CSKH/TK";
-            worksheet.Cells["G2:G2"].Merge = true;
+            worksheet.Cells[2, 28].Value = "MÃ BÁO CÁO:CSKH/TK";
+            worksheet.Cells["AB2:AB2"].Merge = true;
+            worksheet.Cells[2, 14].Value = "Từ ngày:" + " " + ViewBag.startdate + "-" + "Đến ngày" + " " + ViewBag.endDate;
+            worksheet.Cells["N2:O2"].Merge = true;
 
-            worksheet.Cells[3, 1].Value = "STT";
-            worksheet.Cells[3, 2].Value = "Id";
-            worksheet.Cells[3, 3].Value = "Tên nhân viên";
-            worksheet.Cells[3, 4].Value = "Phân User";
-            worksheet.Cells[3, 5].Value = "Phân tỉnh";
-            worksheet.Cells[3, 6].Value = "Ghi chú";
-            worksheet.Cells[3, 7].Value = "Trạng thái";
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Số hồ sơ";
+            worksheet.Cells[4, 3].Value = "Số phiếu khiếu nại";
+            worksheet.Cells[4, 4].Value = "Mã GD/BG";
+            worksheet.Cells[4, 5].Value = "Dịch Vụ Sử Dụng";
+            worksheet.Cells[4, 6].Value = "Mã  ĐV Tiếp nhận";
+            worksheet.Cells[4, 7].Value = "ĐV Tiếp nhận";
+            worksheet.Cells[4, 8].Value = "Loại khiếu nại";
+            worksheet.Cells[4, 9].Value = "Ngày tạo";
+            worksheet.Cells[4, 10].Value = "Tình trạng xử lý";
+            worksheet.Cells[4, 11].Value = "Nội dung khiếu nại";
+            worksheet.Cells[4, 12].Value = "Người khiếu nại";
+            worksheet.Cells[4, 13].Value = "Địa chỉ người khiếu nại";
+            worksheet.Cells[4, 14].Value = "Điện thoại người khiếu nại";
+            worksheet.Cells[4, 15].Value = "Email người khiếu nại";
+            worksheet.Cells[4, 16].Value = "Mã ĐV chủ trì";
+            worksheet.Cells[4, 17].Value = "Đơn vị chủ trì";
+            worksheet.Cells[4, 18].Value = "Thời Gian Xử Lý Cuối Cùng";
+            worksheet.Cells[4, 19].Value = "Ngày hết hạn";
+            worksheet.Cells[4, 20].Value = "Dịch vụ";
+            worksheet.Cells[4, 21].Value = "Lý do khiếu nại";
+            worksheet.Cells[4, 22].Value = "Hình thức KN";
+            worksheet.Cells[4, 23].Value = "Kết Quả Khiếu Nại";
+            worksheet.Cells[4, 24].Value = "Ngày Đóng Khiếu Nại";
+            worksheet.Cells[4, 25].Value = "Số Tiền Bồi Thường";
+            worksheet.Cells[4, 26].Value = "Tinh_Nhan";
+            worksheet.Cells[4, 27].Value = "Tinh_Tra";
+            worksheet.Cells[4, 28].Value = "Tên nhân viên";
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A3:G3"])
-            using (var ranges = worksheet.Cells["A1:G1"])
-
+            using (var range = worksheet.Cells["A4:AB4"])
+            using (var ranges = worksheet.Cells["A1:AB1"])
+            using (var Ngay = worksheet.Cells["N2:O2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -412,6 +416,7 @@ namespace T41.Areas.Admin.Controllers
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
                 range.Style.Font.SetFromFont(new Font("Arial", 11));
+
                 // Set Border
                 //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
                 // Set màu ch Border
@@ -420,10 +425,14 @@ namespace T41.Areas.Admin.Controllers
                 //Set Màu cho Background
                 //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
                 // Canh giữa cho các text
-
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
                 ranges.Style.Font.SetFromFont(new Font("Arial", 14));
+                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
             }
         }
 

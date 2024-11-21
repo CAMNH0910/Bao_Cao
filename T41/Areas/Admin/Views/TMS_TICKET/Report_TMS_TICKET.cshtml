@@ -20,17 +20,17 @@
 
 <section class="content-header">
     <h1>
-        <small>TICKET</small>
+        <small>Quản lý yêu cầu</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">TICKET</li>
+        <li class="active">Quản lý yêu cầu</li>
     </ol>
 </section>
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">TICKET</h3>
+            <h3 class="box-title">Quản lý yêu cầu</h3>
         </div>
         <div class="box-body">
 
@@ -51,6 +51,7 @@
                             <option selected="selected" value="0">Chọn User</option>
                             <option value="006">006</option>
                             <option value="0031">0031</option>
+                            <option value="0033">0033</option>
                         </select>
                     </div>
                 </div>
@@ -82,7 +83,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Nhóm</label>
+                        <label>Nhân viên</label>
                         <select class="form-control select2" style="width: 100%;" id="id">
                             <option selected="selected" value="0">Tất cả</option>
 
@@ -112,40 +113,61 @@
             </div>
             <div>
                 @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
-
-                <table id="TableAccount" class="table table-bordered table-striped table-responsive-stack" style="width:100%">
-                    <thead>
-                        <tr class="bg-light-blue color-palette">
-                            <th class="text-center">STT</th>
-                            <th class="text-center">Ticket</th>
-                            <th class="text-center">TTK_TYPE</th>
-                            <th class="text-center">MÃ BG/GD</th>
-                            <th class="text-center">TTK_STATUS</th>
-                            <th class="text-center">Hạn xử lý</th>
-                            <th class="text-center">NEXT_ORG</th>
-                            <th class="text-center">NEXT_ORG_NAME</th>
-                            <th class="text-center">MANAGED_ORG</th>
-                            <th class="text-center">REF_ORG</th>
-                            <th class="text-center">REF_ORG_NAME</th>
-                            <th class="text-center">Ngày khởi tạo</th>
-                            <th class="text-center">CREATED_ORG</th>
-                            <th class="text-center">ACT_CONTENT</th>
-                            <th class="text-center">Phân tỉnh</th>
-                            <th class="text-center">Tên nhân viên</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listkpithdvreport"></tbody>
-                </table>
-
+                <div style="width: 100%;; overflow-x: scroll;">
+                    <table id="TableAccount" class="table table-bordered table-striped table-responsive-stack">
+                        <thead>
+                            <tr class="bg-light-blue color-palette">
+                                <th class="text-center">STT</th>
+                                <th class="text-center">Số hồ sơ</th>
+                                <th class="text-center">Số phiếu khiếu nại</th>
+                                <th class="text-center">MÃ BG/GD</th>
+                                <th class="text-center">Dịch Vụ Sử Dụng</th>
+                                <th class="text-center">Mã  ĐV Tiếp nhận</th>
+                                <th class="text-center">ĐV Tiếp nhận</th>
+                                <th class="text-center">Loại khiếu nại</th>
+                                <th class="text-center">Ngày tạo</th>
+                                <th class="text-center">Tình trạng xử lý</th>
+                                <th class="text-center">Nội dung khiếu nại</th>
+                                <th class="text-center">Người khiếu nại</th>
+                                <th class="text-center">Địa chỉ</th>
+                                <th class="text-center">Điện thoại</th>
+                                <th class="text-center">Email </th>
+                                <th class="text-center">Mã ĐV chủ trì</th>
+                                <th class="text-center">Đơn vị chủ trì</th>
+                                <th class="text-center">Thời Gian Xử Lý</th>
+                                <th class="text-center">Ngày hết hạn</th>
+                                <th class="text-center">Dịch vụ</th>
+                                <th class="text-center">Lý do</th>
+                                <th class="text-center">Hình thức</th>
+                                <th class="text-center">Kết Quả</th>
+                                <th class="text-center">Ngày Đóng</th>
+                                <th class="text-center">Bồi Thường</th>
+                                <th class="text-center">Tỉnh nhận</th>
+                                <th class="text-center">Tỉnh trả</th>
+                                <th class="text-center">Tên nhân viên</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listkpithdvreport"></tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
     </div>
 </section>
 
+<style>
+    #TableAccount th, #TableAccount td {
+        font-size: 10px; /* Giảm kích thước font chữ */
+        padding: 8px; /* Giảm padding trong các ô */
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="http://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
 
 <script type="text/javascript">
 
@@ -175,39 +197,59 @@
         $('#btnexportlist').hide();
         $('.loading-element').hide();
     });
-        $('#btnImport').click(function () {
-            var fileInput = $('#fileUpload')[0];
-            var formData = new FormData();
 
-            if (fileInput.files.length === 0) {
-                alert("Vui lòng chọn file để nhập.");
-                return;
+
+
+     $('#btnImport').click(function () {
+    // Lấy file từ input
+         var fileInput = $('#fileUpload')[0];
+    // Lấy giá trị người dùng từ ComboBox (dropdown)
+         var user = $('#user').val();
+
+    // Kiểm tra nếu chưa chọn file
+    if (fileInput.files.length === 0) {
+        alert("Vui lòng chọn file để nhập.");
+        return;
+    }
+
+    // Kiểm tra nếu chưa chọn người dùng
+         if (user === null || user === undefined || user === "" || user === 0 || user === '0') {
+             alert("Vui lòng chọn người dùng.");
+             return;
+         }
+
+
+
+    // Tạo FormData để gửi dữ liệu
+    var formData = new FormData();
+    formData.append("file", fileInput.files[0]);  // Thêm file vào FormData
+    formData.append("user", user);  // Thêm thông tin người dùng vào FormData
+
+    // Hiển thị loading
+    $('.loading-element').show();
+
+    $.ajax({
+        url: '@Url.Action("ImportTrackingItems", "TMS_TICKET")', // Đường dẫn tới phương thức controller
+        type: 'POST',
+        data: formData,
+        contentType: false, // Để jQuery không tự động thiết lập content-type
+        processData: false, // Để jQuery không cố gắng chuyển đổi dữ liệu
+        success: function (response) {
+            $('.loading-element').hide();  // Ẩn loading
+            if (response.Code === "00") {
+                alert("Nhập dữ liệu thành công!");
+            } else {
+                alert("Lỗi: " + response.Message);
             }
+        },
+        error: function () {
+            $('.loading-element').hide();  // Ẩn loading
+            alert("Đã xảy ra lỗi khi nhập dữ liệu.");
+        }
+    });
+});
 
-            formData.append("file", fileInput.files[0]);
 
-            $('.loading-element').show(); // Hiển thị loading
-
-            $.ajax({
-                url: '@Url.Action("ImportTrackingItems", "TMS_TICKET")', // Thay YourControllerName bằng tên controller của bạn
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    $('.loading-element').hide(); // Ẩn loading
-                    if (response.Code === "00") {
-                        alert("Nhập dữ liệu thành công!");
-                    } else {
-                        alert("Lỗi: " + response.Message);
-                    }
-                },
-                error: function () {
-                    $('.loading-element').hide(); // Ẩn loading
-                    alert("Đã xảy ra lỗi khi nhập dữ liệu.");
-                }
-            });
-        });
         $("#btnreport").click(function () {
 
             // goi ham Detail
@@ -241,20 +283,32 @@
                     str_body += `
                         <tr>
                             <td style="width: 2%;" class="text-center">${a++}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_CODE}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_TYPE}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].PARCEL_ID}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_STATUS}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TTK_EXPIRATION}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].NEXT_ORG}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].NEXT_ORG_NAME}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].MANAGED_ORG}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].REF_ORG}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].REF_ORG_NAME}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].CREATED_DATE}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].CREATED_ORG}</td>
-                            <td style="width: 15%;" >${data.ListTICKET[i].ACT_CONTENT}</td>
-                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].PHAN_TINH}</td>
+                            <td style="width: 3%;" class="text-center">${data.ListTICKET[i].So_HS}</td>
+                            <td style="width: 2%;" class="text-center">${data.ListTICKET[i].So_Phieu_KN}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ma_BG}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Dich_Vu_SD}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ma_DV_TN}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ten_DV_TN}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Loai_KN}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ngay_Tao}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Trang_Thai}</td>
+                            <td style="width: 5%;" >${data.ListTICKET[i].Noi_Dung}</td>
+                            <td style="width: 5%;" >${data.ListTICKET[i].Nguoi_KN}</td>
+                            <td style="width: 5%;" >${data.ListTICKET[i].Dia_Chi}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Dien_Thoai}</td>
+                            <td style="width: 2%;" class="text-center">${data.ListTICKET[i].Email}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ma_DV_Chu_Tri}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ten_DV_Chu_Tri}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ngay_XL_Cuoi}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ngay_Het_han}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Dich_Vu}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ly_Do}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Hinh_Thuc}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ket_Qua}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Ngay_Dong}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].So_Tien}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Tinh_Nhan}</td>
+                            <td style="width: 5%;" class="text-center">${data.ListTICKET[i].Tinh_Tra}</td>
                             <td style="width: 5%;" class="text-center">${data.ListTICKET[i].TEN_NV}</td>
                         </tr>`;
 
@@ -303,11 +357,10 @@
 
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
+        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&time=' + $('#time').val() + '&user=' + $('#user').val() + '&nhomtinh=' + $('#nhomtinh').val() + '&id=' + $('#id').val();
        // var url = $(this).data('baseurl') + '?donvi=' + $('#donvi').val() + '&phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
         location.href = url;
     });
-
 
     $(document).ready(function () {
         $('#user').change(function () {
@@ -335,7 +388,7 @@
                 dataType: "json",
                 data: { nhomtinh: $("#nhomtinh").val() },
                 success: function (data) {
-                    $('#id').html('<option value=0>Chọn tuyến phát </option>');
+                    $('#id').html('<option value=0>Chọn nhân viên </option>');
                     jQuery.each(data, function (i, val) {
                         $('#id').html($('#id').html() +
                             "<option value='" + val.ID + "'>" + val.TEN_NV + "</option>");

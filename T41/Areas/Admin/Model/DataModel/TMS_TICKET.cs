@@ -19,20 +19,32 @@ namespace T41.Areas.Admin.Model.DataModel
     public class LIST_TICKET
     {
         public int STT { get; set; }
-        public string TTK_CODE { get; set; }
-        public string TTK_TYPE { get; set; }
-        public string PARCEL_ID { get; set; }
-        public string TTK_STATUS { get; set; }
-        public string TTK_EXPIRATION { get; set; } // Use nullable if it can be null
-        public string NEXT_ORG { get; set; }
-        public string NEXT_ORG_NAME { get; set; }
-        public string MANAGED_ORG { get; set; }
-        public string REF_ORG { get; set; }
-        public string REF_ORG_NAME { get; set; }
-        public string CREATED_DATE { get; set; } // Use nullable if it can be null
-        public string CREATED_ORG { get; set; }
-        public string ACT_CONTENT { get; set; }
-        public string PHAN_TINH { get; set; }
+        public string So_HS { get; set; }
+        public string So_Phieu_KN { get; set; }
+        public string Ma_BG { get; set; }
+        public string Dich_Vu_SD { get; set; }
+        public string Ma_DV_TN { get; set; } // Use nullable if it can be null
+        public string Ten_DV_TN { get; set; }
+        public string Loai_KN { get; set; }
+        public string Ngay_Tao { get; set; }
+        public string Trang_Thai { get; set; }
+        public string Noi_Dung { get; set; }
+        public string Nguoi_KN { get; set; } // Use nullable if it can be null
+        public string Dia_Chi { get; set; }
+        public string Dien_Thoai { get; set; }
+        public string Email { get; set; }
+        public string Ma_DV_Chu_Tri { get; set; }
+        public string Ten_DV_Chu_Tri { get; set; }
+        public string Ngay_XL_Cuoi { get; set; }
+        public string Ngay_Het_han { get; set; }
+        public string Dich_Vu { get; set; }
+        public string Ly_Do { get; set; }
+        public string Hinh_Thuc { get; set; }
+        public string Ket_Qua { get; set; }
+        public string Ngay_Dong { get; set; }
+        public string So_Tien { get; set; }
+        public string Tinh_Nhan { get; set; }
+        public string Tinh_Tra { get; set; }
         public string TEN_NV { get; set; }
     }
 

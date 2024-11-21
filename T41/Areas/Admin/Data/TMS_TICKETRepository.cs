@@ -254,7 +254,7 @@ namespace T41.Areas.Admin.Data
 
 
         #region Import 
-        public ReturnResponseUpdate ImportTickets(string inputXml, string sessionId)
+        public ReturnResponseUpdate ImportTickets(string inputXml, string sessionId, string user)
         {
             ReturnResponseUpdate response = new ReturnResponseUpdate();
 
@@ -281,6 +281,7 @@ namespace T41.Areas.Admin.Data
                             {
                                 command2.CommandType = CommandType.StoredProcedure;
                                 command2.Parameters.Add("v_IdSession", OracleDbType.Varchar2).Value = sessionId;
+                                
                                 // Thêm các tham số khác nếu cần
                                 command2.ExecuteNonQuery();
                             }
@@ -289,7 +290,8 @@ namespace T41.Areas.Admin.Data
                             using (var command3 = new OracleCommand("TMS_TICKET.Insert_Ticket", connection))
                             {
                                 command3.CommandType = CommandType.StoredProcedure;
-                                //command3.Parameters.Add("v_IdSession", OracleDbType.Varchar2).Value = sessionId;
+                                command3.Parameters.Add("v_IdSession", OracleDbType.Varchar2).Value = sessionId;
+                                command3.Parameters.Add("v_user", OracleDbType.Varchar2).Value = user;
                                 // Thêm các tham số khác nếu cần
                                 command3.ExecuteNonQuery();
                             }
@@ -354,21 +356,32 @@ namespace T41.Areas.Admin.Data
 
                             var oTMS_TICKET = new LIST_TICKET();
                             oTMS_TICKET.STT = a++;
-                            oTMS_TICKET.TTK_CODE = dr["TTK_CODE"].ToString();
-                            oTMS_TICKET.TTK_TYPE = dr["TTK_TYPE"].ToString();
-                            oTMS_TICKET.PARCEL_ID = dr["PARCEL_ID"].ToString();
-                            oTMS_TICKET.TTK_STATUS = dr["TTK_STATUS"].ToString();
-                            oTMS_TICKET.TTK_EXPIRATION = dr["TTK_EXPIRATION"].ToString();
-                            oTMS_TICKET.NEXT_ORG = dr["NEXT_ORG"].ToString();
-                            oTMS_TICKET.NEXT_ORG_NAME = dr["NEXT_ORG_NAME"].ToString();
-                            oTMS_TICKET.MANAGED_ORG = dr["MANAGED_ORG"].ToString();
-                            oTMS_TICKET.MANAGED_ORG = dr["MANAGED_ORG"].ToString();
-                            oTMS_TICKET.REF_ORG = dr["REF_ORG"].ToString();
-                            oTMS_TICKET.REF_ORG_NAME = dr["REF_ORG_NAME"].ToString();
-                            oTMS_TICKET.CREATED_DATE = dr["CREATED_DATE"].ToString();
-                            oTMS_TICKET.CREATED_ORG = dr["CREATED_ORG"].ToString();
-                            oTMS_TICKET.ACT_CONTENT = dr["ACT_CONTENT"].ToString();
-                            oTMS_TICKET.PHAN_TINH = dr["PHAN_TINH"].ToString();
+                            oTMS_TICKET.So_HS = dr["So_HS"].ToString();
+                            oTMS_TICKET.So_Phieu_KN = dr["So_Phieu_KN"].ToString();
+                            oTMS_TICKET.Ma_BG = dr["Ma_BG"].ToString();
+                            oTMS_TICKET.Dich_Vu_SD = dr["Dich_Vu_SD"].ToString();
+                            oTMS_TICKET.Ma_DV_TN = dr["Ma_DV_TN"].ToString();
+                            oTMS_TICKET.Ten_DV_TN = dr["Ten_DV_TN"].ToString();
+                            oTMS_TICKET.Loai_KN = dr["Loai_KN"].ToString();
+                            oTMS_TICKET.Ngay_Tao = dr["Ngay_Tao"].ToString();
+                            oTMS_TICKET.Trang_Thai = dr["Trang_Thai"].ToString();
+                            oTMS_TICKET.Noi_Dung = dr["Noi_Dung"].ToString();
+                            oTMS_TICKET.Nguoi_KN = dr["Nguoi_KN"].ToString();
+                            oTMS_TICKET.Dia_Chi = dr["Dia_Chi"].ToString();
+                            oTMS_TICKET.Dien_Thoai = dr["Dien_Thoai"].ToString();
+                            oTMS_TICKET.Email = dr["Email"].ToString();
+                            oTMS_TICKET.Ma_DV_Chu_Tri = dr["Ma_DV_Chu_Tri"].ToString();
+                            oTMS_TICKET.Ten_DV_Chu_Tri = dr["Ten_DV_Chu_Tri"].ToString();
+                            oTMS_TICKET.Ngay_XL_Cuoi = dr["Ngay_XL_Cuoi"].ToString();
+                            oTMS_TICKET.Ngay_Het_han = dr["Ngay_Het_han"].ToString();
+                            oTMS_TICKET.Dich_Vu = dr["Dich_Vu"].ToString();
+                            oTMS_TICKET.Ly_Do = dr["Ly_Do"].ToString();
+                            oTMS_TICKET.Hinh_Thuc = dr["Hinh_Thuc"].ToString();
+                            oTMS_TICKET.Ket_Qua = dr["Ket_Qua"].ToString();
+                            oTMS_TICKET.Ngay_Dong = dr["Ngay_Dong"].ToString();
+                            oTMS_TICKET.So_Tien = dr["So_Tien"].ToString();
+                            oTMS_TICKET.Tinh_Nhan = dr["Tinh_Nhan"].ToString();
+                            oTMS_TICKET.Tinh_Tra = dr["Tinh_Tra"].ToString();
                             oTMS_TICKET.TEN_NV = dr["TEN_NV"].ToString();
                             listTMS_TICKET.Add(oTMS_TICKET);
                         }

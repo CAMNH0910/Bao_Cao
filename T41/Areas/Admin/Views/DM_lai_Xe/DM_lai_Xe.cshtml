@@ -1,0 +1,643 @@
+﻿@{
+    //  Layout = null;
+}
+
+<!-- daterange picker -->
+<!-- daterange picker -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- DataTables -->
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style type="text/css">
+    p {
+        font-weight: bold;
+    }
+    /* Dropdown */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        z-index: 1;
+    }
+
+        .dropdown-content button {
+            background-color: #f1f1f1;
+            border: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content button:hover {
+                background-color: #ddd;
+            }
+
+    ``
+
+</style>
+
+
+
+<section class="content-header">
+    <h1>
+        <small>Danh mục lái xe</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Quản lý lái xe</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Danh mục lái xe</h3>
+            <div class="box-tools pull-right">
+                @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+                <h3 class="box-title">BT/QLLX</h3>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Khu Vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="zone">
+                            <option selected="selected" value="0">Chọn khu vực</option>
+                            <option value="1">Hà Nội</option>
+                            <option value="2">Đà Nẵng</option>
+                            <option value="3">Hồ Chí Minh</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Bưu cục phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
+                            <option selected="selected" value="0">Chọn bưu cục phát</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control select2" style="width: 100%;" id="trangthai">
+                            <option selected="selected" value="0">Chọn trạng thái</option>
+                            <option value="1">LOCK</option>
+                            <option value="2">UNLOCK</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.col -->
+
+
+            <div class="row">
+                <div class="col-md-4"> </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btncreate">Thêm mới <i class="fa fa-search"></i></button>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="form-group">
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="box-header">
+            <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+        </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "DM_Lai_Xe")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+                <table id="ExcelView" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th rowspan="4" class="text-center">STT</th>
+                            <th rowspan="4" class="text-center">Id</th>
+                            <th rowspan="4" class="text-center">Chi nhánh</th>
+                            <th rowspan="4" class="text-center">Bưu cục</th>
+                            <th rowspan="4" class="text-center">Tuyến phát</th>
+                            <th rowspan="4" class="text-center">Tên bưu tá</th>
+                            <th rowspan="4" class="text-center">Tên lái xe</th>
+                            <th rowspan="4" class="text-center">Trạng thái</th>
+                            <th rowspan="4" class="text-center">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+
+            </div>
+            <div id="editAddModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editAddModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="editAddModalLabel">Thêm/Sửa Thông Tin Lái Xe</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editAddForm">
+                                <input type="hidden" id="id_lai_xe" name="id_lai_xe">
+
+                                <!-- Các trường thông tin -->
+                                <div class="form-group">
+                                    <label for="ten_lai_xe">Tên Lái Xe</label>
+                                    <input type="text" class="form-control" id="ten_lai_xe" name="ten_lai_xe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="chi_nhanh">Chi nhánh</label>
+                                    <select class="form-control" id="chi_nhanh" name="chi_nhanh" required>
+                                        <option value="0">Chọn chi nhánh</option>
+                                        <option value="1">HN</option>
+                                        <option value="2">DN</option>
+                                        <option value="3">HCM</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="buucuc">Bưu Cục</label>
+                                    <select class="form-control" id="buucuc" name="buucuc" required>
+                                        <!-- Các bưu cục sẽ được đổ vào đây -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tuyen_phat">Tuyến phát</label>
+                                    <select class="form-control" id="tuyen_phat" name="tuyen_phat" required>
+                                        <!-- Các bưu cục sẽ được đổ vào đây -->
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="buu_ta">Bưu Tá</label>
+                                    <select class="form-control" id="buu_ta" name="buu_ta" required>
+                                        <!-- Các bưu cục sẽ được đổ vào đây -->
+                                    </select>
+                                </div>
+                                <!-- Nút lưu và hủy -->
+                                <button type="button" class="btn btn-success" onclick="saveChanges()">Lưu Thay Đổi</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+       , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+    });
+
+
+    //Phần Xuất Excel của bảng tổng hợp
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+
+
+
+    $("#btnreport").click(function () {
+        // goi ham Detail
+        $("#listkpithdvreport tr").remove();
+        detail();
+        $('.box-footer').show();
+
+    });
+
+    //Phần chi tiết của bảng tổng hợp sản lượng đi phát
+   function detail() {
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("ListDM_Lai_Xe", "DM_Lai_Xe")',
+        beforeSend: function () {
+            $('.loading-element').show();
+        },
+        dataType: 'json',
+        data: {
+            zone: $("#zone").val(),
+            endpostcode: $("#endpostcode").val(),
+            trangthai: $("#trangthai").val(),
+        },
+        success: function (data) {
+            var str_html = "";
+            var str_body = "";
+            var a = 1;
+            $.each(data.ListDM_Lai_Xe, function (i, item) {
+                str_body += '<tr>';
+                str_body += '<td width="10" class="text-center">' + a++ + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Id + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Zone + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Buu_Cuc + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Tuyen_Phat + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Buu_Ta + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Ten_NV + '</td>';
+
+                // Kiểm tra trạng thái và hiển thị biểu tượng khóa/mở khóa
+                if (data.ListDM_Lai_Xe[i].Trang_Thai == 1) {
+                    str_body += '<td class="text-center"><i class="fa fa-lock" style="color:red;"></i></td>';
+                    str_body += '<td class="text-center">';
+                    str_body += '<button class="btn btn-success btn-sm" onclick="showDropdown(' + data.ListDM_Lai_Xe[i].Id + ')">Chức năng</button>';
+                    str_body += '<div id="dropdown' + data.ListDM_Lai_Xe[i].Id + '" class="dropdown-content" style="display:none;">';
+                    str_body += '<button class="btn btn-info btn-sm" onclick="editFunc(' + data.ListDM_Lai_Xe[i].Id + ')">Sửa</button>';
+                    str_body += '<button class="btn btn-warning btn-sm" onclick="khoaFunc(' + data.ListDM_Lai_Xe[i].Id + ')">Mở khóa</button>';
+                    str_body += '</div>';
+                    str_body += '</td>';
+                } else {
+                    str_body += '<td class="text-center"><i class="fa fa-unlock" style="color:green;"></i></td>';
+                    str_body += '<td class="text-center">';
+                    str_body += '<button class="btn btn-success btn-sm" onclick="showDropdown(' + data.ListDM_Lai_Xe[i].Id + ')">Chức năng</button>';
+                    str_body += '<div id="dropdown' + data.ListDM_Lai_Xe[i].Id + '" class="dropdown-content" style="display:none;">';
+                    str_body += '<button class="btn btn-info btn-sm" onclick="editFunc(' + data.ListDM_Lai_Xe[i].Id + ')">Sửa</button>';
+                    str_body += '<button class="btn btn-warning btn-sm" onclick="khoaFunc(' + data.ListDM_Lai_Xe[i].Id + ')">Khóa</button>';
+                    str_body += '</div>';
+                    str_body += '</td>';
+                }
+
+                str_body += '</tr>';
+            });
+            str_html += str_body;
+
+            // Nếu có lỗi từ server
+            if (data.Code == '01' || data.Code == '99') {
+                $('.loading-element').hide();
+                swal.fire(data.Message, '', 'error');
+            } else {
+                $("#TableAccount").dataTable().fnDestroy();
+                $('#listkpithdvreport').html(str_html);
+                $('.loading-element').hide();
+                $('#btnexportlist').show();
+                $('#TableAccount').DataTable({
+                    "ordering": false,
+                    "scrollX": true,
+                    "language": {
+                        "processing": "Message khi đang tải dữ liệu",
+                        "search": "Tìm kiếm theo từ khóa:",
+                        "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListDM_Lai_Xe.length + " bản ghi",
+                        "zeroRecords": "Không có dữ liệu !",
+                        "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                        "infoEmpty": "Không tồn tại bản ghi !",
+                        "paginate": {
+                            "first": "Trang đầu",
+                            "previous": "Trang trước",
+                            "next": "Trang sau",
+                            "last": "Trang cuối"
+                        }
+                    }
+                });
+            }
+        }
+    })
+}
+
+// Hàm hiển thị hoặc ẩn dropdown
+function showDropdown(id) {
+    var dropdown = document.getElementById('dropdown' + id);
+    dropdown.style.display = (dropdown.style.display === "none" || dropdown.style.display === "") ? "block" : "none";
+}
+
+
+// Hàm xử lý khi nhấn vào nút "Khóa" hoặc "Mở khóa"
+function khoaFunc(id) {
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("Khoa", "DM_Lai_Xe")',
+        data: { id: id },
+        success: function (response) {
+            if (response.Code == "00") {
+                swal.fire(response.Message, '', 'success');
+                detail();  // Cập nhật lại dữ liệu sau khi khóa/mở khóa
+            } else {
+                swal.fire(response.Message, '', 'error');
+            }
+        }
+    });
+    }
+    $(document).ready(function () {
+        // Khi nhấn vào nút "Thêm mới"
+        $("#btncreate").click(function () {
+            addNewFunc(); // Gọi hàm để hiển thị modal thêm mới
+        });
+    });
+    function addNewFunc() {
+        // Đặt tiêu đề modal
+        $("#editAddModalLabel").text("Thêm Mới Lái Xe");
+
+        // Xóa giá trị cũ trong form
+        $("#editAddForm")[0].reset();
+        $("#id_lai_xe").val("");
+
+        // Hiển thị modal
+        $('#editAddModal').modal('show');
+    }
+    function editFunc(id) {
+        // Gửi yêu cầu AJAX để lấy thông tin lái xe
+        $.ajax({
+            type: "GET",
+            url: "/DM_Lai_Xe/GetLaiXeInfo",  // Đường dẫn đến controller
+            data: { id: id },
+            success: function (data) {
+                console.log(data); // Kiểm tra dữ liệu trả về từ server
+
+                // Kiểm tra xem dữ liệu có đầy đủ không
+                if (data && data.ListDM_Lai_Xe_Sua && data.ListDM_Lai_Xe_Sua.length > 0) {
+                    var laiXe = data.ListDM_Lai_Xe_Sua[0];  // Lấy thông tin lái xe đầu tiên từ danh sách
+
+                    // Điền dữ liệu vào form
+                    $("#editAddModalLabel").text("Sửa Thông Tin Lái Xe");
+                    $("#id_lai_xe").val(laiXe.Id);
+                    $("#ten_lai_xe").val(laiXe.Ten_NV);
+                    $("#chi_nhanh").val(laiXe.Zone);  // Cập nhật giá trị chi nhánh (zone)
+
+                    // Gọi API để lấy các bưu cục dựa trên zone đã chọn và chọn bưu cục tương ứng
+                    updateBuucucDropdown(laiXe.Zone, laiXe.Buu_Cuc);  // Hàm cập nhật bưu cục theo zone và bưu cục đã chọn
+
+                    // Cập nhật tuyến phát dựa trên bưu cục đã chọn
+                    updatetuyenDropdown(laiXe.Buu_Cuc, laiXe.Tuyen_Phat);  // Cập nhật tuyến phát và chọn tuyến phát đã lưu
+                    updatebuutaDropdown(laiXe.Tuyen_Phat, laiXe.Buu_Ta); 
+
+                    // Hiển thị modal
+                    $('#editAddModal').modal('show');
+                } else {
+                    alert("Không tìm thấy dữ liệu lái xe.");
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi tải dữ liệu.");
+            }
+        });
+    }
+
+    // Hàm cập nhật dropdown bưu cục theo zone và giá trị bưu cục đã chọn
+    function updateBuucucDropdown(zone, selectedBuucuc) {
+        $.ajax({
+            url: "/PostmanDelivery/PosCode",  // Đường dẫn đến controller
+            data: { zone: zone },  // Gửi zone từ thông tin lái xe
+            dataType: "json",
+            success: function (posData) {
+                // Reset dropdown bưu cục
+                $('#buucuc').html('<option value="0">Chọn bưu cục</option>');
+
+                // Đổ dữ liệu bưu cục vào dropdown
+                $.each(posData, function (i, val) {
+                    $('#buucuc').append("<option value='" + val.POSCODE + "'>" + val.POSNAME + "</option>");
+                });
+
+                // Cập nhật giá trị bưu cục đã chọn
+                if (selectedBuucuc) {
+                    $("#buucuc").val(selectedBuucuc);  // Cập nhật giá trị bưu cục đã chọn
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi tải bưu cục.");
+            }
+        });
+    }
+    // Khi thay đổi giá trị của dropdown chi nhánh (zone), cập nhật lại bưu cục
+    $("#chi_nhanh").change(function () {
+        var selectedZone = $(this).val();
+        updateBuucucDropdown(selectedZone, "");  // Gọi hàm cập nhật bưu cục với zone mới và không có bưu cục đã chọn
+        $('#tuyen_phat').html('<option value="0">Chọn tuyến phát</option>');  // Reset tuyến phát
+    });
+
+    // Hàm cập nhật dropdown tuyến phát theo bưu cục và giá trị tuyến phát đã chọn
+    function updatetuyenDropdown(endpostcode, selectedtuyen) {
+        $.ajax({
+            url: "/PostmanDelivery/RouteCode",  // Đường dẫn đến controller
+            data: { endpostcode: endpostcode },  // Gửi bưu cục từ thông tin lái xe
+            dataType: "json",
+            success: function (tuyenData) {
+                // Reset dropdown tuyến phát
+                $('#tuyen_phat').html('<option value="0">Chọn tuyến phát</option>');
+
+                // Đổ dữ liệu tuyến phát vào dropdown
+                $.each(tuyenData, function (i, val) {
+                    $('#tuyen_phat').append("<option value='" + val.POSCODE + "'>" + val.POSNAME + "</option>");
+                });
+
+                // Cập nhật giá trị tuyến phát đã chọn (nếu có)
+                if (selectedtuyen) {
+                    $("#tuyen_phat").val(selectedtuyen);  // Cập nhật giá trị tuyến phát đã chọn
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi tải tuyến phát.");
+            }
+        });
+    }
+    // Khi thay đổi giá trị của dropdown bưu cục, cập nhật lại tuyến phát
+    $("#buucuc").change(function () {
+        var selectedBuucuc = $(this).val();
+        updatetuyenDropdown(selectedBuucuc, "");  // Gọi hàm cập nhật tuyến phát với bưu cục mới và không có tuyến phát đã chọn
+    });
+
+
+    function updatebuutaDropdown(routecode, selectedbuuta) {
+        $.ajax({
+            url: "/PostmanDelivery/Postman",  // Đường dẫn đến controller
+            data: { routecode: routecode },  // Gửi tuyến phát (hoặc route code) từ thông tin lái xe
+            dataType: "json",
+            success: function (buutaData) {
+                // Reset dropdown bưu tá
+                $('#buu_ta').html('<option value="0">Chọn bưu tá</option>');
+
+                // Đổ dữ liệu bưu tá vào dropdown
+                $.each(buutaData, function (i, val) {
+                    $('#buu_ta').append("<option value='" + val.POSTMAN_ID + "'>" + val.POSTMAN_NAME + "</option>");
+                });
+
+                // Cập nhật giá trị bưu tá đã chọn (nếu có)
+                if (selectedbuuta) {
+                    $("#buu_ta").val(selectedbuuta);  // Cập nhật giá trị bưu tá đã chọn
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi tải bưu tá.");
+            }
+        });
+    }
+
+    // Khi thay đổi giá trị của dropdown tuyến phát, cập nhật lại bưu tá
+    $("#tuyen_phat").change(function () {
+        var selectedtuyen = $(this).val();  // Lấy giá trị tuyến phát đã chọn
+        updatebuutaDropdown(selectedtuyen, "");  // Gọi hàm cập nhật bưu tá với tuyến phát mới và không có bưu tá đã chọn
+    });
+
+    function saveChanges() {
+        var id = $("#id_lai_xe").val();
+        var data = {
+            Id: id,
+            Ten_NV: $("#ten_lai_xe").val(),
+            Zone: $("#chi_nhanh").val(),
+            Buu_Cuc: $("#buucuc").val(),
+            Tuyen_Phat: $("#tuyen_phat").val(),
+            Buu_Ta: $("#buu_ta").val()
+        };
+
+        // Chọn hành động (Thêm mới hoặc Sửa)
+        var url = id ? "/DM_Lai_Xe/UpdateLaiXe" : "/DM_Lai_Xe/AddLaiXe";
+
+        // Gửi dữ liệu
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (response) {
+                if (response.success) {
+                    alert("Lưu thành công!");
+                    $('#editAddModal').modal('hide');
+                    location.reload(); // Tải lại dữ liệu
+                } else {
+                    alert("Lỗi: " + response.message);
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi lưu dữ liệu.");
+            }
+        });
+    }
+
+
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '? zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&service=' + $("#service").val();
+       // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
+        location.href = url;
+    });
+
+    //Sự kiện thay đổi bưu cục phát theo khu vực
+    $(document).ready(function () {
+        $('#zone').change(function () {
+            $.ajax({
+                url: "/PostmanDelivery/PosCode",
+                dataType: "json",
+                data: { zone: $("#zone").val() },
+                success: function (data) {
+                    $('#endpostcode').html('<option value=0>Chọn bưu cục phát </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#endpostcode').html($('#endpostcode').html() +
+                            "<option value='" + val.POSCODE + "'>" + val.POSNAME + "</option>");
+                    });
+                }
+            });
+        })
+    });
+
+
+    //Sự kiện thay đổi bưu tá theo tuyến phát
+    $(document).ready(function () {
+        $('#routecode').change(function () {
+            $.ajax({
+                url: "/PostmanDelivery/Postman",
+                dataType: "json",
+                data: { routecode: $("#routecode").val() },
+                success: function (data) {
+                    $('#postman').html('<option value=0>Chọn bưu tá </option>');
+                    jQuery.each(data, function (i, val) {
+                        $('#postman').html($('#postman').html() +
+                            "<option value='" + val.POSTMAN_ID + "'>" + val.POSTMAN_NAME + "</option>");
+                    });
+                }
+            });
+        })
+    });
+
+
+</script>
+<style type="text/css">
+    /* Dropdown */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9; /* Màu nền của dropdown */
+        min-width: 120px;
+        z-index: 1;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Thêm hiệu ứng bóng đổ */
+        border-radius: 5px; /* Viền bo góc */
+    }
+
+        .dropdown-content button {
+            background-color: #f1f1f1; /* Màu nền của các button */
+            border: none;
+            color: #333; /* Màu chữ */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block; /* Xếp các button thành dòng */
+            width: 100%; /* Chiếm toàn bộ chiều rộng của dropdown */
+            border-radius: 5px; /* Viền bo góc cho các button */
+            margin: 2px 0; /* Khoảng cách giữa các button */
+        }
+
+            /* Hiệu ứng hover */
+            .dropdown-content button:hover {
+                background-color: #ddd; /* Màu nền khi hover */
+                cursor: pointer; /* Đổi con trỏ thành pointer */
+            }
+    /* Hiệu ứng cho khi dropdown được hiển thị */
+    .dropdown:hover .dropdown-content {
+        display: block; /* Hiển thị dropdown khi hover */
+    }
+
+</style>
