@@ -1,0 +1,208 @@
+﻿
+
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/GridviewScroll/gridviewScroll.css" rel="stylesheet" />
+<script src="~/GridviewScroll/gridviewScroll.js"></script>
+
+<style type="text/css">
+    .divclass {
+        overflow: auto;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+         detail();
+
+    });
+
+
+
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var zone = url.searchParams.get("zone");
+    var endpostcode = url.searchParams.get("endpostcode");
+    var service = url.searchParams.get("service");
+    var routecode = url.searchParams.get("routecode");
+    var postman = url.searchParams.get("postman");
+
+</script>
+
+
+
+<section class="content-header">
+    <h1>
+        <small>Thống kê chi tiết sản lượng phát của lái xe</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Thống kê chi tiết sản lượng phát của lái xe</li>
+    </ol>
+</section>
+
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportDetail_CT_LX", "KPI_Delivery_Wage")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>
+
+
+            <div style="width: 100%;; overflow-x: scroll;">
+                <table id="TableAccount" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Mã E1</th>
+                            <th class="text-center">BC phát</th>
+                            <th class="text-center">Tên BC phát</th>
+                            <th class="text-center">Mã tuyến phát</th>
+                            <th class="text-center">Tên tuyến phát</th>
+                            <th class="text-center">Mã nhân viên</th>
+                            <th class="text-center">Tên lái xe</th>
+                            <th class="text-center">Ngày phát</th>
+                            <th class="text-center">Dịch vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+
+
+
+<script>
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var zone = url.searchParams.get("zone");
+    var endpostcode = url.searchParams.get("endpostcode");
+    var service = url.searchParams.get("service");
+    var routecode = url.searchParams.get("routecode");
+    var postman = url.searchParams.get("postman");
+
+    $(document).ready(function () {
+        detail();
+    });
+
+    function detail() {
+                 $.ajax({
+                     type: "POST",
+
+                     url: '@Url.Action("KPI_Delivery_CT_LX", "KPI_Delivery_Wage")',
+                beforeSend: function () {
+                    $('.loading-element').show();
+                },
+
+            dataType: "json",
+            data:
+                {
+                startdate: startdate,
+                enddate: enddate,
+                zone: zone,
+                endpostcode: endpostcode,
+                service: service,
+                routecode: routecode,
+                postman: postman
+                },
+            success: function (data) {
+                var str_html = "";
+                var str_body = "";
+                var a = 1;
+
+
+                $.each(data.ListDetail_CT_LX, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center" style="width: 5%; text-align: center;">' + a++ + '</td>';
+                    // Thêm chiều rộng và căn giữa cho các ô khác
+                    str_body += '<td style="width: 10%; text-align: center;"><a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=' + data.ListDetail_CT_LX[i].Itemcode + '" target="_blank" class="mae1" id="' + data.ListDetail_CT_LX[i].Itemcode + '">' + data.ListDetail_CT_LX[i].Itemcode + '</a></td>';
+                    //str_body += '<td style="width: 20%; text-align: center;">' + data.ListKPI_Customer_DetailKDCT[i].ITEMCODE + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListDetail_CT_LX[i].STARTPOSTCODE + '</td>';
+                    str_body += '<td style="width: 15%; text-align: center;">' + data.ListDetail_CT_LX[i].STARTPOSTCODENAME + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListDetail_CT_LX[i].ROUTECODE + '</td>';
+                    str_body += '<td style="width: 15%; text-align: center;">' + data.ListDetail_CT_LX[i].ROUTECODENAME + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListDetail_CT_LX[i].POSTMAN_ID + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListDetail_CT_LX[i].POSTMANName + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListDetail_CT_LX[i].STATUSDATETIME + '</td>';
+                    str_body += '<td style="width: 10%; text-align: center;">' + data.ListDetail_CT_LX[i].ServiceTypeName + '</td>';
+                    str_body += '</tr>';
+
+                });
+
+                str_html += str_body;
+
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal(
+                      data.Message,
+                      '',
+                      'error'
+                    );
+
+                }
+                else {
+                    $("#TableAccount").dataTable().fnDestroy();
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+
+
+                    $('#TableAccount').DataTable({
+                        "ordering": false,
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ bản ghi " + data.ListDetail_CT_LX.length + " bưu gửi",
+                            "zeroRecords": "Không có dữ liệu  !",
+                            "info": "Hiển thị trang _PAGE_ đến _PAGES_",
+                            "infoEmpty": "Không tồn tại bản ghi !",
+
+                            "paginate": {
+                                "next": "Trang sau",
+                                "previous": "Trang trước"
+                            }
+                        }
+                    });
+
+
+                }
+            }
+        })
+    }
+
+
+    $('#btnexportlist').click(function () {
+
+        var url = $(this).data('baseurl') + '?StartDate=' + startdate + '&enddate=' + enddate + '&zone=' + zone + '&endpostcode=' + endpostcode + '&service=' + service + '&routecode=' + routecode + '&postman=' + postman;
+        // redirect
+        location.href = url;
+    });
+
+
+</script>

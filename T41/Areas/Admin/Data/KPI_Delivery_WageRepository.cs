@@ -533,5 +533,235 @@ namespace T41.Areas.Admin.Data
             }
             return _ReturnDetail_KG;
         }
+
+
+        public ReturnKPI_Wage KPI_Detail_Lai_Xe(int startdate, int enddate, int zone, int endpostcode, int service, int routercode)
+        {
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnKPI_Wage _ReturnKPI_Wage = new ReturnKPI_Wage();
+            var test = Helper.OraDCOracleConnection;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_lai_xe", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table   
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_Zone", OracleDbType.Int32).Value = zone;
+                    myCommand.Parameters.Add("v_StartPostCode", OracleDbType.Int32).Value = endpostcode;
+                    myCommand.Parameters.Add("v_Service", OracleDbType.Int32).Value = service;
+                    myCommand.Parameters.Add("v_Routercode", OracleDbType.Int32).Value = routercode;
+
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        int a = 0;
+                        var listDetail_TKSLP = new List<KPI_Detail_Lai_Xe>();
+                        while (dr.Read())
+                        {
+
+                            var oKPI_Delivery_Wage = new KPI_Detail_Lai_Xe();
+                            oKPI_Delivery_Wage.STT = a++;
+                            oKPI_Delivery_Wage.ZONE = dr["ZONE"].ToString();
+                            oKPI_Delivery_Wage.STARTPOSTCODE = dr["STARTPOSTCODE"].ToString();
+                            //oKPI_Delivery_Wage.BuuCuc = Convert.ToInt32(dr["BUUCUC"].ToString());
+                            oKPI_Delivery_Wage.STARTPOSTCODENAME = dr["STARTPOSTCODENAME"].ToString();
+                            oKPI_Delivery_Wage.ROUTECODE = dr["ROUTECODE"].ToString();
+                            oKPI_Delivery_Wage.ROUTECODENAME = dr["ROUTECODENAME"].ToString();
+                            oKPI_Delivery_Wage.POSTMAN_HRM = dr["POSTMAN_HRM"].ToString();
+                            oKPI_Delivery_Wage.POSTMAN_ID = dr["POSTMAN_ID"].ToString();
+                            oKPI_Delivery_Wage.POSTMANName = dr["POSTMANName"].ToString();
+                            oKPI_Delivery_Wage.ServiceTypeName = dr["ServiceTypeName"].ToString();
+                            oKPI_Delivery_Wage.ServiceTypeNumber = dr["ServiceTypeNumber"].ToString();
+                            oKPI_Delivery_Wage.TotalM = dr["TotalM"].ToString();
+                            oKPI_Delivery_Wage.TotalCT = dr["TotalCT"].ToString();
+                            oKPI_Delivery_Wage.Total = dr["Total"].ToString();
+                            oKPI_Delivery_Wage.TotalPL = dr["TotalPL"].ToString();
+                            oKPI_Delivery_Wage.SLD2 = dr["SLD2"].ToString();
+                            oKPI_Delivery_Wage.KLD2 = dr["KLD2"].ToString();
+                            oKPI_Delivery_Wage.SLT2 = dr["SLT2"].ToString();
+                            oKPI_Delivery_Wage.KLT2 = dr["KLT2"].ToString();
+                            oKPI_Delivery_Wage.TotalSL = dr["TotalSL"].ToString();
+                            oKPI_Delivery_Wage.TotalKL = dr["TotalKL"].ToString();
+                            oKPI_Delivery_Wage.TotalKTC = dr["TotalKTC"].ToString();
+                            oKPI_Delivery_Wage.TotalAll = dr["TotalAll"].ToString();
+                            oKPI_Delivery_Wage.PTC6H = dr["PTC6H"].ToString();
+                            oKPI_Delivery_Wage.PTC72H = dr["PTC72H"].ToString();
+                            listDetail_TKSLP.Add(oKPI_Delivery_Wage);
+
+                        }
+                        _ReturnKPI_Wage.Code = "00";
+                        _ReturnKPI_Wage.Message = "Lấy dữ liệu thành công.";
+                        _ReturnKPI_Wage.ListKPI_Detail_Lai_Xe = listDetail_TKSLP;
+                    }
+                    else
+                    {
+                        _ReturnKPI_Wage.Code = "01";
+                        _ReturnKPI_Wage.Message = "Không có dữ liệu";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnKPI_Wage.Code = "99";
+                _ReturnKPI_Wage.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _ReturnKPI_Wage;
+        }
+
+        public ReturnKPI_Wage KPI_Delivery_CT_LX(int startdate, int enddate, int zone, int endpostcode, int service, int routercode, int postman)
+        {
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnKPI_Wage _ReturnDetail_CT = new ReturnKPI_Wage();
+            var test = Helper.OraDCOracleConnection;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_CT_LX", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table   
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_Zone", OracleDbType.Int32).Value = zone;
+                    myCommand.Parameters.Add("v_StartPostCode", OracleDbType.Int32).Value = endpostcode;
+                    myCommand.Parameters.Add("v_Service", OracleDbType.Int32).Value = service;
+                    myCommand.Parameters.Add("v_Routercode", OracleDbType.Int32).Value = routercode;
+                    myCommand.Parameters.Add("v_Postman", OracleDbType.Int32).Value = postman;
+
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        int a = 0;
+                        var listDetail_CT = new List<Detail_CT_LX>();
+                        while (dr.Read())
+                        {
+
+                            var oDetail_CT = new Detail_CT_LX();
+                            oDetail_CT.STT = a++;
+                            oDetail_CT.Itemcode = dr["Itemcode"].ToString();
+                            //oKPI_Delivery_Wage.BuuCuc = Convert.ToInt32(dr["BUUCUC"].ToString());
+                            oDetail_CT.STARTPOSTCODE = dr["STARTPOSTCODE"].ToString();
+                            oDetail_CT.STARTPOSTCODENAME = dr["STARTPOSTCODENAME"].ToString();
+                            oDetail_CT.ROUTECODE = dr["ROUTECODE"].ToString();
+                            oDetail_CT.ROUTECODENAME = dr["ROUTECODENAME"].ToString();
+                            oDetail_CT.POSTMAN_ID = dr["POSTMAN_ID"].ToString();
+                            oDetail_CT.POSTMANName = dr["POSTMANName"].ToString();
+                            oDetail_CT.STATUSDATETIME = dr["STATUSDATETIME"].ToString();
+                            oDetail_CT.ServiceTypeName = dr["ServiceTypeName"].ToString();
+                            listDetail_CT.Add(oDetail_CT);
+                        }
+                        _ReturnDetail_CT.Code = "00";
+                        _ReturnDetail_CT.Message = "Lấy dữ liệu thành công.";
+                        _ReturnDetail_CT.ListDetail_CT_LX = listDetail_CT;
+                    }
+                    else
+                    {
+                        _ReturnDetail_CT.Code = "01";
+                        _ReturnDetail_CT.Message = "Không có dữ liệu";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnDetail_CT.Code = "99";
+                _ReturnDetail_CT.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _ReturnDetail_CT;
+        }
+
+        public ReturnKPI_Wage KPI_Delivery_CTCT_LX(int startdate, int enddate, int zone, int endpostcode, int service, int routercode, int postman)
+        {
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnKPI_Wage _ReturnDetail_CTCT = new ReturnKPI_Wage();
+            var test = Helper.OraDCOracleConnection;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_CTCT_LX", Helper.OraDCOracleConnection);
+                    //xử lý tham số truyền vào data table   
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_Zone", OracleDbType.Int32).Value = zone;
+                    myCommand.Parameters.Add("v_StartPostCode", OracleDbType.Int32).Value = endpostcode;
+                    myCommand.Parameters.Add("v_Service", OracleDbType.Int32).Value = service;
+                    myCommand.Parameters.Add("v_Routercode", OracleDbType.Int32).Value = routercode;
+                    myCommand.Parameters.Add("v_Postman", OracleDbType.Int32).Value = postman;
+
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        int a = 0;
+                        var listDetail_CTCT = new List<Detail_CTCT_LX>();
+                        while (dr.Read())
+                        {
+
+                            var oDetail_CTCT = new Detail_CTCT_LX();
+                            oDetail_CTCT.STT = a++;
+                            oDetail_CTCT.Itemcode = dr["Itemcode"].ToString();
+                            //oKPI_Delivery_Wage.BuuCuc = Convert.ToInt32(dr["BUUCUC"].ToString());
+                            oDetail_CTCT.STARTPOSTCODE = dr["STARTPOSTCODE"].ToString();
+                            oDetail_CTCT.STARTPOSTCODENAME = dr["STARTPOSTCODENAME"].ToString();
+                            oDetail_CTCT.ROUTECODE = dr["ROUTECODE"].ToString();
+                            oDetail_CTCT.ROUTECODENAME = dr["ROUTECODENAME"].ToString();
+                            oDetail_CTCT.POSTMAN_ID = dr["POSTMAN_ID"].ToString();
+                            oDetail_CTCT.POSTMANName = dr["POSTMANName"].ToString();
+                            oDetail_CTCT.STATUSDATETIME = dr["STATUSDATETIME"].ToString();
+                            oDetail_CTCT.ServiceTypeName = dr["ServiceTypeName"].ToString();
+                            listDetail_CTCT.Add(oDetail_CTCT);
+                        }
+                        _ReturnDetail_CTCT.Code = "00";
+                        _ReturnDetail_CTCT.Message = "Lấy dữ liệu thành công.";
+                        _ReturnDetail_CTCT.ListDetail_CTCT_LX = listDetail_CTCT;
+                    }
+                    else
+                    {
+                        _ReturnDetail_CTCT.Code = "01";
+                        _ReturnDetail_CTCT.Message = "Không có dữ liệu";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnDetail_CTCT.Code = "99";
+                _ReturnDetail_CTCT.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _ReturnDetail_CTCT;
+        }
     }
 }

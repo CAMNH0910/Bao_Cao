@@ -132,6 +132,69 @@ namespace T41.Areas.Admin.Model.DataModel
         public string PTC72H { get; set; }
 
     }
+
+
+    public class KPI_Detail_Lai_Xe
+    {
+        public int STT { get; set; }
+        public string STARTPOSTCODE { get; set; }
+        public string STARTPOSTCODENAME { get; set; }
+        public string ROUTECODE { get; set; }
+        public string ROUTECODENAME { get; set; }
+        public string POSTMAN_HRM { get; set; }
+        public string POSTMAN_ID { get; set; }
+        public string POSTMANName { get; set; }
+        public string ServiceTypeName { get; set; }
+        public string TotalM { get; set; }
+        public string TotalCT { get; set; }
+        public string Total { get; set; }
+        public string TotalPL { get; set; }
+        public string SLD2 { get; set; }
+        public string KLD2 { get; set; }
+        public string SLT2 { get; set; }
+        public string KLT2 { get; set; }
+        public string TotalSL { get; set; }
+        public string TotalKL { get; set; }
+        public string TotalKTC { get; set; }
+        public string TotalAll { get; set; }
+        public string PTC6H { get; set; }
+        public string PTC72H { get; set; }
+        public string ServiceTypeNumber { get; set; }
+        public string ZONE { get; set; }
+    }
+
+    public class Detail_CT_LX
+    {
+        public int STT { get; set; }
+        public string Itemcode { get; set; }
+        public string STARTPOSTCODE { get; set; }
+        public string STARTPOSTCODENAME { get; set; }
+        public string ROUTECODE { get; set; }
+        public string ROUTECODENAME { get; set; }
+        public string POSTMAN_ID { get; set; }
+        public string POSTMANName { get; set; }
+        public string STATUSDATETIME { get; set; }
+        public string ServiceTypeName { get; set; }
+        public string ServiceTypeNumber { get; set; }
+
+    }
+
+    public class Detail_CTCT_LX
+    {
+        public int STT { get; set; }
+        public string Itemcode { get; set; }
+        public string STARTPOSTCODE { get; set; }
+        public string STARTPOSTCODENAME { get; set; }
+        public string ROUTECODE { get; set; }
+        public string ROUTECODENAME { get; set; }
+        public string POSTMAN_ID { get; set; }
+        public string POSTMANName { get; set; }
+        public string STATUSDATETIME { get; set; }
+        public string ServiceTypeName { get; set; }
+        public string ServiceTypeNumber { get; set; }
+
+
+    }
     public class ReturnKPI_Wage
     {
         public string Code { get; set; }
@@ -166,6 +229,15 @@ namespace T41.Areas.Admin.Model.DataModel
 
         public Detail_KG Detail_KG { get; set; }
         public List<Detail_KG> ListDetail_KG;
+
+        public KPI_Detail_Lai_Xe KPI_Detail_Lai_Xe { get; set; }
+        public List<KPI_Detail_Lai_Xe> ListKPI_Detail_Lai_Xe;
+
+        public Detail_CT_LX Detail_CT_LX { get; set; }
+        public List<Detail_CT_LX> ListDetail_CT_LX;
+
+        public Detail_CTCT_LX Detail_CTCT_LX { get; set; }
+        public List<Detail_CTCT_LX> ListDetail_CTCT_LX;
     }
 
 }

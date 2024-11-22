@@ -69,9 +69,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Khu Vực</label>
+                        <label>Chi nhánh</label>
                         <select class="form-control select2" style="width: 100%;" id="zone">
-                            <option selected="selected" value="0">Chọn khu vực</option>
+                            <option selected="selected" value="0">Chọn chi nhánh</option>
                             <option value="1">Hà Nội</option>
                             <option value="2">Đà Nẵng</option>
                             <option value="3">Hồ Chí Minh</option>
@@ -137,6 +137,7 @@
                             <th rowspan="4" class="text-center">Bưu cục</th>
                             <th rowspan="4" class="text-center">Tuyến phát</th>
                             <th rowspan="4" class="text-center">Tên bưu tá</th>
+                            <th rowspan="4" class="text-center">Mã lái xe</th>
                             <th rowspan="4" class="text-center">Tên lái xe</th>
                             <th rowspan="4" class="text-center">Trạng thái</th>
                             <th rowspan="4" class="text-center">Chức năng</th>
@@ -160,6 +161,10 @@
                                 <input type="hidden" id="id_lai_xe" name="id_lai_xe">
 
                                 <!-- Các trường thông tin -->
+                                <div class="form-group">
+                                    <label for="ma_lai_xe">Mã Lái Xe</label>
+                                    <input type="text" class="form-control" id="ma_lai_xe" name="ma_lai_xe" required>
+                                </div>
                                 <div class="form-group">
                                     <label for="ten_lai_xe">Tên Lái Xe</label>
                                     <input type="text" class="form-control" id="ten_lai_xe" name="ten_lai_xe" required>
@@ -201,13 +206,9 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </section>
-
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
@@ -290,9 +291,10 @@
                 str_body += '<td width="10" class="text-center">' + a++ + '</td>';
                 str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Id + '</td>';
                 str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Zone + '</td>';
-                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Buu_Cuc + '</td>';
-                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Tuyen_Phat + '</td>';
+                str_body += '<td width="300">' + data.ListDM_Lai_Xe[i].Buu_Cuc + '</td>';
+                str_body += '<td width="300" >' + data.ListDM_Lai_Xe[i].Tuyen_Phat + '</td>';
                 str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Buu_Ta + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Ma_NV + '</td>';
                 str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Ten_NV + '</td>';
 
                 // Kiểm tra trạng thái và hiển thị biểu tượng khóa/mở khóa
@@ -408,6 +410,7 @@ function khoaFunc(id) {
                     // Điền dữ liệu vào form
                     $("#editAddModalLabel").text("Sửa Thông Tin Lái Xe");
                     $("#id_lai_xe").val(laiXe.Id);
+                    $("#ma_lai_xe").val(laiXe.Ma_NV);
                     $("#ten_lai_xe").val(laiXe.Ten_NV);
                     $("#chi_nhanh").val(laiXe.Zone);  // Cập nhật giá trị chi nhánh (zone)
 
@@ -527,13 +530,27 @@ function khoaFunc(id) {
 
     function saveChanges() {
         var id = $("#id_lai_xe").val();
+        var maNV = $("#ma_lai_xe").val();
+        var tenNV = $("#ten_lai_xe").val();
+        var zone = $("#chi_nhanh").val();
+        var buucuc = $("#buucuc").val();
+        var tuyenPhat = $("#tuyen_phat").val();
+        var buuTa = $("#buu_ta").val();
+
+        // Kiểm tra các giá trị không được để trống
+        if (!maNV || !tenNV || !zone || !buucuc || !tuyenPhat || !buuTa) {
+            alert("Vui lòng điền đầy đủ thông tin. Các trường không được để trống.");
+            return; // Dừng hàm nếu có trường nào bị trống
+        }
+
         var data = {
             Id: id,
-            Ten_NV: $("#ten_lai_xe").val(),
-            Zone: $("#chi_nhanh").val(),
-            Buu_Cuc: $("#buucuc").val(),
-            Tuyen_Phat: $("#tuyen_phat").val(),
-            Buu_Ta: $("#buu_ta").val()
+            Ma_NV: maNV,
+            Ten_NV: tenNV,
+            Zone: zone,
+            Buu_Cuc: buucuc,
+            Tuyen_Phat: tuyenPhat,
+            Buu_Ta: buuTa
         };
 
         // Chọn hành động (Thêm mới hoặc Sửa)
@@ -560,10 +577,10 @@ function khoaFunc(id) {
     }
 
 
+
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '? zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&service=' + $("#service").val();
-       // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
+        var url = $(this).data('baseurl') + '?zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&trangthai=' + $("#trangthai").val();
         location.href = url;
     });
 

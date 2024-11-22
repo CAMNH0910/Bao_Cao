@@ -46,6 +46,13 @@ namespace T41.Areas.Admin.Controllers
 
         }
 
+        public ActionResult KPI_Detail_Lai_Xe()
+        {
+
+            return View();
+
+        }
+
         public ActionResult KPI_Delivery_CTTH()
         {
             return View();
@@ -66,7 +73,16 @@ namespace T41.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult KPI_Delivery_CT_LX()
+        {
+            return View();
+        }
 
+
+        public ActionResult KPI_Delivery_CTCT_LX()
+        {
+            return View();
+        }
 
         //Controller lấy dữ liệu bưu cục phát
         public JsonResult PosCode(int zone)
@@ -565,7 +581,7 @@ namespace T41.Areas.Admin.Controllers
             return jsonResult;
 
         }
-          public List<KPI_Detail_Wage> ReturnListExcelDetail(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman,int date)
+        public List<KPI_Detail_Wage> ReturnListExcelDetail(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman,int date)
         {
 
             ViewBag.startdate = startdate;
@@ -1200,11 +1216,518 @@ namespace T41.Areas.Admin.Controllers
             // Redirect về luôn trang index >
             return RedirectToAction("Index");
         }
-       
-       
+
         //Hàm Export excel  , truyền parameter vào để export
+        #endregion
+
+        #region Lái xe
+        public JsonResult ListKPI_Detail_Lai_Xe(string startdate, string enddate, int zone, int endpostcode, int service, int routecode)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+
+            KPI_Delivery_WageRepository kPI_CustomerRepository = new KPI_Delivery_WageRepository();
+            ReturnKPI_Wage returnquality = new ReturnKPI_Wage();
+            returnquality = kPI_CustomerRepository.KPI_Detail_Lai_Xe(common.DateToInt(startdate), common.DateToInt(enddate), zone, endpostcode, service, routecode);
+
+            var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+
+        }
+        public List<KPI_Detail_Lai_Xe> ReturnListExcelDetail_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+            KPI_Delivery_WageRepository kPI_CustomerRepository = new KPI_Delivery_WageRepository();
+            ReturnKPI_Wage returnquality = new ReturnKPI_Wage();
+            returnquality = kPI_CustomerRepository.KPI_Detail_Lai_Xe(common.DateToInt(startdate), common.DateToInt(enddate), zone, endpostcode, service, routecode);
+            return returnquality.ListKPI_Detail_Lai_Xe;
+        }
+
+        public Stream CreateExcelFileDetail_LX(Stream stream = null)
+        {
+            //var list = CreateTestItems();
+            var list = ReturnListExcelDetail_LX(ViewBag.startdate, ViewBag.enddate, ViewBag.zone, ViewBag.endpostcode, ViewBag.service, ViewBag.routecode);
+            using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+            {
+                // Tạo author cho file Excel
+                excelPackage.Workbook.Properties.Author = "Window.User";
+                // Tạo title cho file Excel
+                excelPackage.Workbook.Properties.Title = "Export Excel";
+                // thêm tí comments vào làm màu 
+                excelPackage.Workbook.Properties.Comments = "Export Excel Success !";
+                // Add Sheet vào file Excel
+                excelPackage.Workbook.Worksheets.Add("First Sheet");
+                // Lấy Sheet bạn vừa mới tạo ra để thao tác 
+                var workSheet = excelPackage.Workbook.Worksheets[1];
+                // Đổ data vào Excel file
+                workSheet.Cells[8, 1].LoadFromCollection(list, false, TableStyles.Dark9);
+                BindingFormatForExcel_Detail_LX(workSheet, list);
+                excelPackage.Save();
+                return excelPackage.Stream;
+            }
+        }
+
+        //Phần sửa excel
+        private void BindingFormatForExcel_Detail_LX(ExcelWorksheet worksheet, List<KPI_Detail_Lai_Xe> listItems)
+        {
+            var list = ReturnListExcelDetail_LX(ViewBag.startdate, ViewBag.enddate, ViewBag.zone, ViewBag.endpostcode, ViewBag.service, ViewBag.routecode);
+            // Set default width cho tất cả column
+            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultRowHeight = 20;
+            // Tự động xuống hàng khi text quá dài
+            worksheet.Cells.Style.WrapText = true;
+            // Tạo header
+            worksheet.Cells[1, 1].Value = "BÁO CÁO THỐNG KÊ SẢN LƯỢNG  PHÁT CỦA LÁI XE";
+            worksheet.Cells["A1:W1"].Merge = true;
+
+            worksheet.Cells[2, 23].Value = "MÃ BÁO CÁO:BT/TKSL_LX";
+            worksheet.Cells["W2:W2"].Merge = true;
+
+            worksheet.Cells[2, 11].Value = "Từ ngày:" + " " + ViewBag.startdate + "-" + "Đến ngày" + " " + ViewBag.endDate;
+            worksheet.Cells["K2:M2"].Merge = true;
+
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells["A4:A7"].Merge = true;
+            worksheet.Cells[4, 2].Value = "Mã Bưu Cục";
+            worksheet.Cells["B4:B7"].Merge = true;
+            worksheet.Cells[4, 3].Value = "Tên Bưu Cục";
+            worksheet.Cells["C4:C7"].Merge = true;
+            worksheet.Cells[4, 4].Value = "Mã tuyến phát";
+            worksheet.Cells["D4:D7"].Merge = true;
+            worksheet.Cells[4, 5].Value = "Tên tuyến phát";
+            worksheet.Cells["E4:E7"].Merge = true;
+            worksheet.Cells[4, 6].Value = "Mã Nhân viên";
+            worksheet.Cells["F4:F7"].Merge = true;
+            worksheet.Cells[4, 7].Value = "Id lái xe";
+            worksheet.Cells["G4:G7"].Merge = true;
+            worksheet.Cells[4, 8].Value = "Họ tên lái xe";
+            worksheet.Cells["H4:H7"].Merge = true;
+            worksheet.Cells[4, 9].Value = "Dịch vụ";
+            worksheet.Cells["I4:I7"].Merge = true;
+
+            worksheet.Cells[4, 11].Value = "SL Bưu gửi phát";
+            worksheet.Cells["J4:L4"].Merge = true;
+            worksheet.Cells[5, 10].Value = "Bưu gửi mới";
+            worksheet.Cells["J5:J7"].Merge = true;
+            worksheet.Cells[5, 11].Value = "Bưu gửi chuyển tiếp";
+            worksheet.Cells["K5:K7"].Merge = true;
+            worksheet.Cells[5, 12].Value = "Sản lượng phát thực tế";
+            worksheet.Cells["L5:L7"].Merge = true;
+
+            worksheet.Cells[4, 13].Value = "Bưu gửi phát lại";
+            worksheet.Cells["M4:M7"].Merge = true;
+
+            worksheet.Cells[4, 14].Value = "Trạng thái phát bưu gửi";
+            worksheet.Cells["N4:U4"].Merge = true;
+
+            worksheet.Cells[5, 14].Value = "SL phát thành công";
+            worksheet.Cells["N5:S5"].Merge = true;
+            worksheet.Cells[6, 14].Value = "Đến 2KG";
+            worksheet.Cells["N6:O6"].Merge = true;
+            worksheet.Cells[7, 14].Value = "Sản lượng";
+            worksheet.Cells[7, 15].Value = "Khối lượng";
+
+            worksheet.Cells[6, 16].Value = "Trên 2KG";
+            worksheet.Cells["P6:Q6"].Merge = true;
+            worksheet.Cells[7, 16].Value = "Sản lượng";
+            worksheet.Cells[7, 17].Value = "Khối lượng";
+
+            worksheet.Cells[6, 18].Value = "Tổng cộng";
+            worksheet.Cells["R6:S6"].Merge = true;
+            worksheet.Cells[7, 18].Value = "Sản lượng";
+            worksheet.Cells[7, 19].Value = "Khối lượng";
+
+            worksheet.Cells[5, 20].Value = "SL phát không thành công ";
+            worksheet.Cells["T5:T7"].Merge = true;
+            worksheet.Cells[5, 21].Value = "Tổng cộng";
+            worksheet.Cells["U5:U7"].Merge = true;
+
+            worksheet.Cells[4, 22].Value = "SL Phát TC 12h";
+            worksheet.Cells["V4:V7"].Merge = true;
+            worksheet.Cells[4, 23].Value = "SL Phát TC (TT - 48h; TMĐT - 72h)";
+            worksheet.Cells["W4:W7"].Merge = true;
+
+            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            using (var range = worksheet.Cells["A4:W7"])
+            using (var ranges = worksheet.Cells["A1:W1"])
+            using (var Ngay = worksheet.Cells["K2:M2"])
+            {
+                // Set PatternType
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                // Set Màu cho Background
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
+                // Canh giữa cho các text
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                range.Style.Font.SetFromFont(new Font("Arial", 11));
+
+                // Set Border
+                //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+                // Set màu ch Border
+                //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
+                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            }
 
 
+        }
+
+        //Hàm Export excel  , truyền parameter vào để export
+        [HttpGet]
+        public ActionResult ExportDetail_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode)
+        {
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+
+            //ViewBag.receptacle_id = receptacle_id;
+            // Gọi lại hàm để tạo file excel
+            var stream = CreateExcelFileDetail_LX();
+            // Tạo buffer memory strean để hứng file excel
+            var buffer = stream as MemoryStream;
+            // Đây là content Type dành cho file excel
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
+            // File name của Excel này là ExcelDemo
+            Response.AddHeader("Content-Disposition", "attachment; filename=Báo cáo tổng hợp sản lượng đi phát.xlsx");
+            // Lưu file excel của chúng ta như 1 mảng byte để trả về response
+            Response.BinaryWrite(buffer.ToArray());
+            // Send tất cả ouput bytes về phía clients
+            Response.Flush();
+            Response.End();
+            // Redirect về luôn trang index >
+            return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region chi tiết lái xe phát không thành công
+        [HttpPost]
+        public JsonResult KPI_Delivery_CT_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+            ViewBag.postman = postman;
+
+            KPI_Delivery_WageRepository kPI_KPI_Delivery_CT = new KPI_Delivery_WageRepository();
+            ReturnKPI_Wage returnquality = new ReturnKPI_Wage();
+            returnquality = kPI_KPI_Delivery_CT.KPI_Delivery_CT_LX(common.DateToInt(startdate), common.DateToInt(enddate), zone, endpostcode, service, routecode, postman);
+
+            var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+
+        }
+
+        public List<Detail_CT_LX> ReturnListExcelDetail_CT_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+            ViewBag.postman = postman;
+            KPI_Delivery_WageRepository kPI_CustomerRepository = new KPI_Delivery_WageRepository();
+            ReturnKPI_Wage returnquality = new ReturnKPI_Wage();
+            returnquality = kPI_CustomerRepository.KPI_Delivery_CT_LX(common.DateToInt(startdate), common.DateToInt(enddate), zone, endpostcode, service, routecode, postman);
+            return returnquality.ListDetail_CT_LX;
+        }
+
+
+        public Stream CreateExcelFileDetail_CT_LX(Stream stream = null)
+        {
+            //var list = CreateTestItems();
+            var list = ReturnListExcelDetail_CT_LX(ViewBag.startdate, ViewBag.enddate, ViewBag.zone, ViewBag.endpostcode, ViewBag.service, ViewBag.routecode, ViewBag.postman);
+            using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+            {
+                // Tạo author cho file Excel
+                excelPackage.Workbook.Properties.Author = "Window.User";
+                // Tạo title cho file Excel
+                excelPackage.Workbook.Properties.Title = "Export Excel";
+                // thêm tí comments vào làm màu 
+                excelPackage.Workbook.Properties.Comments = "Export Excel Success !";
+                // Add Sheet vào file Excel
+                excelPackage.Workbook.Worksheets.Add("First Sheet");
+                // Lấy Sheet bạn vừa mới tạo ra để thao tác 
+                var workSheet = excelPackage.Workbook.Worksheets[1];
+                // Đổ data vào Excel file
+                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                BindingFormatForExcel_CT_LX(workSheet, list);
+                excelPackage.Save();
+                return excelPackage.Stream;
+            }
+        }
+
+
+        //Phần sửa excel
+        private void BindingFormatForExcel_CT_LX(ExcelWorksheet worksheet, List<Detail_CT_LX> listItems)
+        {
+            var list = ReturnListExcelDetail_CT_LX(ViewBag.startdate, ViewBag.enddate, ViewBag.zone, ViewBag.endpostcode, ViewBag.service, ViewBag.routecode, ViewBag.postman);
+            // Set default width cho tất cả column
+            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultRowHeight = 20;
+            // Tự động xuống hàng khi text quá dài
+            worksheet.Cells.Style.WrapText = true;
+            // Tạo header
+            worksheet.Cells[1, 1].Value = "STT";
+            worksheet.Cells[1, 2].Value = "Mã E1";
+            worksheet.Cells[1, 3].Value = "Bưu cục phát";
+            worksheet.Cells[1, 4].Value = "Tên bưu cục phát";
+            worksheet.Cells[1, 5].Value = "Mã tuyến phát";
+            worksheet.Cells[1, 6].Value = "Tên tuyến phát";
+            worksheet.Cells[1, 7].Value = "Mã nhân viên";
+            worksheet.Cells[1, 8].Value = "Tên lái xe";
+            worksheet.Cells[1, 9].Value = "Ngày phát";
+            worksheet.Cells[1, 10].Value = "Dịch vụ";
+
+
+            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            using (var range = worksheet.Cells["A1:J1"])
+            {
+                // Set PatternType
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                // Set Màu cho Background
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
+                // Canh giữa cho các text
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                range.Style.Font.SetFromFont(new Font("Arial", 11));
+
+                // Set Border
+                //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+                // Set màu ch Border
+                //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                //Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                // ranges.Style.Font.SetFromFont(new Font("Arial", 14));
+                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            }
+
+
+        }
+
+        //Hàm Export excel  , truyền parameter vào để export
+        [HttpGet]
+        public ActionResult ExportDetail_CT_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman)
+        {
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+            ViewBag.postman = postman;
+
+            //ViewBag.receptacle_id = receptacle_id;
+            // Gọi lại hàm để tạo file excel
+            var stream = CreateExcelFileDetail_CT_LX();
+            // Tạo buffer memory strean để hứng file excel
+            var buffer = stream as MemoryStream;
+            // Đây là content Type dành cho file excel
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
+            // File name của Excel này là ExcelDemo
+            Response.AddHeader("Content-Disposition", "attachment; filename=Báo cáo tổng hợp sản lượng đi phát.xlsx");
+            // Lưu file excel của chúng ta như 1 mảng byte để trả về response
+            Response.BinaryWrite(buffer.ToArray());
+            // Send tất cả ouput bytes về phía clients
+            Response.Flush();
+            Response.End();
+            // Redirect về luôn trang index >
+            return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region chi tiết lái xe chuyển tiếp
+        [HttpPost]
+        public JsonResult KPI_Delivery_CTCT_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+            ViewBag.postman = postman;
+
+            KPI_Delivery_WageRepository kPI_KPI_Delivery_CT = new KPI_Delivery_WageRepository();
+            ReturnKPI_Wage returnquality = new ReturnKPI_Wage();
+            returnquality = kPI_KPI_Delivery_CT.KPI_Delivery_CTCT_LX(common.DateToInt(startdate), common.DateToInt(enddate), zone, endpostcode, service, routecode, postman);
+
+            var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+
+        }
+
+        public List<Detail_CTCT_LX> ReturnListExcelDetail_CTCT_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+            ViewBag.postman = postman;
+            KPI_Delivery_WageRepository kPI_CustomerRepository = new KPI_Delivery_WageRepository();
+            ReturnKPI_Wage returnquality = new ReturnKPI_Wage();
+            returnquality = kPI_CustomerRepository.KPI_Delivery_CTCT_LX(common.DateToInt(startdate), common.DateToInt(enddate), zone, endpostcode, service, routecode, postman);
+            return returnquality.ListDetail_CTCT_LX;
+        }
+
+
+        public Stream CreateExcelFileDetail_CTCT_LX(Stream stream = null)
+        {
+            //var list = CreateTestItems();
+            var list = ReturnListExcelDetail_CTCT_LX(ViewBag.startdate, ViewBag.enddate, ViewBag.zone, ViewBag.endpostcode, ViewBag.service, ViewBag.routecode, ViewBag.postman);
+            using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+            {
+                // Tạo author cho file Excel
+                excelPackage.Workbook.Properties.Author = "Window.User";
+                // Tạo title cho file Excel
+                excelPackage.Workbook.Properties.Title = "Export Excel";
+                // thêm tí comments vào làm màu 
+                excelPackage.Workbook.Properties.Comments = "Export Excel Success !";
+                // Add Sheet vào file Excel
+                excelPackage.Workbook.Worksheets.Add("First Sheet");
+                // Lấy Sheet bạn vừa mới tạo ra để thao tác 
+                var workSheet = excelPackage.Workbook.Worksheets[1];
+                // Đổ data vào Excel file
+                workSheet.Cells[1, 1].LoadFromCollection(list, true, TableStyles.Dark9);
+                BindingFormatForExcel_CTCT_LX(workSheet, list);
+                excelPackage.Save();
+                return excelPackage.Stream;
+            }
+        }
+
+
+        //Phần sửa excel
+        private void BindingFormatForExcel_CTCT_LX(ExcelWorksheet worksheet, List<Detail_CTCT_LX> listItems)
+        {
+            var list = ReturnListExcelDetail_CTCT_LX(ViewBag.startdate, ViewBag.enddate, ViewBag.zone, ViewBag.endpostcode, ViewBag.service, ViewBag.routecode, ViewBag.postman);
+            // Set default width cho tất cả column
+            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultRowHeight = 20;
+            // Tự động xuống hàng khi text quá dài
+            worksheet.Cells.Style.WrapText = true;
+            // Tạo header
+            worksheet.Cells[1, 1].Value = "STT";
+            worksheet.Cells[1, 2].Value = "Mã E1";
+            worksheet.Cells[1, 3].Value = "Bưu cục phát";
+            worksheet.Cells[1, 4].Value = "Tên bưu cục phát";
+            worksheet.Cells[1, 5].Value = "Mã tuyến phát";
+            worksheet.Cells[1, 6].Value = "Tên tuyến phát";
+            worksheet.Cells[1, 7].Value = "Mã nhân viên";
+            worksheet.Cells[1, 8].Value = "Tên lái xe";
+            worksheet.Cells[1, 9].Value = "Ngày phát";
+            worksheet.Cells[1, 10].Value = "Dịch vụ";
+
+
+            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            using (var range = worksheet.Cells["A1:J1"])
+            {
+                // Set PatternType
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                // Set Màu cho Background
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
+                // Canh giữa cho các text
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                range.Style.Font.SetFromFont(new Font("Arial", 11));
+
+                // Set Border
+                //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+                // Set màu ch Border
+                //range.Style.Border.Bottom.Color.SetColor(Color.Blue);
+                //ranges.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                //Set Màu cho Background
+                //ranges.Style.Fill.BackgroundColor.SetColor(Color.none);
+                // Canh giữa cho các text
+                //Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                // ranges.Style.Font.SetFromFont(new Font("Arial", 14));
+                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            }
+
+
+        }
+
+        //Hàm Export excel  , truyền parameter vào để export
+        [HttpGet]
+        public ActionResult ExportDetail_CTCT_LX(string startdate, string enddate, int zone, int endpostcode, int service, int routecode, int postman)
+        {
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.zone = zone;
+            ViewBag.endpostcode = endpostcode;
+            ViewBag.service = service;
+            ViewBag.routecode = routecode;
+            ViewBag.postman = postman;
+
+            //ViewBag.receptacle_id = receptacle_id;
+            // Gọi lại hàm để tạo file excel
+            var stream = CreateExcelFileDetail_CTCT_LX();
+            // Tạo buffer memory strean để hứng file excel
+            var buffer = stream as MemoryStream;
+            // Đây là content Type dành cho file excel
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
+            // File name của Excel này là ExcelDemo
+            Response.AddHeader("Content-Disposition", "attachment; filename=Báo cáo chi tiết phát không thành công.xlsx");
+            // Lưu file excel của chúng ta như 1 mảng byte để trả về response
+            Response.BinaryWrite(buffer.ToArray());
+            // Send tất cả ouput bytes về phía clients
+            Response.Flush();
+            Response.End();
+            // Redirect về luôn trang index >
+            return RedirectToAction("Index");
+        }
 
         #endregion
     }

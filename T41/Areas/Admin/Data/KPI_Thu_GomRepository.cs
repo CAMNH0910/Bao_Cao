@@ -142,14 +142,14 @@ namespace T41.Areas.Admin.Data
             DataTable da = new DataTable();
             Convertion common = new Convertion();
             ReturnKPI_Thu_Gom _ReturnKPI_Thu_Gom = new ReturnKPI_Thu_Gom();
-            var test = Helper.OraDCDevOracleConnection;
+            var test = Helper.OraDCOracleConnection;
             try
             {
                 // Gọi vào DB để lấy dữ liệu. KPI_delivery_PICKUP.REPORT_KPI_Thu_Gom_TEST
                 using (OracleCommand cmd = new OracleCommand())
                 {
 
-                    OracleCommand myCommand = new OracleCommand("REPORT_COLLECT_PKG.REPORT_KPI_Thu_Gom", Helper.OraDCDevOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("REPORT_COLLECT_PKG.REPORT_KPI_Thu_Gom", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;

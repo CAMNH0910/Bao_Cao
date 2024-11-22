@@ -3664,7 +3664,6 @@
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Detail_Wage.cshtml" />
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CTTH.cshtml" />
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CTCT.cshtml" />
-    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CT.cshtml" />
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_KGD.cshtml" />
     <Content Include="Areas\Admin\Views\ZNS_TCB\ZNS_TCBReport.cshtml" />
     <Content Include="Areas\Admin\Views\QT_DI_NEW\QT_Di_NEW.cshtml" />
@@ -3679,6 +3678,10 @@
     <Content Include="Areas\Admin\Views\TMS_TICKET\Report_TMS_TICKET.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\TMS_TICKET.cshtml" />
     <Content Include="Areas\Admin\Views\DM_lai_Xe\DM_lai_Xe.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Detail_Lai_Xe.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CTCT_LX.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CT_LX.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
