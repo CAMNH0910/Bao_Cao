@@ -149,7 +149,7 @@ namespace T41.Areas.Admin.Data
                 using (OracleCommand cmd = new OracleCommand())
                 {
 
-                    OracleCommand myCommand = new OracleCommand("REPORT_COLLECT_PKG.REPORT_KPI_Thu_Gom", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("Camnh.REPORT_COLLECT_PKG.REPORT_KPI_Thu_Gom", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -205,6 +205,7 @@ namespace T41.Areas.Admin.Data
             {
                 _ReturnKPI_Thu_Gom.Code = "99";
                 _ReturnKPI_Thu_Gom.Message = "Lỗi xử lý dữ liệu";
+
             }
             return _ReturnKPI_Thu_Gom;
         }

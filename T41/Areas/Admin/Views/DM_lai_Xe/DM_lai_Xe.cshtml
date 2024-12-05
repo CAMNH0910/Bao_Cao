@@ -136,9 +136,9 @@
                             <th rowspan="4" class="text-center">Chi nhánh</th>
                             <th rowspan="4" class="text-center">Bưu cục</th>
                             <th rowspan="4" class="text-center">Tuyến phát</th>
-                            <th rowspan="4" class="text-center">Tên bưu tá</th>
                             <th rowspan="4" class="text-center">Mã lái xe</th>
                             <th rowspan="4" class="text-center">Tên lái xe</th>
+                            <th rowspan="4" class="text-center">Tên bưu tá</th>
                             <th rowspan="4" class="text-center">Trạng thái</th>
                             <th rowspan="4" class="text-center">Chức năng</th>
                         </tr>
@@ -293,9 +293,9 @@
                 str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Zone + '</td>';
                 str_body += '<td width="300">' + data.ListDM_Lai_Xe[i].Buu_Cuc + '</td>';
                 str_body += '<td width="300" >' + data.ListDM_Lai_Xe[i].Tuyen_Phat + '</td>';
-                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Buu_Ta + '</td>';
                 str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Ma_NV + '</td>';
                 str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Ten_NV + '</td>';
+                str_body += '<td class="text-center">' + data.ListDM_Lai_Xe[i].Buu_Ta + '</td>';
 
                 // Kiểm tra trạng thái và hiển thị biểu tượng khóa/mở khóa
                 if (data.ListDM_Lai_Xe[i].Trang_Thai == 1) {
@@ -468,7 +468,7 @@ function khoaFunc(id) {
     // Hàm cập nhật dropdown tuyến phát theo bưu cục và giá trị tuyến phát đã chọn
     function updatetuyenDropdown(endpostcode, selectedtuyen) {
         $.ajax({
-            url: "/PostmanDelivery/RouteCode",  // Đường dẫn đến controller
+            url: "/DM_Lai_Xe/RouteCode",  // Đường dẫn đến controller
             data: { endpostcode: endpostcode },  // Gửi bưu cục từ thông tin lái xe
             dataType: "json",
             success: function (tuyenData) {

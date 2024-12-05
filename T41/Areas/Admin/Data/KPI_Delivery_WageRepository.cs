@@ -28,7 +28,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Total", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Total", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -103,7 +103,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_TH", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail_TH", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -173,7 +173,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_KGD", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail_KGD", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -241,7 +241,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -330,7 +330,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_CT", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail_CT", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -401,7 +401,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_CTCT", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail_CTCT", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -474,7 +474,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Total_SL", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Total_SL", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -546,7 +546,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_lai_xe", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail_lai_xe", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -633,7 +633,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_CT_LX", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail_CT_LX", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -704,7 +704,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("KPI_Delivery_PostMan_New.Get_Detail_CTCT_LX", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.KPI_Delivery_PostMan_New.Get_Detail_CTCT_LX", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;

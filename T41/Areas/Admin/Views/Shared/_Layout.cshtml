@@ -532,7 +532,7 @@
                                 <li><a href="/Admin/KPI_Delivery_Wage/KPI_Delivery_Wage">Thống kê sản lượng đến BCP</a></li>
                                 <li><a href="/Admin/KPI_Delivery_Wage/KPI_Detail_Wage">Thống kê chi tiết sản lượng<br />phát của bưu tá</a></li>
                                 <li><a href="/Admin/KPI_Delivery_Wage/KPI_Detail_Lai_Xe">Thống kê chi tiết sản lượng<br />phát của lái xe</a></li>
-                                <li><a href="/Admin/DM_Lai_Xe/DM_Lai_Xe">Quản lý lái xe</a></li>
+
                             </ul>
                         </li>
                         <!-- Group 11 -->
@@ -567,12 +567,18 @@
                         </li>
                     }
                 }
-
                 @{
-                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 20 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 20 || Convert.ToString(Session["UserName"]) == "QLLX_EMS")
+                    {
+                        <li class="header" style="color:cornflowerblue;"><strong>QUẢN LÝ LÁI XE</strong></li>
+
+                        <li><a href="/Admin/DM_Lai_Xe/DM_Lai_Xe">Quản lý lái xe</a></li>
+                    }
+                }
+                @{
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
                     {
                         <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
-
                         <li><a href="/Admin/TMS_TICKET/TMS_TICKET">Quản lý nhân viên </a></li>
                         <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET">Quản lý yêu cầu </a></li>
                     }

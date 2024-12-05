@@ -36,6 +36,13 @@ namespace T41.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public JsonResult RouteCode(int endpostcode)
+        {
+            DM_Lai_XeRepository PostmanDeliveryRepository = new DM_Lai_XeRepository();
+            return Json(PostmanDeliveryRepository.GetAllROUTECODE(endpostcode), JsonRequestBehavior.AllowGet);
+            //return Json(apiRepository.ListPostCode(), JsonRequestBehavior.AllowGet);
+        }
         #region Danh mục lái xe
         [HttpPost]
         public JsonResult ListDM_Lai_Xe( int zone, int endpostcode,string trangthai)
@@ -190,10 +197,10 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells.Style.WrapText = true;
             // Tạo header
             worksheet.Cells[1, 1].Value = "DANH MỤC LÁI XE";
-            worksheet.Cells["A1:I1"].Merge = true;
+            worksheet.Cells["A1:J1"].Merge = true;
 
-            worksheet.Cells[2, 7].Value = "MÃ BÁO CÁO:BT/DMLX";
-            worksheet.Cells["I2:I2"].Merge = true;
+            worksheet.Cells[2, 10].Value = "MÃ BÁO CÁO:BT/DMLX";
+            worksheet.Cells["J2:J2"].Merge = true;
 
             worksheet.Cells[3, 1].Value = "STT";
             worksheet.Cells[3, 2].Value = "Id";
@@ -201,12 +208,13 @@ namespace T41.Areas.Admin.Controllers
             worksheet.Cells[3, 4].Value = "Tên nhân viên";
             worksheet.Cells[3, 5].Value = "Bưu cục";
             worksheet.Cells[3, 6].Value = "Tuyến phát";
-            worksheet.Cells[3, 7].Value = "Bưu tá";
+            worksheet.Cells[3, 7].Value = "Mã nhân viên";
             worksheet.Cells[3, 8].Value = "Tên lái xe";
-            worksheet.Cells[3, 9].Value = "Trạng thái";
+            worksheet.Cells[3, 9].Value = "Bưu tá";
+            worksheet.Cells[3, 10].Value = "Trạng thái";
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A3:I3"])
-            using (var ranges = worksheet.Cells["A1:I1"])
+            using (var range = worksheet.Cells["A3:J3"])
+            using (var ranges = worksheet.Cells["A1:J1"])
 
             {
                 // Set PatternType

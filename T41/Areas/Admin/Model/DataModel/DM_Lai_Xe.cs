@@ -12,9 +12,10 @@ namespace T41.Areas.Admin.Model.DataModel
         public string Zone { get; set; }
         public string Buu_Cuc { get; set; }
         public string Tuyen_Phat { get; set; }
-        public string Buu_Ta { get; set; }
         public string Ma_NV { get; set; }
         public string Ten_NV { get; set; }
+        public string Buu_Ta { get; set; }
+
         public string Trang_Thai { get; set; }
     }
 

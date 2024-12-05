@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using T41.Areas.Admin.Common;
 using T41.Areas.Admin.Model.DataModel;
+using T41.Areas.Admin.Models.DataModel;
 
 namespace T41.Areas.Admin.Data
 {
@@ -23,7 +24,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("DM_Lai_Xe.List_DM_Lai_Xe", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("Camnh.DM_Lai_Xe.List_DM_Lai_Xe", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -49,9 +50,9 @@ namespace T41.Areas.Admin.Data
                             oDM_Lai_Xe.Zone = dr["Zone"].ToString();
                             oDM_Lai_Xe.Buu_Cuc = dr["Buu_Cuc"].ToString();
                             oDM_Lai_Xe.Tuyen_Phat = dr["Tuyen_Phat"].ToString();
-                            oDM_Lai_Xe.Buu_Ta = dr["Buu_Ta"].ToString();
                             oDM_Lai_Xe.Ma_NV = dr["Ma_NV"].ToString();
                             oDM_Lai_Xe.Ten_NV = dr["Ten_NV"].ToString();
+                            oDM_Lai_Xe.Buu_Ta = dr["Buu_Ta"].ToString();
                             oDM_Lai_Xe.Trang_Thai = dr["Trang_Thai"].ToString();
                             listDM_Lai_Xe.Add(oDM_Lai_Xe);
                         }
@@ -84,7 +85,7 @@ namespace T41.Areas.Admin.Data
             try
             {
 
-                OracleCommand myCommand = new OracleCommand("DM_LAI_XE.Khoa_Lai_Xe", Helper.OraDCOracleConnection);
+                OracleCommand myCommand = new OracleCommand("Camnh.DM_LAI_XE.Khoa_Lai_Xe", Helper.OraDCOracleConnection);
                 myCommand.CommandType = CommandType.StoredProcedure;
                 myCommand.CommandTimeout = 20000;
                 myCommand.Parameters.Add("v_id", OracleDbType.Int32).Value = id;
@@ -113,7 +114,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("DM_Lai_Xe.Lay_Lai_Xe", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("Camnh.DM_Lai_Xe.Lay_Lai_Xe", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -166,7 +167,7 @@ namespace T41.Areas.Admin.Data
         {
             try
             {
-                using (OracleCommand cmd = new OracleCommand("DM_Lai_Xe.Insert_DM_LAI_XE", Helper.OraDCOracleConnection))
+                using (OracleCommand cmd = new OracleCommand("Camnh.DM_Lai_Xe.Insert_DM_LAI_XE", Helper.OraDCOracleConnection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("v_ten_nv", OracleDbType.Varchar2).Value = model.Ten_NV;
@@ -190,7 +191,7 @@ namespace T41.Areas.Admin.Data
         {
             try
             {
-                using (OracleCommand cmd = new OracleCommand("DM_Lai_Xe.Update_DM_Lai_Xe_NEW", Helper.OraDCOracleConnection))
+                using (OracleCommand cmd = new OracleCommand("Camnh.DM_Lai_Xe.Update_DM_Lai_Xe_NEW", Helper.OraDCOracleConnection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("v_id", OracleDbType.Int32).Value = model.Id;
@@ -211,5 +212,46 @@ namespace T41.Areas.Admin.Data
                 return false; // Thêm thất bại
             }
         }
+
+        #region GetAllROUTECODE
+        //Lấy mã tuyến phát dưới DB Procedure Detail_DeliveryRoute_Ems
+        public IEnumerable<GETROUTECODE> GetAllROUTECODE(int endpostcode)
+        {
+            List<GETROUTECODE> listGetRouteCode = null;
+            GETROUTECODE oGetRouteCode = null;
+
+            try
+            {
+                using (OracleCommand cm = new OracleCommand())
+                {
+                    cm.Connection = Helper.OraDCOracleConnection;
+                    cm.CommandText = Helper.SchemaName + "Camnh.DM_LAI_XE.Detail_DeliveryRoute_Ems";
+                    cm.CommandType = CommandType.StoredProcedure;
+
+                    cm.Parameters.Add(new OracleParameter("v_EndPostCode", OracleDbType.Int32)).Value = endpostcode;
+                    cm.Parameters.Add("v_liststage", OracleDbType.RefCursor, null, ParameterDirection.Output);
+                    using (OracleDataReader dr = cm.ExecuteReader())
+                    {
+                        listGetRouteCode = new List<GETROUTECODE>();
+                        while (dr.Read())
+                        {
+                            oGetRouteCode = new GETROUTECODE();
+                            oGetRouteCode.POSCODE = int.Parse(dr["POSCODE"].ToString());
+                            oGetRouteCode.POSNAME = dr["POSNAME"].ToString();
+                            listGetRouteCode.Add(oGetRouteCode);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogAPI.LogToFile(LogFileType.EXCEPTION, "KpiBD13DeliveryRepository.GetAllROUTECODE" + ex.Message);
+                listGetRouteCode = null;
+            }
+
+            return listGetRouteCode;
+        }
+
+        #endregion
     }
 }

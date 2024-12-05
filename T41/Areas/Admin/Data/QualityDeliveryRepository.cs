@@ -115,7 +115,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("kpi_detail_delivery.Detail_area_Ems", Helper.OraDCOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.kpi_detail_delivery.Detail_area_Ems", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -210,7 +210,7 @@ namespace T41.Areas.Admin.Data
                 using (OracleCommand cmd = new OracleCommand())
                 {
                     cmd.Connection = Helper.OraDCOracleConnection;
-                    cmd.CommandText = Helper.SchemaName + "kpi_detail_delivery.Detail_Item_Ems";
+                    cmd.CommandText = Helper.SchemaName + "camnh.kpi_detail_delivery.Detail_Item_Ems";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new OracleParameter("v_Zone", OracleDbType.Int32)).Value = zone;
                     cmd.Parameters.Add(new OracleParameter("v_EndPostCode", OracleDbType.Int32)).Value = endpostcode;
@@ -280,7 +280,7 @@ namespace T41.Areas.Admin.Data
                 using (OracleCommand cmd = new OracleCommand())
                 {
                     cmd.Connection = Helper.OraDCOracleConnection;
-                    cmd.CommandText = Helper.SchemaName + "kpi_detail_delivery.Detail_Item_Ems_KTT";
+                    cmd.CommandText = Helper.SchemaName + "camnh.kpi_detail_delivery.Detail_Item_Ems_KTT";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new OracleParameter("v_Zone", OracleDbType.Int32)).Value = zone;
                     cmd.Parameters.Add(new OracleParameter("v_EndPostCode", OracleDbType.Int32)).Value = endpostcode;
