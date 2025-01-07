@@ -196,7 +196,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnListExcel(ViewBag.donvi, ViewBag.service, ViewBag.startdate, ViewBag.enddate);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -257,7 +257,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnListExcelCT(ViewBag.donvi, ViewBag.service, ViewBag.startdate, ViewBag.enddate);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;

@@ -106,7 +106,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = Excel_KPI_BD10_Hub_TimeEX(ViewBag.StartDate, ViewBag.EndDate, ViewBag.mailrouteScheduleName);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;

@@ -141,7 +141,7 @@ namespace T41.Areas.Admin.Controllers
 
 
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 30;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;

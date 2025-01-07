@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,10 +17,26 @@ namespace T41.Areas.Admin.Controllers
         private DTPowerDBContext db = new DTPowerDBContext();
 
         // GET: Admin/Administrators
-        public ActionResult Index()
+
+        public ActionResult Index(int page = 1)
         {
-            return View(db.Administrator.ToList());
+            int pageSize = 20;  // Số dòng mỗi trang
+            int skip = (page - 1) * pageSize;
+
+            // Lấy danh sách người dùng phân trang
+            var model = db.Administrator
+                          .OrderBy(a => a.UserId)  // Sắp xếp theo UserId
+                          .Skip(skip)  // Bỏ qua số dòng tương ứng với trang
+                          .Take(pageSize)  // Lấy 10 dòng
+                          .ToList();
+
+            // Tính số trang hiện tại và tổng số trang
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(db.Administrator.Count() / (double)pageSize);  // Tính tổng số trang
+
+            return View(model);
         }
+
 
         // GET: Admin/Administrators/Details/5
         public ActionResult Details(int? id)
@@ -41,7 +58,6 @@ namespace T41.Areas.Admin.Controllers
         {
             return View();
         }
-
         // POST: Admin/Administrators/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -126,5 +142,61 @@ namespace T41.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult ChangePassword()
+        {
+            var userName = Session["UserName"] as string;  // Lấy UserName từ session (kiểu string)
+            if (string.IsNullOrEmpty(userName))
+            {
+                return RedirectToAction("Login", "Account");  // Nếu chưa đăng nhập, chuyển hướng tới trang đăng nhập
+            }
+
+            var administrator = db.Administrator.FirstOrDefault(a => a.UserName == userName);
+            if (administrator == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Tạo model mới để trả về view
+            var model = new ChangePasswordModel { UserId = administrator.UserId };
+            return View(model);  // Truyền model vào view
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordModel model )
+        {
+            if (ModelState.IsValid)
+            {
+                var userName = Session["UserName"] as string;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    return RedirectToAction("Login", "Account");  // Nếu chưa đăng nhập, chuyển hướng tới trang đăng nhập
+                }
+
+                var administrator = db.Administrator.FirstOrDefault(a => a.UserName == userName);
+                if (administrator == null)
+                {
+                    return HttpNotFound();
+                }
+                var test = Common.Security.CreatPassWordHash(userName + model.OldPassword +  "6688");
+                // Kiểm tra mật khẩu cũ
+                if (administrator.PassWord != Common.Security.CreatPassWordHash(userName + model.OldPassword +  "6688"))
+                {
+                    ModelState.AddModelError("OldPassword", "Mật khẩu cũ không chính xác.");
+                    return View(model);
+                }
+
+                // Cập nhật mật khẩu mới
+                administrator.PassWord = Common.Security.CreatPassWordHash(userName + model.NewPassword + "6688");
+                db.Entry(administrator).State = EntityState.Modified;
+                db.SaveChanges();
+
+                ViewBag.Message = "Mật khẩu đã được thay đổi thành công.";
+                return RedirectToAction("Index", "Home");  // Sau khi đổi mật khẩu, chuyển hướng đến trang chính
+            }
+
+            return View(model);  // Trả về view nếu có lỗi trong quá trình thay đổi mật khẩu
+        }
+
     }
 }

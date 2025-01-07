@@ -90,7 +90,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnBao_Cao_CODExcel(ViewBag.StartDate, ViewBag.EndDate, ViewBag.Ma_kh, ViewBag.So_hieu, ViewBag.Trang_thai);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;

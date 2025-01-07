@@ -150,7 +150,7 @@ namespace T41.Areas.Admin.Controllers
             var list = Excel_KPI_Customer(ViewBag.StartProvince, ViewBag.EndProvince, ViewBag.StartDate, ViewBag.EndDate, ViewBag.IsService, ViewBag.Customer);
 
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -277,7 +277,7 @@ namespace T41.Areas.Admin.Controllers
         private void BindingFormatForExcelKPI_Customer_Fail(ExcelWorksheet worksheet, List<KPI_Customer_Detail> listItems)
         {
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -405,7 +405,7 @@ namespace T41.Areas.Admin.Controllers
         private void BindingFormatForExcelKPI_CustomerKDCT(ExcelWorksheet worksheet, List<KPI_Customer_DetailKDCT> listItems)
         {
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;

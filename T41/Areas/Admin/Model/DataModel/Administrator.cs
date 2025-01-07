@@ -57,4 +57,25 @@ namespace T41.Areas.Admin.Model.DataModel
         // Navigation: liên kêt, tham chiếu
         public ICollection<GrantPermission> GrantPermission { get; set; }
     }
+    public class ChangePasswordModel
+    {
+        public int UserId { get; set; }
+        [Required(ErrorMessage = "Hãy nhập mật khẩu cũ")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu cũ")]
+        public string OldPassword { get; set; }
+
+        [Required(ErrorMessage = "Hãy nhập mật khẩu mới")]
+        [DataType(DataType.Password)]
+        [StringLength(100, ErrorMessage = "Mật khẩu mới phải có ít nhất 6 ký tự.", MinimumLength = 6)]
+        [Display(Name = "Mật khẩu mới")]
+        public string NewPassword { get; set; }
+
+        [Required(ErrorMessage = "Hãy xác nhận mật khẩu mới")]
+        [DataType(DataType.Password)]
+        [Compare("NewPassword", ErrorMessage = "Mật khẩu xác nhận không khớp.")]
+        [Display(Name = "Xác nhận mật khẩu")]
+        public string ConfirmPassword { get; set; }
+    }
+
 }

@@ -112,7 +112,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="/Admin/Administrators/ChangePassword" class="btn btn-default btn-flat">Đổi Mật Khẩu</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="/Admin/Home/Logout" class="btn btn-default btn-flat">Đăng Xuất </a>
@@ -124,6 +124,7 @@
                     </ul>
                 </div>
             </nav>
+
         </header>
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
@@ -576,23 +577,78 @@
                     }
                 }
                 @{
-                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("CSKH"))
                     {
                         <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
-                        <li><a href="/Admin/TMS_TICKET/TMS_TICKET">Quản lý nhân viên </a></li>
-                        <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET">Quản lý yêu cầu </a></li>
+                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                        {
+                            <li class="treeview">
+                                <a href="#">
+
+                                    <i class="fa fa-industry"></i> <span>Quản lý danh mục </span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Admin/TMS_TICKET/TMS_TICKET">Danh mục nhân viên </a></li>
+                                    <li><a href="/Admin/TMS_TICKET/DM_Nhan_Vien_TICKET">Quản lý tỉnh phân công</a></li>
+                                    <li><a href="/Admin/TMS_TICKET/TMS_DM_Ra_Soat">Danh mục lượt rà soát</a></li>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-industry"></i> <span>Rút lọc và phân công <br /> xử lý hồ sơ </span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET">Phân công hồ sơ khiếu nại </a></li>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-industry"></i> <span>Thống kê báo cáo</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                </ul>
+                            </li>
+                        }
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Quản lý phân công <br /> hỗ trợ</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/TMS_TICKET/QL_PhanCong_HT">Quản lý lịch nghỉ </a></li>
+                                <li><a href="/Admin/TMS_TICKET/THPhanCong">Quản lý danh sach <br />nhân viên nghỉ </a></li>
+                                @{if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                                    {
+                                        <li><a href="/Admin/TMS_TICKET/PhanCong_HT">Phân công hỗ trợ <br />xử lý hồ sơ </a></li>
+                                    } }
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Quản lý hồ sơ</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET_TH">Quản lý hồ sơ khiếu nại </a></li>
+                            </ul>
+                        </li>
+
                     }
                 }
-
-                @{
-                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 21 || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
-                    {
-                        <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
-
-                        <li><a href="/Admin/Insert_Itemcode/Insert_Itemcode_NEW">Insert Itemcode</a></li>
-                    }
-                }
-
                 @{
                     if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4 || Convert.ToString(Session["UserName"]) == "kinhdoanhems")
                     {
@@ -670,8 +726,8 @@
 
             </ul>
 
-                <!-- /.sidebar-menu -->
-            </section>
+                            <!-- /.sidebar-menu -->
+</section>
             <!-- /.sidebar -->
         </aside>
         <!-- Content Wrapper. Contains page content -->

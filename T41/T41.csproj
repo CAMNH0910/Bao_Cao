@@ -3682,6 +3682,16 @@
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CT.cshtml" />
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CTCT_LX.cshtml" />
     <Content Include="Areas\Admin\Views\KPI_Delivery_Wage\KPI_Delivery_CT_LX.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\Report_TMS_TICKET_TH.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\TEST.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\Report_TMS_TICKET_CT.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\TMS_DM_Ra_Soat.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\ChangePassword.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\QL_PhanCong_HT.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\THPhanCong.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\CTPhanCong.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\PhanCong_HT.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\DM_Nhan_Vien_TICKET.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

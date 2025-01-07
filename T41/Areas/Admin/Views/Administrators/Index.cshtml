@@ -1,85 +1,203 @@
 ﻿@model IEnumerable<T41.Areas.Admin.Model.DataModel.Administrator>
 
-@{
-    ViewBag.Title = "Index";
-}
-@{
-    int i = 0;
-} 
-<h2>Index</h2>
+<h2 class="mb-4">Quản lý người dùng</h2>
+<div class="mb-4">
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <i class="fas fa-plus-circle"></i> Thêm Mới
+    </a>
+</div>
 
-<p>
-    @Html.ActionLink("Thêm mới tài khoản", "Create")
-</p>
-<table class="table table-striped table-bordered table-hover">
-    <tr>
-        <th>
-            STT
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PassWord)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsAdmin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-blue">
+        <tr>
+            <th>STT</th>
+            <th>@Html.DisplayNameFor(model => model.UserName)</th>
+            <th>@Html.DisplayNameFor(model => model.PassWord)</th>
+            <th>@Html.DisplayNameFor(model => model.FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            @*<th>@Html.DisplayNameFor(model => model.Avatar)</th>*@
+            <th>@Html.DisplayNameFor(model => model.IsAdmin)</th>
+            <th>@Html.DisplayNameFor(model => model.Active)</th>
+            <th>@Html.DisplayNameFor(model => model.Role)</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = (ViewBag.CurrentPage ?? 1) * 10 - 9;  // Kiểm tra ViewBag.CurrentPage có null không, nếu có thì gán là 1
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @(i + 1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassWord)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Avatar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAdmin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Hiển Thị", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.UserId }) |
-            @Html.ActionLink("Phân quyền", "Index", "GrantPermissions", new { id = item.UserId }, null)
-        </td>
-    </tr>
-    i++;
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(++i)</td> <!-- Hiển thị số thứ tự dòng -->
+                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                <td>******</td> <!-- Ẩn mật khẩu thực tế -->
+                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <!--<td>
+                    <img src="@item.Avatar" alt="Avatar" class="avatar-img" />-->
+                <!-- Hiển thị ảnh đại diện -->
+                <!--</td>-->
+                <td>
+                    @if (item.IsAdmin == 1)
+                    {
+                        <span class="badge bg-success">Admin</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">User</span>
+                    }
+                </td>
 
+                <td>
+                    @if (item.Active.HasValue && item.Active.Value == 1)
+                    {
+                        <i class="fas fa-check-circle text-success"></i> <!-- Biểu tượng xanh cho "Đang hoạt động" -->
+                    }
+                    else
+                    {
+                        <i class="fas fa-times-circle text-danger"></i> <!-- Biểu tượng đỏ cho "Không hoạt động" -->
+                    }
+                </td>
+
+                <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                <td>
+                    <!-- Dropdown Button -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-cogs"></i> Hành động
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Edit", new { id = item.UserId })">
+                                    <i class="fas fa-edit"></i> Sửa
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Details", new { id = item.UserId })">
+                                    <i class="fas fa-eye"></i> Hiển Thị
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Delete", new { id = item.UserId })" onclick="return confirm('Bạn có chắc muốn xóa?')">
+                                    <i class="fas fa-trash"></i> Xóa
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("GrantPermissions", "Index", new { id = item.UserId })">
+                                    <i class="fas fa-user-shield"></i> Phân quyền
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<!-- Phân trang -->
+<!-- Phân trang -->
+<div class="pagination-container">
+    @if (ViewBag.TotalPages > 1)
+    {
+        <ul class="pagination">
+            <!-- Previous Page Link -->
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li><a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link">&laquo; Trang trước</a></li>
+            }
+            else
+            {
+                <li class="disabled"><span class="page-link">&laquo; Trang trước</span></li>
+            }
+
+            <!-- Page Number Links -->
+            @if (ViewBag.CurrentPage > 2)
+            {
+                <li><a href="@Url.Action("Index", new { page = 1 })" class="page-link">1</a></li>
+                <li><span class="page-link">...</span></li>
+            }
+
+            @for (int pageNumber = Math.Max(1, ViewBag.CurrentPage - 1); pageNumber <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 1); pageNumber++)
+            {
+                <li class="page-item @(ViewBag.CurrentPage == pageNumber ? "active" : "")">
+                    <a href="@Url.Action("Index", new { page = pageNumber })" class="page-link">@pageNumber</a>
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages - 1)
+            {
+                <li><span class="page-link">...</span></li>
+                <li><a href="@Url.Action("Index", new { page = ViewBag.TotalPages })" class="page-link">@ViewBag.TotalPages</a></li>
+            }
+
+            <!-- Next Page Link -->
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li><a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link">Trang sau &raquo;</a></li>
+            }
+            else
+            {
+                <li class="disabled"><span class="page-link">Trang sau &raquo;</span></li>
+            }
+        </ul>
+    }
+</div>
+
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS (để sử dụng dropdown) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    /* Tùy chỉnh bảng */
+    .table th, .table td {
+        vertical-align: middle;
+        font-size: 1.70rem;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .badge {
+        font-size: 0.875rem;
+        font-weight: bold;
+    }
+
+    /* Tùy chỉnh phân trang */
+    .pagination-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .pagination .page-item .page-link {
+        color: #007bff;
+    }
+
+    /* Tùy chỉnh dropdown */
+    .dropdown-toggle::after {
+        display: none; /* Ẩn mũi tên mặc định của Bootstrap */
+    }
+
+    .dropdown-menu {
+        min-width: 150px;
+    }
+
+    .dropdown-item i {
+        margin-right: 8px;
+    }
+</style>

@@ -24,6 +24,75 @@ namespace T41.Areas.Admin.Common
             }
 
         }
+
+        public int ConvertToIntTime(string dateTime)
+        {
+            try
+            {
+                // Kiểm tra nếu chuỗi dateTime không phải null hoặc rỗng
+                if (string.IsNullOrEmpty(dateTime))
+                {
+                    throw new ArgumentException("Chuỗi dateTime không được null hoặc rỗng.");
+                }
+
+                // Chuyển chuỗi thành DateTime theo định dạng "yyyy-MM-dd HH:mm"
+                DateTime parsedDateTime = DateTime.ParseExact(dateTime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+
+                // Chuyển đổi DateTime thành định dạng "HHmm" rồi ép kiểu sang int
+                string dateTimeString = parsedDateTime.ToString("HHmm");
+
+                // Chuyển đổi chuỗi thành int
+                int result = Int32.Parse(dateTimeString);
+                return result;
+            }
+            catch (FormatException ex)
+            {
+                // Xử lý lỗi khi định dạng không đúng
+                Console.WriteLine($"Lỗi khi chuyển đổi dateTime: {ex.Message}");
+                return 0;  // Trả về giá trị mặc định nếu có lỗi
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi tổng quát
+                Console.WriteLine($"Lỗi không xác định: {ex.Message}");
+                return 0;  // Trả về giá trị mặc định nếu có lỗi
+            }
+        }
+
+        public int ConvertToIntDate(string dateTime)
+        {
+            try
+            {
+                // Kiểm tra nếu chuỗi dateTime không phải null hoặc rỗng
+                if (string.IsNullOrEmpty(dateTime))
+                {
+                    throw new ArgumentException("Input dateTime string is null or empty.");
+                }
+
+                // Chuyển chuỗi thành DateTime theo định dạng "yyyy-MM-dd HH:mm"
+                DateTime parsedDateTime = DateTime.ParseExact(dateTime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+
+                // Chuyển đổi DateTime thành định dạng "yyyyMMddHHmm" rồi ép kiểu sang int
+                string dateTimeString = parsedDateTime.ToString("yyyyMMdd");
+
+                // Kiểm tra nếu độ dài chuỗi quá dài để chuyển thành int (Int32 có thể chứa tối đa 10 chữ số)
+                if (dateTimeString.Length > 10)
+                {
+                    throw new OverflowException("The date-time value is too large to be converted to an integer.");
+                }
+
+                // Chuyển đổi chuỗi thành int
+                int result = Int32.Parse(dateTimeString);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // In lỗi nếu có ngoại lệ
+                Console.WriteLine($"Error converting dateTime: {ex.Message}");
+                return 0;  // Trả về giá trị mặc định nếu có lỗi
+            }
+        }
+
         #region Convert_Date
         public string Convert_Date(int str_Date)
         {

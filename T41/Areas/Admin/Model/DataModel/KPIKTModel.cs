@@ -233,8 +233,6 @@ namespace T41.Areas.Admin.Model.DataModel
         /// Message
         /// </summary>
         public string Message { get; set; }
-
-
     }
 
     public class ReturnIdMailRoute

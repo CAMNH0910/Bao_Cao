@@ -231,7 +231,7 @@ namespace T41.Areas.Admin.Controllers
             var list = ReturnListExcelPickupSuccess(ViewBag.StartDate, ViewBag.EndDate, ViewBag.district, ViewBag.poscode, ViewBag.routecode);
 
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -381,7 +381,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnListExcelDetailPickup(ViewBag.fromdate, ViewBag.todate, ViewBag.fromtime, ViewBag.totime, ViewBag.poscode, ViewBag.unit, ViewBag.routeid, ViewBag.status, ViewBag.page, ViewBag.datatype, ViewBag.collectquality);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -451,7 +451,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnListExcelTotalPickupV2(ViewBag.Zone, ViewBag.PosCode, ViewBag.StartDate, ViewBag.EndDate);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -578,7 +578,7 @@ namespace T41.Areas.Admin.Controllers
             var list = ReturnListExcelPickupSuccessDQD(ViewBag.StartDate, ViewBag.EndDate, ViewBag.district, ViewBag.poscode, ViewBag.routecode);
 
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -747,7 +747,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnListExcel(ViewBag.zone, ViewBag.poscode, ViewBag.startDate, ViewBag.endDate);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -805,7 +805,7 @@ namespace T41.Areas.Admin.Controllers
         private void BindingFormatForExcelCT(ExcelWorksheet worksheet, List<KPIPickupItem> listItems)
         {
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;

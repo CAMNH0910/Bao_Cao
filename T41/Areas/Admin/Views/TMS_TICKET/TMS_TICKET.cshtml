@@ -1,25 +1,49 @@
 ﻿@{
-    //  Layout = null;
+//  Layout = null;
 }
 
 <!-- daterange picker -->
 <!-- daterange picker -->
-<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.min.css">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- DataTables -->
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style type="text/css">
     p {
         font-weight: bold;
     }
+    /* Dropdown */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        z-index: 1;
+    }
+
+        .dropdown-content button {
+            background-color: #f1f1f1;
+            border: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content button:hover {
+                background-color: #ddd;
+            }
 </style>
+
+
 
 <section class="content-header">
     <h1>
-        <small>Báo Cáo </small>
+        <small>Quản lý danh mục</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -30,10 +54,10 @@
     <div class="box box-default">
         <div class="box-header with-border">
 
-            <h3 class="box-title">Quản lý nhân viên</h3>
+            <h3 class="box-title">Danh mục nhân viên</h3>
             <div class="box-tools pull-right">
                 @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
-                <h3 class="box-title">CSKH/DMNV</h3>
+                <h3 class="box-title">CSKH/QLNV</h3>
             </div>
 
         </div>
@@ -47,208 +71,169 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    @{
-                        if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
-                        {
-                            <div id="Checkadmin" style="display:none">1</div>
-                        }
-                        else
-                        {
-                            <div id="Checkadmin" style="display:none">0</div>
-                        }
-                    }
+                    <div class="form-group">
+                        <label>Khu vực</label>
+                        <select class="form-control select2" style="width: 100%;" id="zone">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">Hà Nội</option>
+                            <option value="2">Hồ Chí Minh</option>
+                        </select>
+                    </div>
                 </div>
-
             </div>
+            <!-- /.col -->
             <div class="row">
-                <div class="col-md-8 " style="display:flex; justify-content:center">
-                    @{
-                        if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
-                        {
-                            <button data-toggle="modal" data-target="#myModalInsert" type="button" style="margin-right:20px" class="btn btn-primary btn-lrg" id="btnInsert">Thêm mới nhân viên <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                            @*<button data-toggle="modal" data-target="#myModalFindId" type="button" style="margin-right:20px" class="btn btn-primary btn-lrg" id="btnFindId">Tìm ID hành trình cho ID 6 số <i class="fa fa-list-alt" aria-hidden="true"></i></button>*@
-                        }
-                    }
-                    <button type="button" class="btn btn-info btn-lrg ajax" style="margin-right:20px" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
-
-
+                <div class="col-md-4"> </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-info btn-lrg ajax" id="btncreate">Thêm mới <i class="fa fa-search"></i></button>
                 </div>
-
-            </div>
-        </div>
-
-        @*<div class="box-header">
-                <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
-            </div>*@
-
-
-        <div class="loading-element text-center" style="font-size:50px;">
-            <i class="fa fa-spinner fa-spin"></i>
-            Vui lòng chờ giây lát...
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
-            </div>
-        </div>
-        <div>
-            @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
-
-            @{
-                if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
-                {
-                }
-            }
-
-            <table id="TableAccount" class="table table-bordered table-condensed table-striped">
-                <thead>
-                    <tr class="bg-light-blue color-palette">
-                        <th class="text-center">STT<br /></th>
-                        <th class="text-center">Id<br /></th>
-                        <th class="text-center">Tên nhân viên</th>
-                        <th class="text-center">Phân User</th>
-                        <th class="text-center">Phân tỉnh</th>
-                        <th class="text-center">Nhóm</th>
-                        <th class="text-center">Ghi chú</th>
-                        <th class="text-center">Trạng thái</th>
-                        <th class="text-center">Chức năng</th>
-                    </tr>
-                </thead>
-                <tbody id="listkpithdvreport"></tbody>
-            </table>
-        </div>
-    </div>
-    <div class="modal fade" id="myModalInsert" role="dialog">
-        <div class="modal-dialog modal-sm" style="display:table">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Thêm mới nhân viên</h4>
-
-                    @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
-                </div>
-                <div class="modal-body edit-content">
-                    <div type="reset" id="list_test"></div>
-                    <table id="TableAccount" class="table table-bordered table-condensed table-striped">
-                        <thead>
-                            <tr class="bg-light-blue color-palette">
-                                <th class="text-center">Tên nhân viên</th>
-                                <th class="text-center">Phân User</th>
-                                <th class="text-center">Phân tỉnh</th>
-                                <th class="text-center">Nhóm</th>
-                                <th class="text-center">Ghi chú</th>
-                            </tr>
-                        </thead>
-                        <tbody id="listkpithdvreport2">
-                            <tr>
-                                <th><input id="txtTen_NV-Insert" class="text-center" style="width: 300px" /></th>
-                                <th><input id="txtPhan_User-Insert" class="text-center" style="width: 300px " /></th>
-                                <th><input id="txtPhan_Tinh-Insert" class="text-center" style="width:300px" /></th>
-                                <th>
-                                    <select class="form-control select2" style="width: 110px;" id="txtNhom_Tinh-insert">
-                                        <option value="1">HN</option>
-                                        <option value="2">Tỉnh</option>
-                                        <option value="3">KHL</option>
-                                        <option value="4">Chốt phạt</option>
-                                        <option value="5">HCM</option>
-                                    </select>
-                                </th>
-                                <th><input id="txtGhi_Chu-Insert" style="width: 300px " class="text-center" /></th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-insert" onclick="javascript:InsertTMS_TICKET()">Chấp nhận</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <div class="col-md-4 ">
+                    <div class="form-group">
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-sm" style="display:table">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Cập nhật nhân viên</h4>
-
-                    @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
-                </div>
-                <div class="modal-body edit-content">
-                    <div type="reset" id="list_test"></div>
-                    <table id="TableAccount" class="table table-bordered table-condensed table-striped">
-                        <thead>
-                            <tr class="bg-light-blue color-palette">
-                                <th class="text-center">Id<br /></th>
-                                <th class="text-center">Tên nhân viên</th>
-                                <th class="text-center">Phân User</th>
-                                <th class="text-center">Phân tỉnh</th>
-                                <th class="text-center">Nhóm</th>
-                                <th class="text-center">Ghi chú</th>
-                                <th class="text-center">Trạng thái</th>
-                            </tr>
-                        </thead>
-                        <tbody id="listkpithdvreport1">
-                            <tr>
-                                <th><input id="txtId" class="text-center" disabled="disabled" style="width: 100px;" /></th>
-                                <th><input id="txtTen_NV" class="text-center" style="width: 200px" /></th>
-                                <th><input id="txtPhan_User" class="text-center" style="width: 300px" /></th>
-                                <th><input id="txtPhan_Tinh" class="text-center" style="width:300px" /></th>
-                                <th>
-                                    <select class="form-control select2" style="width: 110px;" id="txtNhom_Tinh">
-                                        <option value="1">HN</option>
-                                        <option value="2">Tỉnh</option>
-                                        <option value="3">KHL</option>
-                                        <option value="4">Chốt phạt</option>
-                                        <option value="5">HCM</option>
-                                    </select>
-                                </th>
-                                <th><input id="txtGhi_Chu" class="text-center" style="width:500px" /></th>
-                                <th>
-                                    <select class="form-control select2" style="width: 110px;" id="txtisdelete">
-                                        <option value="0">N</option>
-                                        <option value="1">Y</option>
-                                    </select>
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-update">Cập nhật dữ liệu</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                </div>
+            @*<div class="box-header">
+            <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+        </div>*@
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
             </div>
+            <!--<div class="row">
+                <div class="col-md-12 text-right">-->
+                    @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                    <!--<button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                </div>
+            </div>-->
+            <div>
+                @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
+                <table id="ExcelView" class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th rowspan="4" class="text-center">STT<br /></th>
+                            <th rowspan="4" class="text-center">Mã nhân viên</th>
+                            <th rowspan="4" class="text-center">Tên nhân viên</th>
+                            <th rowspan="4" class="text-center">Phân User</th>
+                            <th rowspan="4" class="text-center">Tỉnh nhận</th>
+                            <th rowspan="4" class="text-center">Tỉnh trả</th>
+                            <th rowspan="4" class="text-center">Khu vực</th>
+                            <th rowspan="4" class="text-center">Nhóm</th>
+                            <th rowspan="4" class="text-center">Ngày khởi tạo</th>
+                            <th rowspan="4" class="text-center">Ngày kết thúc</th>
+                            <th rowspan="4" class="text-center">Trạng thái</th>
+                            <th rowspan="4" class="text-center">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
 
+            </div>
+                    <div id="editAddModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editAddModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title" id="editAddModalLabel">Thêm/Sửa Thông Tin Nhân Viên</h5>
+                                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editAddForm">
+                                        <input type="hidden" id="id_nv" name="id_nv">
+
+                                        <!-- Các trường thông tin -->
+                                        <div class="form-group">
+                                            <label for="Manv">Mã nhân viên</label>
+                                            <input type="text" class="form-control" id="Manv" name="Manv" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Tennv">Tên nhân viên</label>
+                                            <input type="text" class="form-control" id="Tennv" name="Tennv" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Phan_usser">Phân User_CMS</label>
+                                            <input type="text" class="form-control" id="Phan_usser" name="Phan_usser" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Tinh_Nhan">Tỉnh nhận</label>
+                                            <input type="text" class="form-control" id="Tinh_Nhan" name="Tinh_Nhan" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Tinh_Tra">Tỉnh trả</label>
+                                            <input type="text" class="form-control" id="Tinh_Tra" name="Tinh_Tra" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Khu_Vuc">Khu vực </label>
+                                            <select class="form-control" id="Khu_Vuc" name="Khu_Vuc" required>
+                                                <option value="0">Chọn khu vực</option>
+                                                <option value="1">HN</option>
+                                                <option value="2">HCM</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Nhom">Nhóm </label>
+                                            <select class="form-control" id="Nhom" name="Nhom" required>
+                                                <option value="0">Chọn nhóm</option>
+                                                <option value="1">HN</option>
+                                                <option value="2">Tỉnh</option>
+                                                <option value="3">KHL</option>
+                                                <option value="4">Chốt phạt</option>
+                                                <option value="5">HCM</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ngày khởi tạo </label>
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ngày kết thúc </label>
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Ghi_Chu">Ghi chú</label>
+                                            <input type="text" class="form-control" id="Ghi_Chu" name="Ghi_Chu" required>
+                                        </div>
+                                        <!-- Nút lưu và hủy -->
+                                        <button type="button" class="btn btn-success" onclick="saveChanges()">Lưu Thay Đổi</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         </div>
     </div>
 </section>
-
-
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
-
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 @*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-
-
 <script type="text/javascript">
 
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+       , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
     $(document).ready(function () {
 
-            var d = new Date();
-            var currMonth = d.getMonth();
-            var currYear = d.getFullYear();
-            var startDate = new Date(currYear, currMonth, 1);
-
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
 
         $("#fromdate").datepicker({
             dateFormat: "dd/mm/yyyy",
@@ -264,25 +249,20 @@
         $('.loading-element').hide();
         $('.box-footer').hide();
         $('#btnexportlist').hide();
-            // detail();
-        });
+    });
 
-    //Phần Xuất Excel của bảng tổng hợp
+
+
     $("#btnreport").click(function () {
-
-
+        // goi ham Detail
         $("#listkpithdvreport tr").remove();
         detail();
         $('.box-footer').show();
-        $(".btnUpdate-Icon").hide()
-       });
 
-
+    });
 
     //Phần chi tiết của bảng tổng hợp sản lượng đi phát
-
-    // Hàm detail_account
-function detail() {
+   function detail() {
     $.ajax({
         type: "POST",
         url: '@Url.Action("ListTMS_TICKET", "TMS_TICKET")',
@@ -292,41 +272,61 @@ function detail() {
         dataType: 'json',
         data: {
             tennv: $("#tennv").val(),
+            zone: $("#zone").val(),
         },
         success: function (data) {
-            let str_body = "";
-            let a = 1;
-
+            var str_html = "";
+            var str_body = "";
+            var a = 1;
             $.each(data.List_TMS_TICKET, function (i, item) {
-                str_body += '<tr>';
-                str_body += `<td class="text-center" id="STT-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${a++}</td>`;
-                str_body += `<td class="text-center" id="ID-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.ID}</td>`;
-                str_body += `<td class="text-center" id="Ten_NV-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Ten_NV}</td>`;
-                str_body += `<td class="text-center" id="Phan_User-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Phan_User}</td>`;
-                str_body += `<td  id="Phan_Tinh-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Phan_Tinh}</td>`;
-                str_body += `<td class="text-center" id="Nhom_Tinh-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Nhom_Tinh}</td>`;
-                str_body += `<td class="text-center" id="Ghi_Chu-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.Ghi_Chu}</td>`;
-                str_body += `<td class="text-center" id="isdelete-${item.ID}-${item.Ten_NV}-${item.Phan_User}-${item.Phan_Tinh}">${item.isdelete}</td>`;
-                str_body += `<td class="text-center btnUpdate-Icon"><a data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-edit" href="#"onclick="UpdateTMS_TICKET(${item.ID}, '${item.Ten_NV}', '${item.Phan_User}', '${item.Phan_Tinh}', '${item.Nhom_Tinh}', '${item.Ghi_Chu}', '${item.isdelete}')">
-                                </a>
-                             </td>`;
-                str_body += '</tr>';
-            });
+                str_body += `
+                            <tr>
+                                <td style="width: 2%;" class="text-center">${a++}</td>
+                                <td style="width: 4%;" class="text-center">${item.MA_NV}</td>
+                                <td style="width: 10%;" class="text-center">${item.Ten_NV}</td>
+                                <td style="width: 4%;" class="text-center">${item.Phan_User}</td>
+                                <td style="width: 6%;" class="text-center">${item.Tinh_Nhan}</td>
+                                <td style="width: 6%;" class="text-center">${item.Tinh_Tra}</td>
+                                <td style="width: 2%;" class="text-center">${item.Khu_Vuc}</td>
+                                <td style="width: 2%;" class="text-center">${item.Nhom_Tinh}</td>
+                                <td style="width: 10%;" class="text-center">${item.Ngay_Khoi_Tao}</td>
+                                <td style="width: 10%;" class="text-center">${item.Ngay_Ket_Thuc}</td>
+                                <td style="width: 2%;" class="text-center">
+                                    <!-- Biểu tượng trạng thái -->
+                                    <i class="fa ${item.isdelete == 1 ? 'fa-lock' : 'fa-unlock'}" style="color: ${item.isdelete == 1 ? 'red' : 'green'};"></i>
+                                </td>
+                                <td style="width: 2%;" class="text-center">
+                                    <!-- Nút chức năng -->
+                                    <button class="btn btn-success btn-sm" onclick="showDropdown(${item.Id})">Chức năng</button>
+                                    <div id="dropdown${item.Id}" class="dropdown-content" style="display:none;">
+                                        <button class="btn btn-info btn-sm" onclick="editFunc(${item.Id})">Sửa</button>
+                                        <button class="btn btn-warning btn-sm" onclick="khoaFunc(${item.Id})">
+                                            ${item.isdelete == 1 ? 'Mở khóa' : 'Khóa'}
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
 
-            if (data.Code === '01' || data.Code === '99') {
+            });
+            str_html += str_body;
+
+            // Nếu có lỗi từ server
+            if (data.Code == '01' || data.Code == '99') {
                 $('.loading-element').hide();
                 swal.fire(data.Message, '', 'error');
             } else {
                 $("#TableAccount").dataTable().fnDestroy();
-                $('#listkpithdvreport').html(str_body);
+                $('#listkpithdvreport').html(str_html);
                 $('.loading-element').hide();
                 $('#btnexportlist').show();
                 $('#TableAccount').DataTable({
                     "ordering": false,
+                    "scrollX": true,
                     "language": {
-                        "processing": "Đang tải dữ liệu...",
+                        "processing": "Message khi đang tải dữ liệu",
                         "search": "Tìm kiếm theo từ khóa:",
-                        "lengthMenu": `Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: ${data.List_TMS_TICKET.length} bản ghi`,
+                        "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.List_TMS_TICKET.length + " bản ghi",
                         "zeroRecords": "Không có dữ liệu !",
                         "info": "Hiển thị trang _PAGE_ đến _PAGES_",
                         "infoEmpty": "Không tồn tại bản ghi !",
@@ -339,136 +339,244 @@ function detail() {
                     }
                 });
             }
-        },
-        error: function () {
-            $('.loading-element').hide();
-            swal.fire('Lỗi', 'Có lỗi xảy ra trong quá trình tải dữ liệu.', 'error');
+        }
+    })
+}
+
+// Hàm hiển thị hoặc ẩn dropdown
+function showDropdown(id) {
+    var dropdown = document.getElementById('dropdown' + id);
+    dropdown.style.display = (dropdown.style.display === "none" || dropdown.style.display === "") ? "block" : "none";
+}
+    // Đóng dropdown khi nhấn chuột bên ngoài
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.dropdown-content') && !event.target.matches('.btn')) {
+            document.querySelectorAll('.dropdown-content').forEach(function (dropdown) {
+                dropdown.style.display = "none";
+            });
         }
     });
-}
-    function UpdateTMS_TICKET(ID, Ten_NV, Phan_User, Phan_Tinh, Nhom_Tinh, Ghi_Chu, isdelete) {
-        const check = $("#Checkadmin").text();
-        if (check === '1') {
-            // Lưu các selector vào biến
-
-            // Cập nhật giá trị cho các input
-            $("#txtId").val(ID);
-            $("#txtTen_NV").val(Ten_NV);
-            $("#txtPhan_User").val(Phan_User);
-            $("#txtPhan_Tinh").val(Phan_Tinh);
-            $("#txtNhom_Tinh").val(
-                Nhom_Tinh === 'HN' ? 1 :
-                Nhom_Tinh === 'Tỉnh' ? 2 :
-                        Nhom_Tinh === 'KHL' ? 3 :
-                            Nhom_Tinh === 'Chốt phạt' ? 4 :
-                                Nhom_Tinh === 'HCM' ? 5 :
-                            null  // Giá trị mặc định
-            );
 
 
-            $("#txtGhi_Chu").val(Ghi_Chu);
-
-            // Kiểm tra điều kiện isdelete
-            $("#txtisdelete").val(isdelete === 'N' ? 0 : 1);
-
-            // Gán sự kiện cho nút cập nhật
-            $(".btn-update").off('click').on('click', function () {
-                UpdateMailRouteAccept(ID, Ten_NV);
-            });
-
-            // Hiển thị modal nếu cần
-        } else {
-            swal.fire(
-                'Cảnh báo',
-                'Tài khoản của bạn không được cấp phép sử dụng chức năng này!',
-                'warning'
-            );
-            setTimeout(hideModal, 100);
+// Hàm xử lý khi nhấn vào nút "Khóa" hoặc "Mở khóa"
+function khoaFunc(id) {
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("Khoa", "TMS_TICKET")',
+        data: { id: id, types : "1" },
+        success: function (response) {
+            if (response.Code == "00") {
+                swal.fire(response.Message, '', 'success');
+                detail();  // Cập nhật lại dữ liệu sau khi khóa/mở khóa
+            } else {
+                swal.fire(response.Message, '', 'error');
+            }
         }
+    });
     }
-
-
-    function hideModal() {
-        $('#myModal').modal('hide');
-    }
-
-
-
-    function UpdateMailRouteAccept(ID, Ten_NV) {
-        $.ajax({
-            url: '@Url.Action("UpdateTMS_TICKET", "TMS_TICKET")',
-            data:
-                {
-                ID: ID,
-                Ten_NV: $("#txtTen_NV").val(),
-                Phan_User: $("#txtPhan_User").val(),
-                Phan_Tinh: $("#txtPhan_Tinh").val(),
-                Nhom_Tinh: $("#txtNhom_Tinh").val(),
-                Ghi_Chu: $("#txtGhi_Chu").val(),
-                isdelete: $("#txtisdelete").val(),
-                },
-            type: 'POST',
-            success: function (data) {
-                    if (data.Code == '00') {
-                        swal.fire(
-                          ''+data.Message+'',
-                            'Cập nhật dữ liệu cho  ' + Ten_NV + ' thành công!',
-                          'success'
-                        );
-                        detail();
-                    $('#myModal').modal('hide');
-
-                    } else {
-                        swal.fire(
-                          ''+data.Message+'',
-                            'Cập nhật dữ liệu cho ' + Ten_NV + ' thất bại!',
-                          'error'
-                        );
-                    }
-                }
-            })
-    }
-
-    function InsertTMS_TICKET() {
-        $.ajax({
-            url: '@Url.Action("InsertTMS_TICKET", "TMS_TICKET")',
-            data:
-                {
-                Ten_NV: $("#txtTen_NV-Insert").val(),
-                Phan_User: $("#txtPhan_User-Insert").val(),
-                Phan_Tinh: $("#txtPhan_Tinh-Insert").val(),
-                Nhom_Tinh: $("#txtNhom_Tinh-insert").val(),
-                GhiChu: $("#txtGhiChu-Insert").val(),
-                },
-            type: 'POST',
-            success: function (data) {
-                    if (data.Code == '00') {
-                        swal.fire(
-                          '' + data.Message + '',
-                          'Thêm mới nhân viên thành công!',
-                          'success'
-                        );
-                    $('#myModalInsert').modal('hide');
-
-                    } else {
-                        swal.fire(
-                          '' + data.Message + '',
-                          'Thêm mới nhân viên thất bại',
-                          'error'
-                        );
-                    }
-                }
-            })
-    }
-
-    $('#btnexportlist').click(function () {
-            // build the url
-        var url = $(this).data('baseurl') + '?tennv=' + $('#tennv').val();
-            // redirect
-            location.href = url;
-
-
+    $(document).ready(function () {
+        // Khi nhấn vào nút "Thêm mới"
+        $("#btncreate").click(function () {
+            addNewFunc(); // Gọi hàm để hiển thị modal thêm mới
         });
+    });
+    function addNewFunc() {
+        // Đặt tiêu đề modal
+        $("#editAddModalLabel").text("Thêm Mới Nhân Viên");
+
+        // Xóa giá trị cũ trong form
+        $("#editAddForm")[0].reset();
+        $("#id_nv").val("");
+
+        // Hiển thị modal
+        $('#editAddModal').modal('show');
+    }
+    function editFunc(id) {
+        // Gửi yêu cầu AJAX để lấy thông tin lái xe
+        $.ajax({
+            type: "GET",
+            url: "/TMS_TICKET/GetLaiXeInfo",  // Đường dẫn đến controller
+            data: { id: id },
+            success: function (data) {
+                console.log(data); // Kiểm tra dữ liệu trả về từ server
+
+                // Kiểm tra xem dữ liệu có đầy đủ không
+                if (data && data.ListTMS_TICKET_Sua && data.ListTMS_TICKET_Sua.length > 0) {
+                    var laiXe = data.ListTMS_TICKET_Sua[0];  // Lấy thông tin lái xe đầu tiên từ danh sách
+
+                    // Điền dữ liệu vào form
+                    $("#editAddModalLabel").text("Sửa Thông Tin Nhân Viên"); 
+                    $("#id_nv").val(laiXe.Id);
+                    $("#Manv").val(laiXe.MA_NV);
+                    $("#Tennv").val(laiXe.Ten_NV);
+                    $("#Phan_usser").val(laiXe.Phan_User);
+                    $("#Tinh_Nhan").val(laiXe.Tinh_Nhan);
+                    $("#Tinh_Tra").val(laiXe.Tinh_Tra);
+                    $("#Khu_Vuc").val(laiXe.Khu_Vuc);
+                    $("#Nhom").val(laiXe.Nhom_Tinh);
+                    $("#fromdate").val(laiXe.Ngay_Khoi_Tao);
+                    $("#todate").val(laiXe.Ngay_Ket_Thuc);
+                    $("#Ghi_Chu").val(laiXe.Ghi_Chu);// Cập nhật giá trị chi nhánh (zone)
+                    // Hiển thị modal
+                    $('#editAddModal').modal('show');
+                } else {
+                    alert("Không tìm thấy dữ liệu nhân viên.");
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi tải dữ liệu.");
+            }
+        });
+    }
+    function saveChanges() {
+        var id = $("#id_nv").val();
+        var MA_NV = $("#Manv").val();
+        var Ten_NV = $("#Tennv").val();
+        var Phan_User = $("#Phan_usser").val();
+        var Tinh_Nhan = $("#Tinh_Nhan").val();
+        var Tinh_Tra = $("#Tinh_Tra").val(); 
+        var Khu_Vuc = $("#Khu_Vuc").val();
+        var Nhom_Tinh = $("#Nhom").val();
+        var Ngay_Khoi_Tao = $("#fromdate").val();
+        var Ngay_Ket_Thuc = $("#todate").val();
+        var Ghi_Chu = $("#Ghi_Chu").val();
+
+        // Kiểm tra các giá trị không được để trống
+        if (!MA_NV || !Ten_NV || !Phan_User || !Tinh_Nhan || !Tinh_Tra || !Khu_Vuc || !Nhom_Tinh || !Ngay_Khoi_Tao || !Ngay_Ket_Thuc) {
+            alert("Vui lòng điền đầy đủ thông tin. Các trường không được để trống.");
+            return; // Dừng hàm nếu có trường nào bị trống
+        }
+
+        var data = {
+            Id: id,
+            MA_NV: MA_NV,
+            Ten_NV: Ten_NV,
+            Phan_User: Phan_User,
+            Tinh_Nhan: Tinh_Nhan,
+            Tinh_Tra: Tinh_Tra,
+            Khu_Vuc: Khu_Vuc,
+            Nhom_Tinh: Nhom_Tinh,
+            Ngay_Khoi_Tao: Ngay_Khoi_Tao,
+            Ngay_Ket_Thuc: Ngay_Ket_Thuc,
+            Ghi_Chu: Ghi_Chu
+        };
+
+        // Chọn hành động (Thêm mới hoặc Sửa)
+        var url = id ? "/TMS_TICKET/UpdateLaiXe" : "/TMS_TICKET/AddLaiXe";
+
+        // Gửi dữ liệu
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (response) {
+                if (response.success) {
+                    alert("Lưu thành công!");
+                    $('#editAddModal').modal('hide');
+                    location.reload(); // Tải lại dữ liệu
+                } else {
+                    alert("Lỗi: " + response.message);
+                }
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi lưu dữ liệu.");
+            }
+        });
+    }
+    $('#btnexportlist').click(function () {
+        // build the url
+        var url = $(this).data('baseurl') + '?zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&trangthai=' + $("#trangthai").val();
+        location.href = url;
+    });
+
 </script>
+<style type="text/css">
+    /* Dropdown */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9; /* Màu nền của dropdown */
+        min-width: 120px;
+        z-index: 1;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Thêm hiệu ứng bóng đổ */
+        border-radius: 5px; /* Viền bo góc */
+    }
+
+        .dropdown-content button {
+            background-color: #f1f1f1; /* Màu nền của các button */
+            border: none;
+            color: #333; /* Màu chữ */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block; /* Xếp các button thành dòng */
+            width: 100%; /* Chiếm toàn bộ chiều rộng của dropdown */
+            border-radius: 5px; /* Viền bo góc cho các button */
+            margin: 2px 0; /* Khoảng cách giữa các button */
+        }
+
+            /* Hiệu ứng hover */
+            .dropdown-content button:hover {
+                background-color: #ddd; /* Màu nền khi hover */
+                cursor: pointer; /* Đổi con trỏ thành pointer */
+            }
+            /* Hiệu ứng cho khi dropdown được hiển thị */
+            .dropdown:hover .dropdown-content {
+                display: block; /* Hiển thị dropdown khi hover */
+            }
 
 
+
+    /* CSS cho Bảng không hỗ trợ di động */
+#ExcelView {
+    width: 100%;
+    border-collapse: collapse;  /* Giúp các ô không bị cách nhau */
+    table-layout: fixed;  /* Thiết lập chiều rộng cố định cho các cột */
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#ExcelView th,
+#ExcelView td {
+    text-align: center; /* Căn giữa nội dung các ô */
+    padding: 10px;  /* Khoảng cách giữa nội dung và viền ô */
+    word-wrap: break-word;  /* Đảm bảo nội dung dài không bị tràn ra ngoài */
+}
+
+/* Màu sắc cho tiêu đề và dữ liệu */
+#ExcelView th {
+    background-color: #f8f9fa;  /* Màu nền sáng cho tiêu đề */
+    color: #333;  /* Màu chữ tối */
+    font-weight: bold;  /* Đậm chữ tiêu đề */
+}
+
+#ExcelView td {
+    background-color: #ffffff;  /* Màu nền trắng cho dữ liệu */
+    color: #555;  /* Màu chữ nhẹ nhàng */
+}
+
+    #ExcelView th,
+    #ExcelView td {
+        padding: 12px;  /* Tăng padding cho màn hình lớn */
+    }
+
+    /* Giảm kích thước cho các cột "Trạng Thái" và "Chức Năng" */
+    #ExcelView th, #ExcelView td {
+        text-align: center; /* Căn giữa nội dung các ô */
+        padding: 10px; /* Khoảng cách giữa nội dung và viền ô */
+        word-wrap: break-word; /* Đảm bảo nội dung dài không bị tràn ra ngoài */
+    }
+
+        /* Chỉnh sửa cho các cột Trạng Thái và Chức Năng */
+        #ExcelView th:nth-child(1),
+        #ExcelView th:nth-child(11),
+        #ExcelView td:nth-child(11) {
+            width: 100px; /* Giảm chiều rộng cho cột Trạng Thái */
+        }
+        #ExcelView th:nth-child(1),
+        #ExcelView th:nth-child(12),
+        #ExcelView td:nth-child(12) {
+            width: 100px; /* Giảm chiều rộng cho cột Chức Năng */
+        }
+
+
+</style>

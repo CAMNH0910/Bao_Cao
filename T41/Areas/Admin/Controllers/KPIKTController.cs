@@ -134,7 +134,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnListExcel(ViewBag.buucuc, ViewBag.dichvu, ViewBag.startdate, ViewBag.enddate);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -277,7 +277,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnListExcelQT(ViewBag.buucuc, ViewBag.startdate, ViewBag.enddate);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -419,7 +419,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnPKI_KTHTExcel(ViewBag.buucuc, ViewBag.startdate, ViewBag.enddate);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -584,7 +584,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnPKI_KTHT_CTExcel(ViewBag.buucuc, ViewBag.startdate, ViewBag.enddate, ViewBag.id_hanh_trinh, ViewBag.time);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
@@ -760,7 +760,7 @@ namespace T41.Areas.Admin.Controllers
         {
             var list = ReturnPKI_KTHT_TCExcel(ViewBag.buucuc, ViewBag.startdate, ViewBag.enddate, ViewBag.id_hanh_trinh, ViewBag.time);
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 30;
+            worksheet.DefaultColWidth = 20;
             worksheet.DefaultRowHeight = 20;
             // Tự động xuống hàng khi text quá dài
             worksheet.Cells.Style.WrapText = true;
