@@ -1,0 +1,472 @@
+﻿
+
+@{
+    // Layout = null;
+}
+
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    p {
+        font-weight: bold;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        <small>Thống kê báo báo</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Lịch sử cập nhật trạng thái</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lịch sử cập nhật trạng thái</h3>
+        </div>
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Nhân viên</label>
+                        <select class="form-control select2" style="width: 100%;" id="seach">
+                            <option selected="selected" value="0">Tất cả</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="mabg">Số HS/ Mã BG</label>
+                        <input type="text" class="form-control" id="mabg" name="mabg" placeholder="Nhập thông tin">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="trangthai">User CMS</label>
+                        <select class="form-control" id="donvi" name="donvi" required>
+                            <option value="0">Chọn user CMS</option>
+                            <option value="1">006</option>
+                            <option value="2">User khác</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+
+                <div class="loading-element text-center" style="font-size:50px; display:none;">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    Vui lòng chờ giây lát...
+                </div>
+                @*<div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export_TICKET_ND", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                    </div>
+                </div>*@
+                <div>
+                    <div style="width: 100%; overflow-x: scroll;">
+                        <div class="table-responsive">
+                            <table id="DetailTable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã nhân viên</th>
+                                        <th>Tên nhân viên</th>
+                                        <th>Số hồ sơ</th>
+                                        <th>Trạng thái cập nhật</th>
+                                        <th>Thời gian cập nhật</th>
+                                        <th>Người cập nhật</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dữ liệu sẽ được chèn vào đây từ AJAX -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Sửa Trạng Thái -->
+            </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+<script type="text/javascript">
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+        , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
+    $(document).ready(function () {
+
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+        $('.loading-element').hide();
+    });
+
+    $("#btnreport").click(function () {
+    // Lấy giá trị đã chọn từ dropdown
+    var selectedValue = $('#seach').val();
+
+    // Khởi tạo danh sách ID nhân viên
+    var selectedIds = [];
+    if (selectedValue === "0") {
+        $('#seach option').each(function () {
+            if ($(this).val() !== "0") {
+                selectedIds.push($(this).val());
+            }
+        });
+    } else {
+        selectedIds.push(selectedValue);
+    }
+    // Xóa toàn bộ dữ liệu cũ trong bảng (tbody)
+    $('#DetailTable tbody').empty();
+    // Gọi hàm lấy dữ liệu mới
+    detail(selectedIds);
+    // Hiển thị footer (nếu cần)
+    $('.box-footer').show();
+});
+
+function detail(selectedIds) {
+    var idsToSend = Array.isArray(selectedIds) ? selectedIds.join(",") : selectedIds;
+
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("TK_TICKET_UpdaDate", "TMS_TICKET")',
+        dataType: 'json',
+        beforeSend: function () {
+            $('.loading-element').show(); // Hiển thị loading
+        },
+        data: {
+            startdate: $('#fromdate').val(),
+            enddate: $('#todate').val(),
+            seach: idsToSend,
+            mabg: $('#mabg').val(),
+            donvi: $('#donvi').val(),
+        },
+        success: function (data) {
+            console.log(data);  // Kiểm tra dữ liệu trả về
+            if (data.Code == '01' || data.Code == '99') {
+                swal.fire(data.Message, '', 'error');
+                $('.loading-element').hide();
+                return;
+            }
+            var str_body = "";
+            var rowIndex = 1;
+            $.each(data.ListTK_TICKET_UpdaDate, function (index, item) {
+                str_body += `
+        <tr>
+            <td class="text-center">${rowIndex++}</td>
+            <td class="text-center">${item.MA_NV || ''}</td>
+            <td class="text-center">${item.TEN_NV || ''}</td>
+            <td class="text-center">${item.SO_HS && typeof item.SO_HS === 'string'
+                    ? `<a href="https://cms.vnpost.vn/admin/complaints/final-result/${item.SO_HS.substring(4)}" target="_blank" id="${item.SO_HS.substring(4)}">${item.SO_HS}</a>`
+                        : 'Không có dữ liệu'
+                    }</td>
+            <td class="text-center"">
+                ${item.MA_TT === '1' ? 'Đang xử lý' :
+                    (item.MA_TT === '2' ? 'Đã có kết luận cuối cùng' :
+                        (item.MA_TT === '3' ? 'Đóng' :
+                            (item.MA_TT === '4' ? 'Đã hoàn thành' : 'Không xác định')))}
+            <td class="text-center">${item.DATEUPDATE || ''}</td>
+            <td class="text-center">${item.USERS_UPDATE || ''}</td>
+        </tr>`;
+            });
+
+            // Gắn dữ liệu mới vào bảng
+            $('#DetailTable tbody').html(str_body);
+            $('#btnexportlist').show();
+            // Nếu DataTable chưa được khởi tạo thì tạo mới
+            if (!$.fn.dataTable.isDataTable('#DetailTable')) {
+                $('#DetailTable').DataTable({
+                    ordering: false,         // Tắt tính năng sắp xếp
+                    pageLength: 25,          // Hiển thị 25 bản ghi mỗi trang
+                    lengthChange: true,      // Cho phép thay đổi số lượng bản ghi mỗi trang
+                    paging: true,            // Kích hoạt phân trang
+                    info: true,              // Hiển thị thông tin tổng số bản ghi
+                    language: {
+                        search: "Tìm kiếm:",                    // Đổi từ "Search" thành "Tìm kiếm"
+                        zeroRecords: "Không có dữ liệu!",       // Thông báo khi không có bản ghi
+                        info: "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ bản ghi",  // Hiển thị thông tin phân trang
+                        lengthMenu: "Hiển thị _MENU_ bản ghi mỗi trang",  // Thay đổi số lượng bản ghi mỗi trang
+                        paginate: {
+                            first: "Đầu",                       // Tên của nút "First"
+                            previous: "Trước",                  // Tên của nút "Previous"
+                            next: "Sau",                        // Tên của nút "Next"
+                            last: "Cuối"                        // Tên của nút "Last"
+                        }
+                    },
+                });
+            } else {
+                // Nếu đã có DataTable rồi, chỉ cần cập nhật lại
+                $('#DetailTable').DataTable().clear().rows.add($('#DetailTable tbody tr')).draw();
+            }
+            $('.loading-element').hide(); // Ẩn loading
+        },
+        error: function (xhr, status, error) {
+            swal.fire("Lỗi", "Không thể tải dữ liệu: " + error, "error");
+            $('.loading-element').hide();
+        }
+    });
+}
+
+    $('#btnexportlist').click(function () {
+        // Lấy giá trị từ các input và dropdown
+        var startdate = $('#fromdate').val(); // Đảm bảo rằng startdate đã được lấy từ đúng trường
+        var enddate = $('#todate').val(); // Đảm bảo rằng enddate đã được lấy từ đúng trường
+
+        var selectedValue = $('#seach').val();
+        var selectedIds = [];
+
+        // Nếu giá trị là "0", chọn tất cả các mục
+        if (selectedValue === "0") {
+            $('#seach option').each(function () {
+                if ($(this).val() !== "0") {
+                    selectedIds.push($(this).val());
+                }
+            });
+        } else {
+            selectedIds.push(selectedValue);
+        }
+
+        // Chuyển selectedIds thành một chuỗi
+        var idsToSend = Array.isArray(selectedIds) ? selectedIds.join(",") : selectedIds;
+
+        // Xây dựng URL để xuất file Excel
+        var url = $(this).data('baseurl') + '?startdate=' + startdate +  // Đảm bảo rằng startdate đã được lấy từ trường đúng
+            '&enddate=' + enddate +
+            '&seach=' + idsToSend +
+            '&trangthai=' + $('#trangthai').val() +
+            '&mabg=' + $('#mabg').val();
+
+        // Chuyển hướng tới URL để tải file Excel
+        location.href = url;
+    });
+
+function getUserIdsAndLoadNhanVien() {
+    var userName = '@Convert.ToString(Session["UserName"])'; // Lấy UserName từ Session
+
+    if (userName === "admin" || userName === "CSKH_EMS" || userName.includes("CSKH_")) {
+        var userIdsArray = 0;
+        getNhanVienByNhomTinh(userIdsArray);
+        return;
+    }
+    $.ajax({
+        url: '/TMS_TICKET/GetUserIdsByUserName',
+        type: 'GET',
+        dataType: 'json',
+        data: { userName: userName },
+        success: function (response) {
+            if (response.success && response.userIds) {
+                // userIds là một chuỗi phân tách dấu ",", chuyển nó thành mảng
+                var userIdsArray = response.userIds.split(",");  // Chuyển chuỗi thành mảng
+
+                // Gọi hàm getNhanVienByNhomTinh với mảng userIds
+                getNhanVienByNhomTinh(userIdsArray);
+            } else {
+                alert(response.message);  // Hiển thị thông báo lỗi nếu không có userIds
+            }
+        },
+        error: function () {
+            alert("Có lỗi xảy ra khi gọi API để lấy userIds.");
+        }
+    });
+}
+function getNhanVienByNhomTinh(userIdsArray) {
+        if (!Array.isArray(userIdsArray)) {
+            userIdsArray = [userIdsArray]; // Biến thành mảng nếu không phải mảng
+        }
+
+        var idsToSend = userIdsArray.join(","); // Chuỗi các ID cách nhau bởi dấu phẩy
+
+        $.ajax({
+            url: "/TMS_TICKET/Get_Nhan_Vien", // API lấy danh sách nhân viên
+            type: "GET",
+            dataType: "json",
+            data: { id: idsToSend },
+            success: function (data) {
+                // Làm trống dropdown và thêm tùy chọn "Tất cả"
+                $('#seach').empty().append('<option value="0">Tất cả</option>');
+
+                // Thêm các tùy chọn từ dữ liệu trả về
+                $.each(data, function (i, val) {
+                    $('#seach').append($('<option>', {
+                        value: val.ID,
+                        text: val.TEN_NV
+                    }));
+                });
+
+                // Sự kiện khi thay đổi giá trị trong dropdown
+                $('#seach').on('change', function () {
+                    var selectedValue = $(this).val(); // Lấy giá trị được chọn
+
+                    if (selectedValue === "0") {
+                        // Nếu chọn "Tất cả", tạo danh sách tất cả ID ngoại trừ "0"
+                        var allIds = [];
+                        $('#seach option').each(function () {
+                            if ($(this).val() !== "0") {
+                                allIds.push($(this).val());
+                            }
+                        });
+                        detail(allIds); // Gọi hàm detail với tất cả ID
+                    } else {
+                        // Nếu chọn một mục cụ thể
+                        detail([selectedValue]); // Gọi hàm detail với ID được chọn
+                    }
+                });
+            },
+            error: function () {
+                alert("Không thể tải dữ liệu nhân viên.");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        getUserIdsAndLoadNhanVien(); // Gọi hàm để lấy userIds và xử lý
+    });
+</script>
+<style>
+    /* CSS tùy chỉnh cho dropdown */
+    /* CSS cho dropdown */
+    .dropdown-menus {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+        border-radius: 8px; /* Bo góc */
+        position: absolute;
+        z-index: 1050; /* Đảm bảo dropdown luôn hiển thị trên cùng */
+        background-color: #ffffff; /* Màu nền trắng để đảm bảo không bị mờ */
+        max-width: 90vw; /* Giới hạn chiều rộng tối đa 90% chiều rộng màn hình */
+        min-width: 180px; /* Chiều rộng tối thiểu */
+        width: auto; /* Để tự động điều chỉnh theo nội dung */
+        max-height: 300px; /* Giới hạn chiều cao */
+        overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+        right: 0; /* Đảm bảo dropdown căn phải */
+        left: auto;
+    }
+
+        .dropdown-menus button {
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            width: 100%; /* Làm cho các nút trong dropdown có chiều rộng 100% */
+            border: none;
+            background: transparent;
+            text-align: left;
+            color: #495057; /* Đảm bảo văn bản có màu tối để dễ đọc */
+        }
+
+            .dropdown-menus button:hover {
+                background-color: #e9ecef;
+                color: #495057;
+            }
+
+        .dropdown-menus .assign-btn {
+            background-color: #007bff; /* Màu nền xanh dương */
+            color: white; /* Màu chữ trắng */
+        }
+
+            .dropdown-menus .assign-btn:hover {
+                background-color: #0056b3; /* Màu khi hover */
+            }
+
+        .dropdown-menus .update-btn {
+            background-color: #f0ad4e; /* Màu nền vàng */
+            color: white; /* Màu chữ trắng */
+        }
+
+            .dropdown-menus .update-btn:hover {
+                background-color: #ec971f; /* Màu khi hover */
+            }
+
+    .dropdown-menus {
+        font-size: 1rem; /* Kích thước chữ mặc định */
+    }
+
+    .w-100 {
+        width: 100% !important;
+    }
+
+    .mb-2 {
+        margin-bottom: 10px;
+    }
+
+    .row-checkbox {
+        transform: scale(1.5); /* Tăng kích thước lên 1.5 lần */
+        margin: 0; /* Giảm khoảng cách ngoài */
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
+        -webkit-overflow-scrolling: touch; /* Cho phép cuộn mượt mà trên thiết bị desktop */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse; /* Tạo bảng đẹp hơn */
+        table-layout: auto; /* Tự động điều chỉnh cột cho phù hợp */
+    }
+
+    td, th {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+</style>

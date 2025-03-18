@@ -124,7 +124,6 @@
                     </ul>
                 </div>
             </nav>
-
         </header>
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
@@ -432,6 +431,7 @@
                                 <li><a href="/Admin/THTCKT/THTCKT">Tổng hợp theo hành trình</a></li>
                                 <li><a href="/Admin/CTTCKT/CTTCKT">Chi tiết theo hành trình</a></li>
                                 <li><a href="/Admin/KPIKT/KPI_KTHT">Cảnh báo trượt chuyến<br /> bưu gửi hỏa tốc</a></li>
+                                <li><a href="/Admin/List_Item_BCCP/List_Item_BCCP">Báo cáo hoạt động <br />các chuyến thư</a></li>
                                 <li><a href="/Admin/KPIKT/THSLQT">Tổng hợp sản lượng QT</a></li>
                                 <li><a href="/Admin/THTCKT/THTCKTQT">Tổng hợp theo hành trình QT</a></li>
                                 <li><a href="/Admin/CTTCKT/CTTCKTQT">Chi tiết theo hành trình QT</a></li>
@@ -456,7 +456,7 @@
 
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI phát</span>
+                                <i class="fa fa-industry"></i> <span>Báo cáo chất lượng <br> KPI phát</span>    
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -470,7 +470,8 @@
                                 <li><a href="/Admin/KPi_Customer_PKTC/KPi_Customer_PKTC_Report">Báo cáo lý do  PKTC</a></li>
                                 <li><a href="/Admin/KPI_Customer_HPTC/KPI_Customer_HPTC_Report">Báo cáo hủy phát thành công </a></li>
                                 <li><a href="/Admin/KPI_XND_BC_Time/KPI_XND_BC_Time">Sản lượng đến phát <br /> theo khung giờ </a></li>
-
+                                <li><a href="/Admin/KPI_Detail_PTC/KPI_Detail_PTC">KPI phát theo bưu cục </a></li>
+                                <li><a href="/Admin/KPI_Detail_PTC/KPI_Detail_PTC_BT">KPI phát theo lượt phát <br /> của bưu tá </a></li>
                             </ul>
                         </li>
 
@@ -580,7 +581,7 @@
                     if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("CSKH"))
                     {
                         <li class="header" style="color:cornflowerblue;"><strong>CHĂM SÓC KHÁCH HÀNG</strong></li>
-                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                        if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]).Contains("CSKH_"))
                         {
                             <li class="treeview">
                                 <a href="#">
@@ -608,16 +609,6 @@
                                     <li><a href="/Admin/TMS_TICKET/Report_TMS_TICKET">Phân công hồ sơ khiếu nại </a></li>
                                 </ul>
                             </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-industry"></i> <span>Thống kê báo cáo</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                </ul>
-                            </li>
                         }
                         <li class="treeview">
                             <a href="#">
@@ -629,10 +620,27 @@
                             <ul class="treeview-menu">
                                 <li><a href="/Admin/TMS_TICKET/QL_PhanCong_HT">Quản lý lịch nghỉ </a></li>
                                 <li><a href="/Admin/TMS_TICKET/THPhanCong">Quản lý danh sach <br />nhân viên nghỉ </a></li>
-                                @{if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                                @{if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]).Contains("CSKH_"))
                                     {
                                         <li><a href="/Admin/TMS_TICKET/PhanCong_HT">Phân công hỗ trợ <br />xử lý hồ sơ </a></li>
                                     } }
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-industry"></i> <span>Thống kê báo cáo</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Admin/TMS_TICKET/TH_TICKET_TK">Tổng hợp hồ sơ khiếu nại</a></li>
+                                @{if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 22 || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]).Contains("CSKH_"))
+                                    {
+                                        <li><a href="/Admin/TMS_TICKET/TICKET_List_Ra_Soat">Thống kê lượt rà soát</a></li>
+                                        <li><a href="/Admin/TMS_TICKET/TK_TICKET_UpdaDate">Lịch sử cập nhật trạng thái</a></li>
+                                    } }
+
                             </ul>
                         </li>
                         <li class="treeview">
@@ -650,6 +658,7 @@
                     }
                 }
                 @{
+
                     if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 4 || Convert.ToString(Session["UserName"]) == "kinhdoanhems")
                     {
                         <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ KHÁCH HÀNG</strong></li>
@@ -695,11 +704,13 @@
 
                 @{
                     //Accout ktqt
-                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 16 || Convert.ToString(Session["UserName"]) == "nghiepvuems" || Convert.ToString(Session["UserName"]) == "saohd")
+                    if (Convert.ToInt32(Session["userid"]) == 1 || Convert.ToInt32(Session["userid"]) == 16 || Convert.ToString(Session["UserName"]) == "nghiepvuems"
+                         || Convert.ToString(Session["UserName"]) == "HTKDQT_EMS" || Convert.ToString(Session["UserName"]) == "saohd")
                     {
                         <li class="header" style="color:cornflowerblue;"><strong>HỖ TRỢ QUỐC TẾ</strong></li>
                         <li>
                             <a href="/Admin/InsertStatusInternational/InsertStatusInternationalView">
+
                                 <i class="fa fa-calculator"></i> <span>Nhập trạng thái quốc tế</span>
                             </a>
                         </li>
@@ -726,29 +737,29 @@
 
             </ul>
 
-                            <!-- /.sidebar-menu -->
-</section>
+                <!-- /.sidebar-menu -->
+            </section>
             <!-- /.sidebar -->
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             @*
-                <section class="content-header">
-                   <h1>
-                      <small>Page </small>
-                   </h1>
-                   <ol class="breadcrumb">
-                      <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                      <li class="active">Here</li>
-                   </ol>
-                </section>
+            <section class="content-header">
+               <h1>
+                  <small>Page </small>
+               </h1>
+               <ol class="breadcrumb">
+                  <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                  <li class="active">Here</li>
+               </ol>
+            </section>
             *@
             <!-- Main content -->
             @*<section class="content container-fluid">*@
             @RenderBody()
             @*
-                </section>
+            </section>
             *@
             <!-- /.content -->
         </div>

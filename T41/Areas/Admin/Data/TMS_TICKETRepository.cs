@@ -5,11 +5,10 @@ using System.Web;
 using Oracle.ManagedDataAccess.Client;
 using T41.Areas.Admin.Common;
 using System.Data;
-using T41.Areas.Admin.Model.DataModel;
-using T41.Areas.Admin.Models.DataModel;
 using System.Data.Odbc;
 using System.Data.SqlClient;
 using Remotion;
+using T41.Areas.Admin.Model.DataModel;
 
 namespace T41.Areas.Admin.Data
 {
@@ -458,7 +457,7 @@ namespace T41.Areas.Admin.Data
         #endregion
 
         #region Danh mục lượt rà soát
-        public ReturnTMS_TICKET DM_Ra_Soat(int startdate,string user)
+        public ReturnTMS_TICKET List_Ra_Soat(int startdate, int enddate, string user)
         {
             DataTable da = new DataTable();
             Convertion common = new Convertion();
@@ -469,13 +468,76 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("TMS_TICKET.ListDM_Ra_Soat", Helper.OraDCDevOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("TMS_TICKET.ListRa_Soat", Helper.OraDCDevOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
-                    myCommand.Parameters.Add("v_THOI_GIAN", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
                     myCommand.Parameters.Add("v_user", OracleDbType.Varchar2).Value = user;
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        int a = 0;
+                        var listTMS_TICKET = new List<List_Ra_Soat>();
+                        while (dr.Read())
+                        {
+
+                            var oTMS_TICKET = new List_Ra_Soat();
+                            oTMS_TICKET.STT = a++;
+                            oTMS_TICKET.LUOT = dr["LUOT"].ToString(); 
+                            oTMS_TICKET.Thoi_Gian = dr["Thoi_Gian"].ToString();
+                            oTMS_TICKET.Ngay = dr["Ngay"].ToString();
+                            oTMS_TICKET.TimeImport = dr["TimeImport"].ToString();
+                            oTMS_TICKET.Tong_So = dr["Tong_So"].ToString();
+                            oTMS_TICKET.So_HS = dr["So_HS"].ToString();
+                            oTMS_TICKET.USERS = dr["USERS"].ToString();
+                            oTMS_TICKET.USERS_IMPORT = dr["USERS_IMPORT"].ToString();
+                            listTMS_TICKET.Add(oTMS_TICKET);
+                        }
+                        _ReturnTMS_TICKET.Code = "00";
+                        _ReturnTMS_TICKET.Message = "Lấy dữ liệu thành công.";
+                        _ReturnTMS_TICKET.ListL_Ra_Soat = listTMS_TICKET;
+                    }
+                    else
+                    {
+                        _ReturnTMS_TICKET.Code = "01";
+                        _ReturnTMS_TICKET.Message = "Không có dữ liệu";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnTMS_TICKET.Code = "99";
+                _ReturnTMS_TICKET.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _ReturnTMS_TICKET;
+        }
+
+        public ReturnTMS_TICKET DM_Ra_Soat(int luot)
+        {
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnTMS_TICKET _ReturnTMS_TICKET = new ReturnTMS_TICKET();
+            var test = Helper.OraDCDevOracleConnection;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("TMS_TICKET.DM_Ra_Soat", Helper.OraDCDevOracleConnection);
+                    //xử lý tham số truyền vào data table   
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_Luot", OracleDbType.Int32).Value = luot;
                     myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
                     mAdapter.Fill(da);
@@ -490,11 +552,10 @@ namespace T41.Areas.Admin.Data
 
                             var oTMS_TICKET = new DM_Ra_Soat();
                             oTMS_TICKET.STT = a++;
+                            oTMS_TICKET.ID = dr["ID"].ToString();
                             oTMS_TICKET.LUOT = dr["LUOT"].ToString();
-                            oTMS_TICKET.THOI_GIAN = dr["THOI_GIAN"].ToString();
-                            oTMS_TICKET.GIO = dr["GIO"].ToString();
-                            oTMS_TICKET.USERS = dr["USERS"].ToString();
-                            oTMS_TICKET.USERS_IMPORT = dr["USERS_IMPORT"].ToString();
+                            oTMS_TICKET.Thoi_Gian = dr["Thoi_Gian"].ToString();
+                            oTMS_TICKET.Khoang_TG = dr["Khoang_TG"].ToString();
                             listTMS_TICKET.Add(oTMS_TICKET);
                         }
                         _ReturnTMS_TICKET.Code = "00";
@@ -904,13 +965,14 @@ namespace T41.Areas.Admin.Data
             return response;
         }
         //Update nhân viên theo hồ sơ
-        public bool UpdateTicketTrangThai(string itemcode, string Item, string Ly_Do, string Ly_Do_Khac, string types)
+        public bool UpdateTicketTrangThai(string USERS_UPDATE, string itemcode, string Item, string Ly_Do, string Ly_Do_Khac, string types)
         {
             try
             {
                 using (OracleCommand cmd = new OracleCommand("TMS_TICKET.Update_Trang_Thai", Helper.OraDCDevOracleConnection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("v_USERS_UPDATE", OracleDbType.Varchar2).Value = USERS_UPDATE;
                     cmd.Parameters.Add("v_itemcode", OracleDbType.Varchar2).Value = itemcode;
                     //cmd.Parameters.Add("v_trangthai", OracleDbType.Int32).Value = trangthai;
                     cmd.Parameters.Add("v_Item", OracleDbType.Varchar2).Value = Item;
@@ -1003,7 +1065,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("TMS_TICKET.List_TICKET", Helper.OraDCDevOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("Report_Ticket.List_TICKET", Helper.OraDCDevOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -1074,7 +1136,7 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("TMS_TICKET.List_TICKET_TH", Helper.OraDCDevOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("Report_Ticket.List_TICKET_TH", Helper.OraDCDevOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
@@ -1134,7 +1196,7 @@ namespace T41.Areas.Admin.Data
 
 
         #region Báo cáo dành cho người dùng
-        public ReturnTMS_TICKET TICKET_DETAIL_ND(int startdate, int enddate, string seach, int trangthai, string mabg)
+        public ReturnTMS_TICKET TICKET_DETAIL_ND(int startdate, int enddate,int thoigian,string seach, int trangthai, string mabg, int donvi,string searchtinh)
         {
             DataTable da = new DataTable();
             Convertion common = new Convertion();
@@ -1145,16 +1207,19 @@ namespace T41.Areas.Admin.Data
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("TMS_TICKET.List_TICKET_ND", Helper.OraDCDevOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("Report_Ticket.List_TICKET_ND", Helper.OraDCDevOracleConnection);
                     //xử lý tham số truyền vào data table   
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_thoigian", OracleDbType.Int32).Value = thoigian;
                     myCommand.Parameters.Add("v_Seach", OracleDbType.Varchar2).Value = seach;
                     myCommand.Parameters.Add("v_trangthai", OracleDbType.Int32).Value = trangthai;
                     myCommand.Parameters.Add("v_mabg", OracleDbType.Varchar2).Value = mabg;
+                    myCommand.Parameters.Add("v_donvi", OracleDbType.Int32).Value = donvi;
+                    myCommand.Parameters.Add("v_searchtinh", OracleDbType.Varchar2).Value = searchtinh;
                     myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
                     mAdapter = new OracleDataAdapter(myCommand);
                     mAdapter.Fill(da);
@@ -1166,20 +1231,23 @@ namespace T41.Areas.Admin.Data
                         var listTMS_TICKET = new List<LIST_TICKET_ND>();
                         while (dr.Read())
                         {
-
                             var oTMS_TICKET = new LIST_TICKET_ND();
                             oTMS_TICKET.STT = a++;
                             oTMS_TICKET.So_HS = dr["So_HS"].ToString();
                             oTMS_TICKET.Ma_BG = dr["Ma_BG"].ToString();
+                            oTMS_TICKET.Tinh_Nhan = dr["Tinh_Nhan"].ToString();
+                            oTMS_TICKET.Tinh_Tra = dr["Tinh_Tra"].ToString();
                             oTMS_TICKET.Ngay_Tao = dr["Ngay_Tao"].ToString();
                             oTMS_TICKET.Trang_Thai = dr["Trang_Thai"].ToString();
-                            oTMS_TICKET.Ma_DV_Chu_Tri = dr["Ma_DV_Chu_Tri"].ToString();
+                            oTMS_TICKET.Ma_DV_Chu_Tri = dr["Ma_DV_Chu_Tri"].ToString(); 
                             oTMS_TICKET.Ngay_Het_han = dr["Ngay_Het_han"].ToString();
+                            oTMS_TICKET.NGAY_XL_CUOI = dr["NGAY_XL_CUOI"].ToString();
                             oTMS_TICKET.TEN_NV = dr["TEN_NV"].ToString();
                             oTMS_TICKET.UPDATE_TT = dr["UPDATE_TT"].ToString();
                             oTMS_TICKET.UPDATE_DV = dr["UPDATE_DV"].ToString();
-                            oTMS_TICKET.STATUS = dr["STATUS"].ToString();
+                            oTMS_TICKET.STATUS = dr["STATUS"].ToString(); 
                             oTMS_TICKET.STATUS_HS = dr["STATUS_HS"].ToString();
+                            oTMS_TICKET.TT_CN = dr["TT_CN"].ToString();
                             listTMS_TICKET.Add(oTMS_TICKET);
                         }
                         _ReturnTMS_TICKET.Code = "00";
@@ -1203,6 +1271,215 @@ namespace T41.Areas.Admin.Data
             return _ReturnTMS_TICKET;
         }
         #endregion
+        #region Thống kê báo cáo
+        public ReturnTMS_TICKET TK_TICKET_UpdaDate(int startdate, int enddate, string seach, string mabg, int donvi)
+        {
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnTMS_TICKET _ReturnTMS_TICKET = new ReturnTMS_TICKET();
+            var test = Helper.OraDCDevOracleConnection;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("Report_Ticket.TK_TICKET_UpdaDate", Helper.OraDCDevOracleConnection);
+                    //xử lý tham số truyền vào data table   
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_Seach", OracleDbType.Varchar2).Value = seach;
+                    myCommand.Parameters.Add("v_mabg", OracleDbType.Varchar2).Value = mabg;
+                    myCommand.Parameters.Add("v_donvi", OracleDbType.Int32).Value = donvi;
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        int a = 0;
+                        var listTMS_TICKET = new List<TK_TICKET_UpdaDate>();
+                        while (dr.Read())
+                        {
+                            var oTMS_TICKET = new TK_TICKET_UpdaDate();
+                            oTMS_TICKET.STT = a++;
+                            oTMS_TICKET.MA_NV = dr["MA_NV"].ToString();
+                            oTMS_TICKET.TEN_NV = dr["TEN_NV"].ToString();
+                            oTMS_TICKET.SO_HS = dr["SO_HS"].ToString();
+                            oTMS_TICKET.MA_TT = dr["MA_TT"].ToString();
+                            oTMS_TICKET.DATEUPDATE = dr["DATEUPDATE"].ToString();
+                            oTMS_TICKET.USERS_UPDATE = dr["USERS_UPDATE"].ToString();
+                            listTMS_TICKET.Add(oTMS_TICKET);
+                        }
+                        _ReturnTMS_TICKET.Code = "00";
+                        _ReturnTMS_TICKET.Message = "Lấy dữ liệu thành công.";
+                        _ReturnTMS_TICKET.ListTK_TICKET_UpdaDate = listTMS_TICKET;
+                    }
+                    else
+                    {
+                        _ReturnTMS_TICKET.Code = "01";
+                        _ReturnTMS_TICKET.Message = "Không có dữ liệu";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnTMS_TICKET.Code = "99";
+                _ReturnTMS_TICKET.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _ReturnTMS_TICKET;
+        }
+        #endregion
+
+        #region Thống kê báo cáo
+        #region Báo cáo tổng hợp
+        public ReturnTMS_TICKET TH_TICKET_TK(int startdate, int enddate, int thoigian, string seach,int donvi,string searchtinh)
+        {
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnTMS_TICKET _ReturnTMS_TICKET = new ReturnTMS_TICKET();
+            var test = Helper.OraDCDevOracleConnection;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("Report_Ticket.TH_TICKET_TK", Helper.OraDCDevOracleConnection);
+                    //xử lý tham số truyền vào data table   
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_thoigian", OracleDbType.Int32).Value = thoigian;
+                    myCommand.Parameters.Add("v_Seach", OracleDbType.Varchar2).Value = seach;
+                    myCommand.Parameters.Add("v_donvi", OracleDbType.Int32).Value = donvi;
+                    myCommand.Parameters.Add("v_searchtinh", OracleDbType.Varchar2).Value = searchtinh;
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        int a = 0;
+                        var listTMS_TICKET = new List<TH_TICKET_TK>();
+                        while (dr.Read())
+                        {
+
+                            var oTMS_TICKET = new TH_TICKET_TK();
+                            oTMS_TICKET.STT = a++;
+                            oTMS_TICKET.Khu_Vuc = dr["Khu_Vuc"].ToString();
+                            oTMS_TICKET.Nhom_Tinh = dr["Nhom_Tinh"].ToString();
+                            oTMS_TICKET.Id = dr["Id"].ToString();
+                            oTMS_TICKET.Ten_NV = dr["Ten_NV"].ToString();
+                            oTMS_TICKET.Tong_So = dr["Tong_So"].ToString();
+                            oTMS_TICKET.DXL = dr["DXL"].ToString();
+                            oTMS_TICKET.DCKQ = dr["DCKQ"].ToString();
+                            oTMS_TICKET.Dong = dr["Dong"].ToString();
+                            oTMS_TICKET.DHT = dr["DHT"].ToString();
+                            listTMS_TICKET.Add(oTMS_TICKET);
+                        }
+                        _ReturnTMS_TICKET.Code = "00";
+                        _ReturnTMS_TICKET.Message = "Lấy dữ liệu thành công.";
+                        _ReturnTMS_TICKET.ListTH_TICKET_TK = listTMS_TICKET;
+                    }
+                    else
+                    {
+                        _ReturnTMS_TICKET.Code = "01";
+                        _ReturnTMS_TICKET.Message = "Không có dữ liệu";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnTMS_TICKET.Code = "99";
+                _ReturnTMS_TICKET.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _ReturnTMS_TICKET;
+        }
+        #endregion
+        #region Báo cáo chi tiết
+        public ReturnTMS_TICKET CT_TICKET_TK(int startdate, int enddate, int thoigian, string seach, int donvi, string searchtinh,string Id, string types)
+        {
+            DataTable da = new DataTable();
+            Convertion common = new Convertion();
+            ReturnTMS_TICKET _ReturnTMS_TICKET = new ReturnTMS_TICKET();
+            var test = Helper.OraDCDevOracleConnection;
+            try
+            {
+                // Gọi vào DB để lấy dữ liệu.
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    OracleCommand myCommand = new OracleCommand("Report_Ticket.CT_TICKET_TK", Helper.OraDCDevOracleConnection);
+                    //xử lý tham số truyền vào data table   
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandTimeout = 20000;
+                    OracleDataAdapter mAdapter = new OracleDataAdapter();
+                    myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
+                    myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
+                    myCommand.Parameters.Add("v_thoigian", OracleDbType.Int32).Value = thoigian;
+                    myCommand.Parameters.Add("v_Seach", OracleDbType.Varchar2).Value = seach;
+                    myCommand.Parameters.Add("v_donvi", OracleDbType.Int32).Value = donvi;
+                    myCommand.Parameters.Add("v_searchtinh", OracleDbType.Varchar2).Value = searchtinh;
+                    myCommand.Parameters.Add("v_Id", OracleDbType.Varchar2).Value = Id;
+                    myCommand.Parameters.Add("v_types", OracleDbType.Int32).Value = types;
+                    myCommand.Parameters.Add(new OracleParameter("v_ListStage", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    mAdapter = new OracleDataAdapter(myCommand);
+                    mAdapter.Fill(da);
+
+                    DataTableReader dr = da.CreateDataReader();
+                    if (dr.HasRows)
+                    {
+                        int a = 0;
+                        var listTMS_TICKET = new List<CT_TICKET_TK>();
+                        while (dr.Read())
+                        {
+
+                            var oTMS_TICKET = new CT_TICKET_TK();
+                            oTMS_TICKET.STT = a++;
+                            oTMS_TICKET.So_HS = dr["So_HS"].ToString();
+                            oTMS_TICKET.Ma_BG = dr["Ma_BG"].ToString();
+                            oTMS_TICKET.Ngay_Tao = dr["Ngay_Tao"].ToString();
+                            oTMS_TICKET.Trang_Thai = dr["Trang_Thai"].ToString();
+                            oTMS_TICKET.Ma_DV_Chu_Tri = dr["Ma_DV_Chu_Tri"].ToString();
+                            oTMS_TICKET.Ngay_Het_han = dr["Ngay_Het_han"].ToString();
+                            oTMS_TICKET.Tinh_Nhan = dr["Tinh_Nhan"].ToString();
+                            oTMS_TICKET.Tinh_Tra = dr["Tinh_Tra"].ToString();
+                            oTMS_TICKET.TEN_NV = dr["TEN_NV"].ToString();
+                            listTMS_TICKET.Add(oTMS_TICKET);
+                        }
+                        _ReturnTMS_TICKET.Code = "00";
+                        _ReturnTMS_TICKET.Message = "Lấy dữ liệu thành công.";
+                        _ReturnTMS_TICKET.ListCT_TICKET_TK = listTMS_TICKET;
+                    }
+                    else
+                    {
+                        _ReturnTMS_TICKET.Code = "01";
+                        _ReturnTMS_TICKET.Message = "Không có dữ liệu";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ReturnTMS_TICKET.Code = "99";
+                _ReturnTMS_TICKET.Message = "Lỗi xử lý dữ liệu";
+
+            }
+            return _ReturnTMS_TICKET;
+        }
+        #endregion
+        #endregion
     }
+
+
 
 }

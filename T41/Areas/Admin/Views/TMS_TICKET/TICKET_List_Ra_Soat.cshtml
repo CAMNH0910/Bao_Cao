@@ -24,21 +24,21 @@
 
 <section class="content-header">
     <h1>
-        <small>Quản lý danh mục</small>
+        <small>Thống kê báo cáo</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Danh mục lượt rà soát</li>
+        <li class="active">Thống kê lượt rà soát</li>
     </ol>
 </section>
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
 
-            <h3 class="box-title">Danh mục lượt rà soát</h3>
+            <h3 class="box-title">Thống kê lượt rà soát</h3>
             <div class="box-tools pull-right">
                 @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
-                <h3 class="box-title">CSKH/DMRS</h3>
+                <h3 class="box-title">CSKH/TKLRS</h3>
             </div>
 
         </div>
@@ -47,14 +47,34 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Lượt rà soát</label>
-                        <select class="form-control select2" style="width: 100%;" id="luot">
-                            <option selected="selected" value="0">Tất cả</option>
-                            <option value="1">Lượt 1</option>
-                            <option value="2">Lượt 2</option>
-                            <option value="3">Lượt 3</option>
-                            <option value="4">Lượt 4</option>
-                            <option value="5">Lượt 5</option>
+                        <label> Từ ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label> Đến ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>User CMS</label>
+                        <select class="form-control select2" style="width: 100%;" id="user">
+                            <option selected="selected" value="0">Chọn User</option>
+                            <option value="006">006</option>
+                            <option value="0031">0031</option>
+                            <option value="0033">0033</option>
                         </select>
                     </div>
                 </div>
@@ -93,10 +113,14 @@
                     <thead>
                         <tr class="bg-light-blue color-palette">
                             <th rowspan="4" class="text-center">STT<br /></th>
-                            <th rowspan="4" class="text-center">Mã lượt</th>
+                            <th rowspan="4" class="text-center">Ngày</th>
                             <th rowspan="4" class="text-center">Lượt</th>
-                            <th rowspan="4" class="text-center">Thời gian </th>
-                            <th rowspan="4" class="text-center">Khoảng thời gian</th>
+                            <th rowspan="4" class="text-center">Thời gian rà soát</th>
+                            <th rowspan="4" class="text-center">Thời gian import</th>
+                            <th rowspan="4" class="text-center">Tổng số HS</th>
+                            <th rowspan="4" class="text-center">Số HS trùng lặp</th>
+                            <th rowspan="4" class="text-center">User CMS</th>
+                            <th rowspan="4" class="text-center">Nhan viên thực hiện </th>
                         </tr>
                     </thead>
                     <tbody id="listkpithdvreport"></tbody>
@@ -170,25 +194,31 @@
    function detail() {
     $.ajax({
         type: "POST",
-        url: '@Url.Action("DM_Ra_Soat", "TMS_TICKET")',
+        url: '@Url.Action("List_Ra_Soat", "TMS_TICKET")',
         beforeSend: function () {
             $('.loading-element').show();
         },
         dataType: 'json',
         data: {
-            luot: $('#luot').val(),
+            startdate: $('#fromdate').val(),
+            enddate: $('#todate').val(),
+            user: $('#user').val(),
         },
         success: function (data) {
             var str_html = "";
             var str_body = "";
             var a = 1;
-            $.each(data.ListDM_Ra_Soat, function (i, item) {
+            $.each(data.ListL_Ra_Soat, function (i, item) {
                 str_body += '<tr>';
                 str_body += '<td width="10" class="text-center">' + a++ + '</td>';
-                str_body += '<td class="text-center">' + data.ListDM_Ra_Soat[i].ID + '</td>';
-                str_body += '<td class="text-center">' + data.ListDM_Ra_Soat[i].LUOT + '</td>';
-                str_body += '<td class="text-center">' + data.ListDM_Ra_Soat[i].Thoi_Gian + '</td>';
-                str_body += '<td class="text-center">' + data.ListDM_Ra_Soat[i].Khoang_TG + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].Ngay + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].LUOT + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].Thoi_Gian + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].TimeImport + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].Tong_So + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].So_HS + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].USERS + '</td>';
+                str_body += '<td class="text-center">' + data.ListL_Ra_Soat[i].USERS_IMPORT + '</td>';
                 str_body += '</tr>';
             });
             str_html += str_body;
@@ -208,7 +238,7 @@
                     "language": {
                         "processing": "Message khi đang tải dữ liệu",
                         "search": "Tìm kiếm theo từ khóa:",
-                        "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListDM_Ra_Soat.length + " bản ghi",
+                        "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListL_Ra_Soat.length + " bản ghi",
                         "zeroRecords": "Không có dữ liệu !",
                         "info": "Hiển thị trang _PAGE_ đến _PAGES_",
                         "infoEmpty": "Không tồn tại bản ghi !",

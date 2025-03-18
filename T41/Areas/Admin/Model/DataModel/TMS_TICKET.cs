@@ -33,15 +33,27 @@ namespace T41.Areas.Admin.Model.DataModel
        
     }
 
-    public class DM_Ra_Soat
+    public class List_Ra_Soat
     {
         public int STT { get; set; }
         public string LUOT { get; set; }
-        public string THOI_GIAN { get; set; }
-        public string GIO { get; set; }
+        public string Ngay { get; set; }
+        public string Thoi_Gian { get; set; }
+        public string TimeImport { get; set; }
+        public string Tong_So { get; set; }
+        public string So_HS { get; set; }
         public string USERS { get; set; }
         public string USERS_IMPORT { get; set; }
         
+    }
+    public class DM_Ra_Soat
+    {
+        public int STT { get; set; }
+        public string ID { get; set; }
+        public string LUOT { get; set; }
+        public string Thoi_Gian { get; set; }
+        public string Khoang_TG { get; set; }
+
     }
     public class DM_Ra_Soat_Sua
     {
@@ -118,15 +130,19 @@ namespace T41.Areas.Admin.Model.DataModel
         public int STT { get; set; }
         public string So_HS { get; set; }
         public string Ma_BG { get; set; }
+        public string Tinh_Nhan { get; set; }
+        public string Tinh_Tra { get; set; }
         public string Ngay_Tao { get; set; }
         public string Trang_Thai { get; set; }
         public string Ma_DV_Chu_Tri { get; set; }
         public string Ngay_Het_han { get; set; }
+        public string NGAY_XL_CUOI { get; set; }
         public string TEN_NV { get; set; }
         public string UPDATE_TT { get; set; }
         public string UPDATE_DV { get; set; }
         public string STATUS { get; set; }
         public string STATUS_HS { get; set; }
+        public string TT_CN { get; set; }
     }
 
     public class Get_User
@@ -191,6 +207,44 @@ namespace T41.Areas.Admin.Model.DataModel
         public string MA_BG { get; set; }
         public string ID_NV { get; set; }
     }
+
+    public class TK_TICKET_UpdaDate
+    {
+        public int STT { get; set; }
+        public string MA_NV { get; set; }
+        public string TEN_NV { get; set; }
+        public string SO_HS { get; set; }
+        public string MA_TT { get; set; }
+        public string DATEUPDATE { get; set; }
+        public string USERS_UPDATE { get; set; }
+    }
+    public class TH_TICKET_TK
+    {
+        public int STT { get; set; }
+        public string Khu_Vuc { get; set; }
+        public string Nhom_Tinh { get; set; }
+        public string Id { get; set; }
+        public string Ten_NV { get; set; }
+        public string Tong_So { get; set; }
+        public string DXL { get; set; }
+        public string DCKQ { get; set; }
+        public string Dong { get; set; }
+        public string DHT { get; set; }
+    }
+    public class CT_TICKET_TK
+    {
+        public int STT { get; set; }
+        public string So_HS { get; set; }
+        public string Ma_BG { get; set; }
+        public string Ngay_Tao { get; set; }
+        public string Trang_Thai { get; set; }
+        public string Ma_DV_Chu_Tri { get; set; }
+        public string Ngay_Het_han { get; set; }
+        public string Tinh_Nhan { get; set; }
+        public string Tinh_Tra { get; set; }
+        public string TEN_NV { get; set; }
+    }
+
     public class ReturnTMS_TICKET
     {
         public string Code { get; set; }
@@ -211,9 +265,11 @@ namespace T41.Areas.Admin.Model.DataModel
         public List<DM_Nhan_Vien> ListDM_Nhan_Vien;
 
         
+        public List_Ra_Soat List_Ra_Soat { get; set; }
+        public List<List_Ra_Soat> ListL_Ra_Soat;
         public DM_Ra_Soat DM_Ra_Soat { get; set; }
         public List<DM_Ra_Soat> ListDM_Ra_Soat;
-
+        
         public DM_Ra_Soat_Sua DM_Ra_Soat_Sua { get; set; }
         public List<DM_Ra_Soat_Sua> ListDM_Ra_Soat_Sua;
         
@@ -240,7 +296,16 @@ namespace T41.Areas.Admin.Model.DataModel
 
         public PhanCong_HT PhanCong_HT { get; set; }
         public List<PhanCong_HT> ListPhanCong_HT;
+
+        public TK_TICKET_UpdaDate TK_TICKET_UpdaDate { get; set; }
+        public List<TK_TICKET_UpdaDate> ListTK_TICKET_UpdaDate;
+
+        public TH_TICKET_TK TH_TICKET_TK { get; set; }
+        public List<TH_TICKET_TK> ListTH_TICKET_TK;
+        public CT_TICKET_TK CT_TICKET_TK { get; set; }
+        public List<CT_TICKET_TK> ListCT_TICKET_TK;
         
+
         public MetaData MetaData { get; set; }
 
     }

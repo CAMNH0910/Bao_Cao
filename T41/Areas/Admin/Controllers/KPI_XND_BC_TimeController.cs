@@ -128,58 +128,58 @@ namespace T41.Areas.Admin.Controllers
 
             worksheet.Cells[4, 6].Value = "Hỏa tốc";
             worksheet.Cells["F4:G4"].Merge = true;
-            worksheet.Cells[5, 6].Value = "Ô tô";
-            worksheet.Cells[5, 7].Value = "Xe máy";
+            worksheet.Cells[5, 6].Value = "Xe máy";
+            worksheet.Cells[5, 7].Value = "Ô tô";
             worksheet.Cells[4, 8].Value = "Quốc tế";
             worksheet.Cells["H4:I4"].Merge = true;
-            worksheet.Cells[5, 8].Value = "Ô tô";
-            worksheet.Cells[5, 9].Value = "Xe máy";
+            worksheet.Cells[5, 8].Value = "Xe máy";
+            worksheet.Cells[5, 9].Value = "Ô tô";
             worksheet.Cells[4, 10].Value = "Visa";
             worksheet.Cells["J4:K4"].Merge = true;
-            worksheet.Cells[5, 10].Value = "Ô tô";
-            worksheet.Cells[5, 11].Value = "Xe máy";
+            worksheet.Cells[5, 10].Value = "Xe máy";
+            worksheet.Cells[5, 11].Value = "Ô tô";
             worksheet.Cells[4, 12].Value = "TMDT Đồng giá";
             worksheet.Cells["L4:M4"].Merge = true;
-            worksheet.Cells[5, 12].Value = "Ô tô";
-            worksheet.Cells[5, 13].Value = "Xe máy";
+            worksheet.Cells[5, 12].Value = "Xe máy";
+            worksheet.Cells[5, 13].Value = "Ô tô";
             worksheet.Cells[4, 14].Value = "TMDT COD";
             worksheet.Cells["N4:O4"].Merge = true;
-            worksheet.Cells[5, 14].Value = "Ô tô";
-            worksheet.Cells[5, 15].Value = "Xe máy";
+            worksheet.Cells[5, 14].Value = "Xe máy";
+            worksheet.Cells[5, 15].Value = "Ô tô";
             worksheet.Cells[4, 16].Value = "TMDT không COD";
             worksheet.Cells["P4:Q4"].Merge = true;
-            worksheet.Cells[5, 16].Value = "Ô tô";
-            worksheet.Cells[5, 17].Value = "Xe máy";
+            worksheet.Cells[5, 16].Value = "Xe máy";
+            worksheet.Cells[5, 17].Value = "Ô tô";
 
             worksheet.Cells[4, 18].Value = "Đại lý";
             worksheet.Cells["R4:S4"].Merge = true;
-            worksheet.Cells[5, 18].Value = "Ô tô";
-            worksheet.Cells[5, 19].Value = "Xe máy";
+            worksheet.Cells[5, 18].Value = "Xe máy";
+            worksheet.Cells[5, 19].Value = "Ô tô";
 
             worksheet.Cells[4, 20].Value = "TTC";
             worksheet.Cells["T4:U4"].Merge = true;
-            worksheet.Cells[5, 20].Value = "Ô tô";
-            worksheet.Cells[5, 21].Value = "Xe máy";
+            worksheet.Cells[5, 20].Value = "Xe máy";
+            worksheet.Cells[5, 21].Value = "Ô tô";
 
             worksheet.Cells[4, 22].Value = "TTB";
             worksheet.Cells["V4:W4"].Merge = true;
-            worksheet.Cells[5, 22].Value = "Ô tô";
-            worksheet.Cells[5, 23].Value = "Xe máy";
+            worksheet.Cells[5, 22].Value = "Xe máy";
+            worksheet.Cells[5, 23].Value = "Ô tô";
 
             worksheet.Cells[4, 24].Value = "TTV";
             worksheet.Cells["X4:Y4"].Merge = true;
-            worksheet.Cells[5, 24].Value = "Ô tô";
-            worksheet.Cells[5, 25].Value = "Xe máy";
+            worksheet.Cells[5, 24].Value = "Xe máy";
+            worksheet.Cells[5, 25].Value = "Ô tô";
 
             worksheet.Cells[4, 26].Value = "Hàng hóa";
             worksheet.Cells["Z4:AA4"].Merge = true;
-            worksheet.Cells[5, 26].Value = "Ô tô";
-            worksheet.Cells[5, 27].Value = "Xe máy";
+            worksheet.Cells[5, 26].Value = "Xe máy";
+            worksheet.Cells[5, 27].Value = "Ô tô";
 
             worksheet.Cells[4, 28].Value = "Tài liệu";
             worksheet.Cells["AB4:AC4"].Merge = true;
-            worksheet.Cells[5, 28].Value = "Ô tô";
-            worksheet.Cells[5, 29].Value = "Xe máy";
+            worksheet.Cells[5, 28].Value = "Xe máy";
+            worksheet.Cells[5, 29].Value = "Ô tô";
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
             using (var range = worksheet.Cells["A4:AC5"])

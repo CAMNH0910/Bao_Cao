@@ -36,7 +36,7 @@ namespace T41.Areas.Admin.Controllers
             return Json(returnKPI_Delivery_Time_, JsonRequestBehavior.AllowGet);
         }
 
-
+        // Sửa
         public List<KPI_Delivery_Time_EX> Excel_KPI_Delivery_Time_EX(string startdate, string enddate)
         {
             ViewBag.startdate = startdate;
@@ -44,7 +44,7 @@ namespace T41.Areas.Admin.Controllers
 
             KPI_Delivery_Time_Repository qualityDetailHubRepository = new KPI_Delivery_Time_Repository();
             ReturnKPI_Delivery_Time returnquality = new ReturnKPI_Delivery_Time();
-            returnquality = qualityDetailHubRepository.KPI_Delivery_Time_EX(common.DateToInt(startdate), common.DateToInt(enddate));
+            returnquality = qualityDetailHubRepository.KPI_Delivery_Time(common.DateToInt(startdate), common.DateToInt(enddate));
             return returnquality.ListKPI_Delivery_Time_EX;
         }
         [HttpGet]

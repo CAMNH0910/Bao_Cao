@@ -239,8 +239,11 @@
     <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_SLController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_BD10_Hub_TimeController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Detail_PTCController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KPI_Khai_Thac_BDHNController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_Thu_GomController.cs" />
     <Compile Include="Areas\Admin\Controllers\KPI_XND_BC_TimeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\List_Item_BCCPController.cs" />
     <Compile Include="Areas\Admin\Controllers\QT_DI_NEWController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tms_Kpi_HTController.cs" />
     <Compile Include="Areas\Admin\Controllers\TMS_TICKETController.cs" />
@@ -350,9 +353,13 @@
     <Compile Include="Areas\Admin\Data\KPI_Customer_PKTCRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPI_Delivery_Time_Repository.cs" />
     <Compile Include="Areas\Admin\Data\KPI_Delivery_WageRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Detail_PTCRepository.cs" />
+    <Compile Include="Areas\Admin\Data\KPI_Khai_Thac_BDHNRepository.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Detail_PTC.cs" />
     <Compile Include="Areas\Admin\Data\KPI_SL_Du_BaoRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPI_Thu_GomRepository.cs" />
     <Compile Include="Areas\Admin\Data\KPI_XND_BC_TimeRepository.cs" />
+    <Compile Include="Areas\Admin\Data\List_Item_BCCPRepository.cs" />
     <Compile Include="Areas\Admin\Data\QT_DI_NEWRepository.cs" />
     <Compile Include="Areas\Admin\Data\TKSLGDRepository.cs" />
     <Compile Include="Areas\Admin\Data\HistoryCallRepository.cs" />
@@ -428,9 +435,11 @@
     <Compile Include="Areas\Admin\Model\DataModel\KPI_Customer_PKTC.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_Delivery_Time.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_Delivery_Wage.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\KPI_Khai_Thac_BDHN.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_SL_Du_Bao.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_Thu_Gom.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\KPI_XND_BC_Time.cs" />
+    <Compile Include="Areas\Admin\Model\DataModel\List_Item_BCCP.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\QT_DI_NEW.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TKSLGD.cs" />
     <Compile Include="Areas\Admin\Model\DataModel\TK_LD.cs" />
@@ -3685,13 +3694,21 @@
     <Content Include="Areas\Admin\Views\TMS_TICKET\Report_TMS_TICKET_TH.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\TEST.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\Report_TMS_TICKET_CT.cshtml" />
-    <Content Include="Areas\Admin\Views\TMS_TICKET\TMS_DM_Ra_Soat.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\TICKET_List_Ra_Soat.cshtml" />
     <Content Include="Areas\Admin\Views\Administrators\ChangePassword.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\QL_PhanCong_HT.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\THPhanCong.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\CTPhanCong.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\PhanCong_HT.cshtml" />
     <Content Include="Areas\Admin\Views\TMS_TICKET\DM_Nhan_Vien_TICKET.cshtml" />
+    <Content Include="Areas\Admin\Views\List_Item_BCCP\List_Item_BCCP.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\TMS_DM_Ra_Soat.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\TK_TICKET_UpdaDate.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\TH_TICKET_TK.cshtml" />
+    <Content Include="Areas\Admin\Views\TMS_TICKET\CT_TICKET_TK.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Detail_PTC\KPI_Detail_PTC.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Detail_PTC\KPI_Detail_PTC_BT.cshtml" />
+    <Content Include="Areas\Admin\Views\KPI_Detail_PTC\KPI_Detail_PTC_CT.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

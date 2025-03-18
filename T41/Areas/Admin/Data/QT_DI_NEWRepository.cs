@@ -17,25 +17,29 @@ namespace T41.Areas.Admin.Data
 {
     public class QT_DI_NEWRepository
     {
-        public ReturnQT_DI_NEW QT_DI_NEW_DETAIL( int startdate, int enddate,int zone)
+        public ReturnQT_DI_NEW QT_DI_NEW_DETAIL(string MADV, int DONVI, string nuocnhan, int PHANLOAI, int startdate, int enddate, string MaKH)
         {
             DataTable da = new DataTable();
             Convertion common = new Convertion();
             ReturnQT_DI_NEW _QT_DI_NEW = new ReturnQT_DI_NEW();
-            var test = Helper.OraDSOracleConnection;
+            var test = Helper.OraDCOracleConnection;
             try
             {
                 // Gọi vào DB để lấy dữ liệu.
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    OracleCommand myCommand = new OracleCommand("ems.reportbusinessweb.Get_List_E1_QT_Di_NEW", Helper.OraDSOracleConnection);
+                    OracleCommand myCommand = new OracleCommand("camnh.reportbusinessweb.Get_List_E1_QT_Di_NEW", Helper.OraDCOracleConnection);
                     //xử lý tham số truyền vào data table
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandTimeout = 20000;
                     OracleDataAdapter mAdapter = new OracleDataAdapter();
                     myCommand.Parameters.Add("v_StartDate", OracleDbType.Int32).Value = startdate;
                     myCommand.Parameters.Add("v_EndDate", OracleDbType.Int32).Value = enddate;
-                    myCommand.Parameters.Add("v_zone", OracleDbType.Int32).Value = zone;
+                    myCommand.Parameters.Add("v_PhanLoaiDV", OracleDbType.NVarchar2).Value = MADV;
+                    myCommand.Parameters.Add("v_DonVi", OracleDbType.Int32).Value = DONVI;
+                    myCommand.Parameters.Add("v_NuocNhan", OracleDbType.NVarchar2).Value = nuocnhan;
+                    myCommand.Parameters.Add("v_PhanLoaiHH", OracleDbType.Int32).Value = PHANLOAI;
+                    myCommand.Parameters.Add("v_Customer", OracleDbType.NVarchar2).Value = MaKH;
                     myCommand.Parameters.Add(new OracleParameter("v_DataReport", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
 
                     mAdapter = new OracleDataAdapter(myCommand);

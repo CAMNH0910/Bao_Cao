@@ -161,9 +161,6 @@
 
     //Phần Xuất Excel của bảng tổng hợp
 
-
-
-
     $("#btnreport").click(function () {
 
         // goi ham Detail
@@ -177,17 +174,13 @@
 
     //Phần chi tiết của bảng tổng hợp sản lượng đi phát
 
-
-
-
-
     //Phần function detail_account
     function detail() {
         $.ajax({
             type: "POST",
             url: '@Url.Action("ListKTHTReport", "KPIKT")',
             beforeSend: function () {
-              //  $('.loading-element').show();
+                $('.loading-element').show();
             },
             dataType: 'json',
             data:

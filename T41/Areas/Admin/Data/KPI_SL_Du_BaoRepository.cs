@@ -20,7 +20,7 @@ namespace T41.Areas.Admin.Data
             List<KPI_SL_Du_Bao> listKPI_SL_Du_Bao = null;
             KPI_SL_Du_Bao oKPI_SL_Du_Bao = null;
             int a = 1;
-            var test = Helper.OraDCDevOracleConnection;
+            var test = Helper.OraDCOracleConnection;
             try
             {
                 // Gọi vào DB để lấy dữ liệu.

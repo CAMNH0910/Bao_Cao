@@ -93,9 +93,28 @@ namespace T41.Areas.Admin.Controllers
             return View();
 
         }
-        
+        public ActionResult TICKET_List_Ra_Soat()
+        {
+            return View();
+
+        }
+        public ActionResult TK_TICKET_UpdaDate()
+        {
+            return View();
+
+        }
+        public ActionResult TH_TICKET_TK()
+        {
+            return View();
+
+        }
+        public ActionResult CT_TICKET_TK()
+        {
+            return View();
+
+        }
         #region Check user
-        [HttpGet]
+      [HttpGet]
         public ActionResult GetUserIdsByUserName(string userName)
         {
             try
@@ -149,9 +168,9 @@ namespace T41.Areas.Admin.Controllers
         {
             ViewBag.tennv = tennv;
             ViewBag.zone = zone;
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.TMS_TICKET_DETAIL(tennv, zone);
+            returnquality = tICKETRepository.TMS_TICKET_DETAIL(tennv, zone);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -162,9 +181,9 @@ namespace T41.Areas.Admin.Controllers
         {
             ViewBag.tennv = tennv;
 
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.DM_Nhan_Vien(tennv, zone);
+            returnquality = tICKETRepository.DM_Nhan_Vien(tennv, zone);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -375,14 +394,26 @@ namespace T41.Areas.Admin.Controllers
 
         #region Danh mục lượt rà soát
         [HttpPost]
-        public JsonResult DM_Ra_Soat(string startdate,string user)
+        public JsonResult List_Ra_Soat(string startdate, string enddate, string user)
         {
             ViewBag.startdate = startdate;
             ViewBag.user = user;
 
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.DM_Ra_Soat(common.DateToInt(startdate), user);
+            returnquality = tICKETRepository.List_Ra_Soat(common.DateToInt(startdate), common.DateToInt(enddate), user);
+            var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
+        public JsonResult DM_Ra_Soat(int luot)
+        {
+            ViewBag.luot = luot;
+
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
+            ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
+            returnquality = tICKETRepository.DM_Ra_Soat( luot);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -398,9 +429,9 @@ namespace T41.Areas.Admin.Controllers
             ViewBag.enddate = enddate;
             ViewBag.seach = seach;
 
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.QL_PhanCong_HT(common.DateToInt(startdate), common.DateToInt(enddate), seach);
+            returnquality = tICKETRepository.QL_PhanCong_HT(common.DateToInt(startdate), common.DateToInt(enddate), seach);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -468,9 +499,9 @@ namespace T41.Areas.Admin.Controllers
             ViewBag.enddate = enddate;
             ViewBag.seach = seach;
 
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.THPhanCong_HT(common.DateToInt(startdate), common.DateToInt(enddate), seach);
+            returnquality = tICKETRepository.THPhanCong_HT(common.DateToInt(startdate), common.DateToInt(enddate), seach);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -486,9 +517,9 @@ namespace T41.Areas.Admin.Controllers
             ViewBag.seach = seach;
             ViewBag.mabg = mabg;
 
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.PhanCong_HT(common.DateToInt(startdate), common.DateToInt(enddate), seach, mabg);
+            returnquality = tICKETRepository.PhanCong_HT(common.DateToInt(startdate), common.DateToInt(enddate), seach, mabg);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -684,12 +715,12 @@ namespace T41.Areas.Admin.Controllers
                 {
                     return Json(new { success = false, message = "Dữ liệu đầu vào không hợp lệ." });
                 }
-
+                var USERS_UPDATE = @Convert.ToString(Session["UserName"]);
                 // Tạo repository để thao tác dữ liệu
                 TMS_TICKETRepository lai_XeRepository = new TMS_TICKETRepository();
 
                 // Gọi phương thức thêm mới
-                var result = lai_XeRepository.UpdateTicketTrangThai(itemcode, Item, Ly_Do,Ly_Do_Khac, types);
+                var result = lai_XeRepository.UpdateTicketTrangThai(USERS_UPDATE, itemcode, Item, Ly_Do,Ly_Do_Khac, types);
 
                 if (result)
                 {
@@ -721,9 +752,9 @@ namespace T41.Areas.Admin.Controllers
         public JsonResult List_TICKET(string startdate, int Id, string luot,string types)
         {
 
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.TICKET_DETAIL(common.DateToInt(startdate), Id, luot, types);
+            returnquality = tICKETRepository.TICKET_DETAIL(common.DateToInt(startdate), Id, luot, types);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -886,9 +917,9 @@ namespace T41.Areas.Admin.Controllers
         public JsonResult List_TICKET_TH(string startdate, int luot, string user)
         {
 
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.TMS_TICKET_DETAIL_TH(common.DateToInt(startdate), luot, user);
+            returnquality = tICKETRepository.TMS_TICKET_DETAIL_TH(common.DateToInt(startdate), luot, user);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -899,35 +930,38 @@ namespace T41.Areas.Admin.Controllers
         #region Báo cáo dành cho người dùng
 
         [HttpPost]
-        public JsonResult List_TICKET_ND(string startdate, string enddate, string seach, int trangthai, string mabg)
+        public JsonResult List_TICKET_ND(string startdate, string enddate, int thoigian,string seach, int trangthai, string mabg, int donvi,string searchtinh)
         {
            // var UserName = Convert.ToString(Session["UserName"]);
-            TMS_TICKETRepository KPI_Thu_GomRepository = new TMS_TICKETRepository();
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
-            returnquality = KPI_Thu_GomRepository.TICKET_DETAIL_ND(common.DateToInt(startdate), common.DateToInt(enddate), seach, trangthai, mabg);
+            returnquality = tICKETRepository.TICKET_DETAIL_ND(common.DateToInt(startdate), common.DateToInt(enddate), thoigian,seach, trangthai, mabg, donvi, searchtinh);
             var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }
 
         [HttpGet]
-        public List<LIST_TICKET_ND> ReturnListExcel_ND(string startdate, string enddate, string seach, int trangthai, string mabg)
+        public List<LIST_TICKET_ND> ReturnListExcel_ND(string startdate, string enddate, int thoigian,string seach, int trangthai, string mabg, int donvi,string searchtinh)
         {
             ViewBag.startdate = startdate;
             ViewBag.enddate = enddate;
+            ViewBag.thoigian = thoigian;
             ViewBag.seach = seach;
             ViewBag.trangthai = trangthai;
             ViewBag.mabg = mabg;
+            ViewBag.donvi = donvi;
+            ViewBag.searchtinh = searchtinh;
 
             TMS_TICKETRepository KPIKTRepository = new TMS_TICKETRepository();
             ReturnTMS_TICKET returnKPIKT = new ReturnTMS_TICKET();
-            returnKPIKT = KPIKTRepository.TICKET_DETAIL_ND(common.DateToInt(startdate), common.DateToInt(enddate), seach, trangthai, mabg);
+            returnKPIKT = KPIKTRepository.TICKET_DETAIL_ND(common.DateToInt(startdate), common.DateToInt(enddate), thoigian,seach, trangthai, mabg, donvi, searchtinh);
             return returnKPIKT.List_TICKET_ND;
         }
         public Stream CreateExcelFile_TICKET_ND(Stream stream = null)
         {
             //var list = CreateTestItems();
-            var list = ReturnListExcel_ND(ViewBag.startdate, ViewBag.enddate, ViewBag.seach, ViewBag.trangthai, ViewBag.mabg);
+            var list = ReturnListExcel_ND(ViewBag.startdate, ViewBag.enddate, ViewBag.thoigian, ViewBag.seach, ViewBag.trangthai, ViewBag.mabg, ViewBag.donvi, ViewBag.searchtinh);
             using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
             {
                 // Tạo author cho file Excel
@@ -955,7 +989,7 @@ namespace T41.Areas.Admin.Controllers
         //Phần sửa excel
         private void BindingFormatForExcel_TICKET_ND(ExcelWorksheet worksheet, List<LIST_TICKET_ND> listItems)
         {
-            var list = ReturnListExcel_ND(ViewBag.startdate, ViewBag.enddate, ViewBag.seach,ViewBag.trangthai,ViewBag.mabg);
+            var list = ReturnListExcel_ND(ViewBag.startdate, ViewBag.enddate, ViewBag.thoigian,ViewBag.seach,ViewBag.trangthai,ViewBag.mabg, ViewBag.donvi, ViewBag.searchtinh);
 
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 20;
@@ -965,30 +999,33 @@ namespace T41.Areas.Admin.Controllers
 
             // Tạo header
             worksheet.Cells[1, 1].Value = "QUẢN LÝ HỒ SƠ KHIẾU NẠI";
-            worksheet.Cells["A1:L1"].Merge = true;
+            worksheet.Cells["A1:O1"].Merge = true;
             worksheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             worksheet.Cells[1, 1].Style.Font.SetFromFont(new Font("Arial", 14, FontStyle.Bold));
 
-            worksheet.Cells[2, 12].Value = "MÃ BÁO CÁO: CSKH/QLKN";
+            worksheet.Cells[2, 15].Value = "MÃ BÁO CÁO: CSKH/QLKN";
             worksheet.Cells[2, 6].Value = "Từ ngày:" + " " + ViewBag.startdate + "-" + "Đến ngày" + " " + ViewBag.enddate;
-            worksheet.Cells["F2:G2"].Merge = true;
+            worksheet.Cells["G2:I2"].Merge = true;
             // Tiêu đề các cột
             worksheet.Cells[4, 1].Value = "STT";
             worksheet.Cells[4, 2].Value = "Số hồ sơ";
             worksheet.Cells[4, 3].Value = "Mã GD/BG";
-            worksheet.Cells[4, 4].Value = "Ngày tạo";
-            worksheet.Cells[4, 5].Value = "Tình trạng xử lý";
-            worksheet.Cells[4, 6].Value = "Mã ĐV chủ trì";
-            worksheet.Cells[4, 7].Value = "Ngày hết hạn";
-            worksheet.Cells[4, 8].Value = "Tên nhân viên";
-            worksheet.Cells[4, 9].Value = "Trạng thái";
-            worksheet.Cells[4, 10].Value = "Trạng thái";
-            worksheet.Cells[4, 11].Value = "Trạng thái hồ sơ";
-            worksheet.Cells[4, 12].Value = "Trạng thái phân công";
+            worksheet.Cells[4, 4].Value = "Tỉnh nhận";
+            worksheet.Cells[4, 5].Value = "Tỉnh trả";
+            worksheet.Cells[4, 6].Value = "Ngày tạo";
+            worksheet.Cells[4, 7].Value = "Tình trạng xử lý";
+            worksheet.Cells[4, 8].Value = "Mã ĐV chủ trì";
+            worksheet.Cells[4, 9].Value = "Ngày hết hạn";
+            worksheet.Cells[4, 10].Value = "Hạn xử lý cuối";
+            worksheet.Cells[4, 11].Value = "Tên nhân viên";
+            worksheet.Cells[4, 12].Value = "Trạng thái";
+            worksheet.Cells[4, 13].Value = "Trạng thái";
+            worksheet.Cells[4, 14].Value = "Trạng thái hồ sơ";
+            worksheet.Cells[4, 15].Value = "Trạng thái phân công";
             // Định dạng cho header
-            using (var range = worksheet.Cells["A4:L4"])
-            using (var ranges = worksheet.Cells["A1:L1"])
-            using (var Ngay = worksheet.Cells["F2:G2"])
+            using (var range = worksheet.Cells["A4:O4"])
+            using (var ranges = worksheet.Cells["A1:O1"])
+            using (var Ngay = worksheet.Cells["G2:I2"])
             {
                 // Set PatternType
                 range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -1011,33 +1048,41 @@ namespace T41.Areas.Admin.Controllers
                 Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
             int row = 5;
+            int stt = 1;
             foreach (var item in listItems)
             {
-                worksheet.Cells[row, 1].Value = item.STT;
+                worksheet.Cells[row, 1].Value = stt;
                 worksheet.Cells[row, 2].Value = item.So_HS;
-                worksheet.Cells[row, 3].Value = item.Ma_BG;
-                worksheet.Cells[row, 4].Value = item.Ngay_Tao;
-                worksheet.Cells[row, 5].Value = item.Trang_Thai == "1" ? "Đang xử lý" : item.Trang_Thai == "2" ? "Đã có kết luận cuối cùng" : "Đóng";
-                worksheet.Cells[row, 6].Value = item.Ma_DV_Chu_Tri;
-                worksheet.Cells[row, 7].Value = item.Ngay_Het_han;
-                worksheet.Cells[row, 8].Value = item.TEN_NV;
-                worksheet.Cells[row, 9].Value = item.UPDATE_TT;
-                worksheet.Cells[row, 10].Value = item.UPDATE_DV;
-                worksheet.Cells[row, 11].Value = item.STATUS == "1" ? "Cũ" : "Mới";
-                worksheet.Cells[row, 12].Value = item.STATUS_HS == "1" ? "Thủ công" : "Tự động";
+                worksheet.Cells[row, 3].Value = item.Tinh_Nhan;
+                worksheet.Cells[row, 4].Value = item.Tinh_Tra;
+                worksheet.Cells[row, 5].Value = item.Ma_BG;
+                worksheet.Cells[row, 6].Value = item.Ngay_Tao;
+                worksheet.Cells[row, 7].Value = item.Trang_Thai == "1" ? "Đang xử lý" : item.Trang_Thai == "2" ? "Đã có kết luận cuối cùng" : "Đóng";
+                worksheet.Cells[row, 8].Value = item.Ma_DV_Chu_Tri;
+                worksheet.Cells[row, 9].Value = item.Ngay_Het_han;
+                worksheet.Cells[row, 10].Value = item.NGAY_XL_CUOI;
+                worksheet.Cells[row, 11].Value = item.TEN_NV;
+                worksheet.Cells[row, 12].Value = item.UPDATE_TT;
+                worksheet.Cells[row, 13].Value = item.UPDATE_DV;
+                worksheet.Cells[row, 14].Value = item.STATUS == "1" ? "Cũ" : "Mới";
+                worksheet.Cells[row, 15].Value = item.STATUS_HS == "1" ? "Thủ công" : "Tự động";
                 row++;
+                stt++;
             }
         }
         //Hàm Export excel  , truyền parameter vào để export
         [HttpGet]
-        public ActionResult Export_TICKET_ND(string startdate, string enddate, string seach, int trangthai, string mabg)
+        public ActionResult Export_TICKET_ND(string startdate, string enddate, int thoigian,string seach, int trangthai, string mabg, int donvi,string searchtinh)
         {
 
             ViewBag.startdate = startdate;
             ViewBag.enddate = enddate;
+            ViewBag.thoigian = thoigian;
             ViewBag.seach = seach;
             ViewBag.trangthai = trangthai;
             ViewBag.mabg = mabg;
+            ViewBag.donvi = donvi;
+            ViewBag.searchtinh = searchtinh; 
             //ViewBag.receptacle_id = receptacle_id;
             // Gọi lại hàm để tạo file excel
             var stream = CreateExcelFile_TICKET_ND();
@@ -1057,6 +1102,330 @@ namespace T41.Areas.Admin.Controllers
             // Redirect về luôn trang index >
             return RedirectToAction("Index");
         }
+        #endregion
+
+        #region Thống kê báo cáo
+        [HttpPost]
+        public JsonResult TK_TICKET_UpdaDate(string startdate, string enddate, string seach, string mabg, int donvi)
+        {
+            // var UserName = Convert.ToString(Session["UserName"]);
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
+            ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
+            returnquality = tICKETRepository.TK_TICKET_UpdaDate(common.DateToInt(startdate), common.DateToInt(enddate), seach, mabg, donvi);
+            var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
+
+        #region Báo cáo tổng hợp
+        [HttpPost]
+        public JsonResult TH_TICKET_TK(string startdate, string enddate, int thoigian, string seach, int donvi,string searchtinh)
+        {
+            // var UserName = Convert.ToString(Session["UserName"]);
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
+            ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
+            returnquality = tICKETRepository.TH_TICKET_TK(common.DateToInt(startdate), common.DateToInt(enddate), thoigian, seach, donvi, searchtinh);
+            var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+        [HttpGet]
+        public List<TH_TICKET_TK> ReturnTH_TICKET_TK(string startdate, string enddate, int thoigian, string seach, int donvi, string searchtinh)
+        {
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.thoigian = thoigian;
+            ViewBag.seach = seach;
+            ViewBag.donvi = donvi;
+            ViewBag.searchtinh = searchtinh;
+
+            TMS_TICKETRepository KPIKTRepository = new TMS_TICKETRepository();
+            ReturnTMS_TICKET returnKPIKT = new ReturnTMS_TICKET();
+            returnKPIKT = KPIKTRepository.TH_TICKET_TK(common.DateToInt(startdate), common.DateToInt(enddate), thoigian, seach, donvi, searchtinh);
+            return returnKPIKT.ListTH_TICKET_TK;
+        }
+        public Stream CreateExcelFileTH_TICKET_TK(Stream stream = null)
+        {
+            //var list = CreateTestItems();
+            var list = ReturnTH_TICKET_TK(ViewBag.startdate, ViewBag.enddate, ViewBag.thoigian, ViewBag.seach, ViewBag.donvi, ViewBag.searchtinh);
+            using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+            {
+                // Tạo author cho file Excel
+                excelPackage.Workbook.Properties.Author = "Window.User";
+                // Tạo title cho file Excel
+                excelPackage.Workbook.Properties.Title = "Export Excel";
+                // thêm tí comments vào làm màu 
+                excelPackage.Workbook.Properties.Comments = "Export Excel Success !";
+                // Add Sheet vào file Excel
+                excelPackage.Workbook.Worksheets.Add("First Sheet");
+                // Lấy Sheet bạn vừa mới tạo ra để thao tác 
+                var workSheet = excelPackage.Workbook.Worksheets[1];
+                // Đổ data vào Excel file
+                workSheet.Cells[4, 1].LoadFromCollection(list, false, TableStyles.Dark9);
+                var range = workSheet.Cells[4, 1, workSheet.Dimension.End.Row, workSheet.Dimension.End.Column];
+                // Áp dụng filter cho tất cả các cột
+                range.AutoFilter = true;
+
+                BindingFormatForExcelTH_TICKET_TK(workSheet, list);
+                excelPackage.Save();
+                return excelPackage.Stream;
+            }
+        }
+
+        //Phần sửa excel
+        private void BindingFormatForExcelTH_TICKET_TK(ExcelWorksheet worksheet, List<TH_TICKET_TK> listItems)
+        {
+            // Set default width cho tất cả column
+            worksheet.DefaultColWidth = 20;
+            worksheet.DefaultRowHeight = 20;
+            // Tự động xuống hàng khi text quá dài
+            worksheet.Cells.Style.WrapText = true;
+            // Tạo header
+            worksheet.Cells[1, 1].Value = "Tổng hợp hồ sơ khiếu nại";
+            worksheet.Cells["A1:J1"].Merge = true;
+
+            worksheet.Cells[2, 9].Value = "MÃ BÁO CÁO:TKBC/THHS";
+            worksheet.Cells["J2:J2"].Merge = true;
+
+            worksheet.Cells[3, 1].Value = "STT";
+            worksheet.Cells[3, 2].Value = "Khu vực";
+            worksheet.Cells[3, 3].Value = "Nhóm";
+            worksheet.Cells[3, 4].Value = "Id nhân viên";
+            worksheet.Cells[3, 5].Value = "Tên nhân viên";
+            worksheet.Cells[3, 6].Value = "Tổng số";
+            worksheet.Cells[3, 7].Value = "Đang xử lý";
+            worksheet.Cells[3, 8].Value = "Đã có kết luận";
+            worksheet.Cells[3, 9].Value = "Đóng";
+            worksheet.Cells[3, 10].Value = "Đã hoàn thành";
+            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            using (var range = worksheet.Cells["A3:J3"])
+            using (var ranges = worksheet.Cells["A1:J1"])
+            {
+                // Set PatternType
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                // Set Màu cho Background
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
+                // Canh giữa cho các text
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text trong Range hiện tại
+                range.Style.Font.SetFromFont(new Font("Arial", 11));
+                // Set Border
+                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                // Định dạng cho tiêu đề
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
+
+            }
+            int row = 4;
+            int stt = 1;
+            foreach (var item in listItems)
+            {
+                worksheet.Cells[row, 1].Value = stt;
+                worksheet.Cells[row, 2].Value = item.Khu_Vuc == "1" ? "Hà Nội" : item.Khu_Vuc == "2" ? "Hồ Chí Minh" : "";
+                worksheet.Cells[row, 3].Value = item.Nhom_Tinh;
+                worksheet.Cells[row, 4].Value = item.Id;
+                worksheet.Cells[row, 5].Value = item.Ten_NV;
+                worksheet.Cells[row, 6].Value = item.Tong_So;
+                worksheet.Cells[row, 7].Value = item.DXL;
+                worksheet.Cells[row, 8].Value = item.DCKQ;
+                worksheet.Cells[row, 9].Value = item.Dong;
+                worksheet.Cells[row, 10].Value = item.DHT;
+                row++;
+                stt++;
+            }
+        }
+      
+
+        //Hàm Export excel  , truyền parameter vào để export
+        [HttpGet]
+        public ActionResult ExportTH_TICKET_TK(string startdate, string enddate, int thoigian, string seach, int donvi, string searchtinh)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.thoigian = thoigian;
+            ViewBag.seach = seach;
+            ViewBag.donvi = donvi;
+            ViewBag.searchtinh = searchtinh;
+            //ViewBag.receptacle_id = receptacle_id;
+            // Gọi lại hàm để tạo file excel
+            var stream = CreateExcelFileTH_TICKET_TK();
+            // Tạo buffer memory strean để hứng file excel
+            var buffer = stream as MemoryStream;
+            // Đây là content Type dành cho file excel
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("Content-Disposition", "attachment; filename=Tổng hợp hồ sơ khiếu nại.xlsx");
+            Response.BinaryWrite(buffer.ToArray());
+            // Send tất cả ouput bytes về phía clients
+            Response.Flush();
+            Response.End();
+            // Redirect về luôn trang index >
+            return RedirectToAction("Index");
+        }
+        #endregion
+        #region Báo cáo chi tiết
+        [HttpPost]
+        public JsonResult CT_TICKET_TK(string startdate, string enddate, int thoigian, string seach, int donvi,string searchtinh, string Id, string types)
+        {
+            // var UserName = Convert.ToString(Session["UserName"]);
+            TMS_TICKETRepository tICKETRepository = new TMS_TICKETRepository();
+            ReturnTMS_TICKET returnquality = new ReturnTMS_TICKET();
+            returnquality = tICKETRepository.CT_TICKET_TK(common.DateToInt(startdate), common.DateToInt(enddate), thoigian, seach, donvi, searchtinh, Id, types);
+            var jsonResult = Json(returnquality, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
+        [HttpGet]
+        public List<CT_TICKET_TK> ReturnCT_TICKET_TK(string startdate, string enddate, int thoigian, string seach, int donvi, string searchtinh, string Id, string types)
+        {
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.thoigian = thoigian;
+            ViewBag.seach = seach;
+            ViewBag.donvi = donvi;
+            ViewBag.searchtinh = searchtinh;
+            ViewBag.Id = Id;
+            ViewBag.types = types;
+            TMS_TICKETRepository KPIKTRepository = new TMS_TICKETRepository();
+            ReturnTMS_TICKET returnKPIKT = new ReturnTMS_TICKET();
+            returnKPIKT = KPIKTRepository.CT_TICKET_TK(common.DateToInt(startdate), common.DateToInt(enddate), thoigian, seach, donvi, searchtinh, Id, types);
+            return returnKPIKT.ListCT_TICKET_TK;
+        }
+        public Stream CreateExcelFileCT_TICKET_TK(Stream stream = null)
+        {
+            //var list = CreateTestItems();
+            var list = ReturnCT_TICKET_TK(ViewBag.startdate, ViewBag.enddate, ViewBag.thoigian, ViewBag.seach, ViewBag.donvi, ViewBag.searchtinh, ViewBag.Id, ViewBag.types);
+            using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+            {
+                // Tạo author cho file Excel
+                excelPackage.Workbook.Properties.Author = "Window.User";
+                // Tạo title cho file Excel
+                excelPackage.Workbook.Properties.Title = "Export Excel";
+                // thêm tí comments vào làm màu 
+                excelPackage.Workbook.Properties.Comments = "Export Excel Success !";
+                // Add Sheet vào file Excel
+                excelPackage.Workbook.Worksheets.Add("First Sheet");
+                // Lấy Sheet bạn vừa mới tạo ra để thao tác 
+                var workSheet = excelPackage.Workbook.Worksheets[1];
+                // Đổ data vào Excel file
+                workSheet.Cells[4, 1].LoadFromCollection(list, false, TableStyles.Dark9);
+                var range = workSheet.Cells[4, 1, workSheet.Dimension.End.Row, workSheet.Dimension.End.Column];
+                // Áp dụng filter cho tất cả các cột
+                range.AutoFilter = true;
+
+                BindingFormatForExcelCT_TICKET_TK(workSheet, list);
+                excelPackage.Save();
+                return excelPackage.Stream;
+            }
+        }
+
+        //Phần sửa excel
+        private void BindingFormatForExcelCT_TICKET_TK(ExcelWorksheet worksheet, List<CT_TICKET_TK> listItems)
+        {
+            worksheet.DefaultColWidth = 20;
+            worksheet.DefaultRowHeight = 30;
+            // Tự động xuống hàng khi text quá dài
+            worksheet.Cells.Style.WrapText = true;
+
+            // Tạo header
+            worksheet.Cells[1, 1].Value = "QUẢN LÝ HỒ SƠ KHIẾU NẠI";
+            worksheet.Cells["A1:J1"].Merge = true;
+            worksheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[1, 1].Style.Font.SetFromFont(new Font("Arial", 14, FontStyle.Bold));
+
+            worksheet.Cells[2, 10].Value = "MÃ BÁO CÁO: CSKH/QLKN";
+            worksheet.Cells[2, 5].Value = "Từ ngày:" + " " + ViewBag.startdate + "-" + "Đến ngày" + " " + ViewBag.enddate;
+            worksheet.Cells["D2:E2"].Merge = true;
+            // Tiêu đề các cột
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Số hồ sơ";
+            worksheet.Cells[4, 3].Value = "Mã GD/BG";
+            worksheet.Cells[4, 4].Value = "Ngày tạo";
+            worksheet.Cells[4, 5].Value = "Tình trạng xử lý";
+            worksheet.Cells[4, 6].Value = "Mã ĐV chủ trì";
+            worksheet.Cells[4, 7].Value = "Ngày hết hạn";
+            worksheet.Cells[4, 8].Value = "Tỉnh nhận";
+            worksheet.Cells[4, 9].Value = "Tỉnh trả";
+            worksheet.Cells[4, 10].Value = "Tên nhân viên";
+            // Định dạng cho header
+            using (var range = worksheet.Cells["A4:J4"])
+            using (var ranges = worksheet.Cells["A1:J1"])
+            using (var Ngay = worksheet.Cells["D2:E2"])
+            {
+                // Set PatternType
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                // Set Màu cho Background
+                range.Style.Fill.BackgroundColor.SetColor(Color.Green);
+                // Canh giữa cho các text
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text trong Range hiện tại
+                range.Style.Font.SetFromFont(new Font("Arial", 11));
+                // Set Border
+                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                // Định dạng cho tiêu đề
+                ranges.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ranges.Style.Font.SetFromFont(new Font("Arial", 14));
+
+                // Định dạng cho ngày
+                Ngay.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            }
+            int row = 5;
+            int stt = 1;
+            foreach (var item in listItems)
+            {
+                worksheet.Cells[row, 1].Value = stt;
+                worksheet.Cells[row, 2].Value = item.So_HS;
+                worksheet.Cells[row, 3].Value = item.Ma_BG;
+                worksheet.Cells[row, 4].Value = item.Ngay_Tao;
+                worksheet.Cells[row, 5].Value = item.Trang_Thai == "1" ? "Đang xử lý" : item.Trang_Thai == "2" ? "Đã có kết luận cuối cùng" : item.Trang_Thai == "3" ? "Đóng" :item.Trang_Thai == "4" ? "Đã hoàn thành" : "";
+                worksheet.Cells[row, 6].Value = item.Ma_DV_Chu_Tri;
+                worksheet.Cells[row, 7].Value = item.Ngay_Het_han;
+                worksheet.Cells[row, 8].Value = item.Tinh_Nhan;
+                worksheet.Cells[row, 9].Value = item.Tinh_Tra;
+                worksheet.Cells[row, 10].Value = item.TEN_NV;
+                row++;
+                stt++;
+            }
+        }
+      
+
+        //Hàm Export excel  , truyền parameter vào để export
+        [HttpGet]
+        public ActionResult ExportCT_TICKET_TK(string startdate, string enddate, int thoigian, string seach, int donvi, string searchtinh, string Id, string types)
+        {
+
+            ViewBag.startdate = startdate;
+            ViewBag.enddate = enddate;
+            ViewBag.thoigian = thoigian;
+            ViewBag.seach = seach;
+            ViewBag.donvi = donvi;
+            ViewBag.searchtinh = searchtinh;
+            ViewBag.Id = Id;
+            ViewBag.types = types;
+            //ViewBag.receptacle_id = receptacle_id;
+            // Gọi lại hàm để tạo file excel
+            var stream = CreateExcelFileCT_TICKET_TK();
+            // Tạo buffer memory strean để hứng file excel
+            var buffer = stream as MemoryStream;
+            // Đây là content Type dành cho file excel
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("Content-Disposition", "attachment; filename=Chi tiết hồ sơ khiếu nại.xlsx");
+            Response.BinaryWrite(buffer.ToArray());
+            // Send tất cả ouput bytes về phía clients
+            Response.Flush();
+            Response.End();
+            // Redirect về luôn trang index >
+            return RedirectToAction("Index");
+        }
+        #endregion
         #endregion
     }
 }

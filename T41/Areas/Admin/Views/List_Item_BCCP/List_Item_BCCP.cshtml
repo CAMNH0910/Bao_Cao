@@ -25,17 +25,17 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Báo cáo chất lượng KPI khai thác</li>
+            <li class="active">Báo cáo hoạt động các chuyến thư</li>
         </ol>
 </section>
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
 
-            <h3 class="box-title">Báo cáo chất lượng KPI khai thác</h3>
+            <h3 class="box-title">Báo cáo hoạt động các chuyến thư</h3>
             <div class="box-tools pull-right">
                 @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
-                <h3 class="box-title">KT/THSL</h3>
+                <h3 class="box-title">KT/HDCT</h3>
             </div>
 
         </div>
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Từ Ngày </label>
+                        <label>Ngày </label>
                         <div class="input-group date">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -52,44 +52,27 @@
                             <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
-                   
-                    <div class="form-group">
-                        <label>Bưu cục</label>
-                        <select class="form-control select2" style="width: 100%;" id="buucuc">
-                            <option selected="selected" value="0">Chọn bưu cục</option>
-                            <option value="100916">100916-KTV HN LT</option>
-                            <option value="101000">101000-KTV HN NT</option>
-                            <option value="550915">550915-KTV DN LT</option>
-                            <option value="550100">550100-KTV DN NT</option>
-                            <option value="700916">700916-KTV HCM LT</option>
-                            <option value="701000">701000-KTV HCM NT</option>
-                           
-                        </select>
-                    </div>
-
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Đến Ngày</label>
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
-                        </div>
-                    </div>
+                        <label>Bưu cục</label>
+                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
+                            <option selected="selected" value="0">Chọn bưu cục</option>
+                            <option value="100916">100916-KTV HN LT</option>
+                            <option value="101000">101000-KTV HN NT</option>
+                            <option value="700916">700916-KTV HCM LT</option>
+                            <option value="701000">701000-KTV HCM NT</option>
 
-                    <div class="form-group">
-                        <label>Loại dich vu</label>
-                        <select class="form-control select2" style="width: 100%;" id="dichvu">
-                            <option value="0">Thường</option>
-                            <option value="2">TMD</option>
                         </select>
                     </div>
-
-
                 </div>
-                <!-- /.col -->
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="search">BD10/Id đường thư</label>
+                        <input type="text" class="form-control" id="search" name="mabg" placeholder="Nhập thông tin">
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -99,17 +82,13 @@
                     <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
                 </div>
             </div>
-
-            @*<div class="box-header">
-                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
-                </div>*@
             <div class="loading-element text-center" style="font-size:50px;">
                 <i class="fa fa-spinner fa-spin"></i>
                 Vui lòng chờ giây lát...
             </div>
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "KPIKT")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "List_Item_BCCP")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
                 </div>
             </div>
             <div>
@@ -118,55 +97,23 @@
                     <thead>
                         <tr class="bg-light-blue color-palette">
                             <th class="text-center">STT<br /></th>
-                            <th class="text-center">Mã bưu cục</th>
-                            <th class="text-center">Sản lượng</th>
+                            <th class="text-center">Bưu cục</th>
+                            <th class="text-center">Id chuyến thư</th>
+                            <th class="text-center">Tên chuyến thư</th>
+                            <th class="text-center">Số hiệu BĐ 10 đi</th>
+                            <th class="text-center">Số túi</th>
                             <th class="text-center">Khối lượng</th>
-                            <th class="text-center">Sản lượng trượt chuyến</th>
-                            <th class="text-center">Khối lượng trượt chuyến</th>
-                            <th class="text-center">Tỷ lệ sản lượng trượt chuyến</th>
-                            <th class="text-center">Tỷ lệ khối lượng trượt chuyến</th>
+                            <th class="text-center">Thời gian BĐ 10 đóng <br /> đi TTKT Hub Vùng</th>
+                            <th class="text-center">Thời gian nhận BĐ 10<br /> tại khai thác đến</th>
                         </tr>
                     </thead>
                     <tbody id="listkpithdvreport"></tbody>
                 </table>
-
-
-
-            </div>
-
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Chi Tiết</h4>
-                            <input type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('GridView1', 'Chi Tiết Bưu Gửi')" value="Xuất Excel">
-                            @*<button type="submit" class="btn btn-success btn-lrg ajax" name="btnExport" id="btnExport">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>*@
-                        </div>
-                        <div class="modal-body edit-content">
-                            <div type="reset" id="list_test"></div>
-                            <div class="loading-element-1 text-center" style="font-size:50px;">
-                                <i class="fa fa-spinner fa-spin"></i>
-                                Vui lòng chờ giây lát...
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-
-                </div>
             </div>
 
         </div>
     </div>
 </section>
-
-
 
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
@@ -184,18 +131,15 @@
         var currMonth = d.getMonth();
         var currYear = d.getFullYear();
         var startDate = new Date(currYear, currMonth, 1);
-
-
         $("#fromdate").datepicker({
             dateFormat: "dd/mm/yyyy",
             todayHighlight: true
-        }).datepicker("setDate", startDate);
+        }).datepicker("setDate", "0");
 
         $("#todate").datepicker({
             dateFormat: "dd/mm/yyyy",
             todayHighlight: true
         }).datepicker("setDate", "0");
-
 
         $('.loading-element').hide();
         $('.box-footer').hide();
@@ -204,27 +148,19 @@
     });
 
     //Phần Xuất Excel của bảng tổng hợp
-
-
-
-
     $("#btnreport").click(function () {
 
         // goi ham Detail
         $("#listkpithdvreport tr").remove();
         detail();
         $('.box-footer').show();
-
-
     });
-
     //Phần chi tiết của bảng tổng hợp sản lượng đi phát
-
     //Phần function detail_account
     function detail() {
         $.ajax({
             type: "POST",
-            url: '@Url.Action("ListTHSLReport", "KPIKT")',
+            url: '@Url.Action("DetailList_Item_BCCP", "List_Item_BCCP")',
             beforeSend: function () {
                 $('.loading-element').show();
             },
@@ -232,31 +168,27 @@
             data:
                 {
                     startdate: $('#fromdate').val(),
-                    enddate: $('#todate').val(),
-                    buucuc: $("#buucuc").val(),
-                    dichvu: $("#dichvu").val()
+                    endpostcode: $('#endpostcode').val(),
+                    search: $("#search").val(),
                 },
             success: function (data) {
                 var str_html = "";
                 var str_body = "";
                 var a = 1;
-                $.each(data.ListTHSLReport, function (i, item) {
+                $.each(data.ListList_Item_BCCP, function (i, item) {
                     str_body += '<tr>';
                     str_body += '<td class="text-center">' + a++ + '</td>';
-                    str_body += '<td style="width:100px;">' + data.ListTHSLReport[i].WorkCenter + '</td>';
-                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].LeaveProduction + '</td>';
-                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].LeaveWeight + '</td>';
-                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].ErrorPRODUCT + '</td>';
-                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].ErrorWeight + '</td>';
-                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].TLSLTC + '</td>';
-                    str_body += '<td class="text-center">' + data.ListTHSLReport[i].TLKLTC + '</td>';
-
-
+                    str_body += '<td class="text-center">' + data.ListList_Item_BCCP[i].Ma_BCKT + '</td>';
+                    str_body += '<td class="text-center" >' + data.ListList_Item_BCCP[i].IDVNPOST + '</td>';
+                    str_body += '<td class="text-center">' + data.ListList_Item_BCCP[i].Ten_HT + '</td>';
+                    str_body += '<td class="text-center">' + data.ListList_Item_BCCP[i].BC37CODE + '</td>';
+                    str_body += '<td class="text-center">' + data.ListList_Item_BCCP[i].So_Tui + '</td>';
+                    str_body += '<td class="text-center">' + data.ListList_Item_BCCP[i].Khoi_Luong + '</td>';
+                    str_body += '<td class="text-center">' + data.ListList_Item_BCCP[i].BC37CREATETIME + '</td>';
+                    str_body += '<td class="text-center">' + data.ListList_Item_BCCP[i].CONFIRMDATE + '</td>';
                     str_body += '</tr>';
                 });
                 str_html += str_body;
-
-
                 if (data.Code == '01' || data.Code == '99') {
                     $('.loading-element').hide();
                     swal.fire(
@@ -267,26 +199,23 @@
 
                 }
                 else {
+                    $("#TableAccount").dataTable().fnDestroy();
                     $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
                     $('#btnexportlist').show();
-              
-
+                    //$('#TableAccount').DataTable()
                 }
             }
         })
-    }
 
+    }
 
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?buucuc=' + $('#buucuc').val() + '&dichvu=' + $('#dichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val();
+        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&endpostcode=' + $('#endpostcode').val() + '&search=' + $('#search').val() ;
         // redirect
         location.href = url;
     });
-
-
-
-
 </script>
 
 

@@ -236,8 +236,6 @@ function detail() {
         }
     });
 }
-
-
     $('#btnImport').click(function () {
     // Lấy file từ input
     var fileInput = $('#fileUpload')[0];
@@ -296,8 +294,6 @@ function detail() {
         }
     });
 });
-
-
     $('#btnexportlist').click(function () {
         // build the url
         var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&time=' + $('#time').val() + '&user=' + $('#user').val() + '&nhomtinh=' + $('#nhomtinh').val() + '&id=' + $('#id').val() + '&trangthai=' + $('#trangthai').val();

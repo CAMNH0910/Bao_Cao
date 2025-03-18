@@ -1,0 +1,374 @@
+﻿
+@{
+    // Layout = null;
+}
+
+<!-- Link đến các thư viện CSS -->
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    p {
+        font-weight: bold;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        <small>Thống kê báo cáo</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Tổng hợp hồ sơ khiếu nại</li>
+
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Tổng hợp hồ sơ khiếu nại</h3>
+            
+        </div>
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Từ Ngày </label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="trangthai">Thời gian</label>
+                        <select class="form-control" id="thoigian" name="thoigian" required>
+                            <option value="0">Tất cả</option>
+                            <option value="1">Ngày tạo</option>
+                            <option value="2">Hạn xử lý</option>
+                            <option value="3">Ngày Import</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Nhân viên</label>
+                        <select class="form-control select2" style="width: 100%;" id="seach">
+                            <option selected="selected" value="0">Tất cả</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="trangthai">Đơn vị chủ trì</label>
+                        <select class="form-control" id="donvi" name="donvi" required>
+                            <option value="0">Chọn đơn vị</option>
+                            <option value="1">006</option>
+                            <option value="2">Các đơn vị khác</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="searchtinh">Tỉnh nhận/ Tỉnh trả</label>
+                        <input type="text" class="form-control" id="searchtinh" name="searchtinh" placeholder="Nhập thông tin">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div> 
+            <div class="loading-element text-center" style="font-size:50px; display:none;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportTH_TICKET_TK", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+        </div>
+            </div>
+            <div>
+                <div style="width: 100%; overflow-x: scroll;">
+                    <table id="TableAccount" class="table table-bordered table-striped table-responsive-stack">
+                        <thead>
+                            <tr class="bg-light-blue color-palette">
+                                <th rowspan="2" class="text-center">STT</th>
+                                <th rowspan="2" class="text-center">Khu vực</th>
+                                <th rowspan="2" class="text-center">Nhóm</th>
+                                <th rowspan="2" class="text-center">Tên nhân viên</th>
+                                <th rowspan="2" class="text-center">Tổng số</th>
+                                <th rowspan="2" class="text-center">Đang xử lý</th>
+                                <th rowspan="2" class="text-center">Đã có kết luận</th>
+                                <th rowspan="2" class="text-center">Đóng</th>
+                                <th rowspan="2" class="text-center">Đã hoàn thành</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listkpithdvreport">
+                            <!-- Dữ liệu sẽ được thêm vào đây -->
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+<script type="text/javascript">
+
+    var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
+        , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
+    $(document).ready(function () {
+        // Ẩn phần loading
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+
+        $("#fromdate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
+
+        $("#todate").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+        $('.loading-element').hide();
+    });
+// Hàm tổng hợp
+    $("#btnreport").click(function () {
+        // Lấy giá trị đã chọn từ dropdown
+        var selectedValue = $('#seach').val();
+
+        // Khởi tạo danh sách ID nhân viên
+        var selectedIds = [];
+        if (selectedValue === "0") {
+            $('#seach option').each(function () {
+                if ($(this).val() !== "0") {
+                    selectedIds.push($(this).val());
+                }
+            });
+        } else {
+            selectedIds.push(selectedValue);
+        }
+        // Xóa toàn bộ dữ liệu cũ trong bảng (tbody)
+        $('#DetailTable tbody').empty();
+        // Gọi hàm lấy dữ liệu mới
+        detail(selectedIds);
+        // Hiển thị footer (nếu cần)
+        $('.box-footer').show();
+    });
+
+function detail(selectedIds) {
+    var idsToSend = Array.isArray(selectedIds) ? selectedIds.join(",") : selectedIds;
+
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("TH_TICKET_TK", "TMS_TICKET")',
+        dataType: 'json',
+        beforeSend: function () {
+            $('.loading-element').show(); // Hiển thị loading
+        },
+        data: {
+            startdate: $('#fromdate').val(),
+            enddate: $('#todate').val(),
+            thoigian: $('#thoigian').val(),
+            seach: idsToSend,
+            donvi: $('#donvi').val(),
+            searchtinh: $('#searchtinh').val(),
+        },
+        success: function (data) {
+            var str_html = "";
+            var str_body = "";
+            var a = 1;
+
+            // Kiểm tra nếu có dữ liệu trả về
+            if (data.ListTH_TICKET_TK && data.ListTH_TICKET_TK.length > 0) {
+                $.each(data.ListTH_TICKET_TK, function (i, item) {
+                    str_body += '<tr>';
+                    str_body += '<td class="text-center">' + (a++) + '</td>';
+                    str_body += '<td class="text-center">' + (item.Khu_Vuc == '1' ? 'Hà Nội' : item.Khu_Vuc == '2' ? 'Hồ Chí Minh' : '
+') + '</td > ';
+                    str_body += '<td class="text-center">' + item.Nhom_Tinh + '</td>';
+                    str_body += '<td class="text-center">' + item.Ten_NV + '</td>';
+                    str_body += '<td class="text-center"><a href="/Admin/TMS_TICKET/CT_TICKET_TK?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&thoigian=' + $('#thoigian').val() + '&seach=' + idsToSend + '&donvi=' + $('#donvi').val() + '&searchtinh=' + $('#searchtinh').val() + '&Id=' + item.Id + '&types=0" target="_blank">' + item.Tong_So + '</a></td>';
+                    str_body += '<td class="text-center"><a href="/Admin/TMS_TICKET/CT_TICKET_TK?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&thoigian=' + $('#thoigian').val() + '&seach=' + idsToSend + '&donvi=' + $('#donvi').val() + '&searchtinh=' + $('#searchtinh').val() + '&Id=' + item.Id + '&types=1" target="_blank">' + item.DXL + '</a></td>'; // Đang xử lý
+                    str_body += '<td class="text-center"><a href="/Admin/TMS_TICKET/CT_TICKET_TK?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&thoigian=' + $('#thoigian').val() + '&seach=' + idsToSend + '&donvi=' + $('#donvi').val() + '&searchtinh=' + $('#searchtinh').val() + '&Id=' + item.Id + '&types=2" target="_blank">' + item.DCKQ + '</a></td>'; // Đã có kết quả
+                    str_body += '<td class="text-center"><a href="/Admin/TMS_TICKET/CT_TICKET_TK?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&thoigian=' + $('#thoigian').val() + '&seach=' + idsToSend + '&donvi=' + $('#donvi').val() + '&searchtinh=' + $('#searchtinh').val() + '&Id=' + item.Id + '&types=3" target="_blank">' + item.Dong + '</a></td>'; // Đóng
+                    str_body += '<td class="text-center"><a href="/Admin/TMS_TICKET/CT_TICKET_TK?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&thoigian=' + $('#thoigian').val() + '&seach=' + idsToSend + '&donvi=' + $('#donvi').val() + '&searchtinh=' + $('#searchtinh').val() + '&Id=' + item.Id + '&types=4" target="_blank">' + item.DHT + '</a></td>'; // Đã hoàn tất
+                    str_body += '</tr>';
+                });
+
+                str_html += str_body;
+
+                // Xử lý kết quả trả về
+                if (data.Code == '01' || data.Code == '99') {
+                    $('.loading-element').hide();
+                    swal.fire(data.Message, '', 'error');
+                } else {
+                    // Cập nhật nội dung bảng
+                    $('#listkpithdvreport').html(str_html);
+                    $('.loading-element').hide();
+                    $('#btnexportlist').show();
+                }
+            } else {
+                swal.fire('Không có dữ liệu để hiển thị!', '', 'warning');
+                $('.loading-element').hide();
+            }
+        },
+        error: function () {
+            swal.fire('Lỗi xảy ra khi tải dữ liệu', '', 'error');
+            $('.loading-element').hide();
+        }
+    });
+}
+
+    $('#btnexportlist').click(function () {
+        var selectedValue = $('#seach').val();
+        var selectedIds = [];
+
+        // Nếu giá trị là "0", chọn tất cả các mục
+        if (selectedValue === "0") {
+            $('#seach option').each(function () {
+                if ($(this).val() !== "0") {
+                    selectedIds.push($(this).val());
+                }
+            });
+        } else {
+            selectedIds.push(selectedValue);
+        }
+
+        // Chuyển selectedIds thành một chuỗi
+        var idsToSend = Array.isArray(selectedIds) ? selectedIds.join(",") : selectedIds;
+        var url = $(this).data('baseurl') + '?startdate=' + $('#fromdate').val() + '&enddate=' + $('#enddate').val() + '&thoigian=' + $('#thoigian').val() + '&seach=' + idsToSend + '&donvi=' + $('#donvi').val() + '&searchtinh=' + $('#searchtinh').val();
+       // var url = $(this).data('baseurl') + '?donvi=' + $('#donvi').val() + '&phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
+        location.href = url;
+    });
+    function getUserIdsAndLoadNhanVien() {
+    var userName = '@Convert.ToString(Session["UserName"])'; // Lấy UserName từ Session
+
+    if (userName === "admin" || userName === "CSKH_EMS" || userName.includes("CSKH_")) {
+        var userIdsArray = 0;
+        getNhanVienByNhomTinh(userIdsArray);
+        return;
+    }
+    $.ajax({
+        url: '/TMS_TICKET/GetUserIdsByUserName',
+        type: 'GET',
+        dataType: 'json',
+        data: { userName: userName },
+        success: function (response) {
+            if (response.success && response.userIds) {
+                // userIds là một chuỗi phân tách dấu ",", chuyển nó thành mảng
+                var userIdsArray = response.userIds.split(",");  // Chuyển chuỗi thành mảng
+
+                // Gọi hàm getNhanVienByNhomTinh với mảng userIds
+                getNhanVienByNhomTinh(userIdsArray);
+            } else {
+                alert(response.message);  // Hiển thị thông báo lỗi nếu không có userIds
+            }
+        },
+        error: function () {
+            alert("Có lỗi xảy ra khi gọi API để lấy userIds.");
+        }
+    });
+}
+    function getNhanVienByNhomTinh(userIdsArray) {
+        if (!Array.isArray(userIdsArray)) {
+            userIdsArray = [userIdsArray]; // Biến thành mảng nếu không phải mảng
+        }
+
+        var idsToSend = userIdsArray.join(","); // Chuỗi các ID cách nhau bởi dấu phẩy
+
+        $.ajax({
+            url: "/TMS_TICKET/Get_Nhan_Vien", // API lấy danh sách nhân viên
+            type: "GET",
+            dataType: "json",
+            data: { id: idsToSend },
+            success: function (data) {
+                // Làm trống dropdown và thêm tùy chọn "Tất cả"
+                $('#seach').empty().append('<option value="0">Tất cả</option>');
+
+                // Thêm các tùy chọn từ dữ liệu trả về
+                $.each(data, function (i, val) {
+                    $('#seach').append($('<option>', {
+                        value: val.ID,
+                        text: val.TEN_NV
+                    }));
+                });
+
+                // Sự kiện khi thay đổi giá trị trong dropdown
+                $('#seach').on('change', function () {
+                    var selectedValue = $(this).val(); // Lấy giá trị được chọn
+
+                    if (selectedValue === "0") {
+                        // Nếu chọn "Tất cả", tạo danh sách tất cả ID ngoại trừ "0"
+                        var allIds = [];
+                        $('#seach option').each(function () {
+                            if ($(this).val() !== "0") {
+                                allIds.push($(this).val());
+                            }
+                        });
+                        detail(allIds); // Gọi hàm detail với tất cả ID
+                    } else {
+                        // Nếu chọn một mục cụ thể
+                        detail([selectedValue]); // Gọi hàm detail với ID được chọn
+                    }
+                });
+            },
+            error: function () {
+                alert("Không thể tải dữ liệu nhân viên.");
+            }
+        });
+    }
+    // Khi tải trang, gọi hàm để lấy userIds và sau đó gọi getNhanVienByNhomTinh
+    $(document).ready(function () {
+        getUserIdsAndLoadNhanVien(); // Gọi hàm để lấy userIds và xử lý
+    });
+</script>
+<style>
+    #successMessage {
+        display: flex;
+        flex-direction: row; /* Căn chỉnh các phần tử theo hàng ngang */
+        gap: 20px; /* Khoảng cách giữa các phần tử */
+    }
+
+        #successMessage p {
+            margin: 0; /* Bỏ margin để các phần tử không bị đẩy ra ngoài */
+            padding: 0; /* Bỏ padding nếu có */
+        }
+</style>

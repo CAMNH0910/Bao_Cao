@@ -403,7 +403,7 @@ function nvDropdown(nhomtinh, selectedIdNv) {
 function getUserIdsAndLoadNhanVien() {
     var userName = '@Convert.ToString(Session["UserName"])'; // Lấy UserName từ Session
 
-    if (userName === "admin" || userName === "CSKH_EMS") {
+    if (userName === "admin" || userName === "CSKH_EMS" || userName.includes("CSKH_")) {
         var userIdsArray = 0;
         getNhanVienByNhomTinh(userIdsArray);
         return;

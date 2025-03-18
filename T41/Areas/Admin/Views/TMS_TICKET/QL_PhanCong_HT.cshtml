@@ -128,7 +128,7 @@
                             <th rowspan="4" class="text-center">Người duyệt </th>
                             <th rowspan="4" class="text-center">Thời gian duyệt </th>
                             @{
-                                if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
+                                if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]).Contains("CSKH_"))
                                 {
                                     <th rowspan="4" class="text-center">
                                         Tất cả
@@ -490,7 +490,7 @@
 function getUserIdsAndLoadNhanVien() {
     var userName = '@Convert.ToString(Session["UserName"])'; // Lấy UserName từ Session
 
-    if (userName === "admin" || userName === "CSKH_EMS") {
+    if (userName === "admin" || userName === "CSKH_EMS" || userName.includes("CSKH_")) {
         var userIdsArray = 0;
         getNhanVienByNhomTinh(userIdsArray);
         return;
@@ -587,5 +587,5 @@ function getNhanVienByNhomTinh(userIdsArray) {
 </style>
 <script>
     var userName = @Html.Raw(Json.Encode(Session["UserName"]));
-    var hasPermission = userName != null && (userName === "admin" || userName.includes("NT_CSKH") || userName === "CSKH_EMS");
+    var hasPermission = userName != null && (userName === "admin" || userName.includes("NT_CSKH") || userName.includes("CSKH_"));
 </script>

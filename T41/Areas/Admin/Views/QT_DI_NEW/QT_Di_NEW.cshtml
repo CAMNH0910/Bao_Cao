@@ -50,6 +50,17 @@
                             <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>Tên dịch vụ</label>
+                        <select class="form-control select2" style="width: 100%;" id="madv">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="E">EMSQT_DI</option>
+                            <option value="EPR">DHL</option>
+                            <option value="EUS">EUS</option>
+                            <option value="UPS">UPS</option>
+                        </select>
+                    </div>
+
 
                 </div>
                 <div class="col-md-4">
@@ -62,46 +73,64 @@
                             <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label>Nước nhận</label>
+                        <select class="form-control select2" style="width: 100%;" id="nuocnhan"></select>
+                    </div>
                 </div>
-                <!-- /.col -->
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Khu Vực</label>
-                        <select class="form-control select2" style="width: 100%;" id="zone">
-                            <option selected="selected" value="0">Đơn vị</option>
-                            <option value="1">BĐT</option>
-                            <option value="2">EMS</option>
+                        <label>Đơn vị</label>
+                        <select class="form-control select2" style="width: 100%;" id="donvi">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">EMS</option>
+                            <option value="2">BDT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Phân loại</label>
+                        <select class="form-control select2" style="width: 100%;" id="phanloai">
+                            <option selected="selected" value="0">Tất cả</option>
+                            <option value="1">D</option>
+                            <option value="2">M</option>
                         </select>
                     </div>
                 </div>
+
+                <!-- /.col -->
             </div>
-                <div class="row">
-                    <div class="col-md-4">
-
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Mã khách Hàng</label>
+                        <textarea rows="1" class="form-control" id="MaKH" placeholder="Nhập Mã Khách Hàng"></textarea>
                     </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
-                        <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist_KG" data-baseurl="@Url.Action("Export", "QT_Di_NEW")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
-                    </div>
-                </div>
 
-                <div class="loading-element text-center" style="font-size:50px;">
-                    <i class="fa fa-spinner fa-spin"></i>
-                    Vui lòng chờ giây lát...
                 </div>
-                @*<div class="box-header">
-            <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
-        </div>*@
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
+                </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
-                        <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "QT_Di_NEW")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
-                    </div>
+            <div class="loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+            @*<div class="box-header">
+                    <h3 class="box-title text-center">Tổng hợp sản lượng đi phát</h3>
+                </div>*@
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @*<button type="button" class="btn btn-success btn-lrg ajax" onclick="tableToExcel('ExcelView')" id="btnexportlist">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>*@
+                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export", "QT_Di_NEW")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
                 </div>
-                <div>
+            </div>
+            <div>
+                <div class="scrollingTable">
                     @*<p style="float:right;">Sản Lượng Được Cập Nhật 6h Sáng Hàng Ngày</p>*@
-                    <table id="ExcelView" class="table table-bordered table-hover">
+                    <table id="TableAccount" class="table table-bordered table-hover">
                         <thead>
                             <tr class="bg-light-blue color-palette">
                                 <th class="text-center">STT<br /></th>
@@ -123,10 +152,9 @@
                         </thead>
                         <tbody id="listkpithdvreport"></tbody>
                     </table>
-
                 </div>
-
             </div>
+        </div>
     </div>
 </section>
 
@@ -134,7 +162,6 @@
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 @*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script type="text/javascript">
 
@@ -186,7 +213,11 @@
             {
                 startdate: $('#fromdate').val(),
                 enddate: $('#todate').val(),
-                zone:$('#zone').val(),
+                donvi: $("#donvi").val(),
+                madv: $("#madv").val(),
+                nuocnhan: $("#nuocnhan").val(),
+                phanloai: $("#phanloai").val(),
+                MaKH: $("#MaKH").val()
                 },
             success: function (data) {
 
@@ -212,10 +243,7 @@
                     str_body += '<td class="text-center">' + data.ListDetaiQT_DI_NEW[i].Tongcuoc + '</td>';
                     str_body += '</tr>';
                 });
-
                 str_html += str_body;
-
-
                 if (data.Code == '01' || data.Code == '99') {
                     $('.loading-element').hide();
                     swal.fire(
@@ -226,24 +254,20 @@
 
                 }
                 else {
-
-                    $("#TableAccount").dataTable().fnDestroy();
+                    $("#DetailTable").dataTable().fnDestroy();
                     $('#listkpithdvreport').html(str_html);
                     $('.loading-element').hide();
                     $('#btnexportlist').show();
-                    $('#TableAccount').DataTable({
+                    $('#DetailTable').DataTable({
                         "ordering": false,
                         "scrollX": true,
                         "language": {
                             " processing": "Message khi đang tải dữ liệu",
                             "search": "Tìm kiếm theo từ khóa:",
                             "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListDetaiQT_DI_NEW.length + " bản ghi",
-
                             "zeroRecords": "Không có dữ liệu !",
                             "info": "Hiển thị trang _PAGE_ đến _PAGES_",
                             "infoEmpty": "Không tồn tại bản ghi !",
-
-
                             "paginate": {
                                 "first": "Trang đầu",
                                 "previous": "Trang trước",
@@ -252,22 +276,17 @@
                             }
                         }
                     });
-
-
                 }
             }
         })
     }
+    $.getJSON("/ReportTHQTDI/MANUOC", function (data) {
+        $('#nuocnhan').html(data);
+    })
 
-    $('#btnexportlist_KG').click(function () {
-        // build the url
-        var url = $(this).data('baseurl') + '?startDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val(); 
-        // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
-        location.href = url;
-    });
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?startDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val(); 
+        var url = $(this).data('baseurl') + '?startDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&donvi=' + $("#donvi").val() + '&madv=' + $("#madv").val() + '&nuocnhan=' + $("#nuocnhan").val() + '&phanloai=' + $("#phanloai").val() + '&MaKH=' + $("#MaKH").val();
        // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
         location.href = url;
     });

@@ -51,6 +51,33 @@
                             <input class="form-control pull-right" id="fromdate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label>Bưu cục phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
+                            <option selected="selected" value="0">Chọn bưu cục phát</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Đến Ngày</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tuyến phát</label>
+                        <select class="form-control select2" style="width: 100%;" id="routecode">
+                            <option selected="selected" value="0">Tất cả</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Khu Vực</label>
                         <select class="form-control select2" style="width: 100%;" id="zone">
@@ -69,74 +96,15 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Đến Ngày</label>
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Bưu cục phát</label>
-                        <select class="form-control select2" style="width: 100%;" id="endpostcode">
-                            <option selected="selected" value="0">Chọn bưu cục phát</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Chọn ngày</label>
-                        <select class="form-control select2" style="width: 100%;" id="date">
-                            <option selected="selected" value="2">Ngày XND </option>
-                            <option value="1">Ngày BD13 </option>
-                        </select>
-                    </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Dịch Vụ</label>
-                        <select class="form-control select2" style="width: 100%;" id="service">
-                            <option selected="selected" value="0">Tất Cả</option>
-                            <option value="1">EMS Hỏa tốc</option>
-                            <option value="2">EMS Quốc tế đến</option>
-                            <option value="3">EMS Visa</option>
-                            <option value="4">EMS TMDT Đồng giá</option>
-                            <option value="5">EMS TMDT COD</option>
-                            @*<option value="6">EMS TMDT không COD</option>*@
-                            <option value="7">EMS Đại lý</option>
-                            <option value="8">EMS TCNH tiêu chuẩn</option>
-                            @*<option value="9">EMS TCNH gói bạc</option>*@
-                            <option value="10">EMS TCNH gói vàng</option>
-                            <option value="11">EMS Hàng hóa</option>
-                            <option value="12">EMS Tài liệu</option>
-                            <option value="13">EMS TMDT Đồng giá nội tỉnh</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Tuyến phát</label>
-                        <select class="form-control select2" style="width: 100%;" id="routecode">
-                            <option selected="selected" value="0">Tất cả</option>
-                        </select>
-                    </div>
-                </div>
-
-
-
             </div>
             <div class="row">
                 <div class="col-md-4">
-
                 </div>
                 <div class="col-md-4">
                     <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
                 </div>
             </div>
-
             <div class="loading-element text-center" style="font-size:50px;">
                 <i class="fa fa-spinner fa-spin"></i>
                 Vui lòng chờ giây lát...
@@ -151,45 +119,30 @@
                 <table id="ExcelView" class="table table-bordered table-hover">
                     <thead>
                         <tr class="bg-light-blue color-palette">
-
-                            <th rowspan="5" class="text-center">STT</th>
-                            <th rowspan="5" class="text-center">Mã Bưu Cục</th>
-                            <th rowspan="5" class="text-center">Tên Bưu Cục</th>
-                            <th rowspan="5" class="text-center">Mã tuyến phát</th>
-                            <th rowspan="5" class="text-center">Tên tuyến phát</th>
-                            <th rowspan="5" class="text-center">Mã nhân viên</th>
-                            <th rowspan="5" class="text-center">ID Bưu tá</th>
-                            <th rowspan="5" class="text-center">Họ tên Bưu tá</th>
-                            <th rowspan="5" class="text-center">Dịch vụ</th>
-
-                            <th colspan="3" class="text-center">SL Bưu gửi phát</th>
-                            <th rowspan="5" class="text-center">Bưu gửi <br /> phát lại</th>
-                            <th colspan="8" class="text-center">Trạng thái phát bưu gửi</th>
-                            <th rowspan="5" class="text-center">SL Phát TC <br />(Xe máy - 6h <br /> Ô tô - 12h)</th>
-                            <th rowspan="5" class="text-center">SL Phát TC<br /> (TT - 48h <br />TMĐT - 72h)</th>
+                            <th rowspan="2">TT</th>
+                            <th rowspan="2">Đơn vị</th>
+                            <th rowspan="2">Mã Bưu cục</th>
+                            <th rowspan="2">Tên Bưu cục</th>
+                            <th rowspan="2">Mã tuyến phát</th>
+                            <th rowspan="2">Tên tuyến phát</th>
+                            <th rowspan="2">Mã nhân viên</th>
+                            <th rowspan="2">ID Bưu tá</th>
+                            <th rowspan="2">Họ tên Bưu tá</th>
+                            <th rowspan="2">Dịch vụ</th>
+                            <th colspan="3">Lượt 1 - Ca 1</th>
+                            <th colspan="3">Lượt 2 - Ca 2</th>
+                            <th colspan="3">Lượt 3 - Ca 3</th>
                         </tr>
                         <tr class="bg-light-blue color-palette">
-                            <th colspan="1" rowspan="4" class="text-center">Sản lượng <br /> đến phát</th>
-                            <th colspan="1" rowspan="4" class="text-center">Bưu gửi <br />chuyển tiếp đi</th>
-                            <th colspan="1" rowspan="4" class="text-center">Sản lượng <br />thực tế</th>
-                        </tr>
-                        <tr class="bg-light-blue color-palette">
-                            <th colspan="6" rowspan="1" class="text-center">SL phát thành công</th>
-                            <th colspan="1" rowspan="3" class="text-center">SL không<br /> thành công</th>
-                            <th colspan="1" rowspan="3" class="text-center">Tổng cộng</th>
-                        </tr>
-                        <tr class="bg-light-blue color-palette">
-                            <th colspan="2" class="text-center">Đến 2kg</th>
-                            <th colspan="2" class="text-center">Trên 2kg</th>
-                            <th colspan="2" class="text-center">Tổng cộng</th>
-                        </tr>
-                        <tr class="bg-light-blue color-palette">
-                            <th colspan="1" rowspan="1" class="text-center">Sản lượng</th>
-                            <th colspan="1" rowspan="1" class="text-center">Khối lượng</th>
-                            <th colspan="1" rowspan="1" class="text-center">Sản lượng</th>
-                            <th colspan="1" rowspan="1" class="text-center">Khối lượng</th>
-                            <th colspan="1" rowspan="1" class="text-center">Sản lượng</th>
-                            <th colspan="1" rowspan="1" class="text-center">Khối lượng</th>
+                            <th>Sản lượng đến trong ca</th>
+                            <th>Sản lượng phát thành công</th>
+                            <th>Tỷ lệ PTC lượt 1</th>
+                            <th>Sản lượng đến trong ca</th>
+                            <th>Sản lượng phát thành công</th>
+                            <th>Tỷ lệ PTC lượt 2</th>
+                            <th>Sản lượng đến trong ca</th>
+                            <th>Sản lượng phát thành công</th>
+                            <th>Tỷ lệ PTC lượt 3</th>
                         </tr>
                     </thead>
                     <tbody id="listkpithdvreport"></tbody>
@@ -198,18 +151,13 @@
             </div>
         </div>
 </section>
-
-
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 @*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script type="text/javascript">
-
-
     var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
        , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
     $(document).ready(function () {
@@ -259,7 +207,7 @@
      function detail() {
          $.ajax({
              type: "POST",
-             url: '@Url.Action("ListKPI_Detail_Wage", "KPI_Delivery_Wage")',
+             url: '@Url.Action("GET_List_KPI_Detail_PTC_BT", "KPI_Detail_PTC")',
              beforeSend: function () {
                  $('.loading-element').show();
              },
@@ -270,41 +218,35 @@
                  enddate: $('#todate').val(),
                  zone: $("#zone").val(),
                  endpostcode: $("#endpostcode").val(),
-                 service: $("#service").val(),
                  routecode: $("#routecode").val(),
                  postman: $("#postman").val(),
-                 date: $("#date").val(), 
              },
              success: function (data) {
 
                  var str_html = "";
                  var str_body = "";
                  var a = 1;
-                 $.each(data.ListDetailKPI_Detail_Wage, function (i, item) {
+                 $.each(data.ListKPI_Detail_PTC_BT, function (i, item) {
                      str_body += '<tr>';
                      str_body += '<td width="10" class="text-center">' + a++ + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].STARTPOSTCODE + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].STARTPOSTCODENAME + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].ROUTECODE + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].ROUTECODENAME + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].POSTMAN_HRM + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].POSTMAN_ID + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].POSTMANName + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].ServiceTypeName + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].TotalM + '</td>';
-                     str_body += '<td class="text-center"><a href="/Admin/KPI_Delivery_Wage/KPI_Delivery_CTCT?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + item.ZONE + '&endpostcode=' + item.STARTPOSTCODE + '&service=' + item.ServiceTypeNumber + '&routecode=' + item.ROUTECODE + '&postman=' + item.POSTMAN_ID + ' "target="_blank"">' + data.ListDetailKPI_Detail_Wage[i].TotalCT + '</a> </td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].Total + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].TotalPL + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].SLD2 + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].KLD2 + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].SLT2 + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].KLT2 + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].TotalSL + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].TotalKL + '</td>';
-                     str_body += '<td class="text-center"><a href="/Admin/KPI_Delivery_Wage/KPI_Delivery_CT?startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + item.ZONE + '&endpostcode=' + item.STARTPOSTCODE + '&service=' + item.ServiceTypeNumber + '&routecode=' + item.ROUTECODE + '&postman=' + item.POSTMAN_ID + ' "target="_blank"">' + data.ListDetailKPI_Detail_Wage[i].TotalKTC + '</a> </td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].TotalAll + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].PTC6H + '</td>';
-                     str_body += '<td class="text-center">' + data.ListDetailKPI_Detail_Wage[i].PTC72H + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].zone + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].STARTPOSTCODE + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].STARTPOSTCODENAME + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].ROUTECODE + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].ROUTECODENAME + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].POSTMAN_HRM + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].POSTMAN_ID + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].POSTMANName + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].ServiceTypeName + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].SLD_TC_1 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].SL_PTC_1 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].TL_PTC_1 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].SLD_TC_2 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].SL_PTC_2 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].TL_PTC_2 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].SLD_TC_3 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].SL_PTC_3 + '</td>';
+                     str_body += '<td class="text-center">' + data.ListKPI_Detail_PTC_BT[i].TL_PTC_3 + '</td>';
                      str_body += '</tr>';
                  });
                  str_html += str_body;
@@ -331,7 +273,7 @@
                          "language": {
                              " processing": "Message khi đang tải dữ liệu",
                              "search": "Tìm kiếm theo từ khóa:",
-                             "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListDetailKPI_Detail_Wage.length + " bản ghi",
+                             "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListKPI_Detail_PTC_BT.length + " bản ghi",
 
                              "zeroRecords": "Không có dữ liệu !",
                              "info": "Hiển thị trang _PAGE_ đến _PAGES_",
@@ -351,14 +293,15 @@
                  }
              }
          })
-     }
+    }
+
+
     $('#btnexportlist').click(function () {
         // build the url
-        var url = $(this).data('baseurl') + '?StartDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val() + '&service=' + $("#service").val() + '&routecode=' + $("#routecode").val() + '&postman=' + $("#postman").val() + '&date=' + $("#date").val(); 
+        var url = $(this).data('baseurl') + '?StartDate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&zone=' + $("#zone").val() + '&endpostcode=' + $("#endpostcode").val()+ '&routecode=' + $("#routecode").val() + '&postman=' + $("#postman").val(); 
         // var url = $(this).data('baseurl') + '?donvi=' + $('#loai').val + '&tinhnhan=' + $('#tinhnhan').val()phanloaidichvu=' + $('#phanloaidichvu').val() + '&startdate=' + $('#fromdate').val() + '&enddate=' + $('#todate').val() + '&service=' + $('#service').val();
         location.href = url;
     });
-
 
     $(document).ready(function () {
         $('#zone').change(function () {
@@ -376,7 +319,6 @@
             });
         })
     });
-
 
     //Sự kiện thay đổi tuyến phát theo bưu cục phát
     $(document).ready(function () {

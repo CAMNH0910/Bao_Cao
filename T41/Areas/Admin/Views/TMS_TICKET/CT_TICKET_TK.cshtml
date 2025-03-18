@@ -1,0 +1,240 @@
+﻿
+
+<link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/GridviewScroll/gridviewScroll.css" rel="stylesheet" />
+<script src="~/GridviewScroll/gridviewScroll.js"></script>
+
+<style type="text/css">
+    .divclass {
+        overflow: auto;
+    }
+    .custom-checkbox {
+        accent-color: #2196f3; /* Màu xanh lam */
+        border: 2px solid #2196f3; /* Viền xanh lam cho checkbox */
+        width: 20px;
+        height: 20px;
+    }
+
+        .custom-checkbox:checked {
+            background-color: #2196f3; /* Màu nền khi checkbox được chọn */
+            border-color: #1976d2; /* Đổi màu viền khi checkbox được chọn */
+        }
+
+</style>
+<script>
+
+    $(document).ready(function () {
+        detail();
+
+    });
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var thoigian = url.searchParams.get("thoigian");
+    var seach = url.searchParams.get("seach");
+    var donvi = url.searchParams.get("donvi"); 
+    var searchtinh = url.searchParams.get("searchtinh"); 
+    var Id = url.searchParams.get("Id"); 
+    var types = url.searchParams.get("types"); 
+</script>
+
+<section class="content-header">
+    <h1>
+        <small>Chi tiết hồ sơ khiếu nại </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Báo cáo chi tiết</li>
+    </ol>
+</section>
+<section class="content">
+
+    <div class="box box-default">
+
+        <div class="box-body">
+
+            <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("ExportCT_TICKET_TK", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+            </div>
+        </div>
+
+            <div class="employee-info" style="display: flex; align-items: center; gap: 10px; padding: 10px;">
+                <div id="employeeName" class="employee-name" style="font-size: 20px; border: 1px solid #ccc; padding: 5px;">Tên nhân viên</div>
+                <div id="TrangThai" class="employee-name" style="font-size: 20px; border: 1px solid #ccc; padding: 5px;">Trạng thái</div>
+            </div>
+            <!-- Tên nhân viên sẽ được hiển thị ở đây -->
+        </div>
+                <!-- Tên nhân viên sẽ được cập nhật ở đây -->
+            </div>
+            <div style="width: 100%; overflow-x: scroll;">
+                <table id="DetailTable" class="table table-bordered table-striped table-responsive-stack">
+                    <thead>
+                        <tr class="bg-light-blue color-palette">
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Số hồ sơ</th>
+                            <th class="text-center">MÃ BG/GD</th>
+                            <th class="text-center">Ngày tạo</th>
+                            <th class="text-center">Tình trạng xử lý</th>
+                            <th class="text-center">Đơn vị chủ trì</th>
+                            <th class="text-center">Ngày hết hạn</th>
+                            <th class="text-center">Tỉnh nhận</th>
+                            <th class="text-center">Tỉnh trả</th>
+                            <th class="text-center">Tên nhân viên</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listkpithdvreport"></tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 loading-element text-center" style="font-size:50px;">
+                <i class="fa fa-spinner fa-spin"></i>
+                Vui lòng chờ giây lát...
+            </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+@*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+<script>
+    var url_string = document.URL;
+    var url = new URL(url_string);
+
+    var startdate = url.searchParams.get("startdate");
+    var enddate = url.searchParams.get("enddate");
+    var thoigian = url.searchParams.get("thoigian");
+    var seach = url.searchParams.get("seach");
+    var donvi = url.searchParams.get("donvi");
+    var searchtinh = url.searchParams.get("searchtinh"); 
+    var Id = url.searchParams.get("Id");
+    var types = url.searchParams.get("types"); 
+    $(document).ready(function () {
+        detail();
+    });
+
+
+   function detail() {
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("CT_TICKET_TK", "TMS_TICKET")',
+        beforeSend: function () {
+            $('.loading-element').show(); // Hiển thị loading
+        },
+        dataType: 'json',
+        data: {
+            startdate: startdate,
+            enddate: enddate,
+            thoigian: thoigian,
+            seach: seach,
+            donvi: donvi,
+            searchtinh: searchtinh,
+            Id: Id,
+            types: types
+        },
+        success: function (data) {
+            var str_html = "";
+            var str_body = "";
+            var a = 1;
+
+            // Kiểm tra nếu ListCT_TICKET_TK có dữ liệu
+            if (data.ListCT_TICKET_TK.length > 0) {
+                // Nếu Id không phải là 0 hoặc null, lấy tên nhân viên từ dòng đầu tiên
+                var firstEmployeeName = (Id === '0' || Id === null) ? '' : data.ListCT_TICKET_TK[0].TEN_NV;
+                // Cập nhật tên nhân viên vào phần tử #employeeName
+                $('#employeeName').text("Tên nhân viên: " + firstEmployeeName);
+            if (types == 0) {
+                $('#TrangThai').text("Trạng thái: Tất cả");
+            } else if (types == 1) {
+                $('#TrangThai').text("Trạng thái: Đang xử lý");
+            } else if (types == 2) {
+                $('#TrangThai').text("Trạng thái: Đã có kết luận");
+            } else if (types == 3) {
+                $('#TrangThai').text("Trạng thái: Đóng");
+            } else if (types == 4) {
+                $('#TrangThai').text("Trạng thái: Đã hoàn thành");
+            } }
+            // Duyệt qua danh sách và tạo HTML cho bảng
+            $.each(data.ListCT_TICKET_TK, function (i, item) {
+                str_body += `
+                    <tr>
+                        <td class="text-center">${a++}</td>
+                        <td class="text-center">
+                            <a href="https://cms.vnpost.vn/admin/complaints/final-result/${item.So_HS}" target="_blank">${item.So_HS}</a>
+                        </td>
+                        <td class="text-center">
+                            <a href="http://bccp.vnpost.vn/BCCP.aspx?act=Trace&id=${item.Ma_BG}" target="_blank">${item.Ma_BG}</a>
+                        </td>
+                        <td class="text-center">${item.Ngay_Tao}</td>
+                        <td class="text-center">${item.Trang_Thai === '1' ? 'Đang xử lý' : (item.Trang_Thai === '2' ? 'Đã có kết luận cuối cùng' : (item.Trang_Thai === '3' ? 'Đóng' : (item.Trang_Thai === '4' ? 'Đã hoàn thành' : 'Không xác định')))}</td>
+                        <td class="text-center">${item.Ma_DV_Chu_Tri}</td>
+                        <td class="text-center">${item.Ngay_Het_han}</td>
+                        <td class="text-center">${item.Tinh_Nhan}</td>
+                        <td class="text-center">${item.Tinh_Tra}</td>
+                        <td class="text-center">${item.TEN_NV}</td>
+                    </tr>`;
+            });
+            // Gắn HTML vào bảng
+            str_html += str_body;
+            if (data.Code == '01' || data.Code == '99') {
+                $('.loading-element').hide();
+                swal.fire(data.Message, '', 'error');
+            } else {
+                $('#DetailTable tbody').html(str_html);
+                $("#DetailTable").dataTable().fnDestroy();
+                $('#listkpithdvreport').html(str_html);
+                $('.loading-element').hide();
+                $('#btnexportlist').show();
+                $('#DetailTable').DataTable({
+                    "ordering": false,
+                    "language": {
+                        "processing": "Đang tải dữ liệu...",
+                        "search": "Tìm kiếm theo từ khóa:",
+                        "lengthMenu": "Điều chỉnh số lượng bản ghi trên 1 trang _MENU_ Tổng số: " + data.ListCT_TICKET_TK.length + " bản ghi",
+                        "zeroRecords": "Không có dữ liệu!",
+                        "info": "Hiển thị từ trang _PAGE_ đến _PAGES_",
+                        "infoEmpty": "Không tồn tại bản ghi!",
+                        "paginate": {
+                            "first": "Trang đầu",
+                            "previous": "Trang trước",
+                            "next": "Trang sau",
+                            "last": "Trang cuối"
+                        }
+                        
+                    }
+                });
+            }
+        }
+    });
+}
+    // Hàm lưu dữ liệu khi nhấn nút "Lưu
+    $('#btnexportlist').click(function () {
+        var url = $(this).data('baseurl') + '?startdate=' + startdate + '&enddate=' + enddate + '&thoigian=' + thoigian + '&seach=' + seach + '&donvi=' + donvi + '&searchtinh=' + searchtinh + '&Id=' + Id + '&types=' + types;
+        // redirect
+        location.href = url;
+    });
+</script>
+<style>
+    .custom-checkbox {
+        accent-color: #2196f3; /* Màu xanh lam */
+        border: 2px solid #2196f3; /* Viền xanh lam cho checkbox */
+        width: 20px;
+        height: 20px;
+    }
+        .custom-checkbox:checked {
+            background-color: #2196f3; /* Màu nền khi checkbox được chọn */
+            border-color: #1976d2; /* Đổi màu viền khi checkbox được chọn */
+        }
+</style>

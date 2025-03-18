@@ -1,10 +1,9 @@
 ﻿
 
 @{
-    // Layout = null;
+// Layout = null;
 }
 
-<!-- Link đến các thư viện CSS -->
 <link rel="stylesheet" href="/Areas/Admin/Content/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="~/Areas/Admin/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,7 +32,7 @@
         <div class="box-body">
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Từ Ngày </label>
                         <div class="input-group date">
@@ -44,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Đến Ngày</label>
                         <div class="input-group date">
@@ -54,11 +53,19 @@
                             <input class="form-control pull-right" id="todate" type="text" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
                     </div>
-
                 </div>
-                @*@{ if (Convert.ToString(Session["UserName"]).Contains("_CSKH"))
-        {*@
-                <div class="col-md-2">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="trangthai">Thời gian</label>
+                        <select class="form-control" id="thoigian" name="thoigian" required>
+                            <option value="0">Tất cả</option>
+                            <option value="1">Ngày tạo</option>
+                            <option value="2">Hạn xử lý</option>
+                            <option value="3">Ngày Import</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Nhân viên</label>
                         <select class="form-control select2" style="width: 100%;" id="seach">
@@ -66,7 +73,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-2">
+
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="trangthai">Trạng thái</label>
                         <select class="form-control" id="trangthai" name="trangthai" required>
@@ -79,140 +87,173 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="mabg">Số hồ sơ/ Mã bưu gửi</label>
+                        <label for="mabg">Số HS/ Mã BG</label>
                         <input type="text" class="form-control" id="mabg" name="mabg" placeholder="Nhập thông tin">
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-                <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
-            </div>
-            <div class="loading-element text-center" style="font-size:50px; display:none;">
-                <i class="fa fa-spinner fa-spin"></i>
-                Vui lòng chờ giây lát...
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export_TICKET_ND", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="trangthai">Đơn vị chủ trì</label>
+                        <select class="form-control" id="donvi" name="donvi" required>
+                            <option value="0">Chọn đơn vị</option>
+                            <option value="1">006</option>
+                            <option value="2">Các đơn vị khác</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="searchtinh">Tỉnh nhận/ Tỉnh trả</label>
+                        <input type="text" class="form-control" id="searchtinh" name="searchtinh" placeholder="Nhập thông tin">
+                    </div>
                 </div>
             </div>
-            <div>
-                <div style="width: 100%; overflow-x: scroll;">
-                    <div class="table-responsive">
-                        <table id="DetailTable" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Số HS</th>
-                                    <th>Mã BG</th>
-                                    <th>Ngày Tạo</th>
-                                    <th>Trạng Thái</th>
-                                    <th>Mã đơn vị</th>
-                                    <th>Ngày Hết Hạn</th>
-                                    <th>Tên nhân viên</th>
-                                    <th>Trạng Thái HS</th>
-                                    <th>Chức Năng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Dữ liệu sẽ được chèn vào đây từ AJAX -->
-                            </tbody>
-                        </table>
+            
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-info btn-lrg ajax" id="btnreport">Hiển Thị <i class="fa fa-search"></i></button>
                     </div>
+                </div>
 
-                    <!-- Modal Sửa Trạng Thái -->
-                    @{
-                        if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]) == "CSKH_EMS")
-                        {
-                            <div class="modal fade" id="editStatusModal" tabindex="-1" role="dialog" aria-labelledby="editStatusModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content" style="border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-                                        <div class="modal-header" style="background-color: #5bc0de; color: white; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                                            <h5 class="modal-title" id="editStatusModalLabel">Cập nhật thông tin</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true" style="color: white;">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
+                <div class="loading-element text-center" style="font-size:50px; display:none;">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    Vui lòng chờ giây lát...
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" class="btn btn-success btn-lrg ajax" id="btnexportlist" data-baseurl="@Url.Action("Export_TICKET_ND", "TMS_TICKET")">Xuất Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>  </button>
+                    </div>
+                </div>
+                <div>
+                    <div style="width: 100%; overflow-x: scroll;">
+                        <div class="table-responsive">
+                            <table id="DetailTable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Số HS</th>
+                                        <th>Mã BG</th>
+                                        <th>Tỉnh nhận</th>
+                                        <th>Tỉnh trả</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Trạng thái xử lý</th>
+                                        <th>Đơn vị chủ trì</th>
+                                        <th>Ngày hết hạn</th>
+                                        <th>Hạn XL cuối</th>
+                                        <th>Tên nhân viên</th>
+                                        <th>Chức năng</th>
+                                        <th>Trạng thái HS</th>
+                                        @{
+                                            if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]).Contains("CSKH_"))
+                                            {
+                                                <th>Trạng thái phân công</th>
+                                                @*<th class="text-center">
+                    Tất cả
+                    <input type="checkbox" id="select-all">
+                </th>*@
+                                            } }
+                                    </tr>
+                                               
+                                </thead>
+                                <tbody>
+                                    <!-- Dữ liệu sẽ được chèn vào đây từ AJAX -->
+                                </tbody>
+                            </table>
+                        </div>
 
-                                            <!-- Nhân viên được phân công -->
-                                            <div class="form-group">
-                                                <label for="formSoHS">Nhân viên chính </label>
-                                                <input type="text" class="form-control" id="NVPC" name="formSoHS" disabled>
+                        <!-- Modal Sửa Trạng Thái -->
+                        @{
+                            if (Convert.ToString(Session["UserName"]) == "admin" || Convert.ToString(Session["UserName"]).Contains("NT_CSKH") || Convert.ToString(Session["UserName"]).Contains("CSKH_"))
+                            {
+                                <div class="modal fade" id="editStatusModal" tabindex="-1" role="dialog" aria-labelledby="editStatusModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content" style="border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                                            <div class="modal-header" style="background-color: #5bc0de; color: white; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                                                <h5 class="modal-title" id="editStatusModalLabel">Cập nhật thông tin</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color: white;">&times;</span>
+                                                </button>
                                             </div>
+                                            <div class="modal-body">
 
-                                            <!-- Nhân viên hỗ trợ -->
-                                            <div class="form-group">
-                                                <label for="Ten_NV">Nhân viên được phân công</label>
-                                                <select class="form-control" id="Ten_NV" name="Ten_NV" required>
-                                                    <!-- Các bưu cục sẽ được đổ vào đây -->
-                                                </select>
+                                                <!-- Nhân viên được phân công -->
+                                                <div class="form-group">
+                                                    <label for="formSoHS">Nhân viên chính </label>
+                                                    <input type="text" class="form-control" id="NVPC" name="formSoHS" disabled>
+                                                </div>
+
+                                                <!-- Nhân viên hỗ trợ -->
+                                                <div class="form-group">
+                                                    <label for="Ten_NV">Nhân viên được phân công</label>
+                                                    <select class="form-control" id="Ten_NV" name="Ten_NV" required>
+                                                        <!-- Các bưu cục sẽ được đổ vào đây -->
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer" style="border-top: 2px solid #5bc0de;">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 5px; background-color: #e9ecef;">Hủy</button>
-                                            <button type="button" id="saveIdButton" class="btn btn-primary" style="border-radius: 5px; background-color: #17a2b8; border-color: #17a2b8;">Lưu</button>
+                                            <div class="modal-footer" style="border-top: 2px solid #5bc0de;">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 5px; background-color: #e9ecef;">Hủy</button>
+                                                <button type="button" id="saveIdButton" class="btn btn-primary" style="border-radius: 5px; background-color: #17a2b8; border-color: #17a2b8;">Lưu</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
-                    }
-                    <div class="modal fade" id="updateStatusModal" tabindex="-1" role="dialog" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" style="background-color: #5bc0de; color: white;">
-                                    <h5 class="modal-title" id="updateStatusModalLabel">Cập nhật thông tin</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true" style="color: white;">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="updateStatusForm">
-                                        <div class="form-group">
-                                            <label for="formSoHS">Số hồ sơ</label>
-                                            <input type="text" class="form-control" id="formSoHS" name="formSoHS" disabled>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="formMaBG">Mã BG/GD</label>
-                                            <input type="text" class="form-control" id="formMaBG" name="formMaBG" disabled>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="formTrangThai">Trạng thái</label>
-                                            <select class="form-control" id="formTrangThai" name="formTrangThai">
-                                                <option value="0">Chọn trạng thái</option>
-                                                <option value="1">Đang xử lý</option>
-                                                <option value="2">Đã có kết luận cuối cùng</option>
-                                                <option value="4">Đã hoàn thành</option>
-                                                <option value="3">Đóng</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Ly_Do">Lý do</label>
-                                            <select class="form-control" id="Ly_Do" name="Ly_Do" required>
-                                                <!-- Các bưu cục sẽ được đổ vào đây -->
-                                            </select>
-                                        </div>
+                        <div class="modal fade" id="updateStatusModal" tabindex="-1" role="dialog" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #5bc0de; color: white;">
+                                        <h5 class="modal-title" id="updateStatusModalLabel">Cập nhật thông tin</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="color: white;">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="updateStatusForm">
+                                            <div class="form-group">
+                                                <label for="formSoHS">Số hồ sơ</label>
+                                                <input type="text" class="form-control" id="formSoHS" name="formSoHS" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formMaBG">Mã BG/GD</label>
+                                                <input type="text" class="form-control" id="formMaBG" name="formMaBG" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formTrangThai">Trạng thái</label>
+                                                <select class="form-control" id="formTrangThai" name="formTrangThai">
+                                                    <option value="0">Chọn trạng thái</option>
+                                                    <option value="1">Đang xử lý</option>
+                                                    <option value="2">Đã có kết luận cuối cùng</option>
+                                                    <option value="4">Đã hoàn thành</option>
+                                                    <option value="3">Đóng</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Ly_Do">Lý do</label>
+                                                <select class="form-control" id="Ly_Do" name="Ly_Do" required>
+                                                    <!-- Các bưu cục sẽ được đổ vào đây -->
+                                                </select>
+                                            </div>
 
-                                        <div class="form-group" id="customReasonGroup" style="display:none;">
-                                            <label for="customReason">Lý do khác</label>
-                                            <textarea class="form-control" id="Ly_Do_Khac" name="customReason"></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                    <button type="button" id="saveStatusButton" class="btn btn-primary">Lưu</button>
+                                            <div class="form-group" id="customReasonGroup" style="display:none;">
+                                                <label for="customReason">Lý do khác</label>
+                                                <textarea class="form-control" id="Ly_Do_Khac" name="customReason"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                        <button type="button" id="saveStatusButton" class="btn btn-primary">Lưu</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Modal Sửa Trạng Thái -->
             </div>
-            <!-- Modal Sửa Trạng Thái -->
-        </div>
     </div>
 </section>
 
@@ -223,33 +264,32 @@
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 @*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
 
+
 <script type="text/javascript">
 
     var chart1, chart2, chart4, chart5, chart6, chart7, chart8, chart9, chart10, chart11, chart12, chart13, chart14, chart15
         , chart16, chart17, chart18, chart19, chart20, chart21, chart22, chart23, chart24, chart25, chart26, chart27, chart28;
     $(document).ready(function () {
-        // Ẩn phần loading
-        $('.loading-element').hide(); // Ẩn các phần tử loading
-        $('.box-footer').hide(); // Ẩn phần footer
-        $('#btnexportlist').hide(); // Ẩn nút export
 
-        // Lấy ngày hiện tại
         var d = new Date();
-        var currMonth = d.getMonth(); // Tháng hiện tại (tính từ 0)
-        var currYear = d.getFullYear(); // Năm hiện tại
-        var startDate = new Date(currYear, currMonth, 1); // Ngày đầu tiên của tháng
-
-        // Thiết lập Datepicker cho "fromdate"
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
         $("#fromdate").datepicker({
-            dateFormat: "dd/mm/yyyy", // Định dạng ngày
-            todayHighlight: true, // Hiển thị ngày hiện tại
-        }).datepicker("setDate", startDate); // Gán giá trị là ngày đầu tiên của tháng
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", startDate);
 
-        // Thiết lập Datepicker cho "todate"
         $("#todate").datepicker({
-            dateFormat: "dd/mm/yyyy", // Định dạng ngày
-            todayHighlight: true, // Hiển thị ngày hiện tại
-        }).datepicker("setDate", "0"); // Gán giá trị là ngày hiện tại
+            dateFormat: "dd/mm/yyyy",
+            todayHighlight: true
+        }).datepicker("setDate", "0");
+
+
+        $('.loading-element').hide();
+        $('.box-footer').hide();
+        $('#btnexportlist').hide();
+        $('.loading-element').hide();
     });
 
     $("#btnreport").click(function () {
@@ -267,13 +307,10 @@
     } else {
         selectedIds.push(selectedValue);
     }
-
     // Xóa toàn bộ dữ liệu cũ trong bảng (tbody)
     $('#DetailTable tbody').empty();
-
     // Gọi hàm lấy dữ liệu mới
     detail(selectedIds);
-
     // Hiển thị footer (nếu cần)
     $('.box-footer').show();
 });
@@ -291,9 +328,12 @@ function detail(selectedIds) {
         data: {
             startdate: $('#fromdate').val(),
             enddate: $('#todate').val(),
+            thoigian: $('#thoigian').val(),
             seach: idsToSend,
             trangthai: $('#trangthai').val(),
             mabg: $('#mabg').val(),
+            donvi: $('#donvi').val(),
+            searchtinh: $('#searchtinh').val(),
         },
         success: function (data) {
             console.log(data);  // Kiểm tra dữ liệu trả về
@@ -302,23 +342,21 @@ function detail(selectedIds) {
                 $('.loading-element').hide();
                 return;
             }
-
-            // Tạo các dòng dữ liệu mới
             var str_body = "";
             var rowIndex = 1;
-
             $.each(data.List_TICKET_ND, function (index, item) {
                 var today = new Date();
                 var deadlineDate = parseDate(item.Ngay_Het_han);
                 var dateStyle = deadlineDate <= today ? 'color: red;' : '';
                 var Trang_Thai_Style = (item.UPDATE_TT === '1') ? 'color: red;' : '';
+                var Trang_Thai_HS = (item.TT_CN === '0') ? 'color: red;' : '';
                 var Ma_DV_Chu_Tri_Style = (item.UPDATE_DV === '1') ? 'color: red;' : '';
 
                 str_body += `
                             <tr>
                                 <td class="text-center">${rowIndex++}</td>
-                                <td class="text-center">
-                                    <a href="https://cms.vnpost.vn/admin/complaints/final-result/${item.So_HS}" target="_blank" id="${item.So_HS}">
+                                <td class="text-center" >
+                                    <a href="https://cms.vnpost.vn/admin/complaints/final-result/${item.So_HS.substring(4)}" target="_blank" id="${item.So_HS.substring(4)}" style="${Trang_Thai_HS}">
                                         ${item.So_HS}
                                     </a>
                                 </td>
@@ -327,6 +365,8 @@ function detail(selectedIds) {
                                         ${item.Ma_BG}
                                     </a>
                                 </td>
+                                <td class="text-center">${item.Tinh_Nhan}</td>
+                                <td class="text-center">${item.Tinh_Tra}</td>
                                 <td class="text-center">${item.Ngay_Tao}</td>
                                 <td class="text-center" style="${Trang_Thai_Style}">
                                     ${item.Trang_Thai === '1' ? 'Đang xử lý' :
@@ -335,44 +375,47 @@ function detail(selectedIds) {
                                 </td>
                                 <td class="text-center" style="${Ma_DV_Chu_Tri_Style}">${item.Ma_DV_Chu_Tri}</td>
                                 <td class="text-center" style="${dateStyle}">${item.Ngay_Het_han}</td>
+                                 <td class="text-center">${item.NGAY_XL_CUOI}</td>
                                 <td class="text-center">${item.TEN_NV || 'Chưa phân công'}</td>
-                                <td class="text-center" style="width: 5%;">
-                                    <input type="checkbox" class="row-checkbox" ${item.HS_HT === 2 ? 'checked' : ''} disabled>
-                                </td>
                                 <td class="text-center" style="width: 9%;">
-                                    <div class="dropdown" style="position: relative;">
-                                        <button class="btn btn-warning btn-sm dropdown-toggle" data-id="${item.So_HS}" title="Chức năng" onclick="toggleDropdown('${item.So_HS}')">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </button>
-                                        <div id="dropdown${item.So_HS}" class="dropdown-menu" style="display: none; position: absolute; background: #f8f9fa; border: 1px solid #ccc; padding: 5px; z-index: 100; min-width: 180px; border-radius: 5px;">
-                                            <button class="btn btn-info btn-sm w-100 mb-2" onclick="editFunc('${item.So_HS}')">Phân công</button>
-                                            <button class="btn btn-danger btn-sm w-100" onclick="updateFunc('${item.So_HS}')">Cập nhật trạng thái</button>
-                                        </div>
+                                    <div class="dropdown">
+                                    <button class="btn btn-warning btn-sm dropdown-toggle" data-id="${item.So_HS}" title="Chức năng" onclick="toggleDropdown('${item.So_HS}')">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <div id="dropdown${item.So_HS}" class="dropdown-menus" style="display: none; position: absolute; background: #f8f9fa; border: 1px solid #ccc; padding: 5px; z-index: 100; min-width: 180px; border-radius: 5px;">
+                                         <button id="btnPhanCong${item.So_HS}" class="btn assign-btn w-100 mb-2" onclick="editFunc('${item.So_HS}')">Phân công</button>
+                                        <button class="btn update-btn w-100" onclick="updateFunc('${item.So_HS}')">Cập nhật trạng thái</button>
                                     </div>
-                                </td>
+                                </div>
+                                 <td class="text-center" style="width: 5%;">${item.HS_HT === 1 ? 'HS Mới' : 'HS Cũ'}</td>
+                                   ${hasPermission ? `
+                                    <td class="text-center" style="width: 5%;">${item.STATUS_HS === 1 ? 'Thủ công' : 'Tự động'}</td>
+                                ` : ''}
+ 
                             </tr>`;
-            });
 
+                });
             // Gắn dữ liệu mới vào bảng
             $('#DetailTable tbody').html(str_body);
             $('#btnexportlist').show();
             // Nếu DataTable chưa được khởi tạo thì tạo mới
             if (!$.fn.dataTable.isDataTable('#DetailTable')) {
                 $('#DetailTable').DataTable({
-                    ordering: false,
-                    pageLength: 25,
-                    lengthChange: true,
-                    paging: true,
-                    info: true,
+                    ordering: false,         // Tắt tính năng sắp xếp
+                    pageLength: 25,          // Hiển thị 25 bản ghi mỗi trang
+                    lengthChange: true,      // Cho phép thay đổi số lượng bản ghi mỗi trang
+                    paging: true,            // Kích hoạt phân trang
+                    info: true,              // Hiển thị thông tin tổng số bản ghi
                     language: {
-                        search: "Tìm kiếm:",
-                        zeroRecords: "Không có dữ liệu!",
-                        info: "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ bản ghi",
+                        search: "Tìm kiếm:",                    // Đổi từ "Search" thành "Tìm kiếm"
+                        zeroRecords: "Không có dữ liệu!",       // Thông báo khi không có bản ghi
+                        info: "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ bản ghi",  // Hiển thị thông tin phân trang
+                        lengthMenu: "Hiển thị _MENU_ bản ghi mỗi trang",  // Thay đổi số lượng bản ghi mỗi trang
                         paginate: {
-                            first: "Đầu",
-                            previous: "Trước",
-                            next: "Sau",
-                            last: "Cuối"
+                            first: "Đầu",                       // Tên của nút "First"
+                            previous: "Trước",                  // Tên của nút "Previous"
+                            next: "Sau",                        // Tên của nút "Next"
+                            last: "Cuối"                        // Tên của nút "Last"
                         }
                     },
                 });
@@ -380,7 +423,6 @@ function detail(selectedIds) {
                 // Nếu đã có DataTable rồi, chỉ cần cập nhật lại
                 $('#DetailTable').DataTable().clear().rows.add($('#DetailTable tbody tr')).draw();
             }
-
             $('.loading-element').hide(); // Ẩn loading
         },
         error: function (xhr, status, error) {
@@ -447,7 +489,7 @@ function parseDate(input) {
                 if (data.success) {
                     alert("Cập nhật thành công!");
                     $('#editStatusModal').modal('hide');  // Đóng modal
-                    window.location.reload();  // Tải lại trang
+                    $("#btnreport").click();
                 } else {
                     alert("Cập nhật thất bại.");
                 }
@@ -506,8 +548,8 @@ function parseDate(input) {
             success: function (response) {
                 if (response.success) {
                     alert(response.message);  // Thông báo thành công
-                    $('#editStatusModal').modal('hide');  // Đóng modal sau khi lưu
-                    window.location.reload();  // Tải lại trang
+                    $('#updateStatusModal').modal('hide');
+                    $("#btnreport").click();
                 } else {
                     alert(response.message);  // Thông báo thất bại
                 }
@@ -518,18 +560,32 @@ function parseDate(input) {
         });
     });
 
-    function toggleDropdown(itemId) {
-        var dropdown = $('#dropdown' + itemId);  // Lấy dropdown theo ID
-        // Kiểm tra xem dropdown có đang hiển thị không
-        if (dropdown.is(":visible")) {
-            dropdown.hide();  // Nếu đang hiển thị, ẩn dropdown
+  function toggleDropdown(itemId) {
+    var dropdown = $('#dropdown' + itemId);  // Lấy dropdown theo ID
+
+    // Lấy tên người dùng từ session
+    var userName = '@Convert.ToString(Session["UserName"])';
+
+    // Kiểm tra xem dropdown có đang hiển thị không
+    if (dropdown.is(":visible")) {
+        dropdown.hide();  // Nếu đang hiển thị, ẩn dropdown
+    } else {
+        // Ẩn tất cả các dropdowns khác
+        $('.dropdown-menu').hide();
+
+        // Hiển thị dropdown hiện tại
+        dropdown.show();
+
+        // Kiểm tra và ẩn/hiện nút "Phân công" dựa trên tên người dùng
+        if (userName === "admin" || userName.indexOf("CSKH_") !== -1 || userName.indexOf("NT_CSKH") !== -1) {
+            // Nếu là admin, CSKH_EMS hoặc tên chứa "NT_CSKH", hiển thị nút "Phân công"
+            $('#btnPhanCong' + itemId).show();
         } else {
-            // Ẩn tất cả các dropdowns khác
-            $('.dropdown-menu').hide();
-            // Hiển thị dropdown hiện tại
-            dropdown.show();
+            // Nếu không phải, ẩn nút "Phân công"
+            $('#btnPhanCong' + itemId).hide();
         }
     }
+}
     function nvDropdown(nhomtinh, Ten_NV) {
         $.ajax({
             url: "/TMS_TICKET/Get_Nhom_Tinh",  // Đường dẫn đến controller
@@ -574,11 +630,10 @@ function parseDate(input) {
             }
         });
     }
-    // Đảm bảo khi click ra ngoài thì ẩn dropdown
     $(document).click(function (event) {
         // Kiểm tra xem click có nằm ngoài dropdown hay không
         if (!$(event.target).closest('.dropdown').length) {
-            $('.dropdown-menu').hide();  // Ẩn tất cả dropdowns nếu click ra ngoài
+            $('.dropdown-menus').hide();  // Ẩn tất cả dropdowns nếu click ra ngoài
         }
     });
     $(document).ready(function () {
@@ -620,9 +675,12 @@ function parseDate(input) {
         // Xây dựng URL để xuất file Excel
         var url = $(this).data('baseurl') + '?startdate=' + startdate +  // Đảm bảo rằng startdate đã được lấy từ trường đúng
             '&enddate=' + enddate +
+            '&thoigian=' + $('#thoigian').val() +
             '&seach=' + idsToSend +
             '&trangthai=' + $('#trangthai').val() +
-            '&mabg=' + $('#mabg').val();
+            '&mabg=' + $('#mabg').val() +
+            '&donvi=' + $('#donvi').val() +
+            '&searchtinh=' + $('#searchtinh').val();
 
         // Chuyển hướng tới URL để tải file Excel
         location.href = url;
@@ -631,7 +689,7 @@ function parseDate(input) {
 function getUserIdsAndLoadNhanVien() {
     var userName = '@Convert.ToString(Session["UserName"])'; // Lấy UserName từ Session
 
-    if (userName === "admin" || userName === "CSKH_EMS") {
+    if (userName === "admin" || userName === "CSKH_EMS" || userName.includes("CSKH_")) {
         var userIdsArray = 0;
         getNhanVienByNhomTinh(userIdsArray);
         return;
@@ -712,109 +770,85 @@ function getNhanVienByNhomTinh(userIdsArray) {
     });
 
 </script>
+<script>
+    var userName = @Html.Raw(Json.Encode(Session["UserName"]));
+    var hasPermission = userName != null && (userName === "admin" || userName.includes("NT_CSKH") || userName.includes("CSKH_"));
+</script>
 <style>
-    /* CSS tùy chỉnh cho dropdown */
-    .dropdown-menu {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
-
-        .dropdown-menu button {
-            transition: all 0.3s ease;
+        /* CSS tùy chỉnh cho dropdown */
+        /* CSS cho dropdown */
+        .dropdown-menus {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+            border-radius: 8px; /* Bo góc */
+            position: absolute;
+            z-index: 1050; /* Đảm bảo dropdown luôn hiển thị trên cùng */
+            background-color: #ffffff; /* Màu nền trắng để đảm bảo không bị mờ */
+            max-width: 90vw; /* Giới hạn chiều rộng tối đa 90% chiều rộng màn hình */
+            min-width: 180px; /* Chiều rộng tối thiểu */
+            width: auto; /* Để tự động điều chỉnh theo nội dung */
+            max-height: 300px; /* Giới hạn chiều cao */
+            overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+            right: 0; /* Đảm bảo dropdown căn phải */
+            left: auto;
         }
-
-            .dropdown-menu button:hover {
-                background-color: #e9ecef;
-                color: #495057;
+            .dropdown-menus button {
+                transition: all 0.3s ease;
+                padding: 10px 15px;
+                width: 100%; /* Làm cho các nút trong dropdown có chiều rộng 100% */
+                border: none;
+                background: transparent;
+                text-align: left;
+                color: #495057; /* Đảm bảo văn bản có màu tối để dễ đọc */
             }
-
-    .dropdown button {
-        transition: all 0.3s ease;
-    }
-
-        .dropdown button:hover {
-            background-color: #f0ad4e;
-            color: #fff;
+                .dropdown-menus button:hover {
+                    background-color: #e9ecef;
+                    color: #495057;
+                }
+            .dropdown-menus .assign-btn {
+                background-color: #007bff; /* Màu nền xanh dương */
+                color: white; /* Màu chữ trắng */
+            }
+                .dropdown-menus .assign-btn:hover {
+                    background-color: #0056b3; /* Màu khi hover */
+                }
+            .dropdown-menus .update-btn {
+                background-color: #f0ad4e; /* Màu nền vàng */
+                color: white; /* Màu chữ trắng */
+            }
+          .dropdown-menus .update-btn:hover {
+                    background-color: #ec971f; /* Màu khi hover */
+                }
+        .dropdown-menus {
+            font-size: 1rem; /* Kích thước chữ mặc định */
         }
-
-    .w-100 {
-        width: 100% !important;
-    }
-
-    .mb-2 {
-        margin-bottom: 10px;
-    }
-    .row-checkbox {
-        transform: scale(1.5); /* Tăng kích thước lên 1.5 lần */
-        margin: 0; /* Giảm khoảng cách ngoài */
-    }
-    /* CSS cơ bản cho bảng */
-    .table-responsive {
-        width: 100%;
-        overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
-        -webkit-overflow-scrolling: touch; /* Cho phép cuộn mượt mà trên thiết bị desktop */
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse; /* Tạo bảng đẹp hơn */
-        table-layout: auto; /* Tự động điều chỉnh cột cho phù hợp */
-    }
-
-    /* Thêm viền cho các ô trong bảng */
-    td, th {
-        padding: 8px;
-        text-align: center;
-        border: 1px solid #ddd;
-    }
-
-    /* Làm nổi bật tiêu đề bảng */
-    th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-    }
-
-    /* Nút xuất dữ liệu */
-    #btnexportlist {
-        display: none;
-        margin-top: 20px;
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-        #btnexportlist:hover {
-            background-color: #45a049;
+        .w-100 {
+            width: 100% !important;
         }
-    /* Nút chức năng cho các bảng nhỏ */
-    .dropdown-menu {
-        display: none;
-        position: absolute;
-        background: #f8f9fa;
-        border: 1px solid #ccc;
-        padding: 5px;
-        min-width: 180px;
-        border-radius: 5px;
-        z-index: 100;
-    }
-        /* Đảm bảo các nút trong dropdown có chiều rộng đầy đủ */
-        .dropdown-menu button {
+        .mb-2 {
+            margin-bottom: 10px;
+        }
+        .row-checkbox {
+            transform: scale(1.5); /* Tăng kích thước lên 1.5 lần */
+            margin: 0; /* Giảm khoảng cách ngoài */
+        }
+        .table-responsive {
             width: 100%;
+            overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
+            -webkit-overflow-scrolling: touch; /* Cho phép cuộn mượt mà trên thiết bị desktop */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Tạo bảng đẹp hơn */
+            table-layout: auto; /* Tự động điều chỉnh cột cho phù hợp */
+        }
+        td, th {
             padding: 8px;
-            margin-bottom: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
         }
-    /* CSS cho các nút xuất dữ liệu và dropdown */
-    .dropdown button {
-        background-color: #ffc107;
-        border: none;
-        padding: 10px;
-        text-align: center;
-        cursor: pointer;
-    }
-        .dropdown button:hover {
-            background-color: #e0a800;
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
         }
-    /* Thêm một số kiểu cho bảng */
 
-</style>
+    </style>
